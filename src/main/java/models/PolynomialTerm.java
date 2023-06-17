@@ -4,13 +4,14 @@ import java.util.Comparator;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
+import lombok.Setter;
 
 /** This class implements a single term / variate polynomial
  * in the form c * x ^ p
  * where c is the coefficient and p is the exponent of the independent variable x,
  */
 @Getter
+@Setter
 @Builder
 public class PolynomialTerm {
     /**
@@ -23,38 +24,28 @@ public class PolynomialTerm {
     /**
      * coefficient of polynomial term.
      */
-    @NonNull
-    private final Double coefficient;
+    private double coefficient;
 
     /**
      * variable name.
      */
-    @NonNull
     private final String varName;
 
     /**
      * exponent/degree of polynomial term.
      */
-    @NonNull
-    private final Integer exponent;
+    private int exponent;
 
     /**
-     * Multiply a Term by another one.
-     * @param term1 first operand
-     * @param term2 second operand
-     * @return the resulting term
+     * Multiply the current Term by another one.
+     * @param other Term to multiply by
      */
-    public static PolynomialTerm multiply(final PolynomialTerm term1, final PolynomialTerm term2) {
-        if (!term1.varName.contains(term2.varName)) {
+    public void multiplyBy(final PolynomialTerm other) {
+        if (!this.varName.contains(other.varName)) {
             throw new IllegalArgumentException("This operation is not implemented for terms with different variable names!");
         }
-        final Double newCoefficient = term1.coefficient * term2.coefficient;
-        final Integer newExponent = term1.exponent + term2.exponent;
-        return PolynomialTerm.builder()
-                .varName(term1.varName)
-                .coefficient(newCoefficient)
-                .exponent(newExponent)
-                .build();
+        this.coefficient = coefficient * other.coefficient;
+        this.exponent = this.exponent + other.exponent;
     }
 
     /**
@@ -62,8 +53,8 @@ public class PolynomialTerm {
      * @param input -> value to substitute variable by
      * @return the computed value
      */
-    public static Double evaluate(final PolynomialTerm term, final Double input) {
-        return term.coefficient * Math.pow(input, term.exponent);
+    public double evaluate(final double input) {
+        return this.coefficient * Math.pow(input, this.exponent);
     }
 
     /**

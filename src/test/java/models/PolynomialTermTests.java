@@ -10,10 +10,11 @@ public class PolynomialTermTests {
 
     @Test
     public void terms_multiply_succeeds() {
-        final PolynomialTerm product = PolynomialTerm.multiply(this.sampleTerms()[0], this.sampleTerms()[1]);
-        assertEquals("x", product.getVarName());
-        assertEquals(21.0, product.getCoefficient());
-        assertEquals((Integer) 5, product.getExponent());
+        PolynomialTerm term1 = this.sampleTerms()[0];
+        term1.multiplyBy(this.sampleTerms()[1]);
+        assertEquals("x", term1.getVarName());
+        assertEquals(21.0, term1.getCoefficient());
+        assertEquals((int) 5, term1.getExponent());
     }
 
     @Test
@@ -29,7 +30,7 @@ public class PolynomialTermTests {
                 .exponent(3)
                 .build();
 
-        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.multiply(term1, term2));
+        assertThrows(IllegalArgumentException.class, () -> term1.multiplyBy(term2));
     }
 
     @Test
@@ -37,8 +38,8 @@ public class PolynomialTermTests {
         PolynomialTerm term1 = this.sampleTerms()[0];
         PolynomialTerm term2 = this.sampleTerms()[1];
 
-        assertEquals(3.0, PolynomialTerm.evaluate(term1, 1.0));
-        assertEquals(56.0, PolynomialTerm.evaluate(term2, 2.0));
+        assertEquals(3.0, term1.evaluate(1.0));
+        assertEquals(56.0, term2.evaluate(2.0));
     }
 
     @Test
