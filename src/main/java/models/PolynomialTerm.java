@@ -67,6 +67,6 @@ public class PolynomialTerm {
         if (exponent == 0) {
             return String.valueOf(coefficient);
         }
-        return (exponent == 1 ? "(" + coefficient + ")" + "x" : "(" + coefficient + ")" + "x^" + exponent);
+        return (exponent == 1 ? "(" + coefficient + ")" + varName : "(" + coefficient + ")" + "x^" + exponent);
     }
 }
