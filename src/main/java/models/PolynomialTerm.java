@@ -64,9 +64,11 @@ public class PolynomialTerm {
         if (coefficient == 0.0) {
             return "0.0";
         }
+
+        final String sign = coefficient < 0 ? "-" : "+";
         if (exponent == 0) {
-            return String.valueOf(coefficient);
+            return sign + " " + Math.abs(coefficient);
         }
-        return (exponent == 1 ? "(" + coefficient + ")" + varName : "(" + coefficient + ")" + "x^" + exponent);
+        return sign + " " + (exponent == 1 ? Math.abs(coefficient) + varName : Math.abs(coefficient) + varName + "^" + exponent);
     }
 }

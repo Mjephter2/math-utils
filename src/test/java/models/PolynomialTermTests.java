@@ -49,12 +49,14 @@ public class PolynomialTermTests {
         PolynomialTerm term3 = this.sampleTerms()[2];
         PolynomialTerm term4 = this.sampleTerms()[3];
         PolynomialTerm term5 = this.sampleTerms()[4];
+        PolynomialTerm term6 = this.sampleTerms()[5];
 
-        assertEquals("(3.0)x^2", term1.toString());
-        assertEquals("(7.0)x^3", term2.toString());
-        assertEquals("(7.0)x", term3.toString());
+        assertEquals("+ 3.0x^2", term1.toString());
+        assertEquals("+ 7.0x^3", term2.toString());
+        assertEquals("+ 7.0x", term3.toString());
         assertEquals("0.0", term4.toString());
-        assertEquals("7.0", term5.toString());
+        assertEquals("+ 7.0", term5.toString());
+        assertEquals("- 7.0", term6.toString());
     }
 
     @Test
@@ -90,6 +92,10 @@ public class PolynomialTermTests {
             PolynomialTerm.builder()
                 .varName("y")
                 .coefficient(7.0)
+                .exponent(0).build(),
+            PolynomialTerm.builder()
+                .varName("x")
+                .coefficient(-7.0)
                 .exponent(0)
             .build()
         };

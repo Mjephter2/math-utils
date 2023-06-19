@@ -13,7 +13,7 @@ public class PolynomialFunctionTests {
 
     @Test
     public void create_Test() {
-        PolynomialFunction func1 = functionSample1().get(0); // P(x) = (1.1)x
+        PolynomialFunction func1 = functionSample1().get(0); // P(x) = + 1.1x
 
         assertEquals("P", func1.getFuncName());
         assertEquals("x", func1.getVarName());
@@ -24,37 +24,37 @@ public class PolynomialFunctionTests {
 
     @Test
     public void evaluate_tests() {
-        PolynomialFunction func1 = functionSample1().get(0); // P(x) = (1.1)x
+        PolynomialFunction func1 = functionSample1().get(0); // P(x) = + 1.1x
         assertEquals(1.1, func1.evaluate(1.0));
         assertEquals(11.0, func1.evaluate(10.0));
 
-        PolynomialFunction func2 = functionSample1().get(1); // Q(x) = (2.1) + (2.3)x^2
+        PolynomialFunction func2 = functionSample1().get(1); // Q(x) = + 2.1 + 2.3x^2
         assertEquals(4.4, func2.evaluate(1.0));
         assertTrue(Math.abs ((232.1 - func2.evaluate(10.0)) / func2.evaluate(10.0)) <  0.000000000000001);
 
-        PolynomialFunction func3 = functionSample1().get(2); // S(x) = (3.1)x^2 + (3.2)x^3 + (3.3)x
+        PolynomialFunction func3 = functionSample1().get(2); // S(x) = + 3.1x^2 + 3.2x^3 + 3.3x
         assertTrue(Math.abs ((9.6 - func3.evaluate(1.0)) / func2.evaluate(1.0)) <  0.000000000000001);
         assertTrue(Math.abs ((3543.0 - func3.evaluate(10.0)) / func2.evaluate(10.0)) <  0.000000000000001);
     }
 
     @Test
     public void add_tests() {
-        PolynomialFunction func1 = functionSample1().get(0); // P(x) = (1.1)x
-        PolynomialFunction func2 = functionSample1().get(1); // Q(x) = (2.1) + (2.3)x^2
-        PolynomialFunction func3 = functionSample1().get(2); // S(x) = (3.1)x^2 + (3.2)x^3 + (3.3)x
+        PolynomialFunction func1 = functionSample1().get(0); // P(x) = + 1.1x
+        PolynomialFunction func2 = functionSample1().get(1); // Q(x) = + 2.1 + 2.3x^2
+        PolynomialFunction func3 = functionSample1().get(2); // S(x) = + 3.1x^2 + 3.2x^3 + 3.3x
 
         // add func2 to func1
         func2.add(func1);
         // add func2 to func3
         func3.add(func2);
 
-        assertEquals("Q(x) = (2.3)x^2 + (1.1)x + 2.1", func2.toString());
-        assertEquals("S(x) = (3.2)x^3 + (5.4)x^2 + (4.4)x + 2.1", func3.toString());
+        assertEquals("Q(x) = + 2.3x^2 + 1.1x + 2.1", func2.toString());
+        assertEquals("S(x) = + 3.2x^3 + 5.4x^2 + 4.4x + 2.1", func3.toString());
 
         // add func2 to func3
         func3.add(func2);
 
-        assertEquals("S(x) = (3.2)x^3 + (7.7)x^2 + (5.5)x + 4.2", func3.toString());
+        assertEquals("S(x) = + 3.2x^3 + 7.7x^2 + 5.5x + 4.2", func3.toString());
 
         PolynomialTerm yTerm = PolynomialTerm.builder()
                 .coefficient(1.0)
@@ -84,21 +84,21 @@ public class PolynomialFunctionTests {
         // multiply f2 by f3
         PolynomialFunction f2f3 = f2.multiplyBy(f3);
 
-        assertEquals("P(x) = (1.0)x^2 + (1.0)x", f1f2.toString());
-        assertEquals("P(x) = (1.0)x^2 + (-1.0)x", f1f3.toString());
-        assertEquals("Q(x) = (1.0)x^2 + -1.0", f2f3.toString());
+        assertEquals("P(x) = + 1.0x^2 + 1.0x", f1f2.toString());
+        assertEquals("P(x) = + 1.0x^2 - 1.0x", f1f3.toString());
+        assertEquals("Q(x) = + 1.0x^2 - 1.0", f2f3.toString());
     }
 
     @Test
     public void toString_test() {
         PolynomialFunction func1 = functionSample1().get(0); // P(x) = (1.1)x
-        assertEquals("P(x) = (1.1)x", func1.toString());
+        assertEquals("P(x) = + 1.1x", func1.toString());
 
         PolynomialFunction func2 = functionSample1().get(1); // Q(x) = 2.1 + (2.3)x^2
-        assertEquals("Q(x) = 2.1 + (2.3)x^2", func2.toString());
+        assertEquals("Q(x) = + 2.1 + 2.3x^2", func2.toString());
 
         PolynomialFunction func3 = functionSample1().get(2); // S(x) = (3.1)x^2 + (3.2)x^3 + (3.3)x
-        assertEquals("S(x) = (3.1)x^2 + (3.2)x^3 + (3.3)x", func3.toString());
+        assertEquals("S(x) = + 3.1x^2 + 3.2x^3 + 3.3x", func3.toString());
 
         PolynomialFunction zeroFunc = functionSample1().get(3);
         assertEquals("0.0", zeroFunc.toString());
@@ -112,7 +112,7 @@ public class PolynomialFunctionTests {
                 .build();
         final LinkedList<PolynomialTerm> func1Terms = new LinkedList<>();
         func1Terms.add(term1_1);
-        // P(x) = (1.1)x
+        // P(x) = + 1.1x
         final PolynomialFunction func1 = PolynomialFunction.builder()
                 .funcName("P")
                 .varName("x")
@@ -144,7 +144,7 @@ public class PolynomialFunctionTests {
         func2Terms.add(term2_2);
         func2Terms.add(term2_3);
         func2Terms.add(term2_4);
-        // Q(x) = (2.1) + (2.3)x^2
+        // Q(x) = + 2.1 + 2.3x^2
         final PolynomialFunction func2 = PolynomialFunction.builder()
                 .funcName("Q")
                 .varName("x")
@@ -170,7 +170,7 @@ public class PolynomialFunctionTests {
         func3Terms.add(term3_1);
         func3Terms.add(term3_2);
         func3Terms.add(term3_3);
-        // S(x) = (3.1)x^2 + (3.2)x^3 + (3.3)x
+        // S(x) = + 3.1x^2 + 3.2x^3 + 3.3x
         final PolynomialFunction func3 = PolynomialFunction.builder()
                 .funcName("S")
                 .varName("x")
@@ -219,7 +219,7 @@ public class PolynomialFunctionTests {
                 .build();
         final LinkedList<PolynomialTerm> func1Terms = new LinkedList<>();
         func1Terms.add(term1_1);
-        // P(x) = (1.0)x
+        // P(x) = + 1.0x
         final PolynomialFunction func1 = PolynomialFunction.builder()
                 .funcName("P")
                 .varName("x")
@@ -239,7 +239,7 @@ public class PolynomialFunctionTests {
         final LinkedList<PolynomialTerm> func2Terms = new LinkedList<>();
         func2Terms.add(term2_1);
         func2Terms.add(term2_2);
-        // Q(x) = (1.0)x + 1
+        // Q(x) = + 1.0x + 1
         final PolynomialFunction func2 = PolynomialFunction.builder()
                 .funcName("Q")
                 .varName("x")
@@ -259,7 +259,7 @@ public class PolynomialFunctionTests {
         final LinkedList<PolynomialTerm> func3Terms = new LinkedList<>();
         func3Terms.add(term3_1);
         func3Terms.add(term3_2);
-        // S(x) = (1.0)x - 1
+        // S(x) = + 1.0x - 1
         final PolynomialFunction func3 = PolynomialFunction.builder()
                 .funcName("S")
                 .varName("x")

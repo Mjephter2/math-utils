@@ -143,7 +143,7 @@ public class PolynomialFunction {
      * returns a String representation of the polynomial expression
      */
     public String toString() {
-        if (isZeroFunction()) return "0.0";
+        if (isZeroFunction() || this.terms.isEmpty()) return "0.0";
         StringBuilder rep = new StringBuilder();
         int i;
         rep.append(this.funcName).append("(").append(this.varName).append(") = ");
@@ -158,6 +158,8 @@ public class PolynomialFunction {
         } else {
             rep.replace(rep.length() - 3, rep.length(), "");
         }
-        return rep.toString();
+        String result = rep.toString();
+        result = result.replace("+ -", "-").replace("+ +", "+");
+        return result;
     }
 }
