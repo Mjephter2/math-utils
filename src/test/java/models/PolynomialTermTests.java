@@ -9,6 +9,17 @@ import static org.junit.Assert.assertTrue;
 public class PolynomialTermTests {
 
     @Test
+    public void terms_from_tests() {
+        final String termString = "3.0x^2";
+        final String variable = "x";
+        final PolynomialTerm term = PolynomialTerm.from(termString, variable);
+        assertEquals("x", term.getVarName());
+        assertEquals(3.0, term.getCoefficient());
+        assertEquals(2, term.getExponent());
+        assertEquals("+ 3.0x^2", term.toString());
+    }
+
+    @Test
     public void terms_multiply_succeeds() {
         PolynomialTerm term1 = this.sampleTerms()[0];
         term1.multiplyBy(this.sampleTerms()[1]);

@@ -22,6 +22,24 @@ public class PolynomialTerm {
             (polynomialTerm2.exponent - polynomialTerm1.exponent);
 
     /**
+     * Create a Term from a String representation.
+     * @param termString -> String representation of the Term
+     * @param variable -> variable name
+     * @return the Term
+     */
+    public static PolynomialTerm from(final String termString, final String variable) {
+        final String[] termParts = termString.split("\\^");
+        final String[] coefficientAndVariable = termParts[0].split(variable);
+        final double coefficient = Double.parseDouble(coefficientAndVariable[0].trim().replace(" ", ""));
+        final int exponent = termParts.length > 1 ? Integer.parseInt(termParts[1].trim()) : (termParts[0].contains(variable) ? 1 : 0);
+        return PolynomialTerm.builder()
+                .coefficient(coefficient)
+                .varName(variable)
+                .exponent(exponent)
+                .build();
+    }
+
+    /**
      * coefficient of polynomial term.
      */
     private double coefficient;
