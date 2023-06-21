@@ -23,6 +23,33 @@ public class PolynomialFunctionTests {
     }
 
     @Test
+    public void from_tests() {
+        final String funcString1 = "+ 1.1x";
+        final String funcString2 = "2.1 + 2.3x^2";
+        final String funcString3 = "+ 3.1x^2 + 3.2x^3 + 3.3x";
+
+        final String variable = "x";
+        final PolynomialFunction func1 = PolynomialFunction.from(funcString1,"P", variable);
+        final PolynomialFunction func2 = PolynomialFunction.from(funcString2,"Q", variable);
+        final PolynomialFunction func3 = PolynomialFunction.from(funcString3,"S", variable);
+
+        assertEquals("P", func1.getFuncName());
+        assertEquals("x", func1.getVarName());
+        assertEquals(1, func1.getTerms().size());
+        assertEquals("P(x) = + 1.1x", func1.toString());
+
+        assertEquals("Q", func2.getFuncName());
+        assertEquals("x", func2.getVarName());
+        assertEquals(2, func2.getTerms().size());
+        assertEquals("Q(x) = + 2.3x^2 + 2.1", func2.toString());
+
+        assertEquals("S", func3.getFuncName());
+        assertEquals("x", func3.getVarName());
+        assertEquals(3, func3.getTerms().size());
+        assertEquals("S(x) = + 3.2x^3 + 3.1x^2 + 3.3x", func3.toString());
+    }
+
+    @Test
     public void evaluate_tests() {
         PolynomialFunction func1 = functionSample1().get(0); // P(x) = + 1.1x
         assertEquals(1.1, func1.evaluate(1.0));
