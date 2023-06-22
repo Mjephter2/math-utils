@@ -30,7 +30,12 @@ public class PolynomialTerm {
     public static PolynomialTerm from(final String termString, final String variable) {
         final String[] termParts = termString.split("\\^");
         final String[] coefficientAndVariable = termParts[0].split(variable);
-        final double coefficient = Double.parseDouble(coefficientAndVariable[0].trim().replace(" ", ""));
+        String coefficientString = coefficientAndVariable[0].trim().replace(" ", "");
+
+        if (coefficientString.equals("-") || coefficientString.equals("+") || coefficientString.equals("")) {
+            coefficientString += "1";
+        }
+        final double coefficient = Double.parseDouble(coefficientString);
         final int exponent = termParts.length > 1 ? Integer.parseInt(termParts[1].trim()) : (termParts[0].contains(variable) ? 1 : 0);
         return PolynomialTerm.builder()
                 .coefficient(coefficient)
