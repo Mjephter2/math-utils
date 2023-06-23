@@ -1,6 +1,8 @@
 package models;
 
 import java.util.Comparator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -58,6 +60,20 @@ public class PolynomialTerm {
      * exponent/degree of polynomial term.
      */
     private int exponent;
+
+    /**
+     * Validate a potential Term String representation.
+     * @param strRep -> String representation of the Term
+     * @param varName -> variable name
+     * @return true if the String is a valid Term representation
+     */
+    private static boolean validate(final String strRep, final String varName) {
+        String pattern = "(\\+ |- )?(\\d+)?(" + varName + ")(\\^\\d+)?";
+
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(strRep);
+        return m.matches();
+    }
 
     /**
      * Multiply the current Term by another one.
