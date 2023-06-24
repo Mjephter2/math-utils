@@ -2,12 +2,8 @@ package models;
 
 import org.junit.Test;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class PolynomialTermTests {
 
@@ -20,6 +16,18 @@ public class PolynomialTermTests {
         assertEquals(3.0, term.getCoefficient());
         assertEquals(2, term.getExponent());
         assertEquals("+ 3.0x^2", term.toString());
+    }
+
+    @Test
+    public void validate_tests() {
+        final String termString = "3.01x^2";
+        final String variable = "x";
+        assertTrue(PolynomialTerm.validate(termString, variable));
+
+        final String termString2 = "3.u1x^2";
+        final String variable2 = "x";
+        assertFalse(PolynomialTerm.validate(termString2, variable2));
+
     }
 
     @Test

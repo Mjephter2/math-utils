@@ -67,8 +67,8 @@ public class PolynomialTerm {
      * @param varName -> variable name
      * @return true if the String is a valid Term representation
      */
-    private static boolean validate(final String strRep, final String varName) {
-        String pattern = "(\\+ |- )?(\\d+)?(" + varName + ")(\\^\\d+)?";
+    public static boolean validate(final String strRep, final String varName) {
+        String pattern = "(\\+ |- )?([0-9]*[.][0-9]+|[0-9]+)?(" + varName + ")(\\^\\d+)?";
 
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(strRep);
