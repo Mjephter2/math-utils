@@ -15,7 +15,7 @@ public class PolynomialTermTests {
         assertEquals("x", term1.getVarName());
         assertEquals(3.0, term1.getCoefficient());
         assertEquals(2, term1.getExponent());
-        assertEquals("+ 3.0x^2", term1.toString());
+        assertEquals("+ 3x^2", term1.toString());
 
         final String termString2 = "- x^2";
         final String variable2 = "x";
@@ -23,7 +23,7 @@ public class PolynomialTermTests {
         assertEquals("x", term2.getVarName());
         assertEquals(-1.0, term2.getCoefficient());
         assertEquals(2, term2.getExponent());
-        assertEquals("- 1.0x^2", term2.toString());
+        assertEquals("- 1x^2", term2.toString());
 
         final String termString3 = "+ x^2";
         final String variable3 = "x";
@@ -31,7 +31,7 @@ public class PolynomialTermTests {
         assertEquals("x", term3.getVarName());
         assertEquals(+1.0, term3.getCoefficient());
         assertEquals(2, term3.getExponent());
-        assertEquals("+ 1.0x^2", term3.toString());
+        assertEquals("+ 1x^2", term3.toString());
     }
 
     @Test
@@ -55,6 +55,35 @@ public class PolynomialTermTests {
         final String termString5 = "3.0x^2";
         final String variable5 = null;
         assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString5, variable5));
+    }
+
+    @Test
+    public void negate_tests() {
+        final PolynomialTerm term1 = PolynomialTerm.builder()
+                .varName("x")
+                .coefficient(3.0)
+                .exponent(2)
+                .build();
+        final PolynomialTerm term2 = PolynomialTerm.builder()
+                .varName("x")
+                .coefficient(-3.0)
+                .exponent(2)
+                .build();
+        assertEquals(term2.getCoefficient(), term1.negate().getCoefficient());
+        assertEquals(term2.getExponent(), term1.negate().getExponent());
+    }
+
+    @Test
+    public void equals_tests() {
+        PolynomialTerm term1 = this.sampleTerms()[0]; // 3x^2
+
+        PolynomialTerm term2 = PolynomialTerm.builder()
+                .varName("x")
+                .coefficient(3.0)
+                .exponent(2)
+                .build();
+
+        assertTrue(term1.equals(term2));
     }
 
     @Test
@@ -100,12 +129,12 @@ public class PolynomialTermTests {
         PolynomialTerm term5 = this.sampleTerms()[4];
         PolynomialTerm term6 = this.sampleTerms()[5];
 
-        assertEquals("+ 3.0x^2", term1.toString());
-        assertEquals("+ 7.0x^3", term2.toString());
-        assertEquals("+ 7.0x", term3.toString());
+        assertEquals("+ 3x^2", term1.toString());
+        assertEquals("+ 7x^3", term2.toString());
+        assertEquals("+ 7x", term3.toString());
         assertEquals("0.0", term4.toString());
-        assertEquals("+ 7.0", term5.toString());
-        assertEquals("- 7.0", term6.toString());
+        assertEquals("+ 7", term5.toString());
+        assertEquals("- 7", term6.toString());
     }
 
     @Test

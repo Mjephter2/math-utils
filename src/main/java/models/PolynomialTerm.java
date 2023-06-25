@@ -1,6 +1,9 @@
 package models;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +25,8 @@ public class PolynomialTerm {
     public static final Comparator<PolynomialTerm> TERM_COMPARATOR = (PolynomialTerm polynomialTerm1, PolynomialTerm polynomialTerm2)
             ->
             (polynomialTerm2.exponent - polynomialTerm1.exponent);
+
+    private static final DecimalFormat df = new DecimalFormat("#.#");
 
     /**
      * coefficient of polynomial term.
@@ -104,14 +109,43 @@ public class PolynomialTerm {
      * @return a String representation of the Term.
      */
     public String toString() {
+        df.setRoundingMode(RoundingMode.UP);
+
         if (coefficient == 0.0) {
             return "0.0";
         }
 
+        final String coefString = df.format(Math.abs(coefficient));
+
         final String sign = coefficient < 0 ? "-" : "+";
         if (exponent == 0) {
-            return sign + " " + Math.abs(coefficient);
+            return sign + " " + coefString;
         }
-        return sign + " " + (exponent == 1 ? Math.abs(coefficient) + varName : Math.abs(coefficient) + varName + "^" + exponent);
+        return sign + " " + (exponent == 1 ? coefString + varName : coefString + varName + "^" + exponent);
+    }
+
+    /**
+     * @return the negation of the current Term.
+     */
+    public PolynomialTerm negate() {
+        return PolynomialTerm.builder()
+                .coefficient(-coefficient)
+                .varName(varName)
+                .exponent(exponent)
+                .build();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PolynomialTerm that = (PolynomialTerm) o;
+        return this.hashCode() == that.hashCode();
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(coefficient, varName, exponent);
     }
 }

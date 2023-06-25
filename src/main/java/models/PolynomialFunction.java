@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.util.LinkedList;
 import java.util.List;
 
-/*
+/**
  * This class implements a multi Term polynomial expression in one variable (for now)
  * of the form a_0 + a_1*x^1 + a_2*x^2 + ... + a_n*x^n
  * where a_i is a double value
@@ -44,7 +44,7 @@ public class PolynomialFunction {
      * @return the PolynomialFunction
      */
     public static PolynomialFunction from(final String polynomialString,final String funcName, final String varName)  {
-        final String[] terms = polynomialString.split("\\+|-");
+        final String[] terms = polynomialString.split("[+-]");
         int latestIndex = 0;
         final PolynomialFunction func = PolynomialFunction.builder()
                 .funcName(funcName)
@@ -93,6 +93,33 @@ public class PolynomialFunction {
         for(PolynomialTerm term : other.terms) {
             this.addTerm(term);
         }
+    }
+
+    /**
+     * Subtracts a Polynomial from current Polynomial
+     */
+    public void subtract(final PolynomialFunction other) {
+        if (!this.varName.equals(other.varName)) {
+            throw new IllegalArgumentException("This operation is not implemented for terms with different variable names!");
+        }
+        for (PolynomialTerm term : other.terms) {
+            this.addTerm(term.negate());
+        }
+    }
+
+    /**
+     * Returns the negation of the current Polynomial
+     */
+    public PolynomialFunction negate() {
+        final PolynomialFunction negated = PolynomialFunction.builder()
+                .varName(this.varName)
+                .funcName(this.funcName)
+                .terms(new LinkedList<>())
+                .build();
+        for (PolynomialTerm term : this.terms) {
+            negated.addTerm(term.negate());
+        }
+        return negated;
     }
 
     /**

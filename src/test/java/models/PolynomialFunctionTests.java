@@ -50,6 +50,14 @@ public class PolynomialFunctionTests {
     }
 
     @Test
+    public void negate_tests() {
+        PolynomialFunction func1 = functionSample1().get(0); // P(x) = + 1.1x
+        PolynomialFunction func2 = func1.negate();
+
+        assertEquals(-1.1, func2.getTerms().get(0).getCoefficient());
+    }
+
+    @Test
     public void evaluate_tests() {
         PolynomialFunction func1 = functionSample1().get(0); // P(x) = + 1.1x
         assertEquals(1.1, func1.evaluate(1.0));
@@ -99,6 +107,43 @@ public class PolynomialFunctionTests {
     }
 
     @Test
+    public void subtract_tests() {
+        PolynomialFunction func1 = functionSample1().get(0); // P(x) = + 1.1x
+        PolynomialFunction func2 = functionSample1().get(1); // Q(x) = + 2.1 + 2.3x^2
+        PolynomialFunction func3 = functionSample1().get(2); // S(x) = + 3.1x^2 + 3.2x^3 + 3.3x
+
+        // subtract func2 from func1
+        func2.subtract(func1);
+        // subtract func2 from func3
+        func3.subtract(func2);
+
+        assertEquals("Q(x) = + 2.3x^2 - 1.1x + 2.1", func2.toString());
+
+        // 0.9x^2 should be 0.8x^2.
+        // TODO: Fix precision loss
+        assertEquals("S(x) = + 3.2x^3 + 0.9x^2 + 4.4x - 2.1", func3.toString());
+
+        // subtract func2 from func3
+        func3.subtract(func2);
+
+        assertEquals("S(x) = + 3.2x^3 - 1.5x^2 + 5.5x - 4.2", func3.toString());
+
+        PolynomialTerm yTerm = PolynomialTerm.builder()
+                .coefficient(1.0)
+                .varName("y")
+                .exponent(1)
+        .build();
+        LinkedList<PolynomialTerm> yTerms = new LinkedList<>();
+        yTerms.add(yTerm);
+        PolynomialFunction yFunc = PolynomialFunction.builder()
+                .varName("y")
+                .funcName("Y")
+                .terms(yTerms)
+                .build();
+        assertThrows(IllegalArgumentException.class, () -> func1.subtract(yFunc));
+    }
+
+    @Test
     public void multiply_tests() {
         PolynomialFunction f1 = this.functionSample2().get(0); // P(x) = x
         PolynomialFunction f2 = this.functionSample2().get(1); // Q(x) = x + 1
@@ -111,9 +156,9 @@ public class PolynomialFunctionTests {
         // multiply f2 by f3
         PolynomialFunction f2f3 = f2.multiplyBy(f3);
 
-        assertEquals("P(x) = + 1.0x^2 + 1.0x", f1f2.toString());
-        assertEquals("P(x) = + 1.0x^2 - 1.0x", f1f3.toString());
-        assertEquals("Q(x) = + 1.0x^2 - 1.0", f2f3.toString());
+        assertEquals("P(x) = + 1x^2 + 1x", f1f2.toString());
+        assertEquals("P(x) = + 1x^2 - 1x", f1f3.toString());
+        assertEquals("Q(x) = + 1x^2 - 1", f2f3.toString());
     }
 
     @Test

@@ -15,5 +15,6 @@ buildNumber.properties
 .project
 # IntelliJ generated files
 .idea
+htmlReport/
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
