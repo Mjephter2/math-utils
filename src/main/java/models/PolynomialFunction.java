@@ -44,18 +44,18 @@ public class PolynomialFunction {
      * @return the PolynomialFunction
      */
     public static PolynomialFunction from(final String polynomialString,final String funcName, final String varName)  {
-        String[] terms = polynomialString.split("\\+|-");
+        final String[] terms = polynomialString.split("\\+|-");
         int latestIndex = 0;
-        PolynomialFunction func = PolynomialFunction.builder()
+        final PolynomialFunction func = PolynomialFunction.builder()
                 .funcName(funcName)
                 .varName(varName)
                 .terms(new LinkedList<>())
                 .build();
         for (String part: terms) {
-            String cleaned = part.trim();
+            final String cleaned = part.trim();
             int index = polynomialString.indexOf(part, latestIndex);
             latestIndex = index;
-            String sign = index == 0 ? "+" : polynomialString.substring(latestIndex - 1, latestIndex);
+            final String sign = index == 0 ? "+" : polynomialString.substring(latestIndex - 1, latestIndex);
             if (cleaned.length() > 0) {
                 func.addTerm(PolynomialTerm.from(sign + " " + cleaned, varName));
             }

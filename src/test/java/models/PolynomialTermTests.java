@@ -8,26 +8,53 @@ import static org.junit.Assert.*;
 public class PolynomialTermTests {
 
     @Test
-    public void terms_from_tests() {
-        final String termString = "3.0x^2";
-        final String variable = "x";
-        final PolynomialTerm term = PolynomialTerm.from(termString, variable);
-        assertEquals("x", term.getVarName());
-        assertEquals(3.0, term.getCoefficient());
-        assertEquals(2, term.getExponent());
-        assertEquals("+ 3.0x^2", term.toString());
+    public void parse_string_tests() {
+        final String termString1 = "3.0x^2";
+        final String variable1 = "x";
+        final PolynomialTerm term1 = PolynomialTerm.from(termString1, variable1);
+        assertEquals("x", term1.getVarName());
+        assertEquals(3.0, term1.getCoefficient());
+        assertEquals(2, term1.getExponent());
+        assertEquals("+ 3.0x^2", term1.toString());
+
+        final String termString2 = "- x^2";
+        final String variable2 = "x";
+        final PolynomialTerm term2 = PolynomialTerm.from(termString2, variable2);
+        assertEquals("x", term2.getVarName());
+        assertEquals(-1.0, term2.getCoefficient());
+        assertEquals(2, term2.getExponent());
+        assertEquals("- 1.0x^2", term2.toString());
+
+        final String termString3 = "+ x^2";
+        final String variable3 = "x";
+        final PolynomialTerm term3 = PolynomialTerm.from(termString3, variable3);
+        assertEquals("x", term3.getVarName());
+        assertEquals(+1.0, term3.getCoefficient());
+        assertEquals(2, term3.getExponent());
+        assertEquals("+ 1.0x^2", term3.toString());
     }
 
     @Test
-    public void validate_tests() {
-        final String termString = "3.01x^2";
-        final String variable = "x";
-        assertTrue(PolynomialTerm.validate(termString, variable));
+    public void parse_string_fails() {
+        final String termString1 = "3.0x^2";
+        final String variable1 = "y";
+        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString1, variable1));
 
-        final String termString2 = "3.u1x^2";
+        final String termString2 = "3.x^2";
         final String variable2 = "x";
-        assertFalse(PolynomialTerm.validate(termString2, variable2));
+        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString2, variable2));
 
+        final String termString3 = "3.0x^";
+        final String variable3 = "x";
+        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString3, variable3));
+
+        final String termString4 = null;
+        final String variable4 = "x";
+        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString4, variable4));
+
+        final String termString5 = "3.0x^2";
+        final String variable5 = null;
+        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString5, variable5));
     }
 
     @Test

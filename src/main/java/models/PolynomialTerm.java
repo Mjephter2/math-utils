@@ -24,29 +24,6 @@ public class PolynomialTerm {
             (polynomialTerm2.exponent - polynomialTerm1.exponent);
 
     /**
-     * Create a Term from a String representation.
-     * @param termString -> String representation of the Term
-     * @param variable -> variable name
-     * @return the Term
-     */
-    public static PolynomialTerm from(final String termString, final String variable) {
-        final String[] termParts = termString.split("\\^");
-        final String[] coefficientAndVariable = termParts[0].split(variable);
-        String coefficientString = coefficientAndVariable[0].trim().replace(" ", "");
-
-        if (coefficientString.equals("-") || coefficientString.equals("+") || coefficientString.equals("")) {
-            coefficientString += "1";
-        }
-        final double coefficient = Double.parseDouble(coefficientString);
-        final int exponent = termParts.length > 1 ? Integer.parseInt(termParts[1].trim()) : (termParts[0].contains(variable) ? 1 : 0);
-        return PolynomialTerm.builder()
-                .coefficient(coefficient)
-                .varName(variable)
-                .exponent(exponent)
-                .build();
-    }
-
-    /**
      * coefficient of polynomial term.
      */
     private double coefficient;
@@ -62,17 +39,44 @@ public class PolynomialTerm {
     private int exponent;
 
     /**
+     * Create a Term from a String representation.
+     * @param termString -> String representation of the Term
+     * @param variable -> variable name
+     * @return the Term
+     */
+    public static PolynomialTerm from(final String termString, final String variable) {
+        if (termString == null || termString.isEmpty()) {
+            throw new IllegalArgumentException("Term string representation cannot be null or empty!");
+        }
+
+        final Matcher matcher = validate(termString, variable);
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException("Invalid term string representation!");
+        }
+        String coefficientString = matcher.group(2);
+        if (coefficientString == null) {
+            coefficientString = matcher.group(1) + "1";
+        }
+        final double coefficient = Double.parseDouble(coefficientString.replace(" ", ""));
+        final int exponent = matcher.group(4) != null ? Integer.parseInt(matcher.group(4).substring(1)) : (termString.contains(variable) ? 1 : 0);
+        return PolynomialTerm.builder()
+                .coefficient(coefficient)
+                .varName(variable)
+                .exponent(exponent)
+                .build();
+    }
+
+    /**
      * Validate a potential Term String representation.
      * @param strRep -> String representation of the Term
      * @param varName -> variable name
-     * @return true if the String is a valid Term representation
+     * @return a regex Matcher object
      */
-    public static boolean validate(final String strRep, final String varName) {
-        String pattern = "(\\+ |- )?([0-9]*[.][0-9]+|[0-9]+)?(" + varName + ")(\\^\\d+)?";
+    private static Matcher validate(final String strRep, final String varName) {
+        final String pattern = "(\\+ |- )?([0-9]*[.][0-9]+|[0-9]+)?(" + varName + "(\\^\\d+)?)?";
 
         Pattern r = Pattern.compile(pattern);
-        Matcher m = r.matcher(strRep);
-        return m.matches();
+        return r.matcher(strRep);
     }
 
     /**
