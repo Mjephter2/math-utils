@@ -186,6 +186,35 @@ public class PolynomialFunction {
         return value;
     }
 
+    /**
+     * Raise the current Polynomial to the given power.
+     * @return the resulting Polynomial (power)
+     */
+    public PolynomialFunction power(final int p) {
+        if (p < 0) {
+            throw new IllegalArgumentException("This operation is not implemented for negative powers!");
+        }
+        if (p == 0) {
+            return PolynomialFunction.builder()
+                    .varName(this.varName)
+                    .funcName(this.funcName)
+                    .terms(new LinkedList<>(){{
+                        add(new PolynomialTerm(1.0, varName, 0));
+                    }})
+                    .build();
+        }
+        PolynomialFunction result = PolynomialFunction.builder()
+                .varName(this.varName)
+                .funcName(this.funcName)
+                .terms(new LinkedList<>())
+                .build();
+        result.add(this);
+        for (int i = 1; i < p; i++) {
+            result = result.multiplyBy(this);
+        }
+        return result;
+    }
+
     public boolean isZeroFunction() {
         for (PolynomialTerm term : terms) {
             if (term.getCoefficient() != 0.0) return false;

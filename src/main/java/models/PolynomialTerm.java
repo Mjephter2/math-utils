@@ -109,7 +109,7 @@ public class PolynomialTerm {
      * @return a String representation of the Term.
      */
     public String toString() {
-        df.setRoundingMode(RoundingMode.UP);
+        df.setRoundingMode(RoundingMode.HALF_EVEN);
 
         if (coefficient == 0.0) {
             return "0.0";

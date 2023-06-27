@@ -58,6 +58,22 @@ public class PolynomialFunctionTests {
     }
 
     @Test
+    public void power_tests() {
+        final PolynomialFunction func1 = functionSample1().get(1); // Q(x) = + 2.1 + 2.3x^2
+
+        final PolynomialFunction func2 = func1.power(0);
+        assertEquals("Q(x) = + 1", func2.toString());
+
+        final PolynomialFunction func3 = func1.power(1);
+        assertEquals("Q(x) = + 2.3x^2 + 2.1", func3.toString());
+
+        final PolynomialFunction func4 = func1.power(2);
+        assertEquals("Q(x) = + 5.3x^4 + 9.7x^2 + 4.4", func4.toString());
+
+        assertThrows(IllegalArgumentException.class, () -> func1.power(-1));
+    }
+
+    @Test
     public void evaluate_tests() {
         PolynomialFunction func1 = functionSample1().get(0); // P(x) = + 1.1x
         assertEquals(1.1, func1.evaluate(1.0));
@@ -120,8 +136,7 @@ public class PolynomialFunctionTests {
         assertEquals("Q(x) = + 2.3x^2 - 1.1x + 2.1", func2.toString());
 
         // 0.9x^2 should be 0.8x^2.
-        // TODO: Fix precision loss
-        assertEquals("S(x) = + 3.2x^3 + 0.9x^2 + 4.4x - 2.1", func3.toString());
+        assertEquals("S(x) = + 3.2x^3 + 0.8x^2 + 4.4x - 2.1", func3.toString());
 
         // subtract func2 from func3
         func3.subtract(func2);
