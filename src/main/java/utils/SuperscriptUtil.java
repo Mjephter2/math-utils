@@ -20,4 +20,13 @@ public final class SuperscriptUtil {
 
         }
     };
+
+    public static String convertToSuperscript(final int number) {
+        final StringBuilder sb = new StringBuilder();
+        final char[] digits = String.valueOf(number).toCharArray();
+        for (final char digit : digits) {
+            sb.append(digitToSuperscript.get(Character.getNumericValue(digit)).getSuperscript());
+        }
+        return sb.toString();
+    }
 }

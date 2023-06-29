@@ -1,16 +1,16 @@
 package utils;
 
 public enum SuperscriptEnum {
-    ZERO("\u2070"),
-    ONE("\u00b9"),
-    TWO("\u00b2"),
-    THREE("\u00b3"),
-    FOUR("\u2074"),
-    FIVE("\u2075"),
-    SIX("\u2076"),
-    SEVEN("\u2077"),
-    EIGHT("\u2078"),
-    NINE("\u2079");
+    ZERO("⁰"),
+    ONE("¹"),
+    TWO("²"),
+    THREE("³"),
+    FOUR("⁴"),
+    FIVE("⁵"),
+    SIX("⁶"),
+    SEVEN("⁷"),
+    EIGHT("⁸"),
+    NINE("⁹");
 
     private final String superscript;
 
