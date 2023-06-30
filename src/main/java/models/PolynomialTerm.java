@@ -11,6 +11,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import static utils.SuperscriptUtil.convertToSuperscript;
+
 /** This class implements a single term / variate polynomial
  * in the form c * x ^ p
  * where c is the coefficient and p is the exponent of the independent variable x,
@@ -108,7 +110,7 @@ public class PolynomialTerm {
     /**
      * @return a String representation of the Term.
      */
-    public String toString() {
+    public String toString(final boolean isFirstTerm) {
         df.setRoundingMode(RoundingMode.HALF_EVEN);
 
         if (coefficient == 0.0) {
@@ -117,11 +119,19 @@ public class PolynomialTerm {
 
         final String coefString = df.format(Math.abs(coefficient));
 
-        final String sign = coefficient < 0 ? "-" : "+";
+        String sign;
+        if (isFirstTerm && coefficient > 0.0) {
+            sign = "";
+        } else if (coefficient < 0) {
+            sign = "-";
+        } else {
+            sign = "+";
+        }
+
         if (exponent == 0) {
             return sign + " " + coefString;
         }
-        return sign + " " + (exponent == 1 ? coefString + varName : coefString + varName + "^" + exponent);
+        return sign + " " + (exponent == 1 ? coefString + varName : coefString + varName + convertToSuperscript(exponent));
     }
 
     /**

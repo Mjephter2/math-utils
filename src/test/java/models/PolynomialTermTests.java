@@ -15,7 +15,7 @@ public class PolynomialTermTests {
         assertEquals("x", term1.getVarName());
         assertEquals(3.0, term1.getCoefficient());
         assertEquals(2, term1.getExponent());
-        assertEquals("+ 3x^2", term1.toString());
+        assertEquals("+ 3x²", term1.toString(false));
 
         final String termString2 = "- x^2";
         final String variable2 = "x";
@@ -23,7 +23,7 @@ public class PolynomialTermTests {
         assertEquals("x", term2.getVarName());
         assertEquals(-1.0, term2.getCoefficient());
         assertEquals(2, term2.getExponent());
-        assertEquals("- 1x^2", term2.toString());
+        assertEquals("- 1x²", term2.toString(false));
 
         final String termString3 = "+ x^2";
         final String variable3 = "x";
@@ -31,7 +31,7 @@ public class PolynomialTermTests {
         assertEquals("x", term3.getVarName());
         assertEquals(+1.0, term3.getCoefficient());
         assertEquals(2, term3.getExponent());
-        assertEquals("+ 1x^2", term3.toString());
+        assertEquals("+ 1x²", term3.toString(false));
     }
 
     @Test
@@ -129,12 +129,12 @@ public class PolynomialTermTests {
         PolynomialTerm term5 = this.sampleTerms()[4];
         PolynomialTerm term6 = this.sampleTerms()[5];
 
-        assertEquals("+ 3x^2", term1.toString());
-        assertEquals("+ 7x^3", term2.toString());
-        assertEquals("+ 7x", term3.toString());
-        assertEquals("0.0", term4.toString());
-        assertEquals("+ 7", term5.toString());
-        assertEquals("- 7", term6.toString());
+        assertEquals("+ 3x²", term1.toString(false));
+        assertEquals("7x³", term2.toString(true));
+        assertEquals("+ 7x", term3.toString(false));
+        assertEquals("0.0", term4.toString(false));
+        assertEquals("+ 7", term5.toString(false));
+        assertEquals("- 7", term6.toString(false));
     }
 
     @Test
