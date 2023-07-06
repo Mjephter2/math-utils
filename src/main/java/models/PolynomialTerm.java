@@ -60,10 +60,16 @@ public class PolynomialTerm {
         if (!matcher.matches()) {
             throw new IllegalArgumentException("Invalid term string representation!");
         }
+
+        String sign = matcher.group(1) == null ? "" : matcher.group(1);
         String coefficientString = matcher.group(2);
+
         if (coefficientString == null) {
-            coefficientString = matcher.group(1) + "1";
+            coefficientString = matcher.group(1) == null ? "1" : matcher.group(1) +  "1";
+        } else {
+            coefficientString = sign + coefficientString;
         }
+
         final double coefficient = Double.parseDouble(coefficientString.replace(" ", ""));
         final int exponent = matcher.group(4) != null ? Integer.parseInt(matcher.group(4).substring(1)) : (termString.contains(variable) ? 1 : 0);
         return PolynomialTerm.builder()
