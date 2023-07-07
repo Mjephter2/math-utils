@@ -126,18 +126,17 @@ public class PolynomialTerm {
         final String coefString = df.format(Math.abs(coefficient));
 
         String sign;
-        if (isFirstTerm && coefficient > 0.0) {
+        if (isFirstTerm && coefficient >= 0.0) {
             sign = "";
-        } else if (coefficient < 0) {
-            sign = "-";
         } else {
-            sign = "+";
+            sign = coefficient < 0.0 ? "-" : "+";
         }
 
         if (exponent == 0) {
-            return sign + " " + coefString;
+            return sign.isEmpty() ?  coefString : sign + " " + coefString;
         }
-        return sign + " " + (exponent == 1 ? coefString + varName : coefString + varName + convertToSuperscript(exponent));
+        String strRep = sign + " " + (exponent == 1 ? coefString + varName : coefString + varName + convertToSuperscript(exponent));
+        return strRep.trim();
     }
 
     /**

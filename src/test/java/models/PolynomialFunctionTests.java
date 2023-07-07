@@ -36,17 +36,17 @@ public class PolynomialFunctionTests {
         assertEquals("P", func1.getFuncName());
         assertEquals("x", func1.getVarName());
         assertEquals(1, func1.getTerms().size());
-        assertEquals("P(x) = + 1.1x", func1.toString());
+        assertEquals("P(x) = 1.1x", func1.toString());
 
         assertEquals("Q", func2.getFuncName());
         assertEquals("x", func2.getVarName());
         assertEquals(2, func2.getTerms().size());
-        assertEquals("Q(x) = + 2.3x^2 + 2.1", func2.toString());
+        assertEquals("Q(x) = 2.3x² + 2.1", func2.toString());
 
         assertEquals("S", func3.getFuncName());
         assertEquals("x", func3.getVarName());
         assertEquals(3, func3.getTerms().size());
-        assertEquals("S(x) = + 3.2x^3 + 3.1x^2 + 3.3x", func3.toString());
+        assertEquals("S(x) = 3.2x³ + 3.1x² + 3.3x", func3.toString());
     }
 
     @Test
@@ -62,13 +62,13 @@ public class PolynomialFunctionTests {
         final PolynomialFunction func1 = functionSample1().get(1); // Q(x) = + 2.1 + 2.3x^2
 
         final PolynomialFunction func2 = func1.power(0);
-        assertEquals("Q(x) = + 1", func2.toString());
+        assertEquals("Q(x) = 1", func2.toString());
 
         final PolynomialFunction func3 = func1.power(1);
-        assertEquals("Q(x) = + 2.3x^2 + 2.1", func3.toString());
+        assertEquals("Q(x) = 2.3x² + 2.1", func3.toString());
 
         final PolynomialFunction func4 = func1.power(2);
-        assertEquals("Q(x) = + 5.3x^4 + 9.7x^2 + 4.4", func4.toString());
+        assertEquals("Q(x) = 5.3x⁴ + 9.7x² + 4.4", func4.toString());
 
         assertThrows(IllegalArgumentException.class, () -> func1.power(-1));
     }
@@ -99,13 +99,13 @@ public class PolynomialFunctionTests {
         // add func2 to func3
         func3.add(func2);
 
-        assertEquals("Q(x) = + 2.3x^2 + 1.1x + 2.1", func2.toString());
-        assertEquals("S(x) = + 3.2x^3 + 5.4x^2 + 4.4x + 2.1", func3.toString());
+        assertEquals("Q(x) = 2.3x² + 1.1x + 2.1", func2.toString());
+        assertEquals("S(x) = 3.2x³ + 5.4x² + 4.4x + 2.1", func3.toString());
 
         // add func2 to func3
         func3.add(func2);
 
-        assertEquals("S(x) = + 3.2x^3 + 7.7x^2 + 5.5x + 4.2", func3.toString());
+        assertEquals("S(x) = 3.2x³ + 7.7x² + 5.5x + 4.2", func3.toString());
 
         PolynomialTerm yTerm = PolynomialTerm.builder()
                 .coefficient(1.0)
@@ -133,15 +133,15 @@ public class PolynomialFunctionTests {
         // subtract func2 from func3
         func3.subtract(func2);
 
-        assertEquals("Q(x) = + 2.3x^2 - 1.1x + 2.1", func2.toString());
+        assertEquals("Q(x) = 2.3x² - 1.1x + 2.1", func2.toString());
 
         // 0.9x^2 should be 0.8x^2.
-        assertEquals("S(x) = + 3.2x^3 + 0.8x^2 + 4.4x - 2.1", func3.toString());
+        assertEquals("S(x) = 3.2x³ + 0.8x² + 4.4x - 2.1", func3.toString());
 
         // subtract func2 from func3
         func3.subtract(func2);
 
-        assertEquals("S(x) = + 3.2x^3 - 1.5x^2 + 5.5x - 4.2", func3.toString());
+        assertEquals("S(x) = 3.2x³ - 1.5x² + 5.5x - 4.2", func3.toString());
 
         PolynomialTerm yTerm = PolynomialTerm.builder()
                 .coefficient(1.0)
@@ -171,21 +171,21 @@ public class PolynomialFunctionTests {
         // multiply f2 by f3
         PolynomialFunction f2f3 = f2.multiplyBy(f3);
 
-        assertEquals("P(x) = + 1x^2 + 1x", f1f2.toString());
-        assertEquals("P(x) = + 1x^2 - 1x", f1f3.toString());
-        assertEquals("Q(x) = + 1x^2 - 1", f2f3.toString());
+        assertEquals("P(x) = 1x² + 1x", f1f2.toString());
+        assertEquals("P(x) = 1x² - 1x", f1f3.toString());
+        assertEquals("Q(x) = 1x² - 1", f2f3.toString());
     }
 
     @Test
     public void toString_test() {
         PolynomialFunction func1 = functionSample1().get(0); // P(x) = (1.1)x
-        assertEquals("P(x) = + 1.1x", func1.toString());
+        assertEquals("P(x) = 1.1x", func1.toString());
 
         PolynomialFunction func2 = functionSample1().get(1); // Q(x) = 2.1 + (2.3)x^2
-        assertEquals("Q(x) = + 2.1 + 2.3x^2", func2.toString());
+        assertEquals("Q(x) = 2.1 + 2.3x²", func2.toString());
 
         PolynomialFunction func3 = functionSample1().get(2); // S(x) = (3.1)x^2 + (3.2)x^3 + (3.3)x
-        assertEquals("S(x) = + 3.1x^2 + 3.2x^3 + 3.3x", func3.toString());
+        assertEquals("S(x) = 3.1x² + 3.2x³ + 3.3x", func3.toString());
 
         PolynomialFunction zeroFunc = functionSample1().get(3);
         assertEquals("0.0", zeroFunc.toString());

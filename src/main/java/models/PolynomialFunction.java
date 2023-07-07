@@ -226,21 +226,38 @@ public class PolynomialFunction {
      * returns a String representation of the polynomial expression
      */
     public String toString() {
-        if (isZeroFunction() || this.terms.isEmpty()) return "0.0";
+        if (isZeroFunction() || this.terms.isEmpty()) {
+            return "0.0";
+        }
+
         StringBuilder rep = new StringBuilder();
-        int i;
+
         rep.append(this.funcName).append("(").append(this.varName).append(") = ");
-        for (i = 0; i < terms.size() - 1; i++) {
+        if (this.terms.size() == 1) {
+            return rep.append(this.terms.get(0).toString(true)).toString();
+        }
+
+        int j = 0;
+        while (this.terms.get(j).getCoefficient() == 0) {
+            j++;
+        }
+        rep.append(this.terms.get(j).toString(true)).append(" ");
+
+        int i = j + 1;
+        while (i < terms.size() - 1) {
             if(terms.get(i).getCoefficient() == 0) {
+                i++;
                 continue;
             }
-            rep.append(terms.get(i).toString()).append(" + ");
+            rep.append(terms.get(i).toString(false)).append(" + ");
+            i++;
         }
         if (terms.get(i).getCoefficient() != 0) {
-            rep.append(terms.get(i).toString());
+            rep.append(terms.get(i).toString(false));
         } else {
             rep.replace(rep.length() - 3, rep.length(), "");
         }
+
         String result = rep.toString();
         result = result.replace("+ -", "-").replace("+ +", "+");
         return result;
