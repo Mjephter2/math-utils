@@ -123,7 +123,12 @@ public class PolynomialTerm {
             return "0.0";
         }
 
-        final String coefString = df.format(Math.abs(coefficient));
+        final String coefString;
+        if ((coefficient == 1.0 || coefficient == -1.0) && exponent != 0) {
+            coefString = "";
+        } else {
+            coefString = df.format(Math.abs(coefficient));
+        }
 
         String sign;
         if (isFirstTerm && coefficient >= 0.0) {

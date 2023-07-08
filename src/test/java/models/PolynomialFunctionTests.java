@@ -171,9 +171,9 @@ public class PolynomialFunctionTests {
         // multiply f2 by f3
         PolynomialFunction f2f3 = f2.multiplyBy(f3);
 
-        assertEquals("P(x) = 1x² + 1x", f1f2.toString());
-        assertEquals("P(x) = 1x² - 1x", f1f3.toString());
-        assertEquals("Q(x) = 1x² - 1", f2f3.toString());
+        assertEquals("P(x) = x² + x", f1f2.toString());
+        assertEquals("P(x) = x² - x", f1f3.toString());
+        assertEquals("Q(x) = x² - 1", f2f3.toString());
     }
 
     @Test

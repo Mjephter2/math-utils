@@ -23,7 +23,7 @@ public class PolynomialTermTests {
         assertEquals("x", term2.getVarName());
         assertEquals(-1.0, term2.getCoefficient());
         assertEquals(2, term2.getExponent());
-        assertEquals("- 1x²", term2.toString(false));
+        assertEquals("- x²", term2.toString(false));
 
         final String termString3 = "+ x^2";
         final String variable3 = "x";
@@ -31,7 +31,7 @@ public class PolynomialTermTests {
         assertEquals("x", term3.getVarName());
         assertEquals(+1.0, term3.getCoefficient());
         assertEquals(2, term3.getExponent());
-        assertEquals("+ 1x²", term3.toString(false));
+        assertEquals("+ x²", term3.toString(false));
     }
 
     @Test
