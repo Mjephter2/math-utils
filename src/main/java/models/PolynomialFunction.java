@@ -4,8 +4,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import static utils.StringUtils.trimLeadingTrailingPlus;
 
 /**
  * This class implements a multi Term polynomial expression in one variable (for now)
@@ -169,6 +173,29 @@ public class PolynomialFunction {
             }
             copy.multiplyByTerm(t);
             result.add(copy);
+        }
+        return result;
+    }
+
+    public PolynomialFunction composeWith(final PolynomialFunction other) {
+        final List<PolynomialFunction> compositionParts = new ArrayList<>();
+        for (PolynomialTerm term : this.terms) {
+            final PolynomialFunction part = other.power(term.getExponent());
+            part.multiplyByTerm(PolynomialTerm.builder()
+                            .varName(term.getVarName())
+                            .coefficient(term.getCoefficient())
+                            .exponent(0)
+                    .build());
+            compositionParts.add(part);
+        }
+
+        final PolynomialFunction result = PolynomialFunction.builder()
+                .varName(this.varName)
+                .funcName(this.funcName)
+                .terms(new LinkedList<>())
+                .build();
+        for (PolynomialFunction func : compositionParts) {
+            result.add(func);
         }
         return result;
     }
