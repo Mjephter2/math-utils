@@ -128,7 +128,7 @@ public class PolynomialFunctionTests {
         PolynomialFunction func2 = functionSample1().get(1); // Q(x) = + 2.1 + 2.3x^2
         PolynomialFunction func3 = functionSample1().get(2); // S(x) = + 3.1x^2 + 3.2x^3 + 3.3x
 
-        // subtract func2 from func1
+        // subtract func1 from func2
         func2.subtract(func1);
         // subtract func2 from func3
         func3.subtract(func2);

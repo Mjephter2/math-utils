@@ -1,9 +1,11 @@
 package models;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThrows;
 
 public class PolynomialTermTests {
 
@@ -36,25 +38,22 @@ public class PolynomialTermTests {
 
     @Test
     public void parse_string_fails() {
+        final String variableX = "x";
+        final String variableY = "y";
+
         final String termString1 = "3.0x^2";
-        final String variable1 = "y";
-        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString1, variable1));
+        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString1, variableY));
 
         final String termString2 = "3.x^2";
-        final String variable2 = "x";
-        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString2, variable2));
+        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString2, variableX));
 
         final String termString3 = "3.0x^";
-        final String variable3 = "x";
-        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString3, variable3));
+        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString3, variableX));
 
-        final String termString4 = null;
-        final String variable4 = "x";
-        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString4, variable4));
+        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from("", variableX));
 
         final String termString5 = "3.0x^2";
-        final String variable5 = null;
-        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString5, variable5));
+        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString5, null));
     }
 
     @Test
@@ -83,7 +82,7 @@ public class PolynomialTermTests {
                 .exponent(2)
                 .build();
 
-        assertTrue(term1.equals(term2));
+        Assert.assertEquals(term1, term2);
     }
 
     @Test
@@ -92,7 +91,7 @@ public class PolynomialTermTests {
         term1.multiplyBy(this.sampleTerms()[1]);
         assertEquals("x", term1.getVarName());
         assertEquals(21.0, term1.getCoefficient());
-        assertEquals((int) 5, term1.getExponent());
+        assertEquals(5, term1.getExponent());
     }
 
     @Test
