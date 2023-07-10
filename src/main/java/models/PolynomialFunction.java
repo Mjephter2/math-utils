@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static utils.StringUtils.trimTrailingLeadingPlus;
+
 /**
  * This class implements a multi Term polynomial expression in one variable (for now)
  * of the form a_0 + a_1*x^1 + a_2*x^2 + ... + a_n*x^n
@@ -39,6 +41,31 @@ public class PolynomialFunction {
     private final String varName;
 
     /**
+     * Creates a polynomial function from a list of terms.
+     * @param pTerms -> list of terms
+     * @param funcName -> name of the polynomial function
+     * @param varName -> name of the independent variable
+     */
+    public PolynomialFunction(final List<PolynomialTerm> pTerms, final String funcName, final String varName) {
+        validate(pTerms, varName);
+
+        this.terms = pTerms;
+        this.funcName = funcName;
+        this.varName = varName;
+
+        this.removeZeroTerms();
+        this.terms.sort(PolynomialTerm.TERM_COMPARATOR);
+    }
+
+    private void validate(final List<PolynomialTerm> pTerms, final String varName) {
+        for (PolynomialTerm term: pTerms) {
+            if (!term.getVarName().equals(varName)) {
+                throw new IllegalArgumentException("All terms must have the same variable name!");
+            }
+        }
+    }
+
+    /**
      * Create a PolynomialFunction from a String representation.
      * @param polynomialString -> String representation of the PolynomialFunction
      * @param funcName -> name of the polynomial function
@@ -63,6 +90,20 @@ public class PolynomialFunction {
             }
         }
         return func;
+    }
+
+    /**
+     * Removes zero terms from the polynomial
+     * @return the polynomial with zero terms removed
+     */
+    private void removeZeroTerms() {
+        final List<PolynomialTerm> zeroTerms = new ArrayList<>();
+        for (PolynomialTerm term : this.terms) {
+            if (term.getCoefficient() == 0) {
+                zeroTerms.add(term);
+            }
+        }
+        this.terms.removeAll(zeroTerms);
     }
 
     /*
@@ -240,11 +281,12 @@ public class PolynomialFunction {
         return result;
     }
 
+    /**
+     * Checks if the current Polynomial is a zero function
+     * @return true if the Polynomial is a zero function, false otherwise
+     */
     public boolean isZeroFunction() {
-        for (PolynomialTerm term : terms) {
-            if (term.getCoefficient() != 0.0) return false;
-        }
-        return true;
+        return this.terms.stream().allMatch(term -> term.getCoefficient() == 0.0);
     }
 
     /*
@@ -255,36 +297,21 @@ public class PolynomialFunction {
             return "0.0";
         }
 
-        StringBuilder rep = new StringBuilder();
+        final String repPreffix = this.funcName + "(" + this.varName + ") = ";
 
-        rep.append(this.funcName).append("(").append(this.varName).append(") = ");
         if (this.terms.size() == 1) {
-            return rep.append(this.terms.get(0).toString(true)).toString();
+            return repPreffix + this.terms.get(0).toString(true);
         }
 
-        int j = 0;
-        while (this.terms.get(j).getCoefficient() == 0) {
-            j++;
-        }
-        rep.append(this.terms.get(j).toString(true)).append(" ");
+        final StringBuilder rep = new StringBuilder();
 
-        int i = j + 1;
-        while (i < terms.size() - 1) {
-            if(terms.get(i).getCoefficient() == 0) {
-                i++;
+        for (PolynomialTerm term : this.terms) {
+            if (term.getCoefficient() == 0.0) {
                 continue;
             }
-            rep.append(terms.get(i).toString(false)).append(" + ");
-            i++;
-        }
-        if (terms.get(i).getCoefficient() != 0) {
-            rep.append(terms.get(i).toString(false));
-        } else {
-            rep.replace(rep.length() - 3, rep.length(), "");
+            rep.append(term.toString(false)).append(" ");
         }
 
-        String result = rep.toString();
-        result = result.replace("+ -", "-").replace("+ +", "+");
-        return result;
+        return (repPreffix + trimTrailingLeadingPlus(rep.toString())).trim();
     }
 }

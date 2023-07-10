@@ -1,14 +1,43 @@
 package utils;
 
+/**
+ * This class contains utility methods for String manipulation.
+ */
 public final class StringUtils {
 
-    public static String trimLeadingTrailingPlus(String str) {
-        if (str.startsWith("+")) {
-            str =  str.substring(1);
+    /**
+     * Trims the trailing and leading plus sign from the given StringBuilder
+     * @param str : StringBuilder to trim
+     * @return the trimmed StringBuilder
+     */
+    public static String trimTrailingLeadingPlus(final String str) {
+        if (str.length() == 0) {
+            return "";
         }
-        if (str.endsWith("+")) {
-            str = str.substring(0, str.length() - 1);
+
+        StringBuilder strBldr = new StringBuilder(str.trim());
+
+        boolean done = false;
+
+        while (!done) {
+            if (strBldr.charAt(0) == '+') {
+                strBldr.deleteCharAt(0);
+                strBldr = new StringBuilder(strBldr.toString().trim());
+            } else {
+                done = true;
+            }
         }
-        return str;
+
+        done = false;
+        while (!done) {
+            if (strBldr.charAt(strBldr.length() - 1) == '+') {
+                strBldr.deleteCharAt(strBldr.length() - 1);
+                strBldr = new StringBuilder(strBldr.toString().trim());
+            } else {
+                done = true;
+            }
+        }
+
+        return strBldr.toString();
     }
 }

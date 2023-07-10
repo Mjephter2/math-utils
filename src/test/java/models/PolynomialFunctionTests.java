@@ -3,8 +3,7 @@ package models;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
 public class PolynomialFunctionTests {
 
     @Test
-    public void create_Test() {
+    public void builder_Test() {
         PolynomialFunction func1 = functionSample1().get(0); // P(x) = + 1.1x
 
         assertEquals("P", func1.getFuncName());
@@ -20,6 +19,46 @@ public class PolynomialFunctionTests {
         assertEquals(1, func1.getTerms().size());
         assertEquals(1.1, func1.getTerms().get(0).getCoefficient());
         assertEquals(1, func1.getTerms().get(0).getExponent());
+    }
+
+    @Test
+    public void constructor_tests() {
+        final List<PolynomialTerm> terms = new LinkedList<>(){{
+            add(new PolynomialTerm(2.0, "x", 1));
+            add(new PolynomialTerm(0.0, "x", 3));
+            add(new PolynomialTerm(1.0, "x", 2));
+        }};
+        PolynomialFunction func1 = new PolynomialFunction(terms, "P", "x");
+        // Test to check that zero terms are removed
+        assertEquals(2, func1.getTerms().size());
+        // Tests to check that the terms are sorted by exponent
+        assertEquals(2, func1.getTerms().get(0).getExponent());
+        assertEquals(1, func1.getTerms().get(1).getExponent());
+
+        // Test to check that the constructor throws an exception when a term contains a different variable
+        final List<PolynomialTerm> terms2 = new LinkedList<>(){{
+            add(new PolynomialTerm(2.0, "x", 1));
+            add(new PolynomialTerm(0.0, "y", 3));
+            add(new PolynomialTerm(1.0, "x", 2));
+        }};
+        assertThrows(IllegalArgumentException.class, () -> new PolynomialFunction(terms2, "P", "x"));
+    }
+
+    @Test
+    public void zero_function_tests() {
+        final PolynomialFunction zeroFunc = new PolynomialFunction(new LinkedList<>(){{
+            add(new PolynomialTerm(0.0, "x", 1));
+            add(new PolynomialTerm(0.0, "x", 3));
+            add(new PolynomialTerm(0.0, "x", 2));
+        }}, "P", "x");
+        assertTrue(zeroFunc.isZeroFunction());
+
+        final PolynomialFunction nonZeroFunc = new PolynomialFunction(new LinkedList<>(){{
+            add(new PolynomialTerm(2.0, "x", 1));
+            add(new PolynomialTerm(0.0, "x", 3));
+            add(new PolynomialTerm(1.0, "x", 2));
+        }}, "P", "x");
+        assertFalse(nonZeroFunc.isZeroFunction());
     }
 
     @Test
@@ -197,16 +236,6 @@ public class PolynomialFunctionTests {
                 .build();
         assertEquals("f(x) = x² + 2", func1.composeWith(func2).toString());
         assertEquals("g(x) = x² + 2x + 2", func2.composeWith(func1).toString());
-
-        final PolynomialFunction func3 = PolynomialFunction.builder()
-                .funcName("h")
-                .varName("x")
-                .terms(new LinkedList<>(){{
-                    add(new PolynomialTerm(1.0, "x", 1));
-                    add(new PolynomialTerm(9.1, "x", 50));
-                }})
-                .build();
-        System.out.println(func3.composeWith(func2));
     }
 
     @Test
@@ -215,10 +244,10 @@ public class PolynomialFunctionTests {
         assertEquals("P(x) = 1.1x", func1.toString());
 
         PolynomialFunction func2 = functionSample1().get(1); // Q(x) = 2.1 + (2.3)x^2
-        assertEquals("Q(x) = 2.1 + 2.3x²", func2.toString());
+        assertEquals("Q(x) = 2.3x² + 2.1", func2.toString());
 
         PolynomialFunction func3 = functionSample1().get(2); // S(x) = (3.1)x^2 + (3.2)x^3 + (3.3)x
-        assertEquals("S(x) = 3.1x² + 3.2x³ + 3.3x", func3.toString());
+        assertEquals("S(x) = 3.2x³ + 3.1x² + 3.3x", func3.toString());
 
         PolynomialFunction zeroFunc = functionSample1().get(3);
         assertEquals("0.0", zeroFunc.toString());
