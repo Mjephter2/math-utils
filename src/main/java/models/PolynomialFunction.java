@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import static utils.StringUtils.trimLeadingTrailingPlus;
-
 /**
  * This class implements a multi Term polynomial expression in one variable (for now)
  * of the form a_0 + a_1*x^1 + a_2*x^2 + ... + a_n*x^n

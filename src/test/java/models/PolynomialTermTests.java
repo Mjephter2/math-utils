@@ -127,6 +127,7 @@ public class PolynomialTermTests {
         PolynomialTerm term4 = this.sampleTerms()[3];
         PolynomialTerm term5 = this.sampleTerms()[4];
         PolynomialTerm term6 = this.sampleTerms()[5];
+        PolynomialTerm term7 = this.sampleTerms()[6];
 
         assertEquals("+ 3x²", term1.toString(false));
         assertEquals("7x³", term2.toString(true));
@@ -134,6 +135,7 @@ public class PolynomialTermTests {
         assertEquals("0.0", term4.toString(false));
         assertEquals("+ 7", term5.toString(false));
         assertEquals("- 7", term6.toString(false));
+        assertEquals("x", term7.toString(true));
     }
 
     @Test
@@ -174,7 +176,12 @@ public class PolynomialTermTests {
                 .varName("x")
                 .coefficient(-7.0)
                 .exponent(0)
-            .build()
+            .build(),
+            PolynomialTerm.builder()
+                .varName("x")
+                .coefficient(1.0)
+                .exponent(1)
+                .build()
         };
     }
 }

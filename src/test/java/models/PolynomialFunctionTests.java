@@ -177,6 +177,39 @@ public class PolynomialFunctionTests {
     }
 
     @Test
+    public void compose_tests() {
+        final PolynomialFunction func1 = PolynomialFunction.builder()
+                .varName("x")
+                .funcName("f")
+                .terms(new LinkedList<>(){{
+                    add(new PolynomialTerm(1.0, "x", 2));
+                    add(new PolynomialTerm(2.0, "x", 1));
+                    add(new PolynomialTerm(3.0, "x", 0));
+                }})
+                .build();
+        final PolynomialFunction func2 = PolynomialFunction.builder()
+                .funcName("g")
+                .varName("x")
+                .terms(new LinkedList<>(){{
+                    add(new PolynomialTerm(1.0, "x", 1));
+                    add(new PolynomialTerm(-1.0, "x", 0));
+                }})
+                .build();
+        assertEquals("f(x) = x² + 2", func1.composeWith(func2).toString());
+        assertEquals("g(x) = x² + 2x + 2", func2.composeWith(func1).toString());
+
+        final PolynomialFunction func3 = PolynomialFunction.builder()
+                .funcName("h")
+                .varName("x")
+                .terms(new LinkedList<>(){{
+                    add(new PolynomialTerm(1.0, "x", 1));
+                    add(new PolynomialTerm(9.1, "x", 50));
+                }})
+                .build();
+        System.out.println(func3.composeWith(func2));
+    }
+
+    @Test
     public void toString_test() {
         PolynomialFunction func1 = functionSample1().get(0); // P(x) = (1.1)x
         assertEquals("P(x) = 1.1x", func1.toString());
