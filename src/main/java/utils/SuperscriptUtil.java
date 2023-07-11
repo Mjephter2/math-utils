@@ -1,7 +1,5 @@
 package utils;
 
-import models.PolynomialTerm;
-
 import java.util.HashMap;
 import java.util.Map;
 

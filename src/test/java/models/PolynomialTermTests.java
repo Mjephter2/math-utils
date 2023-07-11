@@ -1,5 +1,6 @@
 package models;
 
+import models.functions.PolynomialTerm;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -117,6 +118,48 @@ public class PolynomialTermTests {
 
         assertEquals(3.0, term1.evaluate(1.0));
         assertEquals(56.0, term2.evaluate(2.0));
+    }
+
+    @Test
+    public void term_derivative_tests() {
+        final PolynomialTerm term1 = PolynomialTerm.builder()
+                .varName("x")
+                .coefficient(3.0)
+                .exponent(2)
+                .build();
+        final PolynomialTerm derivativeTerm1 = term1.derivative();
+        assertEquals(6.0, derivativeTerm1.getCoefficient());
+        assertEquals(1, derivativeTerm1.getExponent());
+
+        final PolynomialTerm term2 = PolynomialTerm.builder()
+                .varName("x")
+                .coefficient(0.0)
+                .exponent(1)
+                .build();
+        final PolynomialTerm derivativeTerm2 = term2.derivative();
+        assertEquals(0.0, derivativeTerm2.getCoefficient());
+        assertEquals(0, derivativeTerm2.getExponent());
+    }
+
+    @Test
+    public void term_integral() {
+        final PolynomialTerm term1 = PolynomialTerm.builder()
+                .varName("x")
+                .coefficient(3.0)
+                .exponent(2)
+                .build();
+        final PolynomialTerm integralTerm1 = term1.integral();
+        assertEquals(1.0, integralTerm1.getCoefficient());
+        assertEquals(3, integralTerm1.getExponent());
+
+        final PolynomialTerm term2 = PolynomialTerm.builder()
+                .varName("x")
+                .coefficient(0.0)
+                .exponent(1)
+                .build();
+        final PolynomialTerm integralTerm2 = term2.integral();
+        assertEquals(0.0, integralTerm2.getCoefficient());
+        assertEquals(0, integralTerm2.getExponent());
     }
 
     @Test

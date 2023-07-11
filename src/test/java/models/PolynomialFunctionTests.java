@@ -1,10 +1,13 @@
 package models;
 
+import models.functions.PolynomialFunction;
+import models.functions.PolynomialTerm;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -75,17 +78,31 @@ public class PolynomialFunctionTests {
         assertEquals("P", func1.getFuncName());
         assertEquals("x", func1.getVarName());
         assertEquals(1, func1.getTerms().size());
-        assertEquals("P(x) = 1.1x", func1.toString());
+        assertEquals("P(x) = 1.1x", func1.toString(false));
 
         assertEquals("Q", func2.getFuncName());
         assertEquals("x", func2.getVarName());
         assertEquals(2, func2.getTerms().size());
-        assertEquals("Q(x) = 2.3x² + 2.1", func2.toString());
+        assertEquals("Q(x) = 2.3x² + 2.1", func2.toString(false));
 
         assertEquals("S", func3.getFuncName());
         assertEquals("x", func3.getVarName());
         assertEquals(3, func3.getTerms().size());
-        assertEquals("S(x) = 3.2x³ + 3.1x² + 3.3x", func3.toString());
+        assertEquals("S(x) = 3.2x³ + 3.1x² + 3.3x", func3.toString(false));
+    }
+
+    @Test
+    public void domain_tests() {
+        PolynomialFunction func1 = functionSample1().get(0);
+        assertFalse(func1.getDomain().hasLowerBound());
+        assertFalse(func1.getDomain().hasUpperBound());
+    }
+
+    @Test
+    public void range_tests() {
+        PolynomialFunction func1 = functionSample1().get(0);
+        assertFalse(func1.getRange().hasLowerBound());
+        assertFalse(func1.getRange().hasUpperBound());
     }
 
     @Test
@@ -101,13 +118,13 @@ public class PolynomialFunctionTests {
         final PolynomialFunction func1 = functionSample1().get(1); // Q(x) = + 2.1 + 2.3x^2
 
         final PolynomialFunction func2 = func1.power(0);
-        assertEquals("Q(x) = 1", func2.toString());
+        assertEquals("Q(x) = 1", func2.toString(false));
 
         final PolynomialFunction func3 = func1.power(1);
-        assertEquals("Q(x) = 2.3x² + 2.1", func3.toString());
+        assertEquals("Q(x) = 2.3x² + 2.1", func3.toString(false));
 
         final PolynomialFunction func4 = func1.power(2);
-        assertEquals("Q(x) = 5.3x⁴ + 9.7x² + 4.4", func4.toString());
+        assertEquals("Q(x) = 5.3x⁴ + 9.7x² + 4.4", func4.toString(false));
 
         assertThrows(IllegalArgumentException.class, () -> func1.power(-1));
     }
@@ -125,6 +142,14 @@ public class PolynomialFunctionTests {
         PolynomialFunction func3 = functionSample1().get(2); // S(x) = + 3.1x^2 + 3.2x^3 + 3.3x
         assertTrue(Math.abs ((9.6 - func3.evaluate(1.0)) / func2.evaluate(1.0)) <  0.000000000000001);
         assertTrue(Math.abs ((3543.0 - func3.evaluate(10.0)) / func2.evaluate(10.0)) <  0.000000000000001);
+
+        PolynomialFunction func4 = new PolynomialFunction(new LinkedList<>(){{
+            add(new PolynomialTerm(1.0, "x", 1));
+            add(new PolynomialTerm(1.0, "x", 2));
+        }}, "P", "x");
+        assertThrows(IllegalArgumentException.class, () -> func4.evaluate(null));
+        assertThrows(IllegalArgumentException.class, func4::evaluate);
+        assertThrows(IllegalArgumentException.class, () -> func4.evaluate(1.0, 2.0));
     }
 
     @Test
@@ -138,13 +163,13 @@ public class PolynomialFunctionTests {
         // add func2 to func3
         func3.add(func2);
 
-        assertEquals("Q(x) = 2.3x² + 1.1x + 2.1", func2.toString());
-        assertEquals("S(x) = 3.2x³ + 5.4x² + 4.4x + 2.1", func3.toString());
+        assertEquals("Q(x) = 2.3x² + 1.1x + 2.1", func2.toString(false));
+        assertEquals("S(x) = 3.2x³ + 5.4x² + 4.4x + 2.1", func3.toString(false));
 
         // add func2 to func3
         func3.add(func2);
 
-        assertEquals("S(x) = 3.2x³ + 7.7x² + 5.5x + 4.2", func3.toString());
+        assertEquals("S(x) = 3.2x³ + 7.7x² + 5.5x + 4.2", func3.toString(false));
 
         PolynomialTerm yTerm = PolynomialTerm.builder()
                 .coefficient(1.0)
@@ -172,15 +197,15 @@ public class PolynomialFunctionTests {
         // subtract func2 from func3
         func3.subtract(func2);
 
-        assertEquals("Q(x) = 2.3x² - 1.1x + 2.1", func2.toString());
+        assertEquals("Q(x) = 2.3x² - 1.1x + 2.1", func2.toString(false));
 
         // 0.9x^2 should be 0.8x^2.
-        assertEquals("S(x) = 3.2x³ + 0.8x² + 4.4x - 2.1", func3.toString());
+        assertEquals("S(x) = 3.2x³ + 0.8x² + 4.4x - 2.1", func3.toString(false));
 
         // subtract func2 from func3
         func3.subtract(func2);
 
-        assertEquals("S(x) = 3.2x³ - 1.5x² + 5.5x - 4.2", func3.toString());
+        assertEquals("S(x) = 3.2x³ - 1.5x² + 5.5x - 4.2", func3.toString(false));
 
         PolynomialTerm yTerm = PolynomialTerm.builder()
                 .coefficient(1.0)
@@ -210,9 +235,9 @@ public class PolynomialFunctionTests {
         // multiply f2 by f3
         PolynomialFunction f2f3 = f2.multiplyBy(f3);
 
-        assertEquals("P(x) = x² + x", f1f2.toString());
-        assertEquals("P(x) = x² - x", f1f3.toString());
-        assertEquals("Q(x) = x² - 1", f2f3.toString());
+        assertEquals("P(x) = x² + x", f1f2.toString(false));
+        assertEquals("P(x) = x² - x", f1f3.toString(false));
+        assertEquals("Q(x) = x² - 1", f2f3.toString(false));
     }
 
     @Test
@@ -234,23 +259,45 @@ public class PolynomialFunctionTests {
                     add(new PolynomialTerm(-1.0, "x", 0));
                 }})
                 .build();
-        assertEquals("f(x) = x² + 2", func1.composeWith(func2).toString());
-        assertEquals("g(x) = x² + 2x + 2", func2.composeWith(func1).toString());
+        assertEquals("f(x) = x² + 2", func1.composeWith(func2).toString(false));
+        assertEquals("g(x) = x² + 2x + 2", func2.composeWith(func1).toString(false));
+    }
+
+    @Test
+    public void derivative_tests() {
+        PolynomialFunction func1 = functionSample1().get(0); // P(x) = + 1.1x
+        PolynomialFunction func2 = functionSample1().get(1); // Q(x) = + 2.1 + 2.3x^2
+        PolynomialFunction func3 = functionSample1().get(2); // S(x) = + 3.1x^2 + 3.2x^3 + 3.3x
+
+        assertEquals("P'(x) = 1.1", ((PolynomialFunction) func1.derivative()).toString(false));
+        assertEquals("Q'(x) = 4.6x", ((PolynomialFunction) func2.derivative()).toString(false));
+        assertEquals("S'(x) = 9.6x² + 6.2x + 3.3", ((PolynomialFunction) func3.derivative()).toString(false));
+    }
+
+    @Test
+    public void integral_tests() {
+        PolynomialFunction func1 = functionSample1().get(0); // P(x) = + 1.1x
+        PolynomialFunction func2 = functionSample1().get(1); // Q(x) = + 2.1 + 2.3x^2
+        PolynomialFunction func3 = functionSample1().get(2); // S(x) = + 3.1x^2 + 3.2x^3 + 3.3x
+
+        assertEquals("∫P(x)dx = 0.6x²", ((PolynomialFunction) func1.integral()).toString(true));
+        assertEquals("∫Q(x)dx = 0.8x³", ((PolynomialFunction) func2.integral()).toString(true));
+        assertEquals("∫S(x)dx = 0.8x⁴ + 1x³ + 1.6x²", ((PolynomialFunction) func3.integral()).toString(true));
     }
 
     @Test
     public void toString_test() {
         PolynomialFunction func1 = functionSample1().get(0); // P(x) = (1.1)x
-        assertEquals("P(x) = 1.1x", func1.toString());
+        assertEquals("P(x) = 1.1x", func1.toString(false));
 
         PolynomialFunction func2 = functionSample1().get(1); // Q(x) = 2.1 + (2.3)x^2
-        assertEquals("Q(x) = 2.3x² + 2.1", func2.toString());
+        assertEquals("Q(x) = 2.3x² + 2.1", func2.toString(false));
 
         PolynomialFunction func3 = functionSample1().get(2); // S(x) = (3.1)x^2 + (3.2)x^3 + (3.3)x
-        assertEquals("S(x) = 3.2x³ + 3.1x² + 3.3x", func3.toString());
+        assertEquals("S(x) = 3.2x³ + 3.1x² + 3.3x", func3.toString(false));
 
         PolynomialFunction zeroFunc = functionSample1().get(3);
-        assertEquals("0.0", zeroFunc.toString());
+        assertEquals("0.0", zeroFunc.toString(false));
     }
 
     private List<PolynomialFunction> functionSample1() {

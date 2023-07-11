@@ -1,5 +1,6 @@
-package models;
+package models.functions;
 
+import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -19,7 +20,7 @@ import static utils.StringUtils.trimTrailingLeadingPlus;
 @Getter
 @Setter
 @Builder
-public class PolynomialFunction {
+public class PolynomialFunction implements Function {
 
     /**
      * A LinkedList of Terms representing the polynomial expression.
@@ -244,7 +245,7 @@ public class PolynomialFunction {
      * @param input -> value to substitute x by
      * return the evaluated number
      */
-    public Double evaluate(final double input) {
+    private Double evaluateFunc(final double input) {
         double value = 0.0;
         for(PolynomialTerm term : this.terms) {
             value += term.evaluate(input);
@@ -289,15 +290,68 @@ public class PolynomialFunction {
         return this.terms.stream().allMatch(term -> term.getCoefficient() == 0.0);
     }
 
+    @Override
+    public Range<Double> getDomain() {
+        return Range.all();
+    }
+
+    @Override
+    public Range<Double> getRange() {
+        return Range.all();
+    }
+
+    @Override
+    public double evaluate(Double... values) {
+        if (values == null || values.length == 0) {
+            throw new IllegalArgumentException("This operation is not implemented for zero input values!");
+        }
+        if (values.length > 1) {
+            throw new IllegalArgumentException("This operation is not implemented for more than one input value!");
+        }
+        return this.evaluateFunc(values[0]);
+    }
+
+    @Override
+    public Function derivative() {
+        return new PolynomialFunction(new LinkedList<>(){{
+            for (PolynomialTerm term : terms) {
+                add(term.derivative());
+            }
+        }}, this.funcName + "'", this.varName);
+    }
+
+    @Override
+    public Function integral() {
+        return new PolynomialFunction(
+                new LinkedList<>() {{
+                    for (PolynomialTerm term : terms) {
+                        add(term.integral());
+                    }
+                }},
+                "∫" + this.funcName,
+                this.varName);
+    }
+
+    @Override
+    public double integral(double lowerBound, double upperBound) {
+        final Function integral = this.integral();
+        return integral.evaluate(upperBound) - integral.evaluate(lowerBound);
+    }
+
     /*
      * returns a String representation of the polynomial expression
      */
-    public String toString() {
+    public String toString(final boolean isIntegral) {
         if (isZeroFunction() || this.terms.isEmpty()) {
             return "0.0";
         }
 
-        final String repPreffix = this.funcName + "(" + this.varName + ") = ";
+        String repPreffix = "";
+        if (isIntegral) {
+            repPreffix = this.funcName +  "(" + this.varName + ")d" + this.varName + " = ";
+        } else {
+            repPreffix = this.funcName + "(" + this.varName + ") = ";
+        }
 
         if (this.terms.size() == 1) {
             return repPreffix + this.terms.get(0).toString(true);

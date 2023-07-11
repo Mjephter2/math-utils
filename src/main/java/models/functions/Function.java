@@ -1,0 +1,42 @@
+package models.functions;
+
+import com.google.common.collect.Range;
+
+public interface Function {
+
+    /**
+     * Returns the domain of the function
+     */
+    Range<Double> getDomain();
+
+    /**
+     * Returns the range of the function
+     */
+    Range<Double> getRange();
+
+    /**
+     * Evaluates the function at the given set of values
+     */
+    double evaluate(final Double ...values);
+
+    /**
+     * Returns the derivative of the function with respect to its independent variable
+     */
+    Function derivative();
+
+    /**
+     * Returns the integral of the function with respect to its independent variable
+     */
+    Function integral();
+
+    /**
+     * Returns the integral of the function with respect to its independent variable
+     * over the given range
+     */
+    double integral(final double lowerBound, final double upperBound);
+
+    /**
+     * Returns the string representation of the function
+     */
+    String toString();
+}

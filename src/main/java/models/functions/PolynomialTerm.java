@@ -1,4 +1,4 @@
-package models;
+package models.functions;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -44,6 +44,12 @@ public class PolynomialTerm {
      * exponent/degree of polynomial term.
      */
     private int exponent;
+
+    public PolynomialTerm(final double coefficient, final String varName, final int exponent) {
+        this.coefficient = coefficient;
+        this.varName = varName;
+        this.exponent = exponent;
+    }
 
     /**
      * Create a Term from a String representation.
@@ -167,5 +173,31 @@ public class PolynomialTerm {
     @Override
     public int hashCode() {
         return Objects.hash(coefficient, varName, exponent);
+    }
+
+    public PolynomialTerm derivative() {
+        if (coefficient == 0.0 || exponent == 0) {
+            return PolynomialTerm.builder()
+                    .coefficient(0.0)
+                    .varName(varName)
+                    .exponent(0)
+                    .build();
+        }
+        return PolynomialTerm.builder()
+                .coefficient(coefficient * exponent)
+                .varName(varName)
+                .exponent(exponent - 1)
+                .build();
+    }
+
+    public PolynomialTerm integral() {
+        if (coefficient == 0.0 || exponent == 0) {
+            return PolynomialTerm.builder()
+                    .coefficient(0.0)
+                    .varName(varName)
+                    .exponent(0)
+                    .build();
+        }
+        return new PolynomialTerm(coefficient / (exponent + 1), varName, exponent + 1);
     }
 }
