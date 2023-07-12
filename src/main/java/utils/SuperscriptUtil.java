@@ -3,8 +3,14 @@ package utils;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Utility class for converting digits to superscript characters
+ */
 public final class SuperscriptUtil {
 
+    /**
+     * Map of digits to superscript characters
+     */
     public static Map<Integer, SuperscriptEnum> digitToSuperscript = new HashMap<>(){
         {
             put(0, SuperscriptEnum.ZERO);
@@ -21,6 +27,11 @@ public final class SuperscriptUtil {
         }
     };
 
+    /**
+     * Converts the given number to a superscript string
+     * @param number -> number to convert
+     * @return the superscript string
+     */
     public static String convertToSuperscript(final int number) {
         final StringBuilder sb = new StringBuilder();
         final char[] digits = String.valueOf(number).toCharArray();

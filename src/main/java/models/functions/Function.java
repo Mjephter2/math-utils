@@ -2,6 +2,9 @@ package models.functions;
 
 import com.google.common.collect.Range;
 
+/**
+ * Represents a mathematical function
+ */
 public interface Function {
 
     /**

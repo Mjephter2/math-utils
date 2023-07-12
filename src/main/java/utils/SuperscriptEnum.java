@@ -1,5 +1,8 @@
 package utils;
 
+/**
+ * Enum for digit superscript characters
+ */
 public enum SuperscriptEnum {
     ZERO("⁰"),
     ONE("¹"),

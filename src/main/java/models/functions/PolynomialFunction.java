@@ -58,6 +58,11 @@ public class PolynomialFunction implements Function {
         this.terms.sort(PolynomialTerm.TERM_COMPARATOR);
     }
 
+    /**
+     * Validates that all terms have the same variable name
+     * @param pTerms -> list of terms
+     * @param varName -> name of the independent variable
+     */
     private void validate(final List<PolynomialTerm> pTerms, final String varName) {
         for (PolynomialTerm term: pTerms) {
             if (!term.getVarName().equals(varName)) {
@@ -217,6 +222,11 @@ public class PolynomialFunction implements Function {
         return result;
     }
 
+    /**
+     * Compose the current Polynomial with the given Polynomial
+     * @param other : Polynomial to compose the current Polynomial with
+     * @return the resulting Polynomial (composition)
+     */
     public PolynomialFunction composeWith(final PolynomialFunction other) {
         final List<PolynomialFunction> compositionParts = new ArrayList<>();
         for (PolynomialTerm term : this.terms) {
@@ -300,6 +310,11 @@ public class PolynomialFunction implements Function {
         return Range.all();
     }
 
+    /**
+     * Evaluates the current Polynomial with the given input values
+     * @param values : input values to evaluate the Polynomial with
+     * @return the evaluated number
+     */
     @Override
     public double evaluate(Double... values) {
         if (values == null || values.length == 0) {
@@ -311,6 +326,10 @@ public class PolynomialFunction implements Function {
         return this.evaluateFunc(values[0]);
     }
 
+    /**
+     * Computes the derivative of the current Polynomial
+     * @return the derivative of the Polynomial
+     */
     @Override
     public Function derivative() {
         return new PolynomialFunction(new LinkedList<>(){{
@@ -320,6 +339,10 @@ public class PolynomialFunction implements Function {
         }}, this.funcName + "'", this.varName);
     }
 
+    /**
+     * Computes the derivative of the current Polynomial
+     * @return the derivative of the Polynomial
+     */
     @Override
     public Function integral() {
         return new PolynomialFunction(
@@ -332,6 +355,12 @@ public class PolynomialFunction implements Function {
                 this.varName);
     }
 
+    /**
+     * Computes the integral of the current Polynomial in the given bounds
+     * @param lowerBound : lower bound of the integral
+     * @param upperBound : upper bound of the integral
+     * @return the value of the integral
+     */
     @Override
     public double integral(double lowerBound, double upperBound) {
         final Function integral = this.integral();

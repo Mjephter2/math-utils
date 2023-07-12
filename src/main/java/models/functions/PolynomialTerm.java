@@ -161,6 +161,11 @@ public class PolynomialTerm {
                 .build();
     }
 
+    /**
+     * Checks if the current Term is equal to another one.
+     * @param o -> the other Term
+     * @return true if the two Terms are equal, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -175,6 +180,9 @@ public class PolynomialTerm {
         return Objects.hash(coefficient, varName, exponent);
     }
 
+    /**
+     * @return the derivative of the current Term.
+     */
     public PolynomialTerm derivative() {
         if (coefficient == 0.0 || exponent == 0) {
             return PolynomialTerm.builder()
@@ -190,6 +198,9 @@ public class PolynomialTerm {
                 .build();
     }
 
+    /**
+     * @return the integral of the current Term.
+     */
     public PolynomialTerm integral() {
         if (coefficient == 0.0 || exponent == 0) {
             return PolynomialTerm.builder()
