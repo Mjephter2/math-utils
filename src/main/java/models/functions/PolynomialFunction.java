@@ -395,6 +395,6 @@ public class PolynomialFunction implements Function {
             rep.append(term.toString(false)).append(" ");
         }
 
-        return (repPreffix + trimTrailingLeadingPlus(rep.toString())).trim();
+        return (repPreffix + trimTrailingLeadingPlus(rep.toString())).trim() + (isIntegral ? " + C" : "");
     }
 }

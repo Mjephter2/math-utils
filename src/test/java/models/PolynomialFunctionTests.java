@@ -282,7 +282,7 @@ public class PolynomialFunctionTests {
 
         assertEquals("∫P(x)dx = 0.6x²", ((PolynomialFunction) func1.integral()).toString(true));
         assertEquals("∫Q(x)dx = 0.8x³", ((PolynomialFunction) func2.integral()).toString(true));
-        assertEquals("∫S(x)dx = 0.8x⁴ + 1x³ + 1.6x²", ((PolynomialFunction) func3.integral()).toString(true));
+        assertEquals("∫S(x)dx = 0.8x⁴ + 1x³ + 1.6x² + C", ((PolynomialFunction) func3.integral()).toString(true));
     }
 
     @Test
