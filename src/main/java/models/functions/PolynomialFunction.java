@@ -364,7 +364,7 @@ public class PolynomialFunction implements Function {
     @Override
     public double integral(double lowerBound, double upperBound) {
         final Function integral = this.integral();
-        return integral.evaluate(upperBound) - integral.evaluate(lowerBound);
+        return Math.round((integral.evaluate(upperBound) - integral.evaluate(lowerBound)) * 100) / 100.0;
     }
 
     /*
@@ -383,7 +383,7 @@ public class PolynomialFunction implements Function {
         }
 
         if (this.terms.size() == 1) {
-            return repPreffix + this.terms.get(0).toString(true);
+            return repPreffix + this.terms.get(0).toString(true) + (isIntegral ? " + C" : "");
         }
 
         final StringBuilder rep = new StringBuilder();
