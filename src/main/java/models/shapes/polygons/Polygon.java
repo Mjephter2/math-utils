@@ -1,7 +1,5 @@
 package models.shapes.polygons;
 
-import java.util.LinkedList;
-
 /**
  * This interface is used to represent a shape.
  */
@@ -23,7 +21,19 @@ public interface Polygon {
     double[] sides();
 
     /**
+     * @return the angles of the polygon.
+     */
+    double[] angles();
+
+    /**
      * @return a string representation of the polygon.
      */
     String toString();
+
+    /**
+     * @return the sum of the angles of the polygon.
+     */
+    default double anglesSum() {
+        return 180 * (this.sides().length - 2);
+    }
 }

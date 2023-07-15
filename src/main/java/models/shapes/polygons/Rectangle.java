@@ -34,4 +34,9 @@ public class Rectangle implements Polygon {
     public double[] sides() {
         return new double[] {this.length, this.width, this.length, this.width};
     }
+
+    @Override
+    public double[] angles() {
+        return new double[] {90, 90, 90, 90};
+    }
 }

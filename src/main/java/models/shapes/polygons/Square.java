@@ -1,5 +1,7 @@
 package models.shapes.polygons;
 
+import java.util.Arrays;
+
 /**
  * Class to represent a square.
  */
