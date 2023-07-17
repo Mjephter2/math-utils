@@ -47,7 +47,7 @@ public class PolynomialFunction implements Function {
      * @param funcName -> name of the polynomial function
      * @param varName -> name of the independent variable
      */
-    public PolynomialFunction(final List<PolynomialTerm> pTerms, final String funcName, final String varName) {
+    public PolynomialFunction(final @NonNull List<PolynomialTerm> pTerms, final @NonNull String funcName, final @NonNull String varName) {
         validate(pTerms, varName);
 
         this.terms = pTerms;
@@ -100,7 +100,6 @@ public class PolynomialFunction implements Function {
 
     /**
      * Removes zero terms from the polynomial
-     * @return the polynomial with zero terms removed
      */
     private void removeZeroTerms() {
         final List<PolynomialTerm> zeroTerms = new ArrayList<>();
@@ -112,7 +111,7 @@ public class PolynomialFunction implements Function {
         this.terms.removeAll(zeroTerms);
     }
 
-    /*
+    /**
      * Adds a Term to current polynomial
      * @param t : Term to add to current polynomial
      */
@@ -396,5 +395,26 @@ public class PolynomialFunction implements Function {
         }
 
         return (repPreffix + trimTrailingLeadingPlus(rep.toString())).trim() + (isIntegral ? " + C" : "");
+    }
+
+    public String printBody() {
+        if (isZeroFunction() || this.terms.isEmpty()) {
+            return "0.0";
+        }
+
+        if (this.terms.size() == 1) {
+            return this.terms.get(0).toString(true);
+        }
+
+        final StringBuilder rep = new StringBuilder();
+
+        for (PolynomialTerm term : this.terms) {
+            if (term.getCoefficient() == 0.0) {
+                continue;
+            }
+            rep.append(term.toString(false)).append(" ");
+        }
+
+        return (trimTrailingLeadingPlus(rep.toString())).trim();
     }
 }
