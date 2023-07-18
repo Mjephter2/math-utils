@@ -52,7 +52,39 @@ public class LinearEquation implements Equation {
     @Override
     public double solve() {
         // TODO: Implement this method.
-        return 0;
+        PolynomialFunction leftSideCopy = this.leftSide.deepCopy();
+        PolynomialFunction rightSideCopy = this.rightSide.deepCopy();
+        LinearEquation equationCopy = new LinearEquation(leftSideCopy, rightSideCopy);
+
+        System.out.println("Starting to solve linear equation: " + equationCopy);
+        System.out.println("Reducing left side...");
+        for (PolynomialTerm term : leftSideCopy.getTerms()) {
+            if (term.getExponent() == 0) {
+                System.out.println(equationCopy);
+                PolynomialTerm subtractedTerm = new PolynomialTerm(-1 * term.getCoefficient(), term.getVarName(), 0);
+                leftSideCopy.addTerm(subtractedTerm);
+                rightSideCopy.addTerm(subtractedTerm);
+            }
+        }
+        System.out.println(equationCopy);
+
+        System.out.println("Reducing right side...");
+        for (PolynomialTerm term : rightSideCopy.getTerms()) {
+            if (term.getExponent() > 0) {
+                System.out.println(equationCopy);
+                PolynomialTerm subtractedTerm = new PolynomialTerm(-1 * term.getCoefficient(), term.getVarName(), term.getExponent());
+                leftSideCopy.addTerm(subtractedTerm);
+                rightSideCopy.addTerm(subtractedTerm);
+            }
+        }
+        System.out.println(equationCopy);
+
+        System.out.println("Dividing left side by coefficient of x...");
+
+        final double leftCoefficient = leftSideCopy.getTerms().get(0).getCoefficient();
+        final double rightCoefficient = rightSideCopy.getTerms().get(0).getCoefficient();
+
+        return rightCoefficient / leftCoefficient;
     }
 
     public String toString() {

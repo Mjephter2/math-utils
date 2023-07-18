@@ -211,4 +211,12 @@ public class PolynomialTerm {
         }
         return new PolynomialTerm(coefficient / (exponent + 1), varName, exponent + 1);
     }
+
+    public PolynomialTerm deepCopy() {
+        return PolynomialTerm.builder()
+                .coefficient(coefficient)
+                .varName(varName)
+                .exponent(exponent)
+                .build();
+    }
 }

@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static utils.StringUtils.trimTrailingLeadingPlus;
 
@@ -50,7 +51,9 @@ public class PolynomialFunction implements Function {
     public PolynomialFunction(final @NonNull List<PolynomialTerm> pTerms, final @NonNull String funcName, final @NonNull String varName) {
         validate(pTerms, varName);
 
-        this.terms = pTerms;
+        this.terms = new LinkedList<>();
+        pTerms.forEach(this::addTerm);
+
         this.funcName = funcName;
         this.varName = varName;
 
@@ -129,6 +132,7 @@ public class PolynomialFunction implements Function {
             this.terms.add(newTerm);
             this.terms.sort(PolynomialTerm.TERM_COMPARATOR);
         }
+        this.removeZeroTerms();
     }
 
     /**
@@ -364,6 +368,14 @@ public class PolynomialFunction implements Function {
     public double integral(double lowerBound, double upperBound) {
         final Function integral = this.integral();
         return Math.round((integral.evaluate(upperBound) - integral.evaluate(lowerBound)) * 100) / 100.0;
+    }
+
+    public PolynomialFunction deepCopy() {
+        return PolynomialFunction.builder()
+                .varName(this.varName)
+                .funcName(this.funcName)
+                .terms(this.terms.stream().map(PolynomialTerm::deepCopy).collect(Collectors.toList()))
+                .build();
     }
 
     /*
