@@ -12,8 +12,15 @@ import java.util.stream.Collectors;
  */
 public class LinearEquation implements Equation {
 
-    private PolynomialFunction leftSide;
-    private PolynomialFunction rightSide;
+    /**
+     * Left side of the equation.
+     */
+    private final PolynomialFunction leftSide;
+
+    /**
+     * Right side of the equation.
+     */
+    private final PolynomialFunction rightSide;
 
     public LinearEquation(final PolynomialFunction leftSide, final PolynomialFunction rightSide) {
 
@@ -51,7 +58,6 @@ public class LinearEquation implements Equation {
 
     @Override
     public double solve() {
-        // TODO: Implement this method.
         PolynomialFunction leftSideCopy = this.leftSide.deepCopy();
         PolynomialFunction rightSideCopy = this.rightSide.deepCopy();
         LinearEquation equationCopy = new LinearEquation(leftSideCopy, rightSideCopy);
