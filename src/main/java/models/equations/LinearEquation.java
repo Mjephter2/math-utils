@@ -24,6 +24,11 @@ public class LinearEquation implements Equation {
 
     public LinearEquation(final PolynomialFunction leftSide, final PolynomialFunction rightSide) {
 
+        if (leftSide.getTerms().stream().anyMatch(term -> term.getExponent() > 1) ||
+                rightSide.getTerms().stream().anyMatch(term -> term.getExponent() > 1)) {
+            throw new IllegalArgumentException("Invalid degree(s) passed.");
+        }
+
         if (leftSide == null || rightSide == null) {
             throw new IllegalArgumentException("Null argument(s) passed.");
         }
@@ -57,7 +62,7 @@ public class LinearEquation implements Equation {
     }
 
     @Override
-    public double solve() {
+    public Double solve() {
         PolynomialFunction leftSideCopy = this.leftSide.deepCopy();
         PolynomialFunction rightSideCopy = this.rightSide.deepCopy();
         LinearEquation equationCopy = new LinearEquation(leftSideCopy, rightSideCopy);
@@ -89,6 +94,10 @@ public class LinearEquation implements Equation {
 
         final double leftCoefficient = leftSideCopy.getTerms().get(0).getCoefficient();
         final double rightCoefficient = rightSideCopy.getTerms().get(0).getCoefficient();
+
+        if (leftCoefficient == 0 && rightCoefficient != 0) {
+            return null;
+        }
 
         return rightCoefficient / leftCoefficient;
     }
