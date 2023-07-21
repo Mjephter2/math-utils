@@ -24,13 +24,13 @@ public class LinearEquation implements Equation {
 
     public LinearEquation(final PolynomialFunction leftSide, final PolynomialFunction rightSide) {
 
+        if (leftSide == null || rightSide == null) {
+            throw new IllegalArgumentException("Null argument(s) passed.");
+        }
+
         if (leftSide.getTerms().stream().anyMatch(term -> term.getExponent() > 1) ||
                 rightSide.getTerms().stream().anyMatch(term -> term.getExponent() > 1)) {
             throw new IllegalArgumentException("Invalid degree(s) passed.");
-        }
-
-        if (leftSide == null || rightSide == null) {
-            throw new IllegalArgumentException("Null argument(s) passed.");
         }
 
         final int leftSideDegree = Collections.max(leftSide.getTerms()
