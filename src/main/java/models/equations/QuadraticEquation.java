@@ -5,6 +5,8 @@ import models.functions.PolynomialFunction;
 import models.functions.PolynomialTerm;
 
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -12,12 +14,17 @@ import java.util.stream.Collectors;
  */
 public class QuadraticEquation implements Equation {
 
+    /**
+     * Left side of the quadratic equation.
+     */
     public PolynomialFunction leftSide;
+
+    /**
+     * Right side of the quadratic equation.
+     */
     public PolynomialFunction rightSide;
 
     public QuadraticEquation(final PolynomialFunction leftSide, final PolynomialFunction rightSide) {
-        this.leftSide = leftSide;
-        this.rightSide = rightSide;
 
         if (leftSide == null || rightSide == null) {
             throw new IllegalArgumentException("Null argument(s) passed.");
@@ -33,7 +40,7 @@ public class QuadraticEquation implements Equation {
                 .map(PolynomialTerm::getExponent)
                 .collect(Collectors.toList()));
 
-        if (leftSideDegree != 2 || rightSideDegree != 2) {
+        if (leftSideDegree > 2 || rightSideDegree > 2) {
             throw new IllegalArgumentException("Invalid degree(s) passed.");
         }
 
@@ -52,7 +59,46 @@ public class QuadraticEquation implements Equation {
     }
 
     @Override
-    public double solve() {
-        return 0;
+    public Double[] solve() {
+        PolynomialFunction leftSideCopy = this.leftSide.deepCopy();
+        PolynomialFunction rightSideCopy = this.rightSide.deepCopy();
+        QuadraticEquation equationCopy = new QuadraticEquation(leftSideCopy, rightSideCopy);
+
+        System.out.println("Starting to solve quadratic equation: " + equationCopy);
+        System.out.println("Zeroing right side...");
+
+        for (PolynomialTerm term: rightSideCopy.getTerms()) {
+            System.out.println(equationCopy);
+            PolynomialTerm subtractedTerm = new PolynomialTerm(-1 * term.getCoefficient(), term.getVarName(), term.getExponent());
+            leftSideCopy.addTerm(subtractedTerm);
+            rightSideCopy.addTerm(subtractedTerm);
+        }
+        System.out.println(equationCopy);
+
+        final Optional<PolynomialTerm> deg2  = leftSideCopy.getTerms().stream().filter(term -> term.getExponent() == 2).findFirst();
+        final double a = deg2.map(PolynomialTerm::getCoefficient).orElse(0.0);
+
+        final Optional<PolynomialTerm> deg1 = leftSideCopy.getTerms().stream().filter(term -> term.getExponent() == 1).findFirst();
+        final double b = deg1.map(PolynomialTerm::getCoefficient).orElse(0.0);
+
+        final Optional<PolynomialTerm> deg0 = leftSideCopy.getTerms().stream().filter(term -> term.getExponent() == 0).findFirst();
+        final double c = deg0.map(PolynomialTerm::getCoefficient).orElse(0.0);
+
+        final double discriminant = Math.pow(b, 2) - 4 * a * c;
+
+        if (discriminant > 0) {
+            final double x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+            final double x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+            return new Double[]{x1, x2};
+        } else if (discriminant == 0) {
+            final double x = -b / (2 * a);
+            return new Double[]{x};
+        }
+
+        return null;
+    }
+
+    public String toString() {
+        return this.leftSide.printBody() + " = " + this.rightSide.printBody();
     }
 }

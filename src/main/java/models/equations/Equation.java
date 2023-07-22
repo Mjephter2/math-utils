@@ -20,5 +20,5 @@ public interface Equation {
     /**
      * @return the solution of the equation.
      */
-    Double solve();
+    Double[] solve();
 }

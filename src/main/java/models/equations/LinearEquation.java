@@ -62,7 +62,7 @@ public class LinearEquation implements Equation {
     }
 
     @Override
-    public Double solve() {
+    public Double[] solve() {
         PolynomialFunction leftSideCopy = this.leftSide.deepCopy();
         PolynomialFunction rightSideCopy = this.rightSide.deepCopy();
         LinearEquation equationCopy = new LinearEquation(leftSideCopy, rightSideCopy);
@@ -99,7 +99,7 @@ public class LinearEquation implements Equation {
             return null;
         }
 
-        return rightCoefficient / leftCoefficient;
+        return new Double[] { rightCoefficient / leftCoefficient };
     }
 
     public String toString() {
