@@ -2,6 +2,8 @@ package utils;
 
 import lombok.NonNull;
 
+import java.util.Arrays;
+
 /**
  * Utility class for number operations
  */
@@ -49,5 +51,25 @@ public class NumberUtils {
             return b;
         }
         return gcd(b % a, a);
+    }
+
+    /**
+     * Calculates the least common divisor of the given array of numbers
+     * @param sortedNums -> numbers to find lcd of
+     *                   -> must be sorted in ascending order
+     *                   -> must not contain 0
+     * @return the lcd
+     */
+    public static Double lcd(@NonNull final Double[] sortedNums) {
+        double result = 1.0;
+
+        for (double i = 1.0; i < sortedNums[0]; i++) {
+            double finalI = i;
+            if (Arrays.stream(sortedNums).allMatch(num -> num % finalI == 0)) {
+                result = i;
+            }
+        }
+
+        return result;
     }
 }
