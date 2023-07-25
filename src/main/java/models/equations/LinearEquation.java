@@ -43,10 +43,6 @@ public class LinearEquation implements Equation {
                 .map(PolynomialTerm::getExponent)
                 .collect(Collectors.toList()));
 
-        if (leftSideDegree != 1 || rightSideDegree != 1) {
-            throw new IllegalArgumentException("Invalid degree(s) passed.");
-        }
-
         this.leftSide = leftSide;
         this.rightSide = rightSide;
     }
@@ -92,10 +88,10 @@ public class LinearEquation implements Equation {
 
         System.out.println("Dividing left side by coefficient of x...");
 
-        final double leftCoefficient = leftSideCopy.getTerms().get(0).getCoefficient();
-        final double rightCoefficient = rightSideCopy.getTerms().get(0).getCoefficient();
+        final double leftCoefficient = leftSideCopy.getTerms().size() > 0 ? leftSideCopy.getTerms().get(0).getCoefficient() : 0.0;
+        final double rightCoefficient = rightSideCopy.getTerms().size() > 0 ? rightSideCopy.getTerms().get(0).getCoefficient() : 0.0;
 
-        if (leftCoefficient == 0 && rightCoefficient != 0) {
+        if (leftCoefficient == 0.0) {
             return null;
         }
 
