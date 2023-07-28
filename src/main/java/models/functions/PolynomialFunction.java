@@ -400,9 +400,6 @@ public class PolynomialFunction implements Function {
         final StringBuilder rep = new StringBuilder();
 
         for (PolynomialTerm term : this.terms) {
-            if (term.getCoefficient() == 0.0) {
-                continue;
-            }
             rep.append(term.toString(false)).append(" ");
         }
 
@@ -421,9 +418,6 @@ public class PolynomialFunction implements Function {
         final StringBuilder rep = new StringBuilder();
 
         for (PolynomialTerm term : this.terms) {
-            if (term.getCoefficient() == 0.0) {
-                continue;
-            }
             rep.append(term.toString(false)).append(" ");
         }
 

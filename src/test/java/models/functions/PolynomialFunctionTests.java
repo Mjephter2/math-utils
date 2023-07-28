@@ -1,4 +1,4 @@
-package models;
+package models.functions;
 
 import models.functions.PolynomialFunction;
 import models.functions.PolynomialTerm;
