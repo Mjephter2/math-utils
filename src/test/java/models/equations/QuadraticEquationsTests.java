@@ -40,6 +40,9 @@ public class QuadraticEquationsTests {
 
         final QuadraticEquation quadraticEquation = new QuadraticEquation(leftSide, rightSide);
 
+        assertEquals(leftSide, quadraticEquation.leftSide());
+        assertEquals(rightSide, quadraticEquation.rightSide());
+
         final Double[] solution = quadraticEquation.solve();
 
         assertEquals(2, solution.length);
@@ -130,5 +133,81 @@ public class QuadraticEquationsTests {
                 .funcName("f")
                 .varName("x")
                 .build(), null));
+    }
+
+    @Test
+    public void linear_equation_discriminant_zero() {
+        final PolynomialFunction func1 = PolynomialFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .terms(new LinkedList<>(){{
+                    add(PolynomialTerm.builder()
+                            .coefficient(1.0)
+                            .varName("x")
+                            .exponent(2)
+                            .build());
+                    add(PolynomialTerm.builder()
+                            .coefficient(2.0)
+                            .varName("x")
+                            .exponent(1)
+                            .build());
+                }})
+                .build();
+
+        final PolynomialFunction func2 = PolynomialFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .terms(new LinkedList<>(){{
+                    add(PolynomialTerm.builder()
+                            .coefficient(-1.0)
+                            .varName("x")
+                            .exponent(0)
+                            .build());
+                }})
+                .build();
+
+        final QuadraticEquation quadraticEquation = new QuadraticEquation(func1, func2);
+
+        final Double[] solution = quadraticEquation.solve();
+
+        assertEquals(1, solution.length);
+        assertEquals(-1.0, solution[0], 0.0);
+    }
+
+    @Test
+    public void linear_equation_exceptions() {
+        final PolynomialFunction func1 = PolynomialFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .terms(new LinkedList<>(){{
+                    add(PolynomialTerm.builder()
+                            .coefficient(1.0)
+                            .varName("x")
+                            .exponent(3)
+                            .build());
+                    add(PolynomialTerm.builder()
+                            .coefficient(2.0)
+                            .varName("x")
+                            .exponent(1)
+                            .build());
+                }})
+                .build();
+
+        final PolynomialFunction func2 = PolynomialFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .terms(new LinkedList<>(){{
+                    add(PolynomialTerm.builder()
+                            .coefficient(-1.0)
+                            .varName("x")
+                            .exponent(2)
+                            .build());
+                }})
+                .build();
+
+        assertThrows(IllegalArgumentException.class, () -> new QuadraticEquation(null, func1));
+        assertThrows(IllegalArgumentException.class, () -> new QuadraticEquation(func1, null));
+
+        assertThrows(IllegalArgumentException.class, () -> new QuadraticEquation(func1, func2));
     }
 }

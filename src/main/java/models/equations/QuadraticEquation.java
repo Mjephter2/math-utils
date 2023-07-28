@@ -5,7 +5,6 @@ import models.functions.PolynomialFunction;
 import models.functions.PolynomialTerm;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
