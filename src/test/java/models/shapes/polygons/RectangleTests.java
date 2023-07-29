@@ -1,5 +1,6 @@
 package models.shapes.polygons;
 
+import models.shapes.polygons.quadrilaterals.Rectangle;
 import org.junit.Test;
 
 public class RectangleTests {

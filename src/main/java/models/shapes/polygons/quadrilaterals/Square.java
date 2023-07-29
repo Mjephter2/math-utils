@@ -1,9 +1,10 @@
-package models.shapes.polygons;
+package models.shapes.polygons.quadrilaterals;
 
-import java.util.Arrays;
+import models.shapes.polygons.quadrilaterals.Rectangle;
 
 /**
  * Class to represent a square.
+ * A square is a rectangle with all sides equal.
  */
 public class Square extends Rectangle {
 

@@ -1,4 +1,6 @@
-package models.shapes.polygons;
+package models.shapes.polygons.quadrilaterals;
+
+import models.shapes.polygons.Polygon;
 
 /**
  * Class to represent a rectangle.
