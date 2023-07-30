@@ -61,15 +61,13 @@ public class NumberUtils {
      * @return the lcd
      */
     public static Double lcd(@NonNull final Double[] sortedNums) {
-        double result = 1.0;
-
-        for (double i = 1.0; i < sortedNums[0]; i++) {
+        for (double i = 2.0; i < sortedNums[0]; i++) {
             double finalI = i;
             if (Arrays.stream(sortedNums).allMatch(num -> num % finalI == 0)) {
-                result = i;
+                return i;
             }
         }
 
-        return result;
+        return 1.0;
     }
 }
