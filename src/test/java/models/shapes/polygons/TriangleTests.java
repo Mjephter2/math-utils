@@ -8,7 +8,7 @@ public class TriangleTests {
 
     @Test
     public void triangle_succeeds() {
-        final Triangle triangle = new Triangle(new double[]{3, 4, 5});
+        final Polygon triangle = new Triangle(new double[]{3, 4, 5});
 
         assertEquals(6.0, triangle.area());
         assertEquals(12.0, triangle.perimeter());
@@ -22,6 +22,8 @@ public class TriangleTests {
         assertEquals(36.87, triangle.angles()[0]);
         assertEquals(53.13, triangle.angles()[1]);
         assertEquals(90.0, triangle.angles()[2]);
+
+        assertEquals(180.0, triangle.anglesSum());
     }
 
     @Test

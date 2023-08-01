@@ -7,7 +7,7 @@ public class SquareTests {
 
     @Test
     public void square_test_succeeds() {
-        final Square square = new Square(2);
+        final Polygon square = new Square(2);
 
         assert square.area() == 4;
         assert square.perimeter() == 8;
@@ -23,5 +23,7 @@ public class SquareTests {
         assert square.angles()[1] == 90;
         assert square.angles()[2] == 90;
         assert square.angles()[3] == 90;
+
+        assert square.anglesSum() == 360;
     }
 }

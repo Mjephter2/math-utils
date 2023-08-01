@@ -7,7 +7,7 @@ public class RectangleTests {
 
     @Test
     public void test() {
-        final Rectangle rectangle = new Rectangle(2, 3);
+        final Polygon rectangle = new Rectangle(2, 3);
 
         assert rectangle.area() == 6;
         assert rectangle.perimeter() == 10;
@@ -23,5 +23,7 @@ public class RectangleTests {
         assert rectangle.angles()[1] == 90;
         assert rectangle.angles()[2] == 90;
         assert rectangle.angles()[3] == 90;
+
+        assert rectangle.anglesSum() == 360;
     }
 }
