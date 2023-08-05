@@ -3,8 +3,11 @@ package models.equations;
 import models.functions.Function;
 import models.functions.PolynomialFunction;
 import models.functions.PolynomialTerm;
+import models.inequalities.InequalityType;
+import models.inequalities.LinearInequality;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 /**

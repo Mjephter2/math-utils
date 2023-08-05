@@ -2,6 +2,7 @@ package models.inequalities;
 
 import com.google.common.collect.Range;
 
+import lombok.Builder;
 import lombok.Getter;
 import models.equations.LinearEquation;
 import models.functions.Function;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
  * Class representing an inequality
  */
 @Getter
+@Builder
 public class LinearInequality {
 
     private InequalityType type;
@@ -84,6 +86,8 @@ public class LinearInequality {
             leftSideCopy.getTerms().get(0).setCoefficient(1.0);
             System.out.println(linearInequality);
         }
+
+        // TODO: Handle cases where leftSide is 0 when reduced
 
         if (linearInequality.type == InequalityType.LESS_THAN) {
             return Range.lessThan(rightSideCopy.getTerms().get(0).getCoefficient());
