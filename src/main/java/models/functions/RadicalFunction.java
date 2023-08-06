@@ -1,7 +1,10 @@
 package models.functions;
 
 import com.google.common.collect.Range;
+
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import models.inequalities.InequalityType;
 import models.inequalities.LinearInequality;
 
@@ -13,6 +16,8 @@ import java.util.Collections;
  * TODO: Implement nth root
  */
 @Getter
+@Setter
+@Builder
 public class RadicalFunction implements Function {
 
     private static final String SQUARE_ROOT = "√";
@@ -74,5 +79,15 @@ public class RadicalFunction implements Function {
         rep.append(((PolynomialFunction) function).printBody());
         rep.append(")");
         return rep.toString();
+    }
+
+    @Override
+    public String getFuncName() {
+        return this.function.getFuncName();
+    }
+
+    @Override
+    public String getVarName() {
+        return this.function.getVarName();
     }
 }

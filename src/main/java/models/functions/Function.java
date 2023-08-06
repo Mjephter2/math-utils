@@ -7,6 +7,16 @@ import com.google.common.collect.Range;
  */
 public interface Function {
 
+    /*
+     * Returns the name of the function
+     */
+    String getFuncName();
+
+    /*
+     * Returns the name of the independent variable of the function
+     */
+    String getVarName();
+
     /**
      * Returns the domain of the function
      */
