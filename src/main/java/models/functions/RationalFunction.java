@@ -1,0 +1,65 @@
+package models.functions;
+
+import com.google.common.collect.Range;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+/**
+ * Class implementing a Rational function
+ */
+@Getter
+@AllArgsConstructor
+public class RationalFunction implements Function {
+
+    final Function numerator;
+    final Function denominator;
+    final String funcName;
+    final String varName;
+
+    @Override
+    public String getFuncName() {
+        return this.funcName;
+    }
+
+    @Override
+    public String getVarName() {
+        return this.varName;
+    }
+
+    @Override
+    public Range<Double> getDomain() {
+        // TODO
+        throw new UnsupportedOperationException("Unimplemented method 'getDomain'");
+    }
+
+    @Override
+    public Range<Double> getRange() {
+        // TODO
+        throw new UnsupportedOperationException("Unimplemented method 'getRange'");
+    }
+
+    @Override
+    public double evaluate(Double... values) {
+        return numerator.evaluate(values) / denominator.evaluate(values);
+    }
+
+    @Override
+    public Function derivative() {
+        // TODO
+        throw new UnsupportedOperationException("Unimplemented method 'derivative'");
+    }
+
+    @Override
+    public Function integral() {
+        // TODO
+        throw new UnsupportedOperationException("Unimplemented method 'integral'");
+    }
+    @Override
+    public double integral(double lowerBound, double upperBound) {
+        // TODO
+        throw new UnsupportedOperationException("Unimplemented method 'integral'");
+    }
+
+
+}
