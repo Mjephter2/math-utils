@@ -29,8 +29,7 @@ public class RationalFunction implements Function {
 
     @Override
     public Range<Double> getDomain() {
-        // TODO
-        throw new UnsupportedOperationException("Unimplemented method 'getDomain'");
+        return denominator.getDomain().intersection(numerator.getDomain());
     }
 
     @Override
@@ -60,6 +59,4 @@ public class RationalFunction implements Function {
         // TODO
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
-
-
 }
