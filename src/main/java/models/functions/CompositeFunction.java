@@ -3,7 +3,9 @@ package models.functions;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -13,9 +15,11 @@ import lombok.Getter;
  */
 @Builder
 @Getter
-public class CompositeFunction {
+public class CompositeFunction implements Function {
 
     private final String funcName;
+
+    private String varName;
 
     private final List<PolynomialFunction> polynomialFactors;
 
@@ -70,6 +74,52 @@ public class CompositeFunction {
                 .build();
     }
 
+    @Override
+    public String getVarName() {
+        return this.varName;
+    }
+
+    @Override
+    public Range<Double> getDomain() {
+        return Stream.of(this.polynomialFactors, this.radicalFactors)
+                .flatMap(List::stream)
+                .map(Function::getDomain)
+                .reduce(Range::intersection)
+                .orElse(null);
+    }
+
+    @Override
+    public Range<Double> getRange() {
+        // TODO: Implement
+        return null;
+    }
+
+    @Override
+    public double evaluate(Double... values) {
+        return Stream.of(this.polynomialFactors, this.radicalFactors)
+                .flatMap(List::stream)
+                .mapToDouble(func -> func.evaluate(values))
+                .reduce(1, (a, b) -> a * b);
+    }
+
+    @Override
+    public Function derivative() {
+        // TODO: Implement
+        return null;
+    }
+
+    @Override
+    public Function integral() {
+        // TODO: Implement
+        return null;
+    }
+
+    @Override
+    public double integral(double lowerBound, double upperBound) {
+        // TODO: Implement
+        return 0;
+    }
+
     /**
      * Returns a string representation of the composite function
      */
@@ -77,11 +127,11 @@ public class CompositeFunction {
         final StringBuilder stringBuilder = new StringBuilder(this.funcName + " =");
 
         for (final PolynomialFunction polynomialFunction : this.polynomialFactors) {
-            stringBuilder.append(" ( " + polynomialFunction.printBody() + " )");
+            stringBuilder.append(" ( ").append(polynomialFunction.printBody()).append(" )");
         }
 
         for (final RadicalFunction radicalFunction : this.radicalFactors) {
-            stringBuilder.append(" " + radicalFunction.toString() + " ");
+            stringBuilder.append(" ").append(radicalFunction.toString()).append(" ");
         }
 
         return stringBuilder.toString();
