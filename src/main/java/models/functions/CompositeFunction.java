@@ -103,13 +103,13 @@ public class CompositeFunction implements Function {
     }
 
     @Override
-    public Function derivative() {
+    public CompositeFunction derivative() {
         // TODO: Implement
         return null;
     }
 
     @Override
-    public Function integral() {
+    public CompositeFunction integral() {
         // TODO: Implement
         return null;
     }

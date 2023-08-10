@@ -2,9 +2,11 @@ package models.functions;
 
 import com.google.common.collect.Range;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class implementing a Complex function.
@@ -12,6 +14,7 @@ import java.util.List;
  */
 @Getter
 @AllArgsConstructor
+@Builder
 public class ComplexFunction implements Function {
 
     final String funcName;
@@ -52,20 +55,29 @@ public class ComplexFunction implements Function {
     }
 
     @Override
-    public Function derivative() {
-        // TODO: implement
-        return null;
+    public ComplexFunction derivative() {
+        return ComplexFunction.builder()
+                .funcName(this.funcName)
+                .varName(this.varName)
+                .functions(this.functions.stream()
+                        .map(CompositeFunction::derivative).collect(Collectors.toList()))
+                .build();
     }
 
     @Override
-    public Function integral() {
-        // TODO: implement
-        return null;
+    public ComplexFunction integral() {
+        return ComplexFunction.builder()
+                .funcName(this.funcName)
+                .varName(this.varName)
+                .functions(this.functions.stream()
+                        .map(CompositeFunction::integral).collect(Collectors.toList()))
+                .build();
     }
 
     @Override
     public double integral(double lowerBound, double upperBound) {
-        // TODO: implement
-        return 0;
+        return functions.stream()
+                .mapToDouble(func -> func.integral(lowerBound, upperBound))
+                .sum();
     }
 }
