@@ -49,6 +49,11 @@ public interface Function {
     double integral(final double lowerBound, final double upperBound);
 
     /**
+     * Returns the limit of the function as it approaches the given value
+     */
+    double limit(final double value);
+
+    /**
      * Returns the string representation of the function
      */
     String toString();

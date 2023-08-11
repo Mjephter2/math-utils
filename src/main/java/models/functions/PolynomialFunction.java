@@ -370,6 +370,11 @@ public class PolynomialFunction implements Function {
         return Math.round((integral.evaluate(upperBound) - integral.evaluate(lowerBound)) * 100) / 100.0;
     }
 
+    @Override
+    public double limit(double value) {
+        throw new UnsupportedOperationException("Unimplemented method 'limit'");
+    }
+
     public PolynomialFunction deepCopy() {
         return PolynomialFunction.builder()
                 .varName(this.varName)

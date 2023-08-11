@@ -120,6 +120,11 @@ public class CompositeFunction implements Function {
         return 0;
     }
 
+    @Override
+    public double limit(double value) {
+        throw new UnsupportedOperationException("Unimplemented method 'limit'");
+    }
+
     /**
      * Returns a string representation of the composite function
      */

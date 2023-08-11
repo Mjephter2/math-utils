@@ -74,6 +74,11 @@ public class RadicalFunction implements Function {
     }
 
     @Override
+    public double limit(double value) {
+        throw new UnsupportedOperationException("Unimplemented method 'limit'");
+    }
+
+    @Override
     public String toString() {
         final StringBuilder rep = new StringBuilder(SQUARE_ROOT + "(");
         rep.append(((PolynomialFunction) function).printBody());

@@ -59,4 +59,9 @@ public class RationalFunction implements Function {
         // TODO
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
+
+    @Override
+    public double limit(double value) {
+        throw new UnsupportedOperationException("Unimplemented method 'limit'");
+    }
 }

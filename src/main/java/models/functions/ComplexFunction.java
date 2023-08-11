@@ -80,4 +80,9 @@ public class ComplexFunction implements Function {
                 .mapToDouble(func -> func.integral(lowerBound, upperBound))
                 .sum();
     }
+
+    @Override
+    public double limit(double value) {
+        throw new UnsupportedOperationException("Unimplemented method 'limit'");
+    }
 }
