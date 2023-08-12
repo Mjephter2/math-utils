@@ -83,6 +83,8 @@ public class ComplexFunction implements Function {
 
     @Override
     public double limit(double value) {
-        throw new UnsupportedOperationException("Unimplemented method 'limit'");
+        return functions.stream()
+                .mapToDouble(func -> func.limit(value))
+                .sum();
     }
 }

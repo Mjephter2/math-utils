@@ -372,7 +372,7 @@ public class PolynomialFunction implements Function {
 
     @Override
     public double limit(double value) {
-        throw new UnsupportedOperationException("Unimplemented method 'limit'");
+        return this.evaluate(value);
     }
 
     public PolynomialFunction deepCopy() {

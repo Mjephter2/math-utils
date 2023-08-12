@@ -122,7 +122,10 @@ public class CompositeFunction implements Function {
 
     @Override
     public double limit(double value) {
-        throw new UnsupportedOperationException("Unimplemented method 'limit'");
+        return Stream.of(this.polynomialFactors, this.radicalFactors)
+                .flatMap(List::stream)
+                .mapToDouble(func -> func.limit(value))
+                .reduce(1, (a, b) -> a * b);
     }
 
     /**
