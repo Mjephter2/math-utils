@@ -75,15 +75,12 @@ public class RadicalFunction implements Function {
 
     @Override
     public double limit(double value) {
-        throw new UnsupportedOperationException("Unimplemented method 'limit'");
+        return Math.pow(function.limit(value), exponent);
     }
 
     @Override
     public String toString() {
-        final StringBuilder rep = new StringBuilder(SQUARE_ROOT + "(");
-        rep.append(((PolynomialFunction) function).printBody());
-        rep.append(")");
-        return rep.toString();
+        return SQUARE_ROOT + "(" + ((PolynomialFunction) function).printBody() + ")";
     }
 
     @Override
