@@ -411,6 +411,7 @@ public class PolynomialFunction implements Function {
         return (repPreffix + trimTrailingLeadingPlus(rep.toString())).trim() + (isIntegral ? " + C" : "");
     }
 
+    @Override
     public String printBody() {
         if (isZeroFunction() || this.terms.isEmpty()) {
             return "0.0";

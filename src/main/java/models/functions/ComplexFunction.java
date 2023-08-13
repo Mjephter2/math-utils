@@ -87,4 +87,11 @@ public class ComplexFunction implements Function {
                 .mapToDouble(func -> func.limit(value))
                 .sum();
     }
+
+    @Override
+    public String printBody() {
+        return functions.stream()
+                .map(CompositeFunction::printBody)
+                .collect(Collectors.joining(" + "));
+    }
 }

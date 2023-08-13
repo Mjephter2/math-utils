@@ -64,4 +64,13 @@ public class RationalFunction implements Function {
     public double limit(double value) {
         throw new UnsupportedOperationException("Unimplemented method 'limit'");
     }
+
+    public String toString() {
+        return this.funcName + " = ( " + this.numerator.printBody() + " ) / ( " + this.denominator.printBody() + " )";
+    }
+
+    @Override
+    public String printBody() {
+        return "( " + this.numerator.printBody() + " ) / ( " + this.denominator.printBody() + " )";
+    }
 }

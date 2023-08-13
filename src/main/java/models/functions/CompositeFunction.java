@@ -144,4 +144,12 @@ public class CompositeFunction implements Function {
 
         return stringBuilder.toString();
     }
+
+    @Override
+    public String printBody() {
+        return Stream.of(this.polynomialFactors, this.radicalFactors)
+                .flatMap(List::stream)
+                .map(Function::printBody)
+                .collect(Collectors.joining(" * "));
+    }
 }

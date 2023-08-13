@@ -57,4 +57,9 @@ public interface Function {
      * Returns the string representation of the function
      */
     String toString();
+
+    /*
+     * Returns only the function's expression
+     */
+    String printBody();
 }
