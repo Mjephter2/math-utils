@@ -132,10 +132,15 @@ public class CompositeFunction implements Function {
      * Returns a string representation of the composite function
      */
     public String toString() {
-        final StringBuilder stringBuilder = new StringBuilder(this.funcName + " =");
+        return this.funcName + "( " + this.varName + " )" + " = " + this.printBody();
+    }
+
+    @Override
+    public String printBody() {
+        final StringBuilder stringBuilder = new StringBuilder();
 
         for (final PolynomialFunction polynomialFunction : this.polynomialFactors) {
-            stringBuilder.append(" ( ").append(polynomialFunction.printBody()).append(" )");
+            stringBuilder.append("( ").append(polynomialFunction.printBody()).append(" )");
         }
 
         for (final RadicalFunction radicalFunction : this.radicalFactors) {
@@ -143,13 +148,5 @@ public class CompositeFunction implements Function {
         }
 
         return stringBuilder.toString();
-    }
-
-    @Override
-    public String printBody() {
-        return Stream.of(this.polynomialFactors, this.radicalFactors)
-                .flatMap(List::stream)
-                .map(Function::printBody)
-                .collect(Collectors.joining(" * "));
     }
 }

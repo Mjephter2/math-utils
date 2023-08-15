@@ -66,7 +66,7 @@ public class RationalFunction implements Function {
     }
 
     public String toString() {
-        return this.funcName + " = ( " + this.numerator.printBody() + " ) / ( " + this.denominator.printBody() + " )";
+        return this.funcName + " = " + this.printBody();
     }
 
     @Override

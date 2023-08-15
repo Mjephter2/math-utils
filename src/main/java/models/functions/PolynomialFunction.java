@@ -388,7 +388,7 @@ public class PolynomialFunction implements Function {
      */
     public String toString(final boolean isIntegral) {
         if (isZeroFunction() || this.terms.isEmpty()) {
-            return "0.0";
+            return this.funcName + "(" + this.varName + ") = 0.0";
         }
 
         String repPreffix = "";

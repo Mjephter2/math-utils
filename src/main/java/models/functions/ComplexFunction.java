@@ -94,4 +94,8 @@ public class ComplexFunction implements Function {
                 .map(CompositeFunction::printBody)
                 .collect(Collectors.joining(" + "));
     }
+
+    public String toString() {
+        return this.funcName + "( " + this.varName + " )" + " = " + this.printBody();
+    }
 }
