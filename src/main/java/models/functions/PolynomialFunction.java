@@ -411,6 +411,10 @@ public class PolynomialFunction implements Function {
         return (repPreffix + trimTrailingLeadingPlus(rep.toString())).trim() + (isIntegral ? " + C" : "");
     }
 
+    public String toString() {
+        return this.printFunc();
+    }
+
     @Override
     public String printBody() {
         if (isZeroFunction() || this.terms.isEmpty()) {

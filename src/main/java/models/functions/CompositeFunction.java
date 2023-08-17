@@ -132,7 +132,7 @@ public class CompositeFunction implements Function {
      * Returns a string representation of the composite function
      */
     public String toString() {
-        return this.funcName + "( " + this.varName + " )" + " = " + this.printBody();
+        return this.printFunc();
     }
 
     @Override

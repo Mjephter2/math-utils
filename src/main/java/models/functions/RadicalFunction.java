@@ -80,9 +80,7 @@ public class RadicalFunction implements Function {
 
     @Override
     public String toString() {
-        return  this.function.getFuncName() +
-                " ( " + this.function.getVarName() +  " ) "
-                + SQUARE_ROOT + "(" + function.printBody() + ")";
+        return this.printFunc();
     }
 
     @Override

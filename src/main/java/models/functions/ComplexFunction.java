@@ -96,6 +96,6 @@ public class ComplexFunction implements Function {
     }
 
     public String toString() {
-        return this.funcName + "( " + this.varName + " )" + " = " + this.printBody();
+        return this.printFunc();
     }
 }
