@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.google.common.collect.Range;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,6 +16,7 @@ import lombok.Getter;
  */
 @Builder
 @Getter
+@AllArgsConstructor
 public class CompositeFunction implements Function {
 
     private final String funcName;

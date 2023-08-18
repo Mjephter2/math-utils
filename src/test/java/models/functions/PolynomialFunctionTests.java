@@ -301,7 +301,7 @@ public class PolynomialFunctionTests {
         assertEquals("S(x) = 3.2x³ + 3.1x² + 3.3x", func3.toString(false));
 
         PolynomialFunction zeroFunc = functionSample1().get(3);
-        assertEquals("0.0", zeroFunc.toString(false));
+        assertEquals("S(x) = 0.0", zeroFunc.toString(false));
     }
 
     private List<PolynomialFunction> functionSample1() {
