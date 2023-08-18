@@ -62,6 +62,7 @@ public class RationalFunction implements Function {
 
     @Override
     public double limit(double value) {
+        // TODO
         throw new UnsupportedOperationException("Unimplemented method 'limit'");
     }
 

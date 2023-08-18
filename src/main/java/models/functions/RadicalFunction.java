@@ -58,19 +58,19 @@ public class RadicalFunction implements Function {
     @Override
     public Function derivative() {
         // TODO: Implement
-        return null;
+        throw new UnsupportedOperationException("Unimplemented method 'derivative'");
     }
 
     @Override
     public Function integral() {
         // TODO: Implement
-        return null;
+        throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 
     @Override
     public double integral(double lowerBound, double upperBound) {
         // TODO: Implement
-        return 0;
+        throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 
     @Override
