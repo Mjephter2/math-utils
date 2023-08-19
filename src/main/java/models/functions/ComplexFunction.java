@@ -43,8 +43,10 @@ public class ComplexFunction implements Function {
 
     @Override
     public Range<Double> getRange() {
-        // TODO: implement
-        return null;
+        return functions.stream()
+                .map(CompositeFunction::getRange)
+                .reduce(Range::intersection)
+                .orElse(null);
     }
 
     @Override

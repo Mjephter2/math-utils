@@ -94,7 +94,7 @@ public class PolynomialFunction implements Function {
             int index = polynomialString.indexOf(part, latestIndex);
             latestIndex = index;
             final String sign = index == 0 ? "+" : polynomialString.substring(latestIndex - 1, latestIndex);
-            if (cleaned.length() > 0) {
+            if (!cleaned.isEmpty()) {
                 func.addTerm(PolynomialTerm.from(sign + " " + cleaned, varName));
             }
         }
@@ -391,15 +391,15 @@ public class PolynomialFunction implements Function {
             return this.funcName + "(" + this.varName + ") = 0.0";
         }
 
-        String repPreffix = "";
+        String repPrefix;
         if (isIntegral) {
-            repPreffix = this.funcName +  "(" + this.varName + ")d" + this.varName + " = ";
+            repPrefix = this.funcName +  "(" + this.varName + ")d" + this.varName + " = ";
         } else {
-            repPreffix = this.funcName + "(" + this.varName + ") = ";
+            repPrefix = this.funcName + "(" + this.varName + ") = ";
         }
 
         if (this.terms.size() == 1) {
-            return repPreffix + this.terms.get(0).toString(true) + (isIntegral ? " + C" : "");
+            return repPrefix + this.terms.get(0).toString(true) + (isIntegral ? " + C" : "");
         }
 
         final StringBuilder rep = new StringBuilder();
@@ -408,7 +408,7 @@ public class PolynomialFunction implements Function {
             rep.append(term.toString(false)).append(" ");
         }
 
-        return (repPreffix + trimTrailingLeadingPlus(rep.toString())).trim() + (isIntegral ? " + C" : "");
+        return (repPrefix + trimTrailingLeadingPlus(rep.toString())).trim() + (isIntegral ? " + C" : "");
     }
 
     public String toString() {
