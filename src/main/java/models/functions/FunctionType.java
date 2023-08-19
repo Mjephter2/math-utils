@@ -1,8 +1,11 @@
 package models.functions;
 
+import lombok.Getter;
+
 /**
  * Represents the type of mathematical function
  */
+@Getter
 public enum FunctionType {
 
     POLYNOMIAL("Polynomial"),
@@ -19,10 +22,6 @@ public enum FunctionType {
 
     FunctionType(final String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return this.name;
     }
 
     public static FunctionType fromString(final String name) {
