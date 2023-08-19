@@ -34,6 +34,11 @@ public class ComplexFunction implements Function {
     }
 
     @Override
+    public FunctionType getFuncType() {
+        return FunctionType.OTHER;
+    }
+
+    @Override
     public Range<Double> getDomain() {
         return functions.stream()
                 .map(CompositeFunction::getDomain)

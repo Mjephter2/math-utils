@@ -97,4 +97,9 @@ public class RadicalFunction implements Function {
     public String getVarName() {
         return this.function.getVarName();
     }
+
+    @Override
+    public FunctionType getFuncType() {
+        return FunctionType.RADICAL;
+    }
 }

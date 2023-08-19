@@ -18,6 +18,11 @@ public interface Function {
     String getVarName();
 
     /**
+     * Returns the type of the function
+     */
+    FunctionType getFuncType();
+
+    /**
      * Returns the domain of the function
      */
     Range<Double> getDomain();

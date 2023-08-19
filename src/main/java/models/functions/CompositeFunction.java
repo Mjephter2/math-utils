@@ -82,6 +82,11 @@ public class CompositeFunction implements Function {
     }
 
     @Override
+    public FunctionType getFuncType() {
+        return FunctionType.OTHER;
+    }
+
+    @Override
     public Range<Double> getDomain() {
         return Stream.of(this.polynomialFactors, this.radicalFactors)
                 .flatMap(List::stream)

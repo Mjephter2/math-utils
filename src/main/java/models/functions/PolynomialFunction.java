@@ -304,6 +304,11 @@ public class PolynomialFunction implements Function {
     }
 
     @Override
+    public FunctionType getFuncType() {
+        return FunctionType.POLYNOMIAL;
+    }
+
+    @Override
     public Range<Double> getDomain() {
         return Range.all();
     }

@@ -28,6 +28,11 @@ public class RationalFunction implements Function {
     }
 
     @Override
+    public FunctionType getFuncType() {
+        return FunctionType.RATIONAL;
+    }
+
+    @Override
     public Range<Double> getDomain() {
         return denominator.getDomain().intersection(numerator.getDomain());
     }
