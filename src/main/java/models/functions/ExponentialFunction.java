@@ -81,4 +81,14 @@ public class ExponentialFunction implements Function {
     public String printBody() {
         return String.format("%f^%s", base, exponent.printFunc());
     }
+
+    @Override
+    public Function deepCopy() {
+        return ExponentialFunction.builder()
+                .funcName(this.funcName)
+                .varName(this.varName)
+                .base(this.base)
+                .exponent(this.exponent.deepCopy())
+                .build();
+    }
 }

@@ -89,6 +89,11 @@ public class RadicalFunction implements Function {
     }
 
     @Override
+    public Function deepCopy() {
+        return new RadicalFunction(function.deepCopy());
+    }
+
+    @Override
     public String getFuncName() {
         return this.function.getFuncName();
     }

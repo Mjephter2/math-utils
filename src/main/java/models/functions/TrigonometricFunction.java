@@ -65,8 +65,20 @@ public class TrigonometricFunction implements Function {
 
     @Override
     public Function derivative() {
-        // TODO: Implement
-        throw new UnsupportedOperationException("Unimplemented method 'derivative'");
+        return new CompositeFunction(this.funcName, Stream.of(
+                innerFunction.derivative(),
+                PolynomialFunction.builder()
+                        .terms(new LinkedList<>() {{
+                            add(PolynomialTerm.builder()
+                                    .varName(innerFunction.getVarName())
+                                    .coefficient(-1)
+                                    .exponent(1)
+                                    .build());
+                        }})
+                        .funcName(this.funcName)
+                        .varName(this.varName)
+                        .build()
+        ).collect(Collectors.toList()));
     }
 
     @Override
@@ -90,5 +102,15 @@ public class TrigonometricFunction implements Function {
     @Override
     public String printBody() {
         return TrigonometricFunctionType.toShortName(trigonometricFunctionType) + "(" + innerFunction.printBody() + ")";
+    }
+
+    @Override
+    public Function deepCopy() {
+        return TrigonometricFunction.builder()
+                .funcName(this.funcName)
+                .varName(this.varName)
+                .trigonometricFunctionType(this.trigonometricFunctionType)
+                .innerFunction(this.innerFunction.deepCopy())
+                .build();
     }
 }

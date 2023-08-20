@@ -102,6 +102,18 @@ public class ComplexFunction implements Function {
                 .collect(Collectors.joining(" + "));
     }
 
+    @Override
+    public Function deepCopy() {
+        return ComplexFunction.builder()
+                .funcName(this.funcName)
+                .varName(this.varName)
+                .functions(this.functions.stream()
+                        .map(CompositeFunction::deepCopy)
+                        .map(CompositeFunction.class::cast)
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
     public String toString() {
         return this.printFunc();
     }

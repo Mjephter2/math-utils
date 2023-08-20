@@ -69,4 +69,9 @@ public interface Function {
      * Returns only the function's expression
      */
     String printBody();
+
+    /*
+     * Returns a deep copy of the function
+     */
+    Function deepCopy();
 }

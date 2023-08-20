@@ -79,4 +79,9 @@ public class RationalFunction implements Function {
     public String printBody() {
         return "( " + this.numerator.printBody() + " ) / ( " + this.denominator.printBody() + " )";
     }
+
+    @Override
+    public Function deepCopy() {
+        return new RationalFunction(this.numerator.deepCopy(), this.denominator.deepCopy(), this.funcName, this.varName);
+    }
 }

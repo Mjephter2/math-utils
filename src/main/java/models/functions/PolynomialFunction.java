@@ -380,6 +380,7 @@ public class PolynomialFunction implements Function {
         return this.evaluate(value);
     }
 
+    @Override
     public PolynomialFunction deepCopy() {
         return PolynomialFunction.builder()
                 .varName(this.varName)

@@ -156,4 +156,19 @@ public class CompositeFunction implements Function {
 
         return stringBuilder.toString();
     }
+
+    @Override
+    public Function deepCopy() {
+        return CompositeFunction.builder()
+                .funcName(this.funcName)
+                .polynomialFactors(this.polynomialFactors.stream()
+                        .map(PolynomialFunction::deepCopy)
+                        .map(PolynomialFunction.class::cast)
+                        .collect(Collectors.toList()))
+                .radicalFactors(this.radicalFactors.stream()
+                        .map(RadicalFunction::deepCopy)
+                        .map(RadicalFunction.class::cast)
+                        .collect(Collectors.toList()))
+                .build();
+    }
 }
