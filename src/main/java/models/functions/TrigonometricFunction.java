@@ -63,22 +63,32 @@ public class TrigonometricFunction implements Function {
     }
 
     @Override
+    // Only implemented for cosine and sine
     public Function derivative() {
-        return new CompositeFunction(this.funcName, Stream.of(
-                PolynomialFunction.builder()
-                        .terms(new LinkedList<>() {{
-                            add(PolynomialTerm.builder()
-                                    .varName(innerFunction.getVarName())
-                                    .coefficient(-1)
-                                    .exponent(1)
-                                    .build());
-                        }})
-                        .funcName(this.funcName)
-                        .varName(this.varName)
-                        .build(),
-                innerFunction.derivative(),
-                innerFunction.deepCopy()
-        ).collect(Collectors.toList()));
+        if (this.trigonometricFunctionType == COSINE) {
+            return new CompositeFunction(this.funcName, Stream.of(
+                    PolynomialFunction.builder()
+                            .terms(new LinkedList<>() {{
+                                add(PolynomialTerm.builder()
+                                        .varName(innerFunction.getVarName())
+                                        .coefficient(-1)
+                                        .exponent(1)
+                                        .build());
+                            }})
+                            .funcName(this.funcName)
+                            .varName(this.varName)
+                            .build(),
+                    innerFunction.derivative(),
+                    innerFunction.deepCopy()
+            ).collect(Collectors.toList()));
+        } else if (this.trigonometricFunctionType == SINE) {
+            return new CompositeFunction(this.funcName, Stream.of(
+                    innerFunction.derivative(),
+                    innerFunction.deepCopy()
+            ).collect(Collectors.toList()));
+        };
+
+        throw new UnsupportedOperationException("Unimplemented method 'derivative'");
     }
 
     @Override
