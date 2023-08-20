@@ -3,6 +3,7 @@ package models.functions;
 import com.google.common.collect.Range;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 /**
@@ -10,6 +11,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
+@Builder
 public class RationalFunction implements Function {
 
     final Function numerator;

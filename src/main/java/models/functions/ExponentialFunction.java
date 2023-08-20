@@ -3,6 +3,7 @@ package models.functions;
 import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
+import utils.NumberUtils;
 
 import java.util.LinkedList;
 import java.util.stream.Collectors;
@@ -27,7 +28,7 @@ public class ExponentialFunction implements Function {
 
     @Override
     public Range<Double> getDomain() {
-        return exponent.getDomain();
+        return Range.closedOpen(0.0, Double.POSITIVE_INFINITY);
     }
 
     @Override
@@ -44,18 +45,19 @@ public class ExponentialFunction implements Function {
     // This implementation assumes that the base is a constant
     public Function derivative() {
         return new CompositeFunction(this.funcName, Stream.of(
-                exponent.derivative(),
                 PolynomialFunction.builder()
                         .terms(new LinkedList<>() {{
                             add(PolynomialTerm.builder()
                                     .varName(exponent.getVarName())
                                     .coefficient(Math.log(base))
-                                    .exponent(1)
+                                    .exponent(0)
                                     .build());
                         }})
                         .funcName(this.funcName)
                         .varName(this.varName)
-                        .build()
+                        .build(),
+                exponent.derivative(),
+                this.deepCopy()
         ).collect(Collectors.toList()));
     }
 
@@ -79,7 +81,7 @@ public class ExponentialFunction implements Function {
 
     @Override
     public String printBody() {
-        return String.format("%f^%s", base, exponent.printFunc());
+        return String.format("%s^(%s)", NumberUtils.round(base, 2), exponent.printBody());
     }
 
     @Override

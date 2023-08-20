@@ -10,10 +10,6 @@ import java.util.stream.Stream;
 
 import static models.functions.TrigonometricFunctionType.COSINE;
 import static models.functions.TrigonometricFunctionType.SINE;
-import static models.functions.TrigonometricFunctionType.TANGENT;
-import static models.functions.TrigonometricFunctionType.COTANGENT;
-import static models.functions.TrigonometricFunctionType.SECANT;
-import static models.functions.TrigonometricFunctionType.COSECANT;
 
 /**
  * Represents a trigonometric function

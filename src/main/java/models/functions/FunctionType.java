@@ -8,6 +8,7 @@ import lombok.Getter;
 @Getter
 public enum FunctionType {
 
+    CONSTANT("Constant"),
     POLYNOMIAL("Polynomial"),
     TRIGONOMETRIC("Trigonometric"),
     EXPONENTIAL("Exponential"),

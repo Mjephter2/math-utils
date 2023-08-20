@@ -27,8 +27,11 @@ public class CompositeFunction implements Function {
 
     private final List<RadicalFunction> radicalFactors;
 
+    private final List<ExponentialFunction> exponentialFunctions;
+
     public CompositeFunction(final String funcName, final List<Function> compositeFactors) {
         this.funcName = funcName;
+        this.varName = compositeFactors.get(0).getVarName();
 
         this.polynomialFactors = compositeFactors.stream()
                 .filter(PolynomialFunction.class::isInstance)
@@ -40,15 +43,21 @@ public class CompositeFunction implements Function {
                 .map(RadicalFunction.class::cast)
                 .collect(Collectors.toList());
 
-        if (polynomialFactors.size() + radicalFactors.size() != compositeFactors.size()) {
+        this.exponentialFunctions = compositeFactors.stream()
+                .filter(ExponentialFunction.class::isInstance)
+                .map(ExponentialFunction.class::cast)
+                .collect(Collectors.toList());
+
+        if (polynomialFactors.size() + radicalFactors.size() + exponentialFunctions.size() != compositeFactors.size()) {
             throw new IllegalArgumentException("Composite functions is only implemented for polynomial and radical functions");
         }
     }
 
-    public CompositeFunction(final String funcName, final List<PolynomialFunction> polynomialFactors, final List<RadicalFunction> radicalFactors) {
+    public CompositeFunction(final String funcName, final List<PolynomialFunction> polynomialFactors, final List<RadicalFunction> radicalFactors, final List<ExponentialFunction> exponentialFunctions) {
         this.funcName = funcName;
         this.polynomialFactors = polynomialFactors;
         this.radicalFactors = radicalFactors;
+        this.exponentialFunctions = exponentialFunctions;
     }
 
     /**
@@ -151,7 +160,11 @@ public class CompositeFunction implements Function {
         }
 
         for (final RadicalFunction radicalFunction : this.radicalFactors) {
-            stringBuilder.append(" ").append(radicalFunction.toString()).append(" ");
+            stringBuilder.append(" ").append(radicalFunction.printBody()).append(" )");
+        }
+
+        for (final ExponentialFunction exponentialFunction : this.exponentialFunctions) {
+            stringBuilder.append("( ").append(exponentialFunction.printBody()).append(" )");
         }
 
         return stringBuilder.toString();

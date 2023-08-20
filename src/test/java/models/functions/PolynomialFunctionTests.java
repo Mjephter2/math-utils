@@ -1,13 +1,10 @@
 package models.functions;
 
-import models.functions.PolynomialFunction;
-import models.functions.PolynomialTerm;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -79,17 +76,21 @@ public class PolynomialFunctionTests {
         assertEquals("x", func1.getVarName());
         assertEquals(1, func1.getTerms().size());
         assertEquals("P(x) = 1.1x", func1.toString(false));
+        assertEquals(FunctionType.POLYNOMIAL, func1.getFuncType());
 
         assertEquals("Q", func2.getFuncName());
         assertEquals("x", func2.getVarName());
         assertEquals(2, func2.getTerms().size());
         assertEquals("Q(x) = 2.3x² + 2.1", func2.toString(false));
+        assertEquals(FunctionType.POLYNOMIAL, func2.getFuncType());
 
         assertEquals("S", func3.getFuncName());
         assertEquals("x", func3.getVarName());
         assertEquals(3, func3.getTerms().size());
         assertEquals("S(x) = 3.2x³ + 3.1x² + 3.3x", func3.toString(false));
+        assertEquals(FunctionType.POLYNOMIAL, func3.getFuncType());
     }
+
 
     @Test
     public void domain_tests() {
@@ -293,15 +294,30 @@ public class PolynomialFunctionTests {
     public void toString_test() {
         PolynomialFunction func1 = functionSample1().get(0); // P(x) = (1.1)x
         assertEquals("P(x) = 1.1x", func1.toString(false));
+        assertEquals("P(x) = 1.1x", func1.toString());
 
         PolynomialFunction func2 = functionSample1().get(1); // Q(x) = 2.1 + (2.3)x^2
         assertEquals("Q(x) = 2.3x² + 2.1", func2.toString(false));
+        assertEquals("Q(x) = 2.3x² + 2.1", func2.toString());
 
         PolynomialFunction func3 = functionSample1().get(2); // S(x) = (3.1)x^2 + (3.2)x^3 + (3.3)x
         assertEquals("S(x) = 3.2x³ + 3.1x² + 3.3x", func3.toString(false));
+        assertEquals("S(x) = 3.2x³ + 3.1x² + 3.3x", func3.toString());
 
         PolynomialFunction zeroFunc = functionSample1().get(3);
         assertEquals("S(x) = 0.0", zeroFunc.toString(false));
+        assertEquals("S(x) = 0.0", zeroFunc.toString());
+    }
+
+    @Test
+    public void limit_tests() {
+        PolynomialFunction func1 = functionSample1().get(0); // P(x) = + 1.1x
+        PolynomialFunction func2 = functionSample1().get(1); // Q(x) = + 2.1 + 2.3x^2
+        PolynomialFunction func3 = functionSample1().get(2); // S(x) = + 3.1x^2 + 3.2x^3 + 3.3x
+
+        assertEquals(2.2, func1.limit(2));
+        assertEquals(2.1, func2.limit(0));
+        assertEquals(0.0, func3.limit(0));
     }
 
     private List<PolynomialFunction> functionSample1() {

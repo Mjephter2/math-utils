@@ -62,7 +62,7 @@ public interface Function {
      * Returns the string representation of the function
      */
     default String printFunc() {
-        return this.getFuncName() + "( " + this.getVarName() + " )" + " = " + this.printBody();
+        return this.getFuncName() + "(" + this.getVarName() + ")" + " = " + this.printBody();
     };
 
     /*
