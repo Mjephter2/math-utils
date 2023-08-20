@@ -3,7 +3,6 @@ package models.functions;
 import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.LinkedList;
 import java.util.stream.Collectors;
@@ -66,7 +65,6 @@ public class TrigonometricFunction implements Function {
     @Override
     public Function derivative() {
         return new CompositeFunction(this.funcName, Stream.of(
-                innerFunction.derivative(),
                 PolynomialFunction.builder()
                         .terms(new LinkedList<>() {{
                             add(PolynomialTerm.builder()
@@ -77,7 +75,9 @@ public class TrigonometricFunction implements Function {
                         }})
                         .funcName(this.funcName)
                         .varName(this.varName)
-                        .build()
+                        .build(),
+                innerFunction.derivative(),
+                innerFunction.deepCopy()
         ).collect(Collectors.toList()));
     }
 
