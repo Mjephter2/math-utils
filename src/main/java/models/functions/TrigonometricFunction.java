@@ -89,19 +89,19 @@ public class TrigonometricFunction implements Function {
 
     @Override
     public Function integral() {
-        // TODO
+        // TODO: Implement integral for TrigonometricFunction
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 
     @Override
     public double integral(double lowerBound, double upperBound) {
-        // TODO
+        // TODO: Implement definite integral for TrigonometricFunction
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 
     @Override
     public double limit(double value) {
-        // TODO
+        // TODO: Implement limit for TrigonometricFunction
         throw new UnsupportedOperationException("Unimplemented method 'limit'");
     }
 

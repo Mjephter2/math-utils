@@ -63,19 +63,19 @@ public class ExponentialFunction implements Function {
 
     @Override
     public Function integral() {
-        // TODO
+        // TODO: Implement integral for ExponentialFunction
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 
     @Override
     public double integral(double lowerBound, double upperBound) {
-        // TODO
+        // TODO: Implement definite integral for ExponentialFunction
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 
     @Override
     public double limit(double value) {
-        // TODO: Handle special cases
+        // TODO: Handle special limit cases for ExponentialFunction
         return Math.pow(base, exponent.limit(value));
     }
 

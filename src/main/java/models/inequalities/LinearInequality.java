@@ -87,7 +87,7 @@ public class LinearInequality {
             System.out.println(linearInequality);
         }
 
-        // TODO: Handle cases where leftSide is 0 when reduced
+        // TODO: Handle LinearInequality cases where leftSide is 0 when reduced
 
         if (linearInequality.type == InequalityType.LESS_THAN) {
             return Range.lessThan(rightSideCopy.getTerms().get(0).getCoefficient());

@@ -106,7 +106,7 @@ public class CompositeFunction implements Function {
 
     @Override
     public Range<Double> getRange() {
-        // TODO: Implement
+        // TODO: Implement range for CompositeFunction
         throw new UnsupportedOperationException("Unimplemented method 'getRange'");
     }
 
@@ -120,19 +120,19 @@ public class CompositeFunction implements Function {
 
     @Override
     public CompositeFunction derivative() {
-        // TODO: Implement
+        // TODO: Implement derivative for CompositeFunction
         throw new UnsupportedOperationException("Unimplemented method 'derivative'");
     }
 
     @Override
     public CompositeFunction integral() {
-        // TODO: Implement
+        // TODO: Implement integral for CompositeFunction
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 
     @Override
     public double integral(double lowerBound, double upperBound) {
-        // TODO: Implement
+        // TODO: Implement definite integral for CompositeFunction
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 

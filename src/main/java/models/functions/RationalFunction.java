@@ -41,7 +41,7 @@ public class RationalFunction implements Function {
 
     @Override
     public Range<Double> getRange() {
-        // TODO
+        // TODO: Implement range for RationalFunction
         throw new UnsupportedOperationException("Unimplemented method 'getRange'");
     }
 
@@ -52,24 +52,24 @@ public class RationalFunction implements Function {
 
     @Override
     public Function derivative() {
-        // TODO
+        // TODO: Implement derivative for RationalFunction
         throw new UnsupportedOperationException("Unimplemented method 'derivative'");
     }
 
     @Override
     public Function integral() {
-        // TODO
+        // TODO: Implement integral for RationalFunction
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
     @Override
     public double integral(double lowerBound, double upperBound) {
-        // TODO
+        // TODO: Implement definite integral for RationalFunction
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 
     @Override
     public double limit(double value) {
-        // TODO
+        // TODO: Implement limit for RationalFunction
         throw new UnsupportedOperationException("Unimplemented method 'limit'");
     }
 

@@ -13,7 +13,7 @@ import java.util.Collections;
 /**
  * Class implementing a Radical function.
  * For now, implementing only square root
- * TODO: Implement nth root
+ * TODO: Implement nth root for RadicalFunction
  */
 @Getter
 @Setter
@@ -34,7 +34,7 @@ public class RadicalFunction implements Function {
     public Range<Double> getDomain() {
         return LinearInequality.builder()
                 .type(InequalityType.GREATER_THAN_OR_EQUAL_TO)
-                // TODO: Generalize for any kind of function
+                // TODO: Generalize RadicalFunction inner function to be generic Function
                 .leftSide((PolynomialFunction) function)
                 .rightSide(
                         new PolynomialFunction(
@@ -57,19 +57,19 @@ public class RadicalFunction implements Function {
 
     @Override
     public Function derivative() {
-        // TODO: Implement
+        // TODO: Implement derivative for RadicalFunction
         throw new UnsupportedOperationException("Unimplemented method 'derivative'");
     }
 
     @Override
     public Function integral() {
-        // TODO: Implement
+        // TODO: Implement integral for RadicalFunction
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 
     @Override
     public double integral(double lowerBound, double upperBound) {
-        // TODO: Implement
+        // TODO: Implement definite integral for RadicalFunction
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 

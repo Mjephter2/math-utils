@@ -23,7 +23,7 @@ public class RadicalEquation implements Equation {
 
     @Override
     public Double[] solve() {
-        // TODO: Implement
+        // TODO: Implement solver for RadicalEquation
         final PolynomialFunction lhsSquared = PolynomialFunction.builder()
                 .funcName(leftSide.getFuncName())
                 .varName(leftSide.getVarName())
