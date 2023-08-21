@@ -2,6 +2,7 @@ package models.functions;
 
 import com.google.common.collect.Range;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.util.LinkedList;
 
@@ -10,6 +11,7 @@ import java.util.LinkedList;
  * TODO: refactor constant polynomial to use this class
  */
 @Builder
+@Getter
 public class ConstantFunction implements Function {
 
     private String funcName;
@@ -91,8 +93,9 @@ public class ConstantFunction implements Function {
         return String.valueOf(this.value);
     }
 
+    @Override
     public String toString() {
-        return this.funcName + "()" + " = " + this.value;
+        return this.funcName + "()" + " = " + this.printBody();
     }
 
     @Override
