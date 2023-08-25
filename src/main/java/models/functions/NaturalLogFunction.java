@@ -11,6 +11,11 @@ public class NaturalLogFunction extends LogFunction {
 
     @Override
     public String printBody() {
-        return "ln_" + this.getBase() + "(" + this.getBody().printBody() + ")";
+        return "ln" + "(" + this.getBody().printBody() + ")";
+    }
+
+    @Override
+    public String toString() {
+        return this.getFuncName() + "(" + this.getVarName() + ") = " + this.printBody();
     }
 }
