@@ -20,14 +20,12 @@ import lombok.Getter;
 public class CompositeFunction implements Function {
 
     private final String funcName;
-
     private String varName;
 
     private final List<PolynomialFunction> polynomialFactors;
-
     private final List<RadicalFunction> radicalFactors;
-
     private final List<ExponentialFunction> exponentialFunctions;
+    private final List<RationalFunction> rationalFunctions;
 
     public CompositeFunction(final String funcName, final List<Function> compositeFactors) {
         this.funcName = funcName;
@@ -48,16 +46,22 @@ public class CompositeFunction implements Function {
                 .map(ExponentialFunction.class::cast)
                 .collect(Collectors.toList());
 
-        if (polynomialFactors.size() + radicalFactors.size() + exponentialFunctions.size() != compositeFactors.size()) {
-            throw new IllegalArgumentException("Composite functions is only implemented for polynomial and radical functions");
+        this.rationalFunctions = compositeFactors.stream()
+                .filter(RationalFunction.class::isInstance)
+                .map(RationalFunction.class::cast)
+                .collect(Collectors.toList());
+
+        if (polynomialFactors.size() + radicalFactors.size() + exponentialFunctions.size() + rationalFunctions.size() != compositeFactors.size()) {
+            throw new IllegalArgumentException("Composite functions is not implemented requested function types");
         }
     }
 
-    public CompositeFunction(final String funcName, final List<PolynomialFunction> polynomialFactors, final List<RadicalFunction> radicalFactors, final List<ExponentialFunction> exponentialFunctions) {
+    public CompositeFunction(final String funcName, final List<PolynomialFunction> polynomialFactors, final List<RadicalFunction> radicalFactors, final List<ExponentialFunction> exponentialFunctions, List<RationalFunction> rationalFunctions) {
         this.funcName = funcName;
         this.polynomialFactors = polynomialFactors;
         this.radicalFactors = radicalFactors;
         this.exponentialFunctions = exponentialFunctions;
+        this.rationalFunctions = rationalFunctions;
     }
 
     /**
@@ -165,6 +169,10 @@ public class CompositeFunction implements Function {
 
         for (final ExponentialFunction exponentialFunction : this.exponentialFunctions) {
             stringBuilder.append("( ").append(exponentialFunction.printBody()).append(" )");
+        }
+
+        for (final RationalFunction rationalFunction : this.rationalFunctions) {
+            stringBuilder.append("( ").append(rationalFunction.printBody()).append(" )");
         }
 
         return stringBuilder.toString();
