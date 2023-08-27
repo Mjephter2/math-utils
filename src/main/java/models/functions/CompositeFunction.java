@@ -192,4 +192,16 @@ public class CompositeFunction implements Function {
                         .collect(Collectors.toList()))
                 .build();
     }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (other.hashCode() == this.hashCode()) {
+            return true;
+        }
+        if (other instanceof CompositeFunction) {
+            final CompositeFunction otherCompositeFunction = (CompositeFunction) other;
+            return this.polynomialFactors.equals(otherCompositeFunction.polynomialFactors) && this.radicalFactors.equals(otherCompositeFunction.radicalFactors);
+        }
+        return false;
+    }
 }

@@ -93,4 +93,16 @@ public class ExponentialFunction implements Function {
                 .exponent(this.exponent.deepCopy())
                 .build();
     }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (other.hashCode() == this.hashCode()) {
+            return true;
+        }
+        if (other instanceof ExponentialFunction) {
+            final ExponentialFunction otherExp = (ExponentialFunction) other;
+            return this.base == otherExp.base && this.exponent.equals(otherExp.exponent);
+        }
+        return false;
+    }
 }

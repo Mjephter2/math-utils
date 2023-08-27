@@ -107,4 +107,16 @@ public class RadicalFunction implements Function {
     public FunctionType getFuncType() {
         return FunctionType.RADICAL;
     }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (other.hashCode() == this.hashCode()) {
+            return true;
+        }
+        if (other instanceof RadicalFunction) {
+            RadicalFunction otherRadical = (RadicalFunction) other;
+            return this.function.equals(otherRadical.function);
+        }
+        return false;
+    }
 }

@@ -86,4 +86,13 @@ public class RationalFunction implements Function {
     public Function deepCopy() {
         return new RationalFunction(this.numerator.deepCopy(), this.denominator.deepCopy(), this.funcName, this.varName);
     }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (other instanceof RationalFunction) {
+            final RationalFunction otherRationalFunction = (RationalFunction) other;
+            return this.numerator.equals(otherRationalFunction.numerator) && this.denominator.equals(otherRationalFunction.denominator);
+        }
+        return false;
+    }
 }

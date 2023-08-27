@@ -105,4 +105,18 @@ public class ConstantFunction implements Function {
                 .value(this.value)
                 .build();
     }
+
+    /**
+     * Checks if the given ConstantFunction is equal to the current one.
+     * @param other -> the other ConstantFunction
+     * @return true if the two functions are equal, false otherwise
+     */
+    @Override
+    public boolean equals(final Object other) {
+        if (other instanceof ConstantFunction) {
+            final ConstantFunction otherConstantFunction = (ConstantFunction) other;
+            return this.value == otherConstantFunction.value;
+        }
+        return false;
+    }
 }

@@ -83,7 +83,7 @@ public class PolynomialTermTests {
                 .exponent(2)
                 .build();
 
-        Assert.assertEquals(term1, term2);
+        Assert.assertTrue(term1.equals(term2));
     }
 
     @Test

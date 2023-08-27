@@ -117,4 +117,16 @@ public class ComplexFunction implements Function {
     public String toString() {
         return this.printFunc();
     }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (other.hashCode() == this.hashCode()) {
+            return true;
+        }
+        if (other instanceof ComplexFunction) {
+            final ComplexFunction otherComplexFunction = (ComplexFunction) other;
+            return this.functions.equals(otherComplexFunction.functions);
+        }
+        return false;
+    }
 }

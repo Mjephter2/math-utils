@@ -81,4 +81,16 @@ public class LogFunction implements Function {
                 .base(base)
                 .build();
     }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (other.hashCode() == this.hashCode()) {
+            return true;
+        }
+        if (other instanceof LogFunction) {
+            final LogFunction otherLogFunction = (LogFunction) other;
+            return this.base == otherLogFunction.base && this.body.equals(otherLogFunction.body);
+        }
+        return false;
+    }
 }

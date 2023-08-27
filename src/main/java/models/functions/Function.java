@@ -74,4 +74,9 @@ public interface Function {
      * Returns a deep copy of the function
      */
     Function deepCopy();
+
+    /**
+     * Returns true if the given function is equal to this function
+     */
+    boolean equals(Object other);
 }

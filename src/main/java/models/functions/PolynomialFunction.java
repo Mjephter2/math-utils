@@ -439,4 +439,20 @@ public class PolynomialFunction implements Function {
 
         return (trimTrailingLeadingPlus(rep.toString())).trim();
     }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (other.hashCode() == this.hashCode()) {
+            return true;
+        }
+        if (other instanceof PolynomialFunction) {
+            final PolynomialFunction otherPolynomialFunction = (PolynomialFunction) other;
+            for (int i = 0; i < this.terms.size(); i++) {
+                if (!this.terms.get(i).equals(otherPolynomialFunction.terms.get(i))) {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
 }

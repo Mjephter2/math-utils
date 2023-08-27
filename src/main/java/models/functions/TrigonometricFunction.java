@@ -119,4 +119,16 @@ public class TrigonometricFunction implements Function {
                 .innerFunction(this.innerFunction.deepCopy())
                 .build();
     }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (other.hashCode() == this.hashCode()) {
+            return true;
+        }
+        if (other instanceof TrigonometricFunction) {
+            final TrigonometricFunction otherTrigonometricFunction = (TrigonometricFunction) other;
+            return this.trigonometricFunctionType.equals(otherTrigonometricFunction.trigonometricFunctionType) && this.innerFunction.equals(otherTrigonometricFunction.innerFunction);
+        }
+        return false;
+    }
 }

@@ -163,16 +163,16 @@ public class PolynomialTerm {
 
     /**
      * Checks if the current Term is equal to another one.
-     * @param o -> the other Term
+     * @param other -> the other Term
      * @return true if the two Terms are equal, false otherwise
      */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PolynomialTerm that = (PolynomialTerm) o;
-        return this.hashCode() == that.hashCode();
-
+    public boolean equals(final PolynomialTerm other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        return this.hashCode() == other.hashCode() ||
+                (this.coefficient == other.coefficient
+                && this.exponent == other.exponent
+                && this.varName.equals(other.varName));
     }
 
     @Override
