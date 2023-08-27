@@ -4,14 +4,8 @@ import com.google.common.collect.Range;
 
 import lombok.Builder;
 import lombok.Getter;
-import models.equations.LinearEquation;
-import models.functions.Function;
 import models.functions.PolynomialFunction;
 import models.functions.PolynomialTerm;
-
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.stream.Collectors;
 
 
 /**

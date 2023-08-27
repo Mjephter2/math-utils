@@ -1,5 +1,6 @@
-package models.equations;
+package models.equations.polynomialEquations;
 
+import models.equations.Equation;
 import models.functions.Function;
 import models.functions.PolynomialFunction;
 import models.functions.PolynomialTerm;
