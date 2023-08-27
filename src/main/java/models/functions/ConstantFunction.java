@@ -8,7 +8,6 @@ import java.util.LinkedList;
 
 /**
  * Class implementing a Constant function
- * TODO: refactor constant polynomial to use ConstantFunction class
  */
 @Builder
 @Getter

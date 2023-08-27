@@ -455,4 +455,14 @@ public class PolynomialFunction implements Function {
         }
         return false;
     }
+
+    public Function reduce() {
+        if (this.terms.size() == 1 && this.terms.get(0).getExponent() == 0) {
+            return ConstantFunction.builder()
+                    .funcName(this.funcName)
+                    .value(this.terms.get(0).getCoefficient())
+                    .build();
+        }
+        return this;
+    }
 }
