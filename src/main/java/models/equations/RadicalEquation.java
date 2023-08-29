@@ -27,7 +27,7 @@ public class RadicalEquation implements Equation {
         final PolynomialFunction lhsSquared = PolynomialFunction.builder()
                 .funcName(leftSide.getFuncName())
                 .varName(leftSide.getVarName())
-                .terms(((PolynomialFunction) leftSide.getFunction()).getTerms())
+                .terms(((PolynomialFunction) leftSide.getBody()).getTerms())
                 .build();
         final PolynomialFunction rhsSquared = PolynomialFunction.builder()
                 .funcName(rightSide.getFuncName())
