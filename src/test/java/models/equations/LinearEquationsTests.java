@@ -1,8 +1,8 @@
 package models.equations;
 
 import models.equations.polynomialEquations.LinearEquation;
-import models.functions.PolynomialFunction;
-import models.functions.PolynomialTerm;
+import models.functions.polynomials.PolynomialFunction;
+import models.functions.polynomials.PolynomialTerm;
 import org.junit.Test;
 
 import java.util.LinkedList;

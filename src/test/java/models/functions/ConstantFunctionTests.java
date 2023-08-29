@@ -1,6 +1,7 @@
 package models.functions;
 
 import com.google.common.collect.Range;
+import models.functions.polynomials.PolynomialFunction;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

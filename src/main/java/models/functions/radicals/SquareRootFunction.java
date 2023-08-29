@@ -1,10 +1,14 @@
-package models.functions;
+package models.functions.radicals;
 
 import com.google.common.collect.Range;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import models.functions.Function;
+import models.functions.FunctionType;
+import models.functions.polynomials.PolynomialFunction;
+import models.functions.polynomials.PolynomialTerm;
 import models.inequalities.InequalityType;
 import models.inequalities.LinearInequality;
 
@@ -13,7 +17,6 @@ import java.util.Collections;
 /**
  * Class implementing a Radical function.
  * For now, implementing only square root
- * TODO: Implement nth root for RadicalFunction
  */
 @Getter
 @Setter
@@ -57,19 +60,16 @@ public class SquareRootFunction implements Function {
 
     @Override
     public Function derivative() {
-        // TODO: Implement derivative for RadicalFunction
         throw new UnsupportedOperationException("Unimplemented method 'derivative'");
     }
 
     @Override
     public Function integral() {
-        // TODO: Implement integral for RadicalFunction
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 
     @Override
     public double integral(double lowerBound, double upperBound) {
-        // TODO: Implement definite integral for RadicalFunction
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 

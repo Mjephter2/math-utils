@@ -1,5 +1,9 @@
 package models.functions;
 
+import models.functions.combinations.ComplexFunction;
+import models.functions.combinations.CompositeFunction;
+import models.functions.combinations.RationalFunction;
+
 import java.util.LinkedList;
 import java.util.List;
 

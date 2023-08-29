@@ -1,8 +1,12 @@
-package models.functions;
+package models.functions.combinations;
 
 import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
+import models.functions.Function;
+import models.functions.FunctionType;
+import models.functions.polynomials.PolynomialFunction;
+import models.functions.polynomials.PolynomialTerm;
 import utils.NumberUtils;
 
 import java.util.LinkedList;

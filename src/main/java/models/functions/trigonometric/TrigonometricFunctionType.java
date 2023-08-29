@@ -1,4 +1,4 @@
-package models.functions;
+package models.functions.trigonometric;
 
 import lombok.Getter;
 

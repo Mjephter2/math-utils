@@ -1,9 +1,11 @@
-package models.functions;
+package models.functions.combinations;
 
 import com.google.common.collect.Range;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import models.functions.Function;
+import models.functions.FunctionType;
 
 import java.util.List;
 import java.util.stream.Collectors;

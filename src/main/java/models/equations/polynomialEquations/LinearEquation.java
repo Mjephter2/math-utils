@@ -1,8 +1,8 @@
 package models.equations.polynomialEquations;
 
 import models.equations.Equation;
-import models.functions.PolynomialFunction;
-import models.functions.PolynomialTerm;
+import models.functions.polynomials.PolynomialFunction;
+import models.functions.polynomials.PolynomialTerm;
 
 /**
  * Class representing a linear equation.

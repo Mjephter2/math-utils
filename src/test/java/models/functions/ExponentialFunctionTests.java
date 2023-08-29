@@ -1,5 +1,9 @@
 package models.functions;
 
+import models.functions.combinations.CompositeFunction;
+import models.functions.combinations.ExponentialFunction;
+import models.functions.polynomials.PolynomialFunction;
+import models.functions.polynomials.PolynomialTerm;
 import org.junit.Test;
 
 import java.util.LinkedList;

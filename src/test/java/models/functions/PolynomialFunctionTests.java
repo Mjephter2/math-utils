@@ -1,5 +1,7 @@
 package models.functions;
 
+import models.functions.polynomials.PolynomialFunction;
+import models.functions.polynomials.PolynomialTerm;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;

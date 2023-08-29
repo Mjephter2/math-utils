@@ -1,4 +1,4 @@
-package models.functions;
+package models.functions.combinations;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -9,6 +9,11 @@ import com.google.common.collect.Range;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import models.functions.Function;
+import models.functions.FunctionType;
+import models.functions.polynomials.PolynomialFunction;
+import models.functions.polynomials.PolynomialTerm;
+import models.functions.radicals.SquareRootFunction;
 
 /**
  * This class implements a composite function.

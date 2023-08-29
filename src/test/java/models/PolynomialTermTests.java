@@ -1,6 +1,6 @@
 package models;
 
-import models.functions.PolynomialTerm;
+import models.functions.polynomials.PolynomialTerm;
 import org.junit.Assert;
 import org.junit.Test;
 

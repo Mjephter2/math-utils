@@ -4,8 +4,8 @@ import com.google.common.collect.Range;
 
 import lombok.Builder;
 import lombok.Getter;
-import models.functions.PolynomialFunction;
-import models.functions.PolynomialTerm;
+import models.functions.polynomials.PolynomialFunction;
+import models.functions.polynomials.PolynomialTerm;
 
 
 /**

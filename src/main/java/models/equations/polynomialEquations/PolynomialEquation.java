@@ -1,10 +1,9 @@
 package models.equations.polynomialEquations;
 
-import lombok.Builder;
 import lombok.Getter;
 import models.equations.Equation;
-import models.functions.PolynomialFunction;
-import models.functions.PolynomialTerm;
+import models.functions.polynomials.PolynomialFunction;
+import models.functions.polynomials.PolynomialTerm;
 
 import java.util.stream.Stream;
 

@@ -1,15 +1,20 @@
-package models.functions;
+package models.functions.trigonometric;
 
 import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
+import models.functions.combinations.CompositeFunction;
+import models.functions.Function;
+import models.functions.FunctionType;
+import models.functions.polynomials.PolynomialFunction;
+import models.functions.polynomials.PolynomialTerm;
 
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static models.functions.TrigonometricFunctionType.COSINE;
-import static models.functions.TrigonometricFunctionType.SINE;
+import static models.functions.trigonometric.TrigonometricFunctionType.COSINE;
+import static models.functions.trigonometric.TrigonometricFunctionType.SINE;
 
 /**
  * Represents a trigonometric function

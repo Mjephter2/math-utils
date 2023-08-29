@@ -2,8 +2,8 @@ package models.equations;
 
 import lombok.Builder;
 import models.functions.Function;
-import models.functions.PolynomialFunction;
-import models.functions.SquareRootFunction;
+import models.functions.polynomials.PolynomialFunction;
+import models.functions.radicals.SquareRootFunction;
 
 @Builder
 public class RadicalEquation implements Equation {

@@ -1,4 +1,6 @@
-package models.functions;
+package models.functions.logarithmic;
+
+import models.functions.Function;
 
 /**
  * A natural logarithm function.

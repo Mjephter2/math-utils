@@ -1,18 +1,23 @@
-package models.functions;
+package models.functions.radicals;
 
 import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
+import models.functions.Function;
+import models.functions.FunctionType;
+import utils.SuperscriptUtil;
 
 /**
- * Class implementing an Absolute Value function
+ * Class implementing a Radical function
  */
 @Getter
 @Builder
-public class AbsoluteValueFunction implements Function {
+public class RadicalFunction implements Function {
 
-    private String funcName;
-    private Function innerFunction;
+    private final String funcName;
+    private final String varName;
+    private final int rootIndex;
+    private final Function body;
 
     @Override
     public String getFuncName() {
@@ -21,64 +26,67 @@ public class AbsoluteValueFunction implements Function {
 
     @Override
     public String getVarName() {
-        return this.innerFunction.getVarName();
+        return this.varName;
     }
 
     @Override
     public FunctionType getFuncType() {
-        return FunctionType.ABSOLUTE_VALUE;
+        return FunctionType.RADICAL;
     }
 
     @Override
     public Range<Double> getDomain() {
-        return this.innerFunction.getDomain();
+        // TODO: Implement domain for RadicalFunction
+        throw new UnsupportedOperationException("Unimplemented method 'getDomain'");
     }
 
     @Override
     public Range<Double> getRange() {
-        // TODO: Implement getRange for AbsoluteValueFunction
+        // TODO: Implement range for RadicalFunction
         throw new UnsupportedOperationException("Unimplemented method 'getRange'");
     }
 
     @Override
     public double evaluate(Double... values) {
-        return Math.abs(this.innerFunction.evaluate(values));
+        return Math.pow(body.evaluate(values), 1.0 / rootIndex);
     }
 
     @Override
     public Function derivative() {
-        // TODO: Implement derivative for AbsoluteValueFunction
+        // TODO: Implement derivative for RadicalFunction
         throw new UnsupportedOperationException("Unimplemented method 'derivative'");
     }
 
     @Override
     public Function integral() {
-        // TODO: Implement integral for AbsoluteValueFunction
+        // TODO: Implement integral for RadicalFunction
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 
     @Override
     public double integral(double lowerBound, double upperBound) {
-        // TODO: Implement definite integral for AbsoluteValueFunction
-        throw new UnsupportedOperationException("Unimplemented definite 'integral'");
+        // TODO: Implement definite integral for RadicalFunction
+        throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 
     @Override
     public double limit(double value) {
-        // TODO: Implement limit for AbsoluteValueFunction
+        // TODO: Implement limit for RadicalFunction
         throw new UnsupportedOperationException("Unimplemented method 'limit'");
     }
 
     @Override
     public String printBody() {
-        return "| " + this.innerFunction.printBody() + " |";
+        return SuperscriptUtil.convertToSuperscript(rootIndex) + "√(" + body.printBody() + ")";
     }
 
     @Override
     public Function deepCopy() {
-        return AbsoluteValueFunction.builder()
+        return RadicalFunction.builder()
+                .rootIndex(this.rootIndex)
+                .body(this.body.deepCopy())
                 .funcName(this.funcName)
-                .innerFunction(this.innerFunction.deepCopy())
+                .varName(this.varName)
                 .build();
     }
 }

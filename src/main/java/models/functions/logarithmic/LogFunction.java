@@ -1,10 +1,10 @@
-package models.functions;
+package models.functions.logarithmic;
 
 import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.LinkedList;
+import models.functions.Function;
+import models.functions.FunctionType;
 
 @Getter
 @Builder

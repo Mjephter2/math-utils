@@ -1,10 +1,13 @@
-package models.functions;
+package models.functions.polynomials;
 
 import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import models.functions.ConstantFunction;
+import models.functions.Function;
+import models.functions.FunctionType;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

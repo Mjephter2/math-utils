@@ -1,4 +1,4 @@
-package models.functions;
+package models.functions.polynomials;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
