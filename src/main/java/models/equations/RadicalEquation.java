@@ -3,12 +3,12 @@ package models.equations;
 import lombok.Builder;
 import models.functions.Function;
 import models.functions.PolynomialFunction;
-import models.functions.RadicalFunction;
+import models.functions.SquareRootFunction;
 
 @Builder
 public class RadicalEquation implements Equation {
 
-    private final RadicalFunction leftSide;
+    private final SquareRootFunction leftSide;
     private final PolynomialFunction rightSide;
 
     @Override

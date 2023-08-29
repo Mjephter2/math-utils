@@ -18,7 +18,7 @@ import java.util.Collections;
 @Getter
 @Setter
 @Builder
-public class RadicalFunction implements Function {
+public class SquareRootFunction implements Function {
 
     private static final String SQUARE_ROOT = "√";
 
@@ -26,7 +26,7 @@ public class RadicalFunction implements Function {
 
     private final Function function;
 
-    public RadicalFunction(final Function function) {
+    public SquareRootFunction(final Function function) {
         this.function = function;
     }
 
@@ -90,7 +90,7 @@ public class RadicalFunction implements Function {
 
     @Override
     public Function deepCopy() {
-        return new RadicalFunction(function.deepCopy());
+        return new SquareRootFunction(function.deepCopy());
     }
 
     @Override
@@ -113,8 +113,8 @@ public class RadicalFunction implements Function {
         if (other.hashCode() == this.hashCode()) {
             return true;
         }
-        if (other instanceof RadicalFunction) {
-            RadicalFunction otherRadical = (RadicalFunction) other;
+        if (other instanceof SquareRootFunction) {
+            SquareRootFunction otherRadical = (SquareRootFunction) other;
             return this.function.equals(otherRadical.function);
         }
         return false;

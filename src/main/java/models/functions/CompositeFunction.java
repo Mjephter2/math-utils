@@ -23,7 +23,7 @@ public class CompositeFunction implements Function {
     private String varName;
 
     private final List<PolynomialFunction> polynomialFactors;
-    private final List<RadicalFunction> radicalFactors;
+    private final List<SquareRootFunction> radicalFactors;
     private final List<ExponentialFunction> exponentialFunctions;
     private final List<RationalFunction> rationalFunctions;
 
@@ -37,8 +37,8 @@ public class CompositeFunction implements Function {
                 .collect(Collectors.toList());
 
         this.radicalFactors = compositeFactors.stream()
-                .filter(RadicalFunction.class::isInstance)
-                .map(RadicalFunction.class::cast)
+                .filter(SquareRootFunction.class::isInstance)
+                .map(SquareRootFunction.class::cast)
                 .collect(Collectors.toList());
 
         this.exponentialFunctions = compositeFactors.stream()
@@ -56,7 +56,7 @@ public class CompositeFunction implements Function {
         }
     }
 
-    public CompositeFunction(final String funcName, final List<PolynomialFunction> polynomialFactors, final List<RadicalFunction> radicalFactors, final List<ExponentialFunction> exponentialFunctions, List<RationalFunction> rationalFunctions) {
+    public CompositeFunction(final String funcName, final List<PolynomialFunction> polynomialFactors, final List<SquareRootFunction> radicalFactors, final List<ExponentialFunction> exponentialFunctions, List<RationalFunction> rationalFunctions) {
         this.funcName = funcName;
         this.polynomialFactors = polynomialFactors;
         this.radicalFactors = radicalFactors;
@@ -163,8 +163,8 @@ public class CompositeFunction implements Function {
             stringBuilder.append("( ").append(polynomialFunction.printBody()).append(" )");
         }
 
-        for (final RadicalFunction radicalFunction : this.radicalFactors) {
-            stringBuilder.append(" ").append(radicalFunction.printBody()).append(" )");
+        for (final SquareRootFunction squareRootFunction : this.radicalFactors) {
+            stringBuilder.append(" ").append(squareRootFunction.printBody()).append(" )");
         }
 
         for (final ExponentialFunction exponentialFunction : this.exponentialFunctions) {
@@ -187,8 +187,8 @@ public class CompositeFunction implements Function {
                         .map(PolynomialFunction.class::cast)
                         .collect(Collectors.toList()))
                 .radicalFactors(this.radicalFactors.stream()
-                        .map(RadicalFunction::deepCopy)
-                        .map(RadicalFunction.class::cast)
+                        .map(SquareRootFunction::deepCopy)
+                        .map(SquareRootFunction.class::cast)
                         .collect(Collectors.toList()))
                 .build();
     }
