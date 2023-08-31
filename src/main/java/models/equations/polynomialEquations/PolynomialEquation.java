@@ -18,6 +18,9 @@ public class PolynomialEquation implements Equation {
     private final int degree;
 
     public PolynomialEquation(final PolynomialFunction left, final PolynomialFunction right) {
+        if (left == null || right == null) {
+            throw new IllegalArgumentException("Null argument(s) passed.");
+        }
         this.leftSide = left;
         this.rightSide = right;
         this.degree = computeDegree();

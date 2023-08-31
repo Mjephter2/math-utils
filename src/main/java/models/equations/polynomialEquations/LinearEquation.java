@@ -1,53 +1,26 @@
 package models.equations.polynomialEquations;
 
-import models.equations.Equation;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 
 /**
  * Class representing a linear equation.
  */
-public class LinearEquation implements Equation {
-
-    /**
-     * Left side of the equation.
-     */
-    private final PolynomialFunction leftSide;
-
-    /**
-     * Right side of the equation.
-     */
-    private final PolynomialFunction rightSide;
+public class LinearEquation extends PolynomialEquation {
 
     public LinearEquation(final PolynomialFunction leftSide, final PolynomialFunction rightSide) {
-
-        if (leftSide == null || rightSide == null) {
-            throw new IllegalArgumentException("Null argument(s) passed.");
-        }
+        super(leftSide, rightSide);
 
         if (leftSide.getTerms().stream().anyMatch(term -> term.getExponent() > 1) ||
                 rightSide.getTerms().stream().anyMatch(term -> term.getExponent() > 1)) {
             throw new IllegalArgumentException("Invalid degree(s) passed.");
         }
-
-        this.leftSide = leftSide;
-        this.rightSide = rightSide;
-    }
-
-    @Override
-    public PolynomialFunction leftSide() {
-        return this.leftSide;
-    }
-
-    @Override
-    public PolynomialFunction rightSide() {
-        return this.rightSide;
     }
 
     @Override
     public Double[] solve() {
-        PolynomialFunction leftSideCopy = this.leftSide.deepCopy();
-        PolynomialFunction rightSideCopy = this.rightSide.deepCopy();
+        PolynomialFunction leftSideCopy = this.getLeftSide().deepCopy();
+        PolynomialFunction rightSideCopy = this.getRightSide().deepCopy();
         LinearEquation equationCopy = new LinearEquation(leftSideCopy, rightSideCopy);
 
         System.out.println("Starting to solve linear equation: " + equationCopy);
@@ -86,6 +59,6 @@ public class LinearEquation implements Equation {
     }
 
     public String toString() {
-        return this.leftSide.printBody() + " = " + this.rightSide.printBody();
+        return this.getLeftSide().printBody() + " = " + this.getRightSide().printBody();
     }
 }
