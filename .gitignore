@@ -16,5 +16,7 @@ buildNumber.properties
 # IntelliJ generated files
 .idea
 htmlReport/
+# VS Code generated files
+.vscode
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
