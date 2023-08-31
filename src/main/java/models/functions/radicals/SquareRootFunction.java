@@ -1,18 +1,8 @@
 package models.functions.radicals;
 
-import com.google.common.collect.Range;
-
-import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import models.functions.Function;
-import models.functions.FunctionType;
-import models.functions.polynomials.PolynomialFunction;
-import models.functions.polynomials.PolynomialTerm;
-import models.inequalities.InequalityType;
-import models.inequalities.LinearInequality;
-
-import java.util.Collections;
+import utils.SuperscriptUtil;
 
 /**
  * Class implementing a Square Root function.
@@ -28,6 +18,6 @@ public class SquareRootFunction extends RadicalFunction {
 
     @Override
     public String printBody() {
-        return SQUARE_ROOT + "(" + this.getBody().printBody() + ")";
+        return SuperscriptUtil.convertToSuperscript(2) + SQUARE_ROOT + "(" + this.getBody().printBody() + ")";
     }
 }
