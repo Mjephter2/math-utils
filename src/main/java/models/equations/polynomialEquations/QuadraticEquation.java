@@ -12,23 +12,10 @@ import java.util.stream.Collectors;
 /**
  * Class representing a quadratic equation.
  */
-public class QuadraticEquation implements Equation {
-
-    /**
-     * Left side of the quadratic equation.
-     */
-    public PolynomialFunction leftSide;
-
-    /**
-     * Right side of the quadratic equation.
-     */
-    public PolynomialFunction rightSide;
+public class QuadraticEquation extends PolynomialEquation {
 
     public QuadraticEquation(final PolynomialFunction leftSide, final PolynomialFunction rightSide) {
-
-        if (leftSide == null || rightSide == null) {
-            throw new IllegalArgumentException("Null argument(s) passed.");
-        }
+        super(leftSide, rightSide);
 
         int leftSideDegree = 0;
         if (!leftSide.getTerms().isEmpty()) {
@@ -49,25 +36,12 @@ public class QuadraticEquation implements Equation {
         if (leftSideDegree > 2 || rightSideDegree > 2) {
             throw new IllegalArgumentException("Invalid degree(s) passed.");
         }
-
-        this.leftSide = leftSide;
-        this.rightSide = rightSide;
-    }
-
-    @Override
-    public Function leftSide() {
-        return this.leftSide;
-    }
-
-    @Override
-    public Function rightSide() {
-        return this.rightSide;
     }
 
     @Override
     public Double[] solve() {
-        PolynomialFunction leftSideCopy = this.leftSide.deepCopy();
-        PolynomialFunction rightSideCopy = this.rightSide.deepCopy();
+        PolynomialFunction leftSideCopy = this.getLeftSide().deepCopy();
+        PolynomialFunction rightSideCopy = this.getRightSide().deepCopy();
         QuadraticEquation equationCopy = new QuadraticEquation(leftSideCopy, rightSideCopy);
 
         System.out.println("Starting to solve quadratic equation: " + equationCopy);
@@ -106,6 +80,6 @@ public class QuadraticEquation implements Equation {
     }
 
     public String toString() {
-        return this.leftSide.printBody() + " = " + this.rightSide.printBody();
+        return this.getLeftSide().printBody() + " = " + this.getRightSide().printBody();
     }
 }
