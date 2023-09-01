@@ -1,6 +1,7 @@
 package models.equations;
 
 import lombok.Builder;
+import models.equations.polynomialEquations.PolynomialEquation;
 import models.functions.Function;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.radicals.SquareRootFunction;
@@ -23,7 +24,9 @@ public class RadicalEquation implements Equation {
 
     @Override
     public Double[] solve() {
-        // TODO: Implement solver for RadicalEquation
+        // TODO: Implement RadicalEquation solver for various cases
+
+        // Case where left side is a square root function and right side is a polynomial function
         final PolynomialFunction lhsSquared = PolynomialFunction.builder()
                 .funcName(leftSide.getFuncName())
                 .varName(leftSide.getVarName())
@@ -35,6 +38,6 @@ public class RadicalEquation implements Equation {
                 .terms(rightSide.getTerms())
                 .build()
                 .power(2);
-        return new Double[0];
+        return new PolynomialEquation(lhsSquared, rhsSquared).solve();
     }
 }
