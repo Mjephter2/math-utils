@@ -44,8 +44,8 @@ public class ConstantFunctionTests {
                 .value(1.0)
                 .build();
 
-        final PolynomialFunction integral = (PolynomialFunction) constantFunction.integral("f", "x");
-        assertEquals("f(x) = x", integral.toString());
+        final PolynomialFunction integral = (PolynomialFunction) constantFunction.integral("x");
+        assertEquals("∫f(x) = x", integral.toString());
     }
 
     @Test

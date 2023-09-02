@@ -58,29 +58,29 @@ public class ConstantFunction implements Function {
 
     @Override
     public Function integral() {
+        // This method should never be called
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 
     /**
      * Returns the integral of the function with respect to the given variable
      *
-     * @param integralFuncName the name of the integral function
-     * @param varName          the name of the variable with respect to which the integral is taken
+     * @param integralVarName the name of the variable with respect to which the integral is taken
      * @return the integral of the function with respect to the given variable
      */
-    public Function integral(final String integralFuncName, final String varName) {
+    public Function integral(final String integralVarName) {
         return PolynomialFunction.builder()
-                .funcName(integralFuncName)
-                .varName(varName)
+                .funcName("∫" + this.funcName)
+                .varName(integralVarName)
                 .terms(new LinkedList<>() {{
-                    add(new PolynomialTerm(1, varName, 1));
+                    add(new PolynomialTerm(value, integralVarName, 1));
                 }})
                 .build();
     }
 
     @Override
     public double integral(double lowerBound, double upperBound) {
-        final Function indefiniteIntegral = this.integral("f", "x");
+        final Function indefiniteIntegral = this.integral("x");
         return indefiniteIntegral.evaluate(upperBound) - indefiniteIntegral.evaluate(lowerBound);
     }
 
