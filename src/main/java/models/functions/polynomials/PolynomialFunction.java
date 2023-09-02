@@ -468,4 +468,34 @@ public class PolynomialFunction implements Function {
         }
         return this;
     }
+
+    /**
+     * Apply Descartes's rule of signs to the current Polynomial
+     * @return the maximum number of positive and negative roots
+     */
+    public double[] runDescartesRuleOfSign() {
+        int numberOfPositiveRoots = 0;
+        int numberOfNegativeRoots = 0;
+
+        for (int i = 0; i < this.terms.size() - 1; i++) {
+            if (this.terms.get(i).getCoefficient() * this.terms.get(i + 1).getCoefficient() < 0.0) {
+                numberOfPositiveRoots++;
+            }
+        }
+
+        // Compute terms for f(-x)
+        final List<PolynomialTerm> negatedTerms = this.terms.stream().map(term -> PolynomialTerm.builder()
+                .coefficient(term.getCoefficient() * Math.pow(-1, term.getExponent()))
+                .varName(term.getVarName())
+                .exponent(term.getExponent())
+                .build()
+                .negate()).collect(Collectors.toList());
+        for (int i = 0; i < negatedTerms.size() - 1; i++) {
+            if (negatedTerms.get(i).getCoefficient() * negatedTerms.get(i + 1).getCoefficient() < 0.0) {
+                numberOfNegativeRoots++;
+            }
+        }
+
+        return new double[]{numberOfPositiveRoots, numberOfNegativeRoots};
+    }
 }
