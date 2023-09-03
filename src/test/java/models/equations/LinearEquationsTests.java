@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThrows;
 public class LinearEquationsTests {
 
     @Test
-    public void linear_equation_no_solution() {
+    public void linear_equation_solution_zero() {
         final PolynomialFunction leftSide = PolynomialFunction.builder()
                 .funcName("f")
                 .varName("x")
@@ -42,7 +42,7 @@ public class LinearEquationsTests {
 
         final LinearEquation linearEquation = new LinearEquation(leftSide, rightSide);
 
-        assertNull(linearEquation.solve());
+        assertEquals(linearEquation.solve().length, 1);
     }
 
     @Test

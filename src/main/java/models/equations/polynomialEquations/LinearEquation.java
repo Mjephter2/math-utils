@@ -51,8 +51,10 @@ public class LinearEquation extends PolynomialEquation {
         final double leftCoefficient = !leftSideCopy.getTerms().isEmpty() ? leftSideCopy.getTerms().get(0).getCoefficient() : 0.0;
         final double rightCoefficient = !rightSideCopy.getTerms().isEmpty() ? rightSideCopy.getTerms().get(0).getCoefficient() : 0.0;
 
-        if (leftCoefficient == 0.0) {
+        if (leftCoefficient == 0.0 && rightCoefficient != 0.0) {
             return null;
+        } else if (rightCoefficient == 0.0) {
+            return new Double[] { 0.0 };
         }
 
         return new Double[] { rightCoefficient / leftCoefficient };
