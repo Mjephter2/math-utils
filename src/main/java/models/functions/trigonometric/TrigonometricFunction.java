@@ -3,6 +3,7 @@ package models.functions.trigonometric;
 import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
+import models.functions.ConstantFunction;
 import models.functions.combinations.CompositeFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
@@ -61,6 +62,22 @@ public class TrigonometricFunction implements Function {
             default:
                 throw new IllegalArgumentException("No trigonometric function type with name " + this.trigonometricFunctionType);
         }
+    }
+
+    @Override
+    public Function simplify() {
+        if (this.innerFunction.getFuncType() == FunctionType.CONSTANT) {
+            return ConstantFunction.builder()
+                    .funcName(this.funcName)
+                    .value(this.evaluate())
+                    .build();
+        }
+        return TrigonometricFunction.builder()
+                .funcName(this.funcName)
+                .varName(this.varName)
+                .trigonometricFunctionType(this.trigonometricFunctionType)
+                .innerFunction(this.innerFunction.simplify())
+                .build();
     }
 
     @Override

@@ -128,6 +128,12 @@ public class CompositeFunction implements Function {
     }
 
     @Override
+    public Function simplify() {
+        // TODO: Implement 'simplify' for CompositeFunction
+        throw new UnsupportedOperationException("Unimplemented method 'simplify'");
+    }
+
+    @Override
     public CompositeFunction derivative() {
         // TODO: Implement derivative for CompositeFunction
         throw new UnsupportedOperationException("Unimplemented method 'derivative'");

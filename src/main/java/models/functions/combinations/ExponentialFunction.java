@@ -3,6 +3,7 @@ package models.functions.combinations;
 import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
+import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
 import models.functions.polynomials.PolynomialFunction;
@@ -43,6 +44,23 @@ public class ExponentialFunction implements Function {
     @Override
     public double evaluate(Double... values) {
         return Math.pow(base, exponent.evaluate(values));
+    }
+
+    @Override
+    public Function simplify() {
+        if (this.exponent instanceof ConstantFunction) {
+            return ConstantFunction.builder()
+                    .funcName(this.funcName)
+                    .value(Math.pow(base, exponent.evaluate()))
+                    .build();
+        } else {
+            return ExponentialFunction.builder()
+                    .funcName(this.funcName)
+                    .varName(this.varName)
+                    .base(this.base)
+                    .exponent(this.exponent.simplify())
+                    .build();
+        }
     }
 
     @Override

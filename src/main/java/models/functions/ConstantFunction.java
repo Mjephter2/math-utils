@@ -48,6 +48,15 @@ public class ConstantFunction implements Function {
         return this.value;
     }
 
+    /**
+     * Does nothing, since a ConstantFunction is already in its simplest form
+     * @return the current function
+     */
+    @Override
+    public Function simplify() {
+        return this;
+    }
+
     @Override
     public Function derivative() {
         return ConstantFunction.builder()

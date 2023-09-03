@@ -48,6 +48,12 @@ public class AbsoluteValueFunction implements Function {
     }
 
     @Override
+    public Function simplify() {
+        // TODO: Implement simplify for AbsoluteValueFunction
+        throw new UnsupportedOperationException("Unimplemented method 'simplify' for AbsoluteValueFunction");
+    }
+
+    @Override
     public Function derivative() {
         // TODO: Implement derivative for AbsoluteValueFunction
         throw new UnsupportedOperationException("Unimplemented method 'derivative'");

@@ -4,6 +4,7 @@ import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
 import utils.SuperscriptUtil;
@@ -53,6 +54,22 @@ public class RadicalFunction implements Function {
     @Override
     public double evaluate(Double... values) {
         return Math.pow(body.evaluate(values), 1.0 / rootIndex);
+    }
+
+    @Override
+    public Function simplify() {
+        if (this.body instanceof ConstantFunction) {
+            return ConstantFunction.builder()
+                    .value(Math.pow(this.body.evaluate(), 1.0 / rootIndex))
+                    .build();
+        } else {
+            return RadicalFunction.builder()
+                    .rootIndex(this.rootIndex)
+                    .body(this.body.simplify())
+                    .funcName(this.funcName)
+                    .varName(this.varName)
+                    .build();
+        }
     }
 
     @Override

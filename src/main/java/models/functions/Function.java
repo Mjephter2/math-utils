@@ -38,6 +38,12 @@ public interface Function {
     double evaluate(final Double ...values);
 
     /**
+     * Simplifies / reduces the function
+     * @return the simplified function
+     */
+    Function simplify();
+
+    /**
      * Returns the derivative of the function with respect to its independent variable
      */
     Function derivative();

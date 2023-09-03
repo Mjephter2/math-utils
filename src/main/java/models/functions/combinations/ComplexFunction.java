@@ -64,6 +64,18 @@ public class ComplexFunction implements Function {
     }
 
     @Override
+    public Function simplify() {
+        return ComplexFunction.builder()
+                .funcName(this.funcName)
+                .varName(this.varName)
+                .functions(this.functions.stream()
+                        .map(CompositeFunction::simplify)
+                        .map(CompositeFunction.class::cast)
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
+    @Override
     public ComplexFunction derivative() {
         return ComplexFunction.builder()
                 .funcName(this.funcName)

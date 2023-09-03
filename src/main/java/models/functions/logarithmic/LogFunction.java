@@ -47,6 +47,14 @@ public class LogFunction implements Function {
     }
 
     @Override
+    public Function simplify() {
+        return LogFunction.builder()
+                .body(body.simplify())
+                .base(base)
+                .build();
+    }
+
+    @Override
     public Function derivative() {
         // TODO: Implement derivative for LogFunction
         throw new UnsupportedOperationException("Unimplemented method 'derivative'");

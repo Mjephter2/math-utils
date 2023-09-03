@@ -53,6 +53,12 @@ public class RationalFunction implements Function {
     }
 
     @Override
+    public Function simplify() {
+        // TODO: Implement 'simplify' for RationalFunction
+        throw new UnsupportedOperationException("Unimplemented method 'simplify'");
+    }
+
+    @Override
     public Function derivative() {
         // TODO: Implement derivative for RationalFunction
         throw new UnsupportedOperationException("Unimplemented method 'derivative'");

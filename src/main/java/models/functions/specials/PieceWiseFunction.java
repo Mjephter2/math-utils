@@ -60,6 +60,12 @@ public class PieceWiseFunction implements Function {
     }
 
     @Override
+    public Function simplify() {
+        // TODO: Implement simplify for PieceWiseFunction
+        throw new UnsupportedOperationException("Unimplemented method 'simplify'");
+    }
+
+    @Override
     public Function derivative() {
         Map<Function, Range<Double>> newFunctionsToRangesMap = this.functionsToRangesMap.entrySet().stream()
                 .collect(Collectors.toMap(entry -> entry.getKey().derivative(), Map.Entry::getValue));
