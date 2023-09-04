@@ -3,12 +3,12 @@ package models.functions.radicals;
 import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.extern.log4j.Log4j2;
 import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
 import utils.SuperscriptUtil;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -95,7 +95,8 @@ public class RadicalFunction implements Function {
         if (this.getDomain().contains(value)) {
             return this.evaluate(value);
         } else {
-            logger.info("Limit for function " + this + " at value " + value + " is undefined");
+            final String message = String.format("Limit for function %s at value %d is undefined", this, value);
+            logger.log(Level.INFO, message);
             return Double.NaN;
         }
     }

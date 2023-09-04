@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import models.functions.Function;
 import models.functions.FunctionType;
-import models.functions.polynomials.PolynomialFunction;
-import models.functions.polynomials.PolynomialTerm;
 
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 

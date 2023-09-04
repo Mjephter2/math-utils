@@ -1,7 +1,7 @@
 package models.equations;
 
 import lombok.Builder;
-import models.equations.polynomialEquations.PolynomialEquation;
+import models.equations.polynomial_equations.PolynomialEquation;
 import models.functions.Function;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.radicals.SquareRootFunction;

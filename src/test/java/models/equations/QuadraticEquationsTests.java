@@ -1,6 +1,6 @@
 package models.equations;
 
-import models.equations.polynomialEquations.QuadraticEquation;
+import models.equations.polynomial_equations.QuadraticEquation;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import org.junit.Test;

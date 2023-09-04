@@ -1,6 +1,6 @@
 package models.equations;
 
-import models.equations.polynomialEquations.LinearEquation;
+import models.equations.polynomial_equations.LinearEquation;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package models.equations.polynomialEquations;
+package models.equations.polynomial_equations;
 
 import lombok.Getter;
 import models.equations.Equation;
