@@ -4,8 +4,12 @@ import com.google.common.collect.Range;
 
 import lombok.Builder;
 import lombok.Getter;
+import models.functions.Function;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
+
+import java.util.Collections;
+import java.util.List;
 
 
 /**
@@ -13,7 +17,7 @@ import models.functions.polynomials.PolynomialTerm;
  */
 @Getter
 @Builder
-public class LinearInequality {
+public class LinearInequality implements Inequality {
 
     private InequalityType type;
     private PolynomialFunction leftSide;
@@ -34,11 +38,27 @@ public class LinearInequality {
         this.rightSide = rightSide;
     }
 
+    @Override
+    public Function leftSide() {
+        return this.leftSide;
+    }
+
+    @Override
+    public Function rightSide() {
+        return this.rightSide;
+    }
+
+    @Override
+    public InequalityType type() {
+        return this.type;
+    }
+
     /**
      * Solves the inequality
      * @return the range of values that satisfy the inequality
      */
-    public Range<Double> solve() {
+    @Override
+    public List<Range<Double>> solve() {
         PolynomialFunction leftSideCopy = this.leftSide.deepCopy();
         PolynomialFunction rightSideCopy = this.rightSide.deepCopy();
         LinearInequality linearInequality = new LinearInequality(this.type, leftSideCopy, rightSideCopy);
@@ -84,15 +104,15 @@ public class LinearInequality {
         // TODO: Handle LinearInequality cases where leftSide is 0 when reduced
 
         if (linearInequality.type == InequalityType.LESS_THAN) {
-            return Range.lessThan(rightSideCopy.getTerms().get(0).getCoefficient());
+            return Collections.singletonList(Range.lessThan(rightSideCopy.getTerms().get(0).getCoefficient()));
         } else if (linearInequality.type == InequalityType.LESS_THAN_OR_EQUAL_TO) {
-            return Range.atMost(rightSideCopy.getTerms().get(0).getCoefficient());
+            return Collections.singletonList(Range.atMost(rightSideCopy.getTerms().get(0).getCoefficient()));
         } else if (linearInequality.type == InequalityType.GREATER_THAN) {
-            return Range.greaterThan(rightSideCopy.getTerms().get(0).getCoefficient());
+            return Collections.singletonList(Range.greaterThan(rightSideCopy.getTerms().get(0).getCoefficient()));
         } else if (linearInequality.type == InequalityType.GREATER_THAN_OR_EQUAL_TO) {
-            return Range.atLeast(rightSideCopy.getTerms().get(0).getCoefficient());
+            return Collections.singletonList(Range.atLeast(rightSideCopy.getTerms().get(0).getCoefficient()));
         } else if (linearInequality.type == InequalityType.EQUAL_TO) {
-            return Range.singleton(rightSideCopy.getTerms().get(0).getCoefficient());
+            return Collections.singletonList(Range.singleton(rightSideCopy.getTerms().get(0).getCoefficient()));
         }
 
         return null;
