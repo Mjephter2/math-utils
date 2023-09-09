@@ -101,7 +101,11 @@ public class LinearInequality implements Inequality {
             System.out.println(linearInequality);
         }
 
-        // TODO: Handle LinearInequality cases where leftSide is 0 when reduced
+        if (leftSideCopy.getTerms().get(0).getCoefficient() == 0.0 && rightSideCopy.getTerms().get(0).getCoefficient() >= 0.0) {
+            return Collections.singletonList(Range.all());
+        } else if (leftSideCopy.getTerms().get(0).getCoefficient() == 0.0 && rightSideCopy.getTerms().get(0).getCoefficient() < 0.0) {
+            return Collections.emptyList();
+        }
 
         if (linearInequality.type == InequalityType.LESS_THAN) {
             return Collections.singletonList(Range.lessThan(rightSideCopy.getTerms().get(0).getCoefficient()));
