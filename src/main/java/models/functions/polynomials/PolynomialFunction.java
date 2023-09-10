@@ -45,6 +45,8 @@ public class PolynomialFunction implements Function {
     @NonNull
     private final String varName;
 
+    private int degree;
+
     /**
      * Creates a polynomial function from a list of terms.
      * @param pTerms -> list of terms
@@ -56,6 +58,8 @@ public class PolynomialFunction implements Function {
 
         this.terms = new LinkedList<>();
         pTerms.forEach(this::addTerm);
+
+        this.degree = this.terms.stream().mapToInt(PolynomialTerm::getExponent).max().orElse(0);
 
         this.funcName = funcName;
         this.varName = varName;
@@ -101,6 +105,7 @@ public class PolynomialFunction implements Function {
                 func.addTerm(PolynomialTerm.from(sign + " " + cleaned, varName));
             }
         }
+        func.degree = func.terms.stream().mapToInt(PolynomialTerm::getExponent).max().orElse(0);
         return func;
     }
 
