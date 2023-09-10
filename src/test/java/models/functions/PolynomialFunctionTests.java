@@ -322,6 +322,17 @@ public class PolynomialFunctionTests {
         assertEquals(0.0, func3.limit(0));
     }
 
+    @Test
+    public void simplify_tests() {
+        PolynomialFunction f1 = PolynomialFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .terms(new LinkedList<>())
+                .build();
+
+        assertTrue(f1.isZeroFunction());
+    }
+
     private List<PolynomialFunction> functionSample1() {
         final PolynomialTerm term1_1 = PolynomialTerm.builder()
                 .coefficient(1.1)

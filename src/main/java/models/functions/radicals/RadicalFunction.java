@@ -3,6 +3,7 @@ package models.functions.radicals;
 import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
+import models.equations.Equation;
 import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
