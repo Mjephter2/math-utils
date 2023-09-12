@@ -331,6 +331,17 @@ public class PolynomialFunctionTests {
                 .build();
 
         assertTrue(f1.isZeroFunction());
+
+        PolynomialFunction f2 = PolynomialFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .terms(new LinkedList<>(){{
+                    add(new PolynomialTerm(1.0, "x", 1));
+                    add(new PolynomialTerm(1.0, "x", 2));
+                }})
+                .build();
+
+        assertEquals("f(x) = x² + x", f2.simplify().toString());
     }
 
     private List<PolynomialFunction> functionSample1() {
