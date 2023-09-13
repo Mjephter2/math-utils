@@ -85,17 +85,13 @@ public class TrigonometricFunction implements Function {
     public Function derivative() {
         if (this.trigonometricFunctionType == COSINE) {
             return new CompositeFunction(this.funcName, Stream.of(
-                    PolynomialFunction.builder()
-                            .terms(new LinkedList<>() {{
-                                add(PolynomialTerm.builder()
-                                        .varName(innerFunction.getVarName())
-                                        .coefficient(-1)
-                                        .exponent(1)
-                                        .build());
-                            }})
-                            .funcName(this.funcName)
-                            .varName(this.varName)
-                            .build(),
+                    new PolynomialFunction(new LinkedList<>() {{
+                        add(PolynomialTerm.builder()
+                                .varName(innerFunction.getVarName())
+                                .coefficient(-1)
+                                .exponent(1)
+                                .build());
+                    }}, this.funcName, this.varName),
                     innerFunction.derivative(),
                     innerFunction.deepCopy()
             ).collect(Collectors.toList()));

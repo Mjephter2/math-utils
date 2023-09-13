@@ -57,22 +57,18 @@ public class ExponentialFunctionTests {
         assertEquals(1.0, func.limit(0.0), 0);
         assertEquals(27.0, func.limit(1.0), 0);
 
-        assertEquals(PolynomialFunction.builder()
-                .terms(new LinkedList<>() {{
-                    add(PolynomialTerm.builder()
-                            .varName("x")
-                            .coefficient(1)
-                            .exponent(1)
-                            .build());
-                    add(PolynomialTerm.builder()
-                            .varName("x")
-                            .coefficient(2)
-                            .exponent(2)
-                            .build());
-                }})
-                .funcName("f")
-                .varName("x")
-                .build().toString(), func.getExponent().toString());
+        assertEquals(new PolynomialFunction(new LinkedList<>() {{
+            add(PolynomialTerm.builder()
+                    .varName("x")
+                    .coefficient(1)
+                    .exponent(1)
+                    .build());
+            add(PolynomialTerm.builder()
+                    .varName("x")
+                    .coefficient(2)
+                    .exponent(2)
+                    .build());
+        }}, "f", "x").toString(), func.getExponent().toString());
     }
 
     private List<ExponentialFunction> exponentialFuncSample() {
@@ -81,43 +77,35 @@ public class ExponentialFunctionTests {
                         .base(2)
                         .funcName("f")
                         .varName("x")
-                        .exponent(PolynomialFunction.builder()
-                                .terms(new LinkedList<>() {{
-                                    add(PolynomialTerm.builder()
-                                            .varName("x")
-                                            .coefficient(1)
-                                            .exponent(1)
-                                            .build());
-                                    add(PolynomialTerm.builder()
-                                            .varName("x")
-                                            .coefficient(2)
-                                            .exponent(2)
-                                            .build());
-                                }})
-                                .funcName("f")
-                                .varName("x")
-                                .build())
+                        .exponent(new PolynomialFunction(new LinkedList<>() {{
+                            add(PolynomialTerm.builder()
+                                    .varName("x")
+                                    .coefficient(1)
+                                    .exponent(1)
+                                    .build());
+                            add(PolynomialTerm.builder()
+                                    .varName("x")
+                                    .coefficient(2)
+                                    .exponent(2)
+                                    .build());
+                        }}, "f", "x"))
                         .build(),
                 ExponentialFunction.builder()
                         .base(3.0)
                         .funcName("f")
                         .varName("x")
-                        .exponent(PolynomialFunction.builder()
-                                .terms(new LinkedList<>() {{
-                                    add(PolynomialTerm.builder()
-                                            .varName("x")
-                                            .coefficient(1)
-                                            .exponent(1)
-                                            .build());
-                                    add(PolynomialTerm.builder()
-                                            .varName("x")
-                                            .coefficient(2)
-                                            .exponent(2)
-                                            .build());
-                                }})
-                                .funcName("f")
-                                .varName("x")
-                                .build())
+                        .exponent(new PolynomialFunction(new LinkedList<>() {{
+                            add(PolynomialTerm.builder()
+                                    .varName("x")
+                                    .coefficient(1)
+                                    .exponent(1)
+                                    .build());
+                            add(PolynomialTerm.builder()
+                                    .varName("x")
+                                    .coefficient(2)
+                                    .exponent(2)
+                                    .build());
+                        }}, "f", "x"))
                         .build());
     }
 }

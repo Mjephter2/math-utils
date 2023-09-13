@@ -1,7 +1,6 @@
 package models.functions.polynomials;
 
 import com.google.common.collect.Range;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -23,7 +22,6 @@ import static utils.StringUtils.trimTrailingLeadingPlus;
  */
 @Getter
 @Setter
-@Builder
 public class PolynomialFunction implements Function {
 
     /**
@@ -91,11 +89,7 @@ public class PolynomialFunction implements Function {
     public static PolynomialFunction from(final String polynomialString,final String funcName, final String varName)  {
         final String[] terms = polynomialString.split("[+-]");
         int latestIndex = 0;
-        final PolynomialFunction func = PolynomialFunction.builder()
-                .funcName(funcName)
-                .varName(varName)
-                .terms(new LinkedList<>())
-                .build();
+        final PolynomialFunction func = new PolynomialFunction(new LinkedList<>(), funcName, varName);
         for (String part: terms) {
             final String cleaned = part.trim();
             int index = polynomialString.indexOf(part, latestIndex);
@@ -171,11 +165,7 @@ public class PolynomialFunction implements Function {
      * Returns the negation of the current Polynomial
      */
     public PolynomialFunction negate() {
-        final PolynomialFunction negated = PolynomialFunction.builder()
-                .varName(this.varName)
-                .funcName(this.funcName)
-                .terms(new LinkedList<>())
-                .build();
+        final PolynomialFunction negated = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName);
         for (PolynomialTerm term : this.terms) {
             negated.addTerm(term.negate());
         }
@@ -213,17 +203,9 @@ public class PolynomialFunction implements Function {
      * @return the resulting Polynomial (product)
      */
     public PolynomialFunction multiplyBy(final PolynomialFunction other) {
-        final PolynomialFunction result = PolynomialFunction.builder()
-                .varName(this.varName)
-                .funcName(this.funcName)
-                .terms(new LinkedList<>())
-                .build();
+        final PolynomialFunction result = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName);
         for(PolynomialTerm t : other.terms) {
-            PolynomialFunction copy = PolynomialFunction.builder()
-                    .varName(this.varName)
-                    .funcName(this.funcName)
-                    .terms(new LinkedList<>())
-                    .build();
+            PolynomialFunction copy = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName);
             for(PolynomialTerm term : this.terms) {
                 copy.terms.add(new PolynomialTerm(term.getCoefficient(),this.varName, term.getExponent()));
             }
@@ -250,11 +232,7 @@ public class PolynomialFunction implements Function {
             compositionParts.add(part);
         }
 
-        final PolynomialFunction result = PolynomialFunction.builder()
-                .varName(this.varName)
-                .funcName(this.funcName)
-                .terms(new LinkedList<>())
-                .build();
+        final PolynomialFunction result = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName);
         for (PolynomialFunction func : compositionParts) {
             result.add(func);
         }
@@ -283,19 +261,11 @@ public class PolynomialFunction implements Function {
             throw new IllegalArgumentException("This operation is not implemented for negative powers!");
         }
         if (p == 0) {
-            return PolynomialFunction.builder()
-                    .varName(this.varName)
-                    .funcName(this.funcName)
-                    .terms(new LinkedList<>(){{
-                        add(new PolynomialTerm(1.0, varName, 0));
-                    }})
-                    .build();
+            return new PolynomialFunction(new LinkedList<>(){{
+                add(new PolynomialTerm(1.0, varName, 0));
+            }}, this.funcName, this.varName);
         }
-        PolynomialFunction result = PolynomialFunction.builder()
-                .varName(this.varName)
-                .funcName(this.funcName)
-                .terms(new LinkedList<>())
-                .build();
+        PolynomialFunction result = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName);
         result.add(this);
         for (int i = 1; i < p; i++) {
             result = result.multiplyBy(this);
@@ -401,11 +371,7 @@ public class PolynomialFunction implements Function {
 
     @Override
     public PolynomialFunction deepCopy() {
-        return PolynomialFunction.builder()
-                .varName(this.varName)
-                .funcName(this.funcName)
-                .terms(this.terms.stream().map(PolynomialTerm::deepCopy).collect(Collectors.toList()))
-                .build();
+        return new PolynomialFunction(this.terms.stream().map(PolynomialTerm::deepCopy).collect(Collectors.toList()), this.funcName, this.varName);
     }
 
     /*

@@ -181,11 +181,7 @@ public class PolynomialFunctionTests {
         .build();
         LinkedList<PolynomialTerm> yTerms = new LinkedList<>();
         yTerms.add(yTerm);
-        PolynomialFunction yFunc = PolynomialFunction.builder()
-                .varName("y")
-                .funcName("Y")
-                .terms(yTerms)
-                .build();
+        PolynomialFunction yFunc = new PolynomialFunction(yTerms, "Y", "y");
         assertThrows(IllegalArgumentException.class, () -> func1.add(yFunc));
     }
 
@@ -217,11 +213,7 @@ public class PolynomialFunctionTests {
         .build();
         LinkedList<PolynomialTerm> yTerms = new LinkedList<>();
         yTerms.add(yTerm);
-        PolynomialFunction yFunc = PolynomialFunction.builder()
-                .varName("y")
-                .funcName("Y")
-                .terms(yTerms)
-                .build();
+        PolynomialFunction yFunc = new PolynomialFunction(yTerms, "Y", "y");
         assertThrows(IllegalArgumentException.class, () -> func1.subtract(yFunc));
     }
 
@@ -245,23 +237,16 @@ public class PolynomialFunctionTests {
 
     @Test
     public void compose_tests() {
-        final PolynomialFunction func1 = PolynomialFunction.builder()
-                .varName("x")
-                .funcName("f")
-                .terms(new LinkedList<>(){{
-                    add(new PolynomialTerm(1.0, "x", 2));
-                    add(new PolynomialTerm(2.0, "x", 1));
-                    add(new PolynomialTerm(3.0, "x", 0));
-                }})
-                .build();
-        final PolynomialFunction func2 = PolynomialFunction.builder()
-                .funcName("g")
-                .varName("x")
-                .terms(new LinkedList<>(){{
-                    add(new PolynomialTerm(1.0, "x", 1));
-                    add(new PolynomialTerm(-1.0, "x", 0));
-                }})
-                .build();
+        final PolynomialFunction func1 = new PolynomialFunction(new LinkedList<>(){{
+            add(new PolynomialTerm(1.0, "x", 2));
+            add(new PolynomialTerm(2.0, "x", 1));
+            add(new PolynomialTerm(3.0, "x", 0));
+        }}, "f", "x");
+        final PolynomialFunction func2 = new PolynomialFunction(new LinkedList<>(){{
+            add(new PolynomialTerm(1.0, "x", 1));
+            add(new PolynomialTerm(-1.0, "x", 0));
+        }}, "g", "x");
+
         assertEquals("f(x) = x² + 2", func1.composeWith(func2).toString(false));
         assertEquals("g(x) = x² + 2x + 2", func2.composeWith(func1).toString(false));
     }
@@ -324,22 +309,14 @@ public class PolynomialFunctionTests {
 
     @Test
     public void simplify_tests() {
-        PolynomialFunction f1 = PolynomialFunction.builder()
-                .funcName("f")
-                .varName("x")
-                .terms(new LinkedList<>())
-                .build();
+        PolynomialFunction f1 = new PolynomialFunction(new LinkedList<>(), "f", "x");
 
         assertTrue(f1.isZeroFunction());
 
-        PolynomialFunction f2 = PolynomialFunction.builder()
-                .funcName("f")
-                .varName("x")
-                .terms(new LinkedList<>(){{
-                    add(new PolynomialTerm(1.0, "x", 1));
-                    add(new PolynomialTerm(1.0, "x", 2));
-                }})
-                .build();
+        PolynomialFunction f2 = new PolynomialFunction(new LinkedList<>(){{
+            add(new PolynomialTerm(1.0, "x", 1));
+            add(new PolynomialTerm(1.0, "x", 2));
+        }}, "f", "x");
 
         assertEquals("f(x) = x² + x", f2.simplify().toString());
     }
@@ -353,11 +330,7 @@ public class PolynomialFunctionTests {
         final LinkedList<PolynomialTerm> func1Terms = new LinkedList<>();
         func1Terms.add(term1_1);
         // P(x) = + 1.1x
-        final PolynomialFunction func1 = PolynomialFunction.builder()
-                .funcName("P")
-                .varName("x")
-                .terms(func1Terms)
-                .build();
+        final PolynomialFunction func1 = new PolynomialFunction(func1Terms, "P", "x");
 
         final PolynomialTerm term2_1 = PolynomialTerm.builder()
                 .coefficient(0.0)
@@ -385,11 +358,7 @@ public class PolynomialFunctionTests {
         func2Terms.add(term2_3);
         func2Terms.add(term2_4);
         // Q(x) = + 2.1 + 2.3x^2
-        final PolynomialFunction func2 = PolynomialFunction.builder()
-                .funcName("Q")
-                .varName("x")
-                .terms(func2Terms)
-                .build();
+        final PolynomialFunction func2 = new PolynomialFunction(func2Terms, "Q", "x");
 
         final PolynomialTerm term3_1 = PolynomialTerm.builder()
                 .coefficient(3.1)
@@ -411,11 +380,7 @@ public class PolynomialFunctionTests {
         func3Terms.add(term3_2);
         func3Terms.add(term3_3);
         // S(x) = + 3.1x^2 + 3.2x^3 + 3.3x
-        final PolynomialFunction func3 = PolynomialFunction.builder()
-                .funcName("S")
-                .varName("x")
-                .terms(func3Terms)
-                .build();
+        final PolynomialFunction func3 = new PolynomialFunction(func3Terms, "S", "x");
 
         final PolynomialTerm term4_1 = PolynomialTerm.builder()
                 .coefficient(0)
@@ -436,11 +401,7 @@ public class PolynomialFunctionTests {
         func3Terms.add(term4_1);
         func3Terms.add(term4_2);
         func3Terms.add(term4_3);
-        final PolynomialFunction func4 = PolynomialFunction.builder()
-                .funcName("S")
-                .varName("x")
-                .terms(func4Terms)
-                .build();
+        final PolynomialFunction func4 = new PolynomialFunction(func4Terms, "S", "x");
 
         final LinkedList<PolynomialFunction> funcList = new LinkedList<>();
         funcList.add(func1);
@@ -460,11 +421,7 @@ public class PolynomialFunctionTests {
         final LinkedList<PolynomialTerm> func1Terms = new LinkedList<>();
         func1Terms.add(term1_1);
         // P(x) = + 1.0x
-        final PolynomialFunction func1 = PolynomialFunction.builder()
-                .funcName("P")
-                .varName("x")
-                .terms(func1Terms)
-                .build();
+        final PolynomialFunction func1 = new PolynomialFunction(func1Terms, "P", "x");
 
         final PolynomialTerm term2_1 = PolynomialTerm.builder()
                 .coefficient(1.0)
@@ -480,11 +437,7 @@ public class PolynomialFunctionTests {
         func2Terms.add(term2_1);
         func2Terms.add(term2_2);
         // Q(x) = + 1.0x + 1
-        final PolynomialFunction func2 = PolynomialFunction.builder()
-                .funcName("Q")
-                .varName("x")
-                .terms(func2Terms)
-                .build();
+        final PolynomialFunction func2 = new PolynomialFunction(func2Terms, "Q", "x");
 
         final PolynomialTerm term3_1 = PolynomialTerm.builder()
                 .coefficient(1.0)
@@ -500,11 +453,7 @@ public class PolynomialFunctionTests {
         func3Terms.add(term3_1);
         func3Terms.add(term3_2);
         // S(x) = + 1.0x - 1
-        final PolynomialFunction func3 = PolynomialFunction.builder()
-                .funcName("S")
-                .varName("x")
-                .terms(func3Terms)
-                .build();
+        final PolynomialFunction func3 = new PolynomialFunction(func3Terms, "S", "x");
 
         final LinkedList<PolynomialFunction> funcList = new LinkedList<>();
         funcList.add(func1);

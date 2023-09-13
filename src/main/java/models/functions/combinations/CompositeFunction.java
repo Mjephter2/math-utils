@@ -74,13 +74,10 @@ public class CompositeFunction implements Function {
      * @return the product of all the factors
      */
     public CompositeFunction reduce() {
-        final PolynomialFunction constantUnitFunc = PolynomialFunction.builder()
-                .terms(new LinkedList<>(){{
-                    add(new PolynomialTerm(1.0, polynomialFactors.get(0).getVarName(), 0));
-                }})
-                .varName(polynomialFactors.get(0).getVarName())
-                .funcName(polynomialFactors.get(0).getFuncName())
-                .build();
+        final PolynomialFunction constantUnitFunc = new PolynomialFunction(
+                new LinkedList<>(){{ add(new PolynomialTerm(1.0, polynomialFactors.get(0).getVarName(), 0)); }},
+                polynomialFactors.get(0).getFuncName(),
+                polynomialFactors.get(0).getVarName());
         
         final PolynomialFunction reducedPolynomialFunction = this.polynomialFactors.stream()
             .reduce(constantUnitFunc, PolynomialFunction::multiplyBy);

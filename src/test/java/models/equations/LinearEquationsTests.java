@@ -16,29 +16,21 @@ public class LinearEquationsTests {
 
     @Test
     public void linear_equation_solution_zero() {
-        final PolynomialFunction leftSide = PolynomialFunction.builder()
-                .funcName("f")
-                .varName("x")
-                .terms(new LinkedList<>(){{
-                    add(PolynomialTerm.builder()
-                            .coefficient(5.0)
-                            .varName("x")
-                            .exponent(1)
-                            .build());
-                }})
-                .build();
+        final PolynomialFunction leftSide = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(5.0)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+        }}, "f", "x");
 
-        final PolynomialFunction rightSide = PolynomialFunction.builder()
-                .funcName("f")
-                .varName("x")
-                .terms(new LinkedList<>(){{
-                    add(PolynomialTerm.builder()
-                            .coefficient(5.0)
-                            .varName("x")
-                            .exponent(1)
-                            .build());
-                }})
-                .build();
+        final PolynomialFunction rightSide = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(5.0)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+        }}, "f", "x");
 
         final LinearEquation linearEquation = new LinearEquation(leftSide, rightSide);
 
@@ -47,29 +39,21 @@ public class LinearEquationsTests {
 
     @Test
     public void linear_equation_success_no_reduce() {
-        final PolynomialFunction leftSide = PolynomialFunction.builder()
-                .funcName("f")
-                .varName("x")
-                .terms(new LinkedList<>(){{
-                    add(PolynomialTerm.builder()
-                            .coefficient(5.0)
-                            .varName("x")
-                            .exponent(1)
-                            .build());
-                }})
-                .build();
+        final PolynomialFunction leftSide = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(5.0)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+        }}, "f", "x");
 
-        final PolynomialFunction rightSide = PolynomialFunction.builder()
-                .funcName("f")
-                .varName("x")
-                .terms(new LinkedList<>(){{
-                    add(PolynomialTerm.builder()
-                            .coefficient(15.0)
-                            .varName("x")
-                            .exponent(0)
-                            .build());
-                }})
-                .build();
+        final PolynomialFunction rightSide = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(15.0)
+                    .varName("x")
+                    .exponent(0)
+                    .build());
+        }}, "f", "x");
 
         final LinearEquation linearEquation = new LinearEquation(leftSide, rightSide);
 
@@ -82,34 +66,26 @@ public class LinearEquationsTests {
 
     @Test
     public void linear_equation_success_reduce() {
-        final PolynomialFunction leftSide = PolynomialFunction.builder()
-                .funcName("f")
-                .varName("x")
-                .terms(new LinkedList<>(){{
-                    add(PolynomialTerm.builder()
-                            .coefficient(4.0)
-                            .varName("x")
-                            .exponent(1)
-                            .build());
-                    add(PolynomialTerm.builder()
-                            .coefficient(-15.0)
-                            .varName("x")
-                            .exponent(0)
-                            .build());
-                }})
-                .build();
+        final PolynomialFunction leftSide = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(4.0)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+            add(PolynomialTerm.builder()
+                    .coefficient(-15.0)
+                    .varName("x")
+                    .exponent(0)
+                    .build());
+        }}, "f", "x");
 
-        final PolynomialFunction rightSide = PolynomialFunction.builder()
-                .funcName("f")
-                .varName("x")
-                .terms(new LinkedList<>(){{
-                    add(PolynomialTerm.builder()
-                            .coefficient(-1.0)
-                            .varName("x")
-                            .exponent(1)
-                            .build());
-                }})
-                .build();
+        final PolynomialFunction rightSide = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(-1.0)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+        }}, "f", "x");
 
         final LinearEquation linearEquation = new LinearEquation(leftSide, rightSide);
 
@@ -125,29 +101,21 @@ public class LinearEquationsTests {
 
     @Test
     public void linear_equation_exceptions() {
-        final PolynomialFunction func1 = PolynomialFunction.builder()
-                .funcName("f")
-                .varName("x")
-                .terms(new LinkedList<>(){{
-                    add(PolynomialTerm.builder()
-                            .coefficient(-1.0)
-                            .varName("x")
-                            .exponent(1)
-                            .build());
-                }})
-                .build();
+        final PolynomialFunction func1 = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(-1.0)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+        }}, "f", "x");
 
-        final PolynomialFunction func2 = PolynomialFunction.builder()
-                .funcName("f")
-                .varName("x")
-                .terms(new LinkedList<>(){{
-                    add(PolynomialTerm.builder()
-                            .coefficient(-1.0)
-                            .varName("x")
-                            .exponent(2)
-                            .build());
-                }})
-                .build();
+        final PolynomialFunction func2 = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(-1.0)
+                    .varName("x")
+                    .exponent(2)
+                    .build());
+        }}, "f", "x");
 
         assertThrows(IllegalArgumentException.class, () -> new LinearEquation(null, func1));
         assertThrows(IllegalArgumentException.class, () -> new LinearEquation(func1, null));

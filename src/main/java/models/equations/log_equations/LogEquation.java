@@ -36,21 +36,14 @@ public class LogEquation implements Equation {
         // Case where left side is a log function of a polynomial and right side is a constant
         if (leftSide.getBody() instanceof PolynomialFunction && rightSide instanceof ConstantFunction) {
             return new PolynomialEquation(
-                    PolynomialFunction.builder()
-                            .funcName(leftSide.getFuncName())
-                            .varName(leftSide.getVarName())
-                            .terms(((PolynomialFunction) leftSide.getBody()).getTerms())
-                            .build(),
-                    PolynomialFunction.builder()
-                            .funcName(rightSide.getFuncName())
+                    new PolynomialFunction(((PolynomialFunction) leftSide.getBody()).getTerms(), leftSide.getFuncName(), leftSide.getVarName()),
+                    new PolynomialFunction(List.of(PolynomialTerm.builder()
+                            .coefficient(Math.pow(leftSide.getBase(), ((ConstantFunction) rightSide).getValue()))
                             .varName(rightSide.getVarName())
-                            .terms(List.of(PolynomialTerm.builder()
-                                    .coefficient(Math.pow(leftSide.getBase(), ((ConstantFunction) rightSide).getValue()))
-                                            .varName(rightSide.getVarName())
-                                            .exponent(1)
-                                    .build()))
-                            .build())
-                    .solve();
+                            .exponent(1)
+                            .build()), rightSide.getFuncName(), rightSide.getVarName()
+                    )
+            ).solve();
         }
 
         return new Double[0];

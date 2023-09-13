@@ -78,13 +78,10 @@ public class ConstantFunction implements Function {
      * @return the integral of the function with respect to the given variable
      */
     public Function integral(final String integralVarName) {
-        return PolynomialFunction.builder()
-                .funcName("∫" + this.funcName)
-                .varName(integralVarName)
-                .terms(new LinkedList<>() {{
-                    add(new PolynomialTerm(value, integralVarName, 1));
-                }})
-                .build();
+        return new PolynomialFunction(
+                new LinkedList<>() {{ add(new PolynomialTerm(value, integralVarName, 1)); }},
+                "∫" + this.funcName,
+                integralVarName);
     }
 
     @Override

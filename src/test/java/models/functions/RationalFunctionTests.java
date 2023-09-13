@@ -42,21 +42,13 @@ public class RationalFunctionTests {
         final RationalFunction ratFunc = RationalFunction.builder()
                 .funcName("f")
                 .varName("x")
-                .numerator(PolynomialFunction.builder()
-                        .funcName("numerator")
-                        .varName("x")
-                        .terms(new LinkedList<>() {{
-                            add(new PolynomialTerm(1, "x", 1));
-                        }})
-                        .build())
-                .denominator(PolynomialFunction.builder()
-                        .funcName("numerator")
-                        .varName("x")
-                        .terms(new LinkedList<>() {{
-                            add(new PolynomialTerm(1, "x", 1));
-                            add(new PolynomialTerm(1, "x", 0));
-                        }})
-                        .build())
+                .numerator(new PolynomialFunction(new LinkedList<>() {{
+                    add(new PolynomialTerm(1, "x", 1));
+                }}, "numerator", "x"))
+                .denominator(new PolynomialFunction(new LinkedList<>() {{
+                    add(new PolynomialTerm(1, "x", 1));
+                    add(new PolynomialTerm(1, "x", 0));
+                }}, "denominator", "x"))
                 .build();
 
         assertEquals(1, ((PolynomialFunction) ratFunc.getNumerator()).getTerms().size());

@@ -67,17 +67,13 @@ public class ExponentialFunction implements Function {
     // This implementation assumes that the base is a constant
     public Function derivative() {
         return new CompositeFunction(this.funcName, Stream.of(
-                PolynomialFunction.builder()
-                        .terms(new LinkedList<>() {{
-                            add(PolynomialTerm.builder()
-                                    .varName(exponent.getVarName())
-                                    .coefficient(Math.log(base))
-                                    .exponent(0)
-                                    .build());
-                        }})
-                        .funcName(this.funcName)
-                        .varName(this.varName)
-                        .build(),
+                new PolynomialFunction(new LinkedList<>() {{
+                    add(PolynomialTerm.builder()
+                            .varName(exponent.getVarName())
+                            .coefficient(Math.log(base))
+                            .exponent(0)
+                            .build());
+                }}, this.funcName, this.varName),
                 exponent.derivative(),
                 this.deepCopy()
         ).collect(Collectors.toList()));
