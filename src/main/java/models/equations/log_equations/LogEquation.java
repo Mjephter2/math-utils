@@ -41,7 +41,7 @@ public class LogEquation implements Equation {
                             .coefficient(Math.pow(leftSide.getBase(), ((ConstantFunction) rightSide).getValue()))
                             .varName(rightSide.getVarName())
                             .exponent(1)
-                            .build()), rightSide.getFuncName(), rightSide.getVarName()
+                            .build()), rightSide.getFuncName(), leftSide.getVarName()
                     )
             ).solve();
         }
