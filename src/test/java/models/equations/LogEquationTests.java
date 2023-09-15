@@ -42,7 +42,8 @@ public class LogEquationTests {
 
         assertEquals(logEquation.leftSide().getFuncType(), FunctionType.LOGARITHMIC);
         assertEquals(logEquation.rightSide().getFuncType(), FunctionType.CONSTANT);
-        System.out.println(logEquation.solve()[0]);
 
+        Double[] solution = logEquation.solve();
+        assertEquals(solution.length, 1);
     }
 }

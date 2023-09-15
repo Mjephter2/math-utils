@@ -39,7 +39,7 @@ public class LogEquation implements Equation {
                     new PolynomialFunction(((PolynomialFunction) leftSide.getBody()).getTerms(), leftSide.getFuncName(), leftSide.getVarName()),
                     new PolynomialFunction(List.of(PolynomialTerm.builder()
                             .coefficient(Math.pow(leftSide.getBase(), ((ConstantFunction) rightSide).getValue()))
-                            .varName(rightSide.getVarName())
+                            .varName(leftSide.getVarName())
                             .exponent(1)
                             .build()), rightSide.getFuncName(), leftSide.getVarName()
                     )
