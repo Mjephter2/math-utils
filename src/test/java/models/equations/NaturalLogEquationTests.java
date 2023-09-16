@@ -16,24 +16,24 @@ public class NaturalLogEquationTests {
 
     @Test
     public void solve_tests() {
-        final LogEquation equation = NaturalLogEquation.builder()
-                .leftSide(new NaturalLogFunction("f", "x",
-                        new PolynomialFunction(List.of(
-                                PolynomialTerm.builder()
-                                        .coefficient(1)
-                                        .varName("x")
-                                        .exponent(1)
-                                        .build()
+        final LogEquation equation = new NaturalLogEquation(
+                new NaturalLogFunction("f", "x",
+                    new PolynomialFunction(List.of(
+                        PolynomialTerm.builder()
+                                .coefficient(1)
+                                .varName("x")
+                                .exponent(1)
+                                .build()
                         ),
                         "f",
                         "x"
-                        )
-                ))
-                .rightSide(ConstantFunction.builder()
-                        .funcName("C")
-                        .value(1)
-                        .build())
-                .build();
+                    )
+                ),
+                ConstantFunction.builder()
+                    .funcName("C")
+                    .value(1)
+                    .build()
+        );
 
         Double[] solution = equation.solve();
 
