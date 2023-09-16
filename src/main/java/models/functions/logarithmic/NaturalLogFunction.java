@@ -7,7 +7,7 @@ import models.functions.Function;
  */
 public class NaturalLogFunction extends LogFunction {
 
-    NaturalLogFunction(final String funcName, final String varName, final Function body) {
+    public NaturalLogFunction(final String funcName, final String varName, final Function body) {
         super(funcName, varName, body, Math.E);
     }
 

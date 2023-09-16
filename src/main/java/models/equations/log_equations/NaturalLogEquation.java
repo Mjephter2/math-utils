@@ -1,5 +1,6 @@
 package models.equations.log_equations;
 
+import lombok.Builder;
 import models.functions.Function;
 import models.functions.logarithmic.NaturalLogFunction;
 
@@ -8,7 +9,7 @@ import models.functions.logarithmic.NaturalLogFunction;
  */
 public class NaturalLogEquation extends LogEquation {
 
-    NaturalLogEquation(final NaturalLogFunction leftSide, final Function rightSide) {
+    public NaturalLogEquation(final NaturalLogFunction leftSide, final Function rightSide) {
         super(leftSide, rightSide);
     }
 }
