@@ -1,26 +1,18 @@
 package models.equations;
 
 import lombok.Builder;
+import lombok.Getter;
 import models.equations.polynomial_equations.PolynomialEquation;
 import models.functions.Function;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.radicals.SquareRootFunction;
 
 @Builder
+@Getter
 public class SquareRootEquation implements Equation {
 
     private final SquareRootFunction leftSide;
     private final Function rightSide;
-
-    @Override
-    public Function leftSide() {
-        return leftSide;
-    }
-
-    @Override
-    public Function rightSide() {
-        return rightSide;
-    }
 
     @Override
     public Double[] solve() {

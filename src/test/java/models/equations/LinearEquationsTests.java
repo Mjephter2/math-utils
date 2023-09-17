@@ -89,8 +89,8 @@ public class LinearEquationsTests {
 
         final LinearEquation linearEquation = new LinearEquation(leftSide, rightSide);
 
-        assertEquals(leftSide, linearEquation.leftSide());
-        assertEquals(rightSide, linearEquation.rightSide());
+        assertEquals(leftSide, linearEquation.getLeftSide());
+        assertEquals(rightSide, linearEquation.getRightSide());
 
         final Double[] solution = linearEquation.solve();
 

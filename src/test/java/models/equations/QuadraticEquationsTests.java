@@ -33,8 +33,8 @@ public class QuadraticEquationsTests {
 
         final QuadraticEquation quadraticEquation = new QuadraticEquation(leftSide, rightSide);
 
-        assertEquals(leftSide, quadraticEquation.leftSide());
-        assertEquals(rightSide, quadraticEquation.rightSide());
+        assertEquals(leftSide, quadraticEquation.getLeftSide());
+        assertEquals(rightSide, quadraticEquation.getRightSide());
 
         final Double[] solution = quadraticEquation.solve();
 

@@ -40,16 +40,6 @@ public class PolynomialEquation implements Equation {
     }
 
     @Override
-    public PolynomialFunction leftSide() {
-        return this.leftSide;
-    }
-
-    @Override
-    public PolynomialFunction rightSide() {
-        return this.rightSide;
-    }
-
-    @Override
     public Double[] solve() {
         // TODO: Implement solver for more polynomial equations degrees
         if (this.degree == 1) {

@@ -10,12 +10,12 @@ public interface Equation {
     /**
      * @return the left side of the equation.
      */
-    Function leftSide();
+    Function getLeftSide();
 
     /**
      * @return the right side of the equation.
      */
-    Function rightSide();
+    Function getRightSide();
 
     /**
      * @return the solution of the equation.

@@ -20,16 +20,6 @@ public class LogEquation implements Equation {
     private final Function rightSide;
 
     @Override
-    public Function leftSide() {
-        return this.leftSide;
-    }
-
-    @Override
-    public Function rightSide() {
-        return this.rightSide;
-    }
-
-    @Override
     public Double[] solve() {
         // TODO: Implement LogEquation solver for more cases
 
@@ -46,6 +36,6 @@ public class LogEquation implements Equation {
             ).solve();
         }
 
-        return new Double[0];
+        throw new UnsupportedOperationException("LogEquation solver not implemented for this case");
     }
 }
