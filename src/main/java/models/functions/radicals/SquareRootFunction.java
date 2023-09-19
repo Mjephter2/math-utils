@@ -12,7 +12,7 @@ public class SquareRootFunction extends RadicalFunction {
 
     private static final String SQUARE_ROOT = "√";
 
-    SquareRootFunction(final String funcName, final String varName, final Function body) {
+    public SquareRootFunction(final String funcName, final String varName, final Function body) {
         super(funcName, varName, 2, body);
     }
 

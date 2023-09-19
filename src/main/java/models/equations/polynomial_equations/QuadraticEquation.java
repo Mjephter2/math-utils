@@ -55,7 +55,12 @@ public class QuadraticEquation extends PolynomialEquation {
         System.out.println("Current equation: " + equationCopy);
 
         final Optional<PolynomialTerm> deg2  = leftSideCopy.getTerms().stream().filter(term -> term.getExponent() == 2).findFirst();
+        // In case the quadratic equation reduces to a linear equation
+        if (deg2.isEmpty()) {
+            return new LinearEquation(leftSideCopy, rightSideCopy).solve();
+        }
         final double a = deg2.map(PolynomialTerm::getCoefficient).orElse(0.0);
+
 
         final Optional<PolynomialTerm> deg1 = leftSideCopy.getTerms().stream().filter(term -> term.getExponent() == 1).findFirst();
         final double b = deg1.map(PolynomialTerm::getCoefficient).orElse(0.0);
