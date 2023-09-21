@@ -122,4 +122,27 @@ public class LinearEquationsTests {
 
         assertThrows(IllegalArgumentException.class, () -> new LinearEquation(func1, func2));
     }
+
+    @Test
+    public void linear_equation_no_solution() {
+        final PolynomialFunction leftSide = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(0.0)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+        }}, "f", "x");
+
+        final PolynomialFunction rightSide = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(5.0)
+                    .varName("x")
+                    .exponent(0)
+                    .build());
+        }}, "f", "x");
+
+        final LinearEquation linearEquation = new LinearEquation(leftSide, rightSide);
+
+        assertNull(linearEquation.solve());
+    }
 }
