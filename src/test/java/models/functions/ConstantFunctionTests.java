@@ -4,7 +4,12 @@ import com.google.common.collect.Range;
 import models.functions.polynomials.PolynomialFunction;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.LinkedList;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 
 public class ConstantFunctionTests {
 
@@ -24,6 +29,16 @@ public class ConstantFunctionTests {
         assertEquals(1.0, constantFunction.evaluate(1000.0), 0.0);
 
         assertEquals("f() = 1.0", constantFunction.toString());
+
+        final ConstantFunction simplified = (ConstantFunction) constantFunction.simplify();
+        assertEquals("f() = 1.0", simplified.toString());
+
+        assertEquals(constantFunction, simplified);
+        assertNotEquals(constantFunction, ConstantFunction.builder()
+                .funcName("g")
+                .value(2.0)
+                .build());
+        assertNotEquals(constantFunction, new PolynomialFunction(new LinkedList<>(), "f", "x"));
     }
 
     @Test
