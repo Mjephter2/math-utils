@@ -19,5 +19,12 @@ public class AbsoluteValueTests {
                 .build();
 
         assertEquals("f(x) = | 5.0 |", f.printFunc());
+        assertEquals(ConstantFunction.builder()
+                .funcName("g")
+                .value(5.0)
+                .build(), f.getInnerFunction());
+        assertEquals("f", f.getFuncName());
+        assertEquals("x", f.getVarName());
+        assertEquals(FunctionType.ABSOLUTE_VALUE, f.getFuncType());
     }
 }
