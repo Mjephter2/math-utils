@@ -13,17 +13,13 @@ import models.functions.FunctionType;
 @Builder
 public class AbsoluteValueFunction implements Function {
 
+    private String varName;
     private String funcName;
     private Function innerFunction;
 
     @Override
     public String getFuncName() {
         return this.funcName;
-    }
-
-    @Override
-    public String getVarName() {
-        return this.innerFunction.getVarName();
     }
 
     @Override
