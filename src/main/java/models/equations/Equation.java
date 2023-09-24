@@ -21,4 +21,8 @@ public interface Equation {
      * @return the solution of the equation.
      */
     Double[] solve();
+
+    default String print() {
+        return this.getLeftSide().printFunc() + " = " + this.getRightSide().printFunc();
+    }
 }
