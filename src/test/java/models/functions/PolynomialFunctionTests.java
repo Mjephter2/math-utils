@@ -21,6 +21,15 @@ public class PolynomialFunctionTests {
         assertEquals(1, func1.getTerms().size());
         assertEquals(1.1, func1.getTerms().get(0).getCoefficient());
         assertEquals(1, func1.getTerms().get(0).getExponent());
+        assertEquals(1, func1.getDegree());
+
+        PolynomialFunction func2 = func1.deepCopy();
+        assertEquals("P", func2.getFuncName());
+        assertEquals("x", func2.getVarName());
+        assertEquals(1, func2.getTerms().size());
+        assertEquals(1.1, func2.getTerms().get(0).getCoefficient());
+        assertEquals(1, func2.getTerms().get(0).getExponent());
+        assertEquals(1, func2.getDegree());
     }
 
     @Test
@@ -319,6 +328,27 @@ public class PolynomialFunctionTests {
         }}, "f", "x");
 
         assertEquals("f(x) = x² + x", f2.simplify().toString());
+
+        PolynomialFunction f3 = new PolynomialFunction(new LinkedList<>(List.of(new PolynomialTerm(1.0, "x", 0))), "g", "x");
+        assertEquals("g() = 1.0", f3.simplify().toString());
+    }
+
+    @Test
+    public void equals_tests() {
+        PolynomialFunction func1 = new PolynomialFunction(new LinkedList<>(){{
+            add(new PolynomialTerm(1.0, "x", 1));
+            add(new PolynomialTerm(1.0, "x", 2));
+        }}, "f", "x");
+        PolynomialFunction func2 = new PolynomialFunction(new LinkedList<>(){{
+            add(new PolynomialTerm(1.0, "x", 0));
+            add(new PolynomialTerm(1.0, "x", 2));
+        }}, "g", "x");
+        PolynomialFunction func3 = func1;
+
+        assertNotEquals(func1, func2);
+        assertEquals(func1, func3);
+
+        assertNotEquals(func1, new ConstantFunction("h", 1.0));
     }
 
     private List<PolynomialFunction> functionSample1() {
@@ -461,5 +491,33 @@ public class PolynomialFunctionTests {
         funcList.add(func3);
 
         return funcList;
+    }
+
+    @Test
+    public void descartesRuleOfSign_tests() {
+        PolynomialFunction func1 = functionSample1().get(0); // P(x) = + 1.1x
+        PolynomialFunction func2 = functionSample1().get(1); // Q(x) = + 2.1 + 2.3x^2
+        PolynomialFunction func3 = functionSample1().get(2); // S(x) = + 3.1x^2 + 3.2x^3 + 3.3x
+        PolynomialFunction func4 = new PolynomialFunction(new LinkedList<>(){{
+            add(new PolynomialTerm(-1.0, "x", 1));
+            add(new PolynomialTerm(1.0, "x", 2));
+            add(new PolynomialTerm(-1.0, "x", 3));
+        }}, "P", "x");
+
+        final int[] func1SignChanges = func1.runDescartesRuleOfSign();
+        assertEquals(0, func1SignChanges[0]);
+        assertEquals(0, func1SignChanges[1]);
+
+        final int[] func2SignChanges = func2.runDescartesRuleOfSign();
+        assertEquals(0, func2SignChanges[0]);
+        assertEquals(0, func2SignChanges[1]);
+
+        final int[] func3SignChanges = func3.runDescartesRuleOfSign();
+        assertEquals(0, func3SignChanges[0]);
+        assertEquals(2, func3SignChanges[1]);
+
+        final int[] func4SignChanges = func4.runDescartesRuleOfSign();
+        assertEquals(2, func4SignChanges[0]);
+        assertEquals(0, func4SignChanges[1]);
     }
 }

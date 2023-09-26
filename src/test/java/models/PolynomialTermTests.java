@@ -5,8 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.*;
 
 public class PolynomialTermTests {
 
@@ -55,6 +54,12 @@ public class PolynomialTermTests {
 
         final String termString5 = "3.0x^2";
         assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString5, null));
+
+        final String termString7 = null;
+        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString7, variableX));
+
+        final String termString8 = "";
+        assertThrows(IllegalArgumentException.class, () -> PolynomialTerm.from(termString8, variableX));
     }
 
     @Test
@@ -83,7 +88,14 @@ public class PolynomialTermTests {
                 .exponent(2)
                 .build();
 
-        Assert.assertTrue(term1.equals(term2));
+        PolynomialTerm term3 = PolynomialTerm.builder()
+                .varName("y")
+                .coefficient(3.0)
+                .exponent(5)
+                .build();
+
+        assertTrue(term1.equals(term2));
+        assertNotEquals(term1, term3);
     }
 
     @Test

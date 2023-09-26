@@ -169,10 +169,7 @@ public class PolynomialTerm {
     public boolean equals(final PolynomialTerm other) {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
-        return this.hashCode() == other.hashCode() ||
-                (this.coefficient == other.coefficient
-                && this.exponent == other.exponent
-                && this.varName.equals(other.varName));
+        return this.hashCode() == other.hashCode();
     }
 
     @Override

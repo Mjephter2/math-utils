@@ -3,7 +3,6 @@ package models.functions.polynomials;
 import com.google.common.collect.Range;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
@@ -21,7 +20,6 @@ import static utils.StringUtils.trimTrailingLeadingPlus;
  * where a_i is a double value
  */
 @Getter
-@Setter
 public class PolynomialFunction implements Function {
 
     /**
@@ -445,7 +443,7 @@ public class PolynomialFunction implements Function {
      * Apply Descartes's rule of signs to the current Polynomial
      * @return the maximum number of positive and negative roots
      */
-    public double[] runDescartesRuleOfSign() {
+    public int[] runDescartesRuleOfSign() {
         int numberOfPositiveRoots = 0;
         int numberOfNegativeRoots = 0;
 
@@ -468,6 +466,6 @@ public class PolynomialFunction implements Function {
             }
         }
 
-        return new double[]{numberOfPositiveRoots, numberOfNegativeRoots};
+        return new int[]{numberOfPositiveRoots, numberOfNegativeRoots};
     }
 }

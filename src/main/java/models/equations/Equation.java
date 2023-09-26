@@ -23,6 +23,6 @@ public interface Equation {
     Double[] solve();
 
     default String print() {
-        return this.getLeftSide().printFunc() + " = " + this.getRightSide().printFunc();
+        return this.getLeftSide().printBody() + " = " + this.getRightSide().printBody();
     }
 }

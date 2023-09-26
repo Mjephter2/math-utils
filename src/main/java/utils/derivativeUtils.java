@@ -1,5 +1,6 @@
-package models.functions;
+package utils;
 
+import models.functions.Function;
 import models.functions.combinations.ComplexFunction;
 import models.functions.combinations.CompositeFunction;
 import models.functions.combinations.RationalFunction;
