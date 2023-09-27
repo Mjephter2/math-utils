@@ -21,4 +21,12 @@ public interface Inequality {
      * @return the range of values that satisfy the inequality
      */
     List<Range<Double>> solve();
+
+    /**
+     * Prints the inequality
+     * @return the inequality as a string
+     */
+    default String printInequality() {
+        return this.leftSide().printBody() + " " + this.type().getSymbol() + " " + this.rightSide().printBody();
+    }
 }
