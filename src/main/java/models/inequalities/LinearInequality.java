@@ -4,7 +4,6 @@ import com.google.common.collect.Range;
 
 import lombok.Builder;
 import lombok.Getter;
-import models.functions.Function;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 
@@ -36,21 +35,6 @@ public class LinearInequality implements Inequality {
         this.type = type;
         this.leftSide = leftSide;
         this.rightSide = rightSide;
-    }
-
-    @Override
-    public Function leftSide() {
-        return this.leftSide;
-    }
-
-    @Override
-    public Function rightSide() {
-        return this.rightSide;
-    }
-
-    @Override
-    public InequalityType type() {
-        return this.type;
     }
 
     /**

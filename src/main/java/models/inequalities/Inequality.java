@@ -10,11 +10,11 @@ import java.util.List;
  */
 public interface Inequality {
 
-    Function leftSide();
+    Function getLeftSide();
 
-    Function rightSide();
+    Function getRightSide();
 
-    InequalityType type();
+    InequalityType getType();
 
     /**
      * Solves the inequality
@@ -27,6 +27,6 @@ public interface Inequality {
      * @return the inequality as a string
      */
     default String printInequality() {
-        return this.leftSide().printBody() + " " + this.type().getSymbol() + " " + this.rightSide().printBody();
+        return this.getLeftSide().printBody() + " " + this.getType().getSymbol() + " " + this.getRightSide().printBody();
     }
 }
