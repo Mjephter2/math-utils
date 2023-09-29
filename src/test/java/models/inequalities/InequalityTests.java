@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThrows;
 public class InequalityTests {
 
     @Test
-    public void createInequality() {
+    public void solve_less_than_test() {
         final PolynomialFunction leftSide = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
                     .coefficient(6.0)
@@ -51,6 +51,52 @@ public class InequalityTests {
                 .build();
 
         assertEquals(InequalityType.LESS_THAN, inequality.getType());
+        assertEquals(inequality.getLeftSide(), leftSide);
+        assertEquals(inequality.getRightSide(), rightSide);
+
+        List<Range<Double>> ranges = inequality.solve();
+        assertEquals(1, ranges.size());
+        assertEquals(Range.lessThan(2.0), ranges.get(0));
+    }
+
+    @Test
+    public void solve_greater_than_test() {
+        final PolynomialFunction leftSide = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(-6.0)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+            add(PolynomialTerm.builder()
+                    .coefficient(-2.0)
+                    .varName("x")
+                    .exponent(0)
+                    .build());
+        }}, "f", "x");
+        final PolynomialFunction rightSide = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(-1.0)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+            add(PolynomialTerm.builder()
+                    .coefficient(-10.0)
+                    .varName("x")
+                    .exponent(0)
+                    .build());
+            add(PolynomialTerm.builder()
+                    .coefficient(-2.0)
+                    .varName("x")
+                    .exponent(0)
+                    .build());
+        }}, "g", "x");
+        final Inequality inequality = LinearInequality.builder()
+                .leftSide(leftSide)
+                .rightSide(rightSide)
+                .type(InequalityType.GREATER_THAN)
+                .build();
+
+        assertEquals(InequalityType.GREATER_THAN, inequality.getType());
         assertEquals(inequality.getLeftSide(), leftSide);
         assertEquals(inequality.getRightSide(), rightSide);
 
