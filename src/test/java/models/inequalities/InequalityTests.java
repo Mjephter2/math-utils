@@ -93,10 +93,10 @@ public class InequalityTests {
         final Inequality inequality = LinearInequality.builder()
                 .leftSide(leftSide)
                 .rightSide(rightSide)
-                .type(InequalityType.GREATER_THAN)
+                .type(InequalityType.LESS_THAN)
                 .build();
 
-        assertEquals(InequalityType.GREATER_THAN, inequality.getType());
+        assertEquals(InequalityType.LESS_THAN, inequality.getType());
         assertEquals(inequality.getLeftSide(), leftSide);
         assertEquals(inequality.getRightSide(), rightSide);
 
