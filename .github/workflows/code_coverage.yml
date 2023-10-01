@@ -1,14 +1,15 @@
 on: [pull_request]
-name: Free Code Coverage Action
+name: Free Code Coverage Action - UPLOAD
 jobs:
-  UPLOAD-GITHUB-REPO:
+  UPLOAD:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: SamuelCabralCruz/free-code-coverage/upload-github-repo@main
+      - uses: SamuelCabralCruz/free-code-coverage/upload@vX.X.X
         with:
-          github-repo: Mjephter2/math-utils-coverage
+          bucket-name: code-grind-coverage
           project-name: math-utils
           coverage-metric: 90
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
