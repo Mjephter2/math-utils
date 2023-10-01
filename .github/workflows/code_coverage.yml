@@ -4,7 +4,7 @@ jobs:
   UPLOAD:
     runs-on: ubuntu-latest
     steps:
-      - uses: SamuelCabralCruz/free-code-coverage/upload@latest
+      - uses: SamuelCabralCruz/free-code-coverage/upload@v0.0.13
         with:
           bucket-name: code-grind-coverage
           project-name: math-utils
