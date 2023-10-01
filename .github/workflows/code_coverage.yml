@@ -1,0 +1,14 @@
+on: [pull_request]
+name: Free Code Coverage Action
+jobs:
+  UPLOAD-GITHUB-REPO:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: SamuelCabralCruz/free-code-coverage/upload-github-repo@main
+        with:
+          github-repo: Mjephter2/math-utils-coverage
+          project-name: math-utils
+          coverage-metric: 90
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
