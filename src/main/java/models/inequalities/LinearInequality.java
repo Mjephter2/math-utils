@@ -70,6 +70,46 @@ public class LinearInequality implements Inequality {
         }
         System.out.println(linearInequality);
 
+        // Case 1: left side is zero, right side is zero and inequality is not strict
+        if (
+                leftSideCopy.getTerms().isEmpty() &&
+                rightSideCopy.getTerms().isEmpty() &&
+                (type == InequalityType.LESS_THAN_OR_EQUAL_TO || type == InequalityType.GREATER_THAN_OR_EQUAL_TO)
+        ) {
+            return Collections.singletonList(Range.all());
+        // Case 2: left side is zero, right side is zero and inequality is strict
+        } else if (
+                leftSideCopy.getTerms().isEmpty() &&
+                rightSideCopy.getTerms().isEmpty() &&
+                (type == InequalityType.LESS_THAN || type == InequalityType.GREATER_THAN)
+        ) {
+            return Collections.emptyList();
+        // Case 3: left side is zero, right side is negative and inequality type is less than or less than or equal to
+        } else if (leftSideCopy.getTerms().isEmpty() &&
+                rightSideCopy.getTerms().get(0).getCoefficient() < 0.0 &&
+                (type == InequalityType.LESS_THAN || type == InequalityType.LESS_THAN_OR_EQUAL_TO)
+            ) {
+            return Collections.singletonList(Range.all());
+        // Case 4: left side is zero, right side is negative and inequality type is greater than or greater than or equal to
+        } else if (leftSideCopy.getTerms().isEmpty() &&
+                rightSideCopy.getTerms().get(0).getCoefficient() < 0.0 &&
+                (type == InequalityType.GREATER_THAN || type == InequalityType.GREATER_THAN_OR_EQUAL_TO)
+            ) {
+            return Collections.emptyList();
+        // Case 5: left side is zero, right side is positive and inequality type is less than or less than or equal to
+        } else if (leftSideCopy.getTerms().isEmpty() &&
+                rightSideCopy.getTerms().get(0).getCoefficient() > 0.0 &&
+                (type == InequalityType.LESS_THAN || type == InequalityType.LESS_THAN_OR_EQUAL_TO)
+            ) {
+            return Collections.singletonList(Range.all());
+        // Case 6: left side is zero, right side is positive and inequality type is greater than or greater than or equal to
+        } else if (leftSideCopy.getTerms().isEmpty() &&
+                rightSideCopy.getTerms().get(0).getCoefficient() > 0.0 &&
+                (type == InequalityType.GREATER_THAN || type == InequalityType.GREATER_THAN_OR_EQUAL_TO)
+            ) {
+            return Collections.emptyList();
+        }
+
         if (leftSideCopy.getTerms().get(0).getCoefficient() < 0.0) {
             System.out.println("Dividing by negative number...");
             System.out.println(linearInequality);
@@ -83,12 +123,6 @@ public class LinearInequality implements Inequality {
             rightSideCopy.getTerms().get(0).setCoefficient(rightSideCopy.getTerms().get(0).getCoefficient() / leftSideCopy.getTerms().get(0).getCoefficient());
             leftSideCopy.getTerms().get(0).setCoefficient(1.0);
             System.out.println(linearInequality);
-        }
-
-        if (leftSideCopy.getTerms().get(0).getCoefficient() == 0.0 && rightSideCopy.getTerms().get(0).getCoefficient() >= 0.0) {
-            return Collections.singletonList(Range.all());
-        } else if (leftSideCopy.getTerms().get(0).getCoefficient() == 0.0 && rightSideCopy.getTerms().get(0).getCoefficient() < 0.0) {
-            return Collections.emptyList();
         }
 
         if (linearInequality.type == InequalityType.LESS_THAN) {
