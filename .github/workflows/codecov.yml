@@ -15,8 +15,8 @@ jobs:
         run: mvn -B test --f pom.xml
       - name: Package with Maven
         run: mvn -B package --f pom.xml
-      - name: site with Maven
-        run: mvn -B site --f pom.xml
+      - name: ls target
+        run: ls target
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         env:
