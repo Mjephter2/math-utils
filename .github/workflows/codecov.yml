@@ -11,12 +11,10 @@ jobs:
           java-version: 11
           distribution: 'temurin'
           cache: maven
-      - name: Test with Maven
-        run: mvn -B test --f pom.xml
-      - name: Package with Maven
-        run: mvn -B package --f pom.xml
-      - name: ls target
-        run: ls target
+      - name: Generate Test Coverage with Maven
+        run: |
+          mvn clean verify
+          ls target/site
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         env:
