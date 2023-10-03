@@ -50,6 +50,7 @@ public class InequalityTests {
                 .type(InequalityType.LESS_THAN)
                 .build();
 
+        assertEquals("6x + 2 < x + 12", inequality.printInequality());
         assertEquals(InequalityType.LESS_THAN, inequality.getType());
         assertEquals(inequality.getLeftSide(), leftSide);
         assertEquals(inequality.getRightSide(), rightSide);
