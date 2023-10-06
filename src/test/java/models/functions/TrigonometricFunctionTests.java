@@ -14,7 +14,7 @@ public class TrigonometricFunctionTests {
 
     @Test
     public void sine_tests() {
-        final PolynomialFunction innerFunction = new PolynomialFunction(new LinkedList<PolynomialTerm>() {{
+        final PolynomialFunction innerFunction = new PolynomialFunction(new LinkedList<>() {{
             add(PolynomialTerm.builder()
                     .coefficient(1.0)
                     .varName("x")
@@ -31,6 +31,7 @@ public class TrigonometricFunctionTests {
         assertEquals("f(x) = sin(x)", sinFunc.printFunc());
         assertEquals("f", sinFunc.getFuncName());
         assertEquals("x", sinFunc.getVarName());
+        assertEquals(FunctionType.TRIGONOMETRIC, sinFunc.getFuncType());
         assertEquals(TrigonometricFunctionType.SINE, sinFunc.getTrigonometricFunctionType());
         assertEquals(innerFunction, sinFunc.getInnerFunction());
 
@@ -43,7 +44,7 @@ public class TrigonometricFunctionTests {
 
     @Test
     public void cosine_tests() {
-        final PolynomialFunction innerFunction = new PolynomialFunction(new LinkedList<PolynomialTerm>() {{
+        final PolynomialFunction innerFunction = new PolynomialFunction(new LinkedList<>() {{
             add(PolynomialTerm.builder()
                     .coefficient(1.0)
                     .varName("x")
@@ -60,6 +61,7 @@ public class TrigonometricFunctionTests {
         assertEquals("f(x) = cos(x)", sinFunc.printFunc());
         assertEquals("f", sinFunc.getFuncName());
         assertEquals("x", sinFunc.getVarName());
+        assertEquals(FunctionType.TRIGONOMETRIC, sinFunc.getFuncType());
         assertEquals(TrigonometricFunctionType.COSINE, sinFunc.getTrigonometricFunctionType());
         assertEquals(innerFunction, sinFunc.getInnerFunction());
 
