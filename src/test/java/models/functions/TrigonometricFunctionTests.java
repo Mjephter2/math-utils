@@ -1,5 +1,6 @@
 package models.functions;
 
+import com.google.common.collect.Range;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import models.functions.trigonometric.TrigonometricFunction;
@@ -9,6 +10,7 @@ import org.junit.Test;
 import java.util.LinkedList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 public class TrigonometricFunctionTests {
 
@@ -34,6 +36,9 @@ public class TrigonometricFunctionTests {
         assertEquals(FunctionType.TRIGONOMETRIC, sinFunc.getFuncType());
         assertEquals(TrigonometricFunctionType.SINE, sinFunc.getTrigonometricFunctionType());
         assertEquals(innerFunction, sinFunc.getInnerFunction());
+
+        assertEquals(Range.all(), sinFunc.getDomain());
+        assertThrows(UnsupportedOperationException.class, sinFunc::getRange);
 
         assertEquals(0.0, sinFunc.evaluate(0.0), 0.0);
         assertEquals(1.0, sinFunc.evaluate(Math.PI / 2), 0.0);
