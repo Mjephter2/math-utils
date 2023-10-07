@@ -41,7 +41,8 @@ public class TrigonometricFunction implements Function {
 
     @Override
     public Range<Double> getRange() {
-        return null;
+        // TODO: Implement getRange for TrigonometricFunction
+        throw new UnsupportedOperationException("Unimplemented method 'getRange'");
     }
 
     @Override
