@@ -106,4 +106,34 @@ public class TrigonometricFunctionTests {
         assertEquals(-1.0, tanFunc.evaluate(3 * Math.PI / 4), 0.00001);
         assertEquals(0.0, tanFunc.evaluate(Math.PI), 0.00001);
     }
+
+    @Test
+    public void secant_tests() {
+        final PolynomialFunction innerFunction = new PolynomialFunction(new LinkedList<>() {{
+            add(PolynomialTerm.builder()
+                    .coefficient(1.0)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+        }}, "i", "x");
+        final TrigonometricFunction secFunc = TrigonometricFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .trigonometricFunctionType(TrigonometricFunctionType.SECANT)
+                .innerFunction(innerFunction)
+                .build();
+
+        assertEquals("f(x) = sec(x)", secFunc.printFunc());
+        assertEquals("f", secFunc.getFuncName());
+        assertEquals("x", secFunc.getVarName());
+        assertEquals(FunctionType.TRIGONOMETRIC, secFunc.getFuncType());
+        assertEquals(TrigonometricFunctionType.SECANT, secFunc.getTrigonometricFunctionType());
+        assertEquals(innerFunction, secFunc.getInnerFunction());
+
+        assertEquals(1.0, secFunc.evaluate(0.0), 0.0);
+        assertEquals(Math.sqrt(2), secFunc.evaluate(Math.PI / 4), 0.00001);
+        assertEquals(-1.0, secFunc.evaluate(Math.PI), 0.00001);
+        assertEquals(-Math.sqrt(2), secFunc.evaluate(3 * Math.PI / 4), 0.00001);
+        assertEquals(1.0, secFunc.evaluate(2 * Math.PI), 0.00001);
+    }
 }
