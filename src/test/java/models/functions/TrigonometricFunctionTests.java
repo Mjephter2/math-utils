@@ -76,4 +76,34 @@ public class TrigonometricFunctionTests {
         assertEquals(0.0, sinFunc.evaluate(3 * Math.PI / 2), 0.00001);
         assertEquals(1.0, sinFunc.evaluate(2 * Math.PI), 0.0);
     }
+
+    @Test
+    public void tangent_tests() {
+        final PolynomialFunction innerFunction = new PolynomialFunction(new LinkedList<>() {{
+            add(PolynomialTerm.builder()
+                    .coefficient(1.0)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+        }}, "i", "x");
+        final TrigonometricFunction tanFunc = TrigonometricFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .trigonometricFunctionType(TrigonometricFunctionType.TANGENT)
+                .innerFunction(innerFunction)
+                .build();
+
+        assertEquals("f(x) = tan(x)", tanFunc.printFunc());
+        assertEquals("f", tanFunc.getFuncName());
+        assertEquals("x", tanFunc.getVarName());
+        assertEquals(FunctionType.TRIGONOMETRIC, tanFunc.getFuncType());
+        assertEquals(TrigonometricFunctionType.TANGENT, tanFunc.getTrigonometricFunctionType());
+        assertEquals(innerFunction, tanFunc.getInnerFunction());
+
+        assertEquals(0.0, tanFunc.evaluate(0.0), 0.0);
+        assertEquals(1.0, tanFunc.evaluate(Math.PI / 4), 0.00001);
+        assertEquals(0.0, tanFunc.evaluate(Math.PI), 0.00001);
+        assertEquals(-1.0, tanFunc.evaluate(3 * Math.PI / 4), 0.00001);
+        assertEquals(0.0, tanFunc.evaluate(Math.PI), 0.00001);
+    }
 }
