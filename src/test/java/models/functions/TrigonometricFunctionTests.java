@@ -136,4 +136,34 @@ public class TrigonometricFunctionTests {
         assertEquals(-Math.sqrt(2), secFunc.evaluate(3 * Math.PI / 4), 0.00001);
         assertEquals(1.0, secFunc.evaluate(2 * Math.PI), 0.00001);
     }
+
+    @Test
+    public void cosecant_tests() {
+        final PolynomialFunction innerFunction = new PolynomialFunction(new LinkedList<>() {{
+            add(PolynomialTerm.builder()
+                    .coefficient(1.0)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+        }}, "i", "x");
+        final TrigonometricFunction cscFunc = TrigonometricFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .trigonometricFunctionType(TrigonometricFunctionType.COSECANT)
+                .innerFunction(innerFunction)
+                .build();
+
+        assertEquals("f(x) = csc(x)", cscFunc.printFunc());
+        assertEquals("f", cscFunc.getFuncName());
+        assertEquals("x", cscFunc.getVarName());
+        assertEquals(FunctionType.TRIGONOMETRIC, cscFunc.getFuncType());
+        assertEquals(TrigonometricFunctionType.COSECANT, cscFunc.getTrigonometricFunctionType());
+        assertEquals(innerFunction, cscFunc.getInnerFunction());
+
+        assertEquals(Double.POSITIVE_INFINITY, cscFunc.evaluate(0.0), 0.0);
+        assertEquals(Math.sqrt(2), cscFunc.evaluate(Math.PI / 4), 0.00001);
+        assertEquals(1.0, cscFunc.evaluate(Math.PI / 2), 0.00001);
+        assertEquals(Math.sqrt(2), cscFunc.evaluate(3 * Math.PI / 4), 0.00001);
+//        assertEquals(Double.NEGATIVE_INFINITY, cscFunc.evaluate(Math.PI), 0.00001);
+    }
 }
