@@ -6,6 +6,7 @@ import lombok.Getter;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 
 /**
@@ -97,7 +98,7 @@ public class ConstantFunction implements Function {
 
     @Override
     public String printBody() {
-        return String.valueOf(this.value);
+        return new DecimalFormat("#.##").format(this.value);
     }
 
     @Override
