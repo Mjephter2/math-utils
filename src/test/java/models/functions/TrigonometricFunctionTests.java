@@ -166,4 +166,34 @@ public class TrigonometricFunctionTests {
         assertEquals(Math.sqrt(2), cscFunc.evaluate(3 * Math.PI / 4), 0.00001);
 //        assertEquals(Double.NEGATIVE_INFINITY, cscFunc.evaluate(Math.PI), 0.00001);
     }
+
+    @Test
+    public void cotangant_tests() {
+        final PolynomialFunction innerFunction = new PolynomialFunction(new LinkedList<>() {{
+            add(PolynomialTerm.builder()
+                    .coefficient(1.0)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+        }}, "i", "x");
+        final TrigonometricFunction cotFunc = TrigonometricFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .trigonometricFunctionType(TrigonometricFunctionType.COTANGENT)
+                .innerFunction(innerFunction)
+                .build();
+
+        assertEquals("f(x) = cot(x)", cotFunc.printFunc());
+        assertEquals("f", cotFunc.getFuncName());
+        assertEquals("x", cotFunc.getVarName());
+        assertEquals(FunctionType.TRIGONOMETRIC, cotFunc.getFuncType());
+        assertEquals(TrigonometricFunctionType.COTANGENT, cotFunc.getTrigonometricFunctionType());
+        assertEquals(innerFunction, cotFunc.getInnerFunction());
+
+        assertEquals(Double.POSITIVE_INFINITY, cotFunc.evaluate(0.0), 0.0);
+        assertEquals(1.0, cotFunc.evaluate(Math.PI / 4), 0.00001);
+        assertEquals(0.0, cotFunc.evaluate(Math.PI / 2), 0.00001);
+        assertEquals(-1.0, cotFunc.evaluate(3 * Math.PI / 4), 0.00001);
+//        assertEquals(Double.NEGATIVE_INFINITY, cotFunc.evaluate(Math.PI), 0.00001);
+    }
 }
