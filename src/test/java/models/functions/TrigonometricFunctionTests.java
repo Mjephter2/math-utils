@@ -196,4 +196,24 @@ public class TrigonometricFunctionTests {
         assertEquals(-1.0, cotFunc.evaluate(3 * Math.PI / 4), 0.00001);
 //        assertEquals(Double.NEGATIVE_INFINITY, cotFunc.evaluate(Math.PI), 0.00001);
     }
+
+    @Test
+    public void simplify_tests() {
+        final ConstantFunction innerFunction = ConstantFunction.builder()
+                .funcName("i")
+                .value(5.0)
+                .build();
+        final TrigonometricFunction trigFunc = TrigonometricFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .trigonometricFunctionType(TrigonometricFunctionType.COSINE)
+                .innerFunction(innerFunction)
+                .build();
+
+        assertEquals("f(x) = cos(5)", trigFunc.printFunc());
+
+        final Function funcSimplified = trigFunc.simplify();
+        System.out.println(funcSimplified);
+        assertEquals("f() = 0.28", funcSimplified.toString());
+    }
 }
