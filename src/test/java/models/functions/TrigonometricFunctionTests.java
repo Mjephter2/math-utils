@@ -199,7 +199,7 @@ public class TrigonometricFunctionTests {
 
     @Test
     public void simplify_tests() {
-        final ConstantFunction innerFunction = ConstantFunction.builder()
+        final ConstantFunction innerFunction1 = ConstantFunction.builder()
                 .funcName("i")
                 .value(5.0)
                 .build();
@@ -207,13 +207,30 @@ public class TrigonometricFunctionTests {
                 .funcName("f")
                 .varName("x")
                 .trigonometricFunctionType(TrigonometricFunctionType.COSINE)
-                .innerFunction(innerFunction)
+                .innerFunction(innerFunction1)
                 .build();
 
         assertEquals("f(x) = cos(5)", trigFunc.printFunc());
 
         final Function funcSimplified = trigFunc.simplify();
-        System.out.println(funcSimplified);
         assertEquals("f() = 0.28", funcSimplified.toString());
+
+        final PolynomialFunction innerFunction2 = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(2)
+                    .varName("x")
+                    .exponent(0)
+                    .build());
+        }}, "j", "x");
+
+        final TrigonometricFunction trigFunc2 = TrigonometricFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .trigonometricFunctionType(TrigonometricFunctionType.COSINE)
+                .innerFunction(innerFunction2)
+                .build();
+        final Function funcSimplified2 = trigFunc2.simplify();
+
+        assertEquals("f(x) = cos(2)", trigFunc2.printFunc());
     }
 }
