@@ -34,7 +34,7 @@ public class RationalFunctionTests {
         assertEquals(rationalFunction.evaluate(1.0), 0.5, 0.0);
         assertEquals(rationalFunction.evaluate(2.0), 0.5, 0.0);
 
-        assertEquals( "f(x) = ( 1.0 ) / ( 2.0 )",rationalFunction.toString());
+        assertEquals( "f(x) = ( 1 ) / ( 2 )",rationalFunction.toString());
     }
 
     @Test

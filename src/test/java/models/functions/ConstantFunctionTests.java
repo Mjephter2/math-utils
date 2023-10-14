@@ -28,10 +28,10 @@ public class ConstantFunctionTests {
         assertEquals(Range.singleton(1.0), constantFunction.getRange());
         assertEquals(1.0, constantFunction.evaluate(1000.0), 0.0);
 
-        assertEquals("f() = 1.0", constantFunction.toString());
+        assertEquals("f() = 1", constantFunction.toString());
 
         final ConstantFunction simplified = (ConstantFunction) constantFunction.simplify();
-        assertEquals("f() = 1.0", simplified.toString());
+        assertEquals("f() = 1", simplified.toString());
 
         assertEquals(constantFunction, simplified);
         assertNotEquals(constantFunction, ConstantFunction.builder()
@@ -49,7 +49,7 @@ public class ConstantFunctionTests {
                 .build();
 
         final ConstantFunction derivative = (ConstantFunction) constantFunction.derivative();
-        assertEquals("f'() = 0.0", derivative.toString());
+        assertEquals("f'() = 0", derivative.toString());
     }
 
     @Test
@@ -91,7 +91,7 @@ public class ConstantFunctionTests {
                 .build();
 
         final ConstantFunction copy = (ConstantFunction) constantFunction.deepCopy();
-        assertEquals("f() = 1.0", copy.toString());
+        assertEquals("f() = 1", copy.toString());
     }
 
     @Test
