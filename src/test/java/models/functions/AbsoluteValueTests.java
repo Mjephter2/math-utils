@@ -18,7 +18,7 @@ public class AbsoluteValueTests {
                         .build())
                 .build();
 
-        assertEquals("f(x) = | 5.0 |", f.printFunc());
+        assertEquals("f(x) = | 5 |", f.printFunc());
         assertEquals(ConstantFunction.builder()
                 .funcName("g")
                 .value(5.0)

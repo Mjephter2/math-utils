@@ -330,7 +330,7 @@ public class PolynomialFunctionTests {
         assertEquals("f(x) = x² + x", f2.simplify().toString());
 
         PolynomialFunction f3 = new PolynomialFunction(new LinkedList<>(List.of(new PolynomialTerm(1.0, "x", 0))), "g", "x");
-        assertEquals("g() = 1.0", f3.simplify().toString());
+        assertEquals("g() = 1", f3.simplify().toString());
     }
 
     @Test
