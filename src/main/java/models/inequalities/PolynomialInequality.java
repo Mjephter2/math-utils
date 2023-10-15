@@ -18,7 +18,7 @@ class PolynomialInequality implements Inequality {
     @Override
     public List<Range<Double>> solve() {
         // If both sides are linear equations, solve as a linear inequality
-        if (leftSide.getDegree() == 1 && rightSide.getDegree() == 1) {
+        if (leftSide.getDegree() <= 1 && rightSide.getDegree() <= 1) {
             return new LinearInequality(this.type, this.leftSide, this.rightSide).solve();
         }
         throw new UnsupportedOperationException("Unimplemented method 'solve'");
