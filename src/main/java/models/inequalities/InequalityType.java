@@ -43,10 +43,8 @@ public enum InequalityType {
                 return LESS_THAN_OR_EQUAL_TO;
             case EQUAL_TO:
                 return NOT_EQUAL_TO;
-            case NOT_EQUAL_TO:
-                return EQUAL_TO;
             default:
-                return null;
+                return EQUAL_TO;
         }
     }
 }
