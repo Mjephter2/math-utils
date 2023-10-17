@@ -138,6 +138,25 @@ public class InequalityTests {
     }
 
     @Test
+    public void inequality_infinite_solutions() {
+        final PolynomialFunction leftSide = new PolynomialFunction(new LinkedList<>(), "f", "x");
+        final PolynomialFunction rightSide = new PolynomialFunction(new LinkedList<>(), "g", "x");
+        final Inequality inequality1 = LinearInequality.builder()
+                .leftSide(leftSide)
+                .rightSide(rightSide)
+                .type(InequalityType.LESS_THAN_OR_EQUAL_TO)
+                .build();
+        final Inequality inequality2 = LinearInequality.builder()
+                .leftSide(leftSide)
+                .rightSide(rightSide)
+                .type(InequalityType.GREATER_THAN_OR_EQUAL_TO)
+                .build();
+
+        assertEquals(Range.all(), inequality1.solve().get(0));
+        assertEquals(Range.all(), inequality2.solve().get(0));
+    }
+
+    @Test
     public void exceptions_tests() {
         assertThrows(IllegalArgumentException.class, () -> new LinearInequality(InequalityType.LESS_THAN,
                 new PolynomialFunction(new LinkedList<>(), "f", "x"), null));
