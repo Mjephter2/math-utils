@@ -5,6 +5,7 @@ import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -154,6 +155,25 @@ public class InequalityTests {
 
         assertEquals(Range.all(), inequality1.solve().get(0));
         assertEquals(Range.all(), inequality2.solve().get(0));
+    }
+
+    @Test
+    public void inequality_no_solutions() {
+        final PolynomialFunction leftSide = new PolynomialFunction(new LinkedList<>(), "f", "x");
+        final PolynomialFunction rightSide = new PolynomialFunction(new LinkedList<>(), "g", "x");
+        final Inequality inequality1 = LinearInequality.builder()
+                .leftSide(leftSide)
+                .rightSide(rightSide)
+                .type(InequalityType.LESS_THAN)
+                .build();
+        final Inequality inequality2 = LinearInequality.builder()
+                .leftSide(leftSide)
+                .rightSide(rightSide)
+                .type(InequalityType.GREATER_THAN)
+                .build();
+
+        assertEquals(Collections.emptyList(), inequality1.solve());
+        assertEquals(Collections.emptyList(), inequality2.solve());
     }
 
     @Test
