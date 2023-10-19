@@ -89,13 +89,13 @@ public class LinearInequality implements Inequality {
                 rightSideCopy.getTerms().get(0).getCoefficient() < 0.0 &&
                 (type == InequalityType.LESS_THAN || type == InequalityType.LESS_THAN_OR_EQUAL_TO)
             ) {
-            return Collections.singletonList(Range.all());
+            return Collections.emptyList();
         // Case 4: left side is zero, right side is negative and inequality type is greater than or greater than or equal to
         } else if (leftSideCopy.getTerms().isEmpty() &&
                 rightSideCopy.getTerms().get(0).getCoefficient() < 0.0 &&
                 (type == InequalityType.GREATER_THAN || type == InequalityType.GREATER_THAN_OR_EQUAL_TO)
             ) {
-            return Collections.emptyList();
+            return Collections.singletonList(Range.all());
         // Case 5: left side is zero, right side is positive and inequality type is less than or less than or equal to
         } else if (leftSideCopy.getTerms().isEmpty() &&
                 rightSideCopy.getTerms().get(0).getCoefficient() > 0.0 &&
