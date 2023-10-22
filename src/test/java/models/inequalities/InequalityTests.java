@@ -252,6 +252,31 @@ public class InequalityTests {
     }
 
     @Test
+    public void inequality_case6() {
+        final PolynomialFunction leftSide = new PolynomialFunction(new LinkedList<>(), "f", "x");
+        final PolynomialFunction rightSide = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(1.0)
+                    .varName("x")
+                    .exponent(0)
+                    .build());
+        }}, "g", "x");
+        final Inequality inequality1 = LinearInequality.builder()
+                .leftSide(leftSide)
+                .rightSide(rightSide)
+                .type(InequalityType.GREATER_THAN)
+                .build();
+        final Inequality inequality2 = LinearInequality.builder()
+                .leftSide(leftSide)
+                .rightSide(rightSide)
+                .type(InequalityType.GREATER_THAN_OR_EQUAL_TO)
+                .build();
+
+        assertEquals(Collections.emptyList(), inequality1.solve());
+        assertEquals(Collections.emptyList(), inequality2.solve());
+    }
+
+    @Test
     public void exceptions_tests() {
         assertThrows(IllegalArgumentException.class, () -> new LinearInequality(InequalityType.LESS_THAN,
                 new PolynomialFunction(new LinkedList<>(), "f", "x"), null));
