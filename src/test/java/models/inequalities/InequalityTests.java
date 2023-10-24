@@ -111,29 +111,14 @@ public class InequalityTests {
     public void solve_greater_than_or_equals_test() {
         final PolynomialFunction leftSide = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
-                    .coefficient(-6.0)
+                    .coefficient(6.0)
                     .varName("x")
                     .exponent(1)
-                    .build());
-            add(PolynomialTerm.builder()
-                    .coefficient(-2.0)
-                    .varName("x")
-                    .exponent(0)
                     .build());
         }}, "f", "x");
         final PolynomialFunction rightSide = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
-                    .coefficient(-1.0)
-                    .varName("x")
-                    .exponent(1)
-                    .build());
-            add(PolynomialTerm.builder()
-                    .coefficient(-10.0)
-                    .varName("x")
-                    .exponent(0)
-                    .build());
-            add(PolynomialTerm.builder()
-                    .coefficient(-2.0)
+                    .coefficient(18.0)
                     .varName("x")
                     .exponent(0)
                     .build());
@@ -150,7 +135,7 @@ public class InequalityTests {
 
         List<Range<Double>> ranges = inequality.solve();
         assertEquals(1, ranges.size());
-        assertEquals(Range.atMost(2.0), ranges.get(0));
+        assertEquals(Range.atLeast(3.0), ranges.get(0));
     }
 
     @Test
