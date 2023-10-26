@@ -134,9 +134,8 @@ public class LinearInequality implements Inequality {
         } else if (linearInequality.type == InequalityType.GREATER_THAN_OR_EQUAL_TO) {
             return Collections.singletonList(Range.atLeast(rightSideCopy.getTerms().get(0).getCoefficient()));
         } else if (linearInequality.type == InequalityType.EQUAL_TO) {
-            return Collections.singletonList(Range.singleton(rightSideCopy.getTerms().get(0).getCoefficient()));
+            throw new IllegalArgumentException("Inequality presented as equality.");
         }
-
         return null;
     }
 
