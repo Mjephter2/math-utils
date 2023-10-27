@@ -330,6 +330,31 @@ public class InequalityTests {
     }
 
     @Test
+    public void inequality_equals_to_case5() {
+        final PolynomialFunction leftSide = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(2.0)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+        }}, "f", "x");
+        final PolynomialFunction rightSide = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(1.0)
+                    .varName("x")
+                    .exponent(0)
+                    .build());
+        }}, "g", "x");
+        final Inequality inequality1 = LinearInequality.builder()
+                .leftSide(leftSide)
+                .rightSide(rightSide)
+                .type(InequalityType.EQUAL_TO)
+                .build();
+
+        assertThrows(IllegalArgumentException.class, inequality1::solve);
+    }
+
+    @Test
     public void inequality_case6() {
         final PolynomialFunction leftSide = new PolynomialFunction(new LinkedList<>(), "f", "x");
         final PolynomialFunction rightSide = new PolynomialFunction(new LinkedList<>(){{
