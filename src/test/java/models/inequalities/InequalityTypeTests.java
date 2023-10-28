@@ -27,4 +27,15 @@ public class InequalityTypeTests {
         assertEquals(InequalityType.NOT_EQUAL_TO, InequalityType.reverse(InequalityType.EQUAL_TO));
         assertEquals(InequalityType.EQUAL_TO, InequalityType.reverse(InequalityType.NOT_EQUAL_TO));
     }
+
+    @Test
+    public void fromSymbol_tests() {
+        assertEquals(InequalityType.LESS_THAN, InequalityType.fromSymbol("<"));
+        assertEquals(InequalityType.LESS_THAN_OR_EQUAL_TO, InequalityType.fromSymbol("<="));
+        assertEquals(InequalityType.GREATER_THAN, InequalityType.fromSymbol(">"));
+        assertEquals(InequalityType.GREATER_THAN_OR_EQUAL_TO, InequalityType.fromSymbol(">="));
+        assertEquals(InequalityType.EQUAL_TO, InequalityType.fromSymbol("="));
+        assertEquals(InequalityType.NOT_EQUAL_TO, InequalityType.fromSymbol("!="));
+        assertNull(InequalityType.fromSymbol("invalid"));
+    }
 }
