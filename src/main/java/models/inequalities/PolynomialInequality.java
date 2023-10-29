@@ -21,6 +21,9 @@ class PolynomialInequality implements Inequality {
         if (leftSide.getDegree() <= 1 && rightSide.getDegree() <= 1) {
             return new LinearInequality(this.type, this.leftSide, this.rightSide).solve();
         }
+
+        // TODO: Implement solving for polynomial inequalities
+
         throw new UnsupportedOperationException("Unimplemented method 'solve'");
     }
 }
