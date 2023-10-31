@@ -14,15 +14,15 @@ import static org.junit.Assert.assertThrows;
 public class DerivativeUtilsTests {
 
     @Test
-    public void productRuleTest() {
-        final Function f1 = new PolynomialFunction(new LinkedList<>(){{
+    public void productRuleTests() {
+        final PolynomialFunction f1 = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
                     .coefficient(2)
                     .varName("x")
                     .exponent(3)
                     .build());
         }}, "f1", "x");
-        final Function f2 = new PolynomialFunction(new LinkedList<>(){{
+        final PolynomialFunction f2 = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
                     .coefficient(2)
                     .varName("x")
@@ -37,15 +37,15 @@ public class DerivativeUtilsTests {
     }
 
     @Test
-    public void productTestExceptionsTests() {
-        final Function f1 = new PolynomialFunction(new LinkedList<>(){{
+    public void exceptionsTests() {
+        final PolynomialFunction f1 = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
                     .coefficient(2)
                     .varName("x")
                     .exponent(3)
                     .build());
         }}, "f1", "x");
-        final Function f2 = new PolynomialFunction(new LinkedList<>(){{
+        final PolynomialFunction f2 = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
                     .coefficient(2)
                     .varName("y")
@@ -54,5 +54,29 @@ public class DerivativeUtilsTests {
         }}, "f2", "y");
 
         assertThrows(IllegalArgumentException.class, () -> derivativeUtils.productRule(f1, f2));
+        assertThrows(IllegalArgumentException.class, () -> derivativeUtils.quotientRule(f1, f2));
+    }
+
+    @Test
+    public void quotientRuleTests() {
+        final PolynomialFunction f1 = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(2)
+                    .varName("x")
+                    .exponent(3)
+                    .build());
+        }}, "f1", "x");
+        final PolynomialFunction f2 = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(2)
+                    .varName("x")
+                    .exponent(2)
+                    .build());
+        }}, "f2", "x");
+
+        // Compute derivative of f1 / f2
+        final Function derivative = derivativeUtils.quotientRule(f1, f2);
+
+        assertEquals("(f1 / f2)'(x) = ( ( ( 6x² )( 2x² ) + ( 2x³ )( 4x ) ) / ( ( 2x² )( 2x² ) ) )", derivative.printFunc());
     }
 }
