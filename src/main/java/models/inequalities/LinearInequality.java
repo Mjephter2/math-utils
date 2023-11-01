@@ -15,12 +15,12 @@ import java.util.List;
  * Class representing an inequality
  */
 @Getter
-@Builder
 public class LinearInequality implements Inequality {
 
     private InequalityType type;
     private PolynomialFunction leftSide;
     private PolynomialFunction rightSide;
+    private List<Range<Double>> solution;
 
     public LinearInequality(final InequalityType type, final PolynomialFunction leftSide, final PolynomialFunction rightSide) {
         if (leftSide == null || rightSide == null) {
@@ -42,7 +42,7 @@ public class LinearInequality implements Inequality {
      * @return the range of values that satisfy the inequality
      */
     @Override
-    public List<Range<Double>> solve() {
+    public void solve() {
         PolynomialFunction leftSideCopy = this.leftSide.deepCopy();
         PolynomialFunction rightSideCopy = this.rightSide.deepCopy();
         LinearInequality linearInequality = new LinearInequality(this.type, leftSideCopy, rightSideCopy);
@@ -76,38 +76,38 @@ public class LinearInequality implements Inequality {
                 rightSideCopy.getTerms().isEmpty() &&
                 (type == InequalityType.LESS_THAN_OR_EQUAL_TO || type == InequalityType.GREATER_THAN_OR_EQUAL_TO)
         ) {
-            return Collections.singletonList(Range.all());
+            this.solution = Collections.singletonList(Range.all());
         // Case 2: left side is zero, right side is zero and inequality is strict
         } else if (
                 leftSideCopy.getTerms().isEmpty() &&
                 rightSideCopy.getTerms().isEmpty() &&
                 (type == InequalityType.LESS_THAN || type == InequalityType.GREATER_THAN)
         ) {
-            return Collections.emptyList();
+            this.solution = Collections.emptyList();
         // Case 3: left side is zero, right side is negative and inequality type is less than or less than or equal to
         } else if (leftSideCopy.getTerms().isEmpty() &&
                 rightSideCopy.getTerms().get(0).getCoefficient() < 0.0 &&
                 (type == InequalityType.LESS_THAN || type == InequalityType.LESS_THAN_OR_EQUAL_TO)
             ) {
-            return Collections.emptyList();
+            this.solution = Collections.emptyList();
         // Case 4: left side is zero, right side is negative and inequality type is greater than or greater than or equal to
         } else if (leftSideCopy.getTerms().isEmpty() &&
                 rightSideCopy.getTerms().get(0).getCoefficient() < 0.0 &&
                 (type == InequalityType.GREATER_THAN || type == InequalityType.GREATER_THAN_OR_EQUAL_TO)
             ) {
-            return Collections.singletonList(Range.all());
+            this.solution = Collections.singletonList(Range.all());
         // Case 5: left side is zero, right side is positive and inequality type is less than or less than or equal to
         } else if (leftSideCopy.getTerms().isEmpty() &&
                 rightSideCopy.getTerms().get(0).getCoefficient() > 0.0 &&
                 (type == InequalityType.LESS_THAN || type == InequalityType.LESS_THAN_OR_EQUAL_TO)
             ) {
-            return Collections.singletonList(Range.all());
+            this.solution = Collections.singletonList(Range.all());
         // Case 6: left side is zero, right side is positive and inequality type is greater than or greater than or equal to
         } else if (leftSideCopy.getTerms().isEmpty() &&
                 rightSideCopy.getTerms().get(0).getCoefficient() > 0.0 &&
                 (type == InequalityType.GREATER_THAN || type == InequalityType.GREATER_THAN_OR_EQUAL_TO)
             ) {
-            return Collections.emptyList();
+            this.solution = Collections.emptyList();
         }
 
         if (leftSideCopy.getTerms().get(0).getCoefficient() < 0.0) {
@@ -126,17 +126,16 @@ public class LinearInequality implements Inequality {
         }
 
         if (linearInequality.type == InequalityType.LESS_THAN) {
-            return Collections.singletonList(Range.lessThan(rightSideCopy.getTerms().get(0).getCoefficient()));
+            this.solution = Collections.singletonList(Range.lessThan(rightSideCopy.getTerms().get(0).getCoefficient()));
         } else if (linearInequality.type == InequalityType.LESS_THAN_OR_EQUAL_TO) {
-            return Collections.singletonList(Range.atMost(rightSideCopy.getTerms().get(0).getCoefficient()));
+            this.solution = Collections.singletonList(Range.atMost(rightSideCopy.getTerms().get(0).getCoefficient()));
         } else if (linearInequality.type == InequalityType.GREATER_THAN) {
-            return Collections.singletonList(Range.greaterThan(rightSideCopy.getTerms().get(0).getCoefficient()));
+            this.solution = Collections.singletonList(Range.greaterThan(rightSideCopy.getTerms().get(0).getCoefficient()));
         } else if (linearInequality.type == InequalityType.GREATER_THAN_OR_EQUAL_TO) {
-            return Collections.singletonList(Range.atLeast(rightSideCopy.getTerms().get(0).getCoefficient()));
+            this.solution = Collections.singletonList(Range.atLeast(rightSideCopy.getTerms().get(0).getCoefficient()));
         } else if (linearInequality.type == InequalityType.EQUAL_TO) {
             throw new IllegalArgumentException("Inequality presented as equality.");
         }
-        return null;
     }
 
     public String toString() {
