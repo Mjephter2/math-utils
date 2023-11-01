@@ -16,11 +16,13 @@ public interface Inequality {
 
     InequalityType getType();
 
+    List<Range<Double>> getSolution();
+
     /**
      * Solves the inequality
      * @return the range of values that satisfy the inequality
      */
-    List<Range<Double>> solve();
+    void solve();
 
     /**
      * Prints the inequality

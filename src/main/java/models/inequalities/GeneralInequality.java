@@ -15,19 +15,21 @@ public class GeneralInequality implements Inequality {
     private Function leftSide;
     private Function rightSide;
     private InequalityType type;
+    private List<Range<Double>> solution;
 
     @Override
-    public List<Range<Double>> solve() {
+    public void solve() {
         // If both sides are polynomials, solve as a polynomial inequality
         if (leftSide instanceof PolynomialFunction && rightSide instanceof PolynomialFunction) {
-            return PolynomialInequality.builder()
+            final PolynomialInequality polynomialInequality = PolynomialInequality.builder()
                     .leftSide((PolynomialFunction) leftSide)
                     .rightSide((PolynomialFunction) rightSide)
                     .type(type)
-                    .build()
-                    .solve();
+                    .build();
+            polynomialInequality.solve();
+            this.solution = polynomialInequality.getSolution();
         }
         System.out.println("Unimplemented solver for provided inputs: " + this.printInequality());
-        return null;
+        this.solution = null;
     }
 }
