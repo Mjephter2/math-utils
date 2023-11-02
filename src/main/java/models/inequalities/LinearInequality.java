@@ -77,6 +77,7 @@ public class LinearInequality implements Inequality {
                 (type == InequalityType.LESS_THAN_OR_EQUAL_TO || type == InequalityType.GREATER_THAN_OR_EQUAL_TO)
         ) {
             this.solution = Collections.singletonList(Range.all());
+            return;
         // Case 2: left side is zero, right side is zero and inequality is strict
         } else if (
                 leftSideCopy.getTerms().isEmpty() &&
@@ -84,30 +85,35 @@ public class LinearInequality implements Inequality {
                 (type == InequalityType.LESS_THAN || type == InequalityType.GREATER_THAN)
         ) {
             this.solution = Collections.emptyList();
+            return;
         // Case 3: left side is zero, right side is negative and inequality type is less than or less than or equal to
         } else if (leftSideCopy.getTerms().isEmpty() &&
                 rightSideCopy.getTerms().get(0).getCoefficient() < 0.0 &&
                 (type == InequalityType.LESS_THAN || type == InequalityType.LESS_THAN_OR_EQUAL_TO)
             ) {
             this.solution = Collections.emptyList();
+            return;
         // Case 4: left side is zero, right side is negative and inequality type is greater than or greater than or equal to
         } else if (leftSideCopy.getTerms().isEmpty() &&
                 rightSideCopy.getTerms().get(0).getCoefficient() < 0.0 &&
                 (type == InequalityType.GREATER_THAN || type == InequalityType.GREATER_THAN_OR_EQUAL_TO)
             ) {
             this.solution = Collections.singletonList(Range.all());
+            return;
         // Case 5: left side is zero, right side is positive and inequality type is less than or less than or equal to
         } else if (leftSideCopy.getTerms().isEmpty() &&
                 rightSideCopy.getTerms().get(0).getCoefficient() > 0.0 &&
                 (type == InequalityType.LESS_THAN || type == InequalityType.LESS_THAN_OR_EQUAL_TO)
             ) {
             this.solution = Collections.singletonList(Range.all());
+            return;
         // Case 6: left side is zero, right side is positive and inequality type is greater than or greater than or equal to
         } else if (leftSideCopy.getTerms().isEmpty() &&
                 rightSideCopy.getTerms().get(0).getCoefficient() > 0.0 &&
                 (type == InequalityType.GREATER_THAN || type == InequalityType.GREATER_THAN_OR_EQUAL_TO)
             ) {
             this.solution = Collections.emptyList();
+            return;
         }
 
         if (leftSideCopy.getTerms().get(0).getCoefficient() < 0.0) {
