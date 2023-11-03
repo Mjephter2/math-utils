@@ -45,18 +45,15 @@ public class InequalityTests {
                     .exponent(0)
                     .build());
         }}, "g", "x");
-        final Inequality inequality = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.LESS_THAN)
-                .build();
+        final Inequality inequality = new LinearInequality(InequalityType.LESS_THAN, leftSide, rightSide);
 
         assertEquals("6x + 2 < x + 12", inequality.printInequality());
         assertEquals(InequalityType.LESS_THAN, inequality.getType());
         assertEquals(inequality.getLeftSide(), leftSide);
         assertEquals(inequality.getRightSide(), rightSide);
 
-        List<Range<Double>> ranges = inequality.solve();
+        inequality.solve();
+        List<Range<Double>> ranges = inequality.getSolution();
         assertEquals(1, ranges.size());
         assertEquals(Range.lessThan(2.0), ranges.get(0));
     }
@@ -92,18 +89,15 @@ public class InequalityTests {
                     .exponent(0)
                     .build());
         }}, "g", "x");
-        final Inequality inequality = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.LESS_THAN_OR_EQUAL_TO)
-                .build();
+        final Inequality inequality = new LinearInequality(InequalityType.LESS_THAN_OR_EQUAL_TO, leftSide, rightSide);
 
         assertEquals("6x + 2 <= x + 12", inequality.printInequality());
         assertEquals(InequalityType.LESS_THAN_OR_EQUAL_TO, inequality.getType());
         assertEquals(inequality.getLeftSide(), leftSide);
         assertEquals(inequality.getRightSide(), rightSide);
 
-        List<Range<Double>> ranges = inequality.solve();
+        inequality.solve();
+        List<Range<Double>> ranges = inequality.getSolution();
         assertEquals(1, ranges.size());
         assertEquals(Range.atMost(2.0), ranges.get(0));
     }
@@ -139,17 +133,14 @@ public class InequalityTests {
                     .exponent(0)
                     .build());
         }}, "g", "x");
-        final Inequality inequality = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.LESS_THAN)
-                .build();
+        final Inequality inequality = new LinearInequality(InequalityType.LESS_THAN, leftSide, rightSide);
 
         assertEquals(InequalityType.LESS_THAN, inequality.getType());
         assertEquals(inequality.getLeftSide(), leftSide);
         assertEquals(inequality.getRightSide(), rightSide);
 
-        List<Range<Double>> ranges = inequality.solve();
+        inequality.solve();
+        List<Range<Double>> ranges = inequality.getSolution();
         assertEquals(1, ranges.size());
         assertEquals(Range.greaterThan(2.0), ranges.get(0));
     }
@@ -170,17 +161,14 @@ public class InequalityTests {
                     .exponent(0)
                     .build());
         }}, "g", "x");
-        final Inequality inequality = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.GREATER_THAN_OR_EQUAL_TO)
-                .build();
+        final Inequality inequality = new LinearInequality(InequalityType.GREATER_THAN_OR_EQUAL_TO, leftSide, rightSide);
 
         assertEquals(InequalityType.GREATER_THAN_OR_EQUAL_TO, inequality.getType());
         assertEquals(inequality.getLeftSide(), leftSide);
         assertEquals(inequality.getRightSide(), rightSide);
 
-        List<Range<Double>> ranges = inequality.solve();
+        inequality.solve();
+        List<Range<Double>> ranges = inequality.getSolution();
         assertEquals(1, ranges.size());
         assertEquals(Range.atLeast(3.0), ranges.get(0));
     }
@@ -201,17 +189,14 @@ public class InequalityTests {
                     .exponent(1)
                     .build());
         }}, "g", "x");
-        final Inequality inequality = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.LESS_THAN_OR_EQUAL_TO)
-                .build();
+        final Inequality inequality = new LinearInequality(InequalityType.LESS_THAN_OR_EQUAL_TO, leftSide, rightSide);
 
         assertEquals(InequalityType.LESS_THAN_OR_EQUAL_TO, inequality.getType());
         assertEquals(inequality.getLeftSide(), leftSide);
         assertEquals(inequality.getRightSide(), rightSide);
 
-        List<Range<Double>> ranges = inequality.solve();
+        inequality.solve();
+        List<Range<Double>> ranges = inequality.getSolution();
         assertEquals(1, ranges.size());
         assertEquals(Range.all(), ranges.get(0));
     }
@@ -220,38 +205,28 @@ public class InequalityTests {
     public void inequality_infinite_solutions() {
         final PolynomialFunction leftSide = new PolynomialFunction(new LinkedList<>(), "f", "x");
         final PolynomialFunction rightSide = new PolynomialFunction(new LinkedList<>(), "g", "x");
-        final Inequality inequality1 = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.LESS_THAN_OR_EQUAL_TO)
-                .build();
-        final Inequality inequality2 = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.GREATER_THAN_OR_EQUAL_TO)
-                .build();
+        final Inequality inequality1 = new LinearInequality(InequalityType.LESS_THAN_OR_EQUAL_TO, leftSide, rightSide);
+        final Inequality inequality2 = new LinearInequality(InequalityType.GREATER_THAN_OR_EQUAL_TO, leftSide, rightSide);
 
-        assertEquals(Range.all(), inequality1.solve().get(0));
-        assertEquals(Range.all(), inequality2.solve().get(0));
+        inequality1.solve();
+        inequality2.solve();
+
+        assertEquals(Range.all(), inequality1.getSolution().get(0));
+        assertEquals(Range.all(), inequality2.getSolution().get(0));
     }
 
     @Test
     public void inequality_no_solutions() {
         final PolynomialFunction leftSide = new PolynomialFunction(new LinkedList<>(), "f", "x");
         final PolynomialFunction rightSide = new PolynomialFunction(new LinkedList<>(), "g", "x");
-        final Inequality inequality1 = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.LESS_THAN)
-                .build();
-        final Inequality inequality2 = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.GREATER_THAN)
-                .build();
+        final Inequality inequality1 = new LinearInequality(InequalityType.LESS_THAN, leftSide, rightSide);
+        final Inequality inequality2 = new LinearInequality(InequalityType.GREATER_THAN, leftSide, rightSide);
 
-        assertEquals(Collections.emptyList(), inequality1.solve());
-        assertEquals(Collections.emptyList(), inequality2.solve());
+        inequality1.solve();
+        inequality2.solve();
+
+        assertEquals(Collections.emptyList(), inequality1.getSolution());
+        assertEquals(Collections.emptyList(), inequality2.getSolution());
     }
 
     @Test
@@ -264,19 +239,14 @@ public class InequalityTests {
                     .exponent(0)
                     .build());
         }}, "g", "x");
-        final Inequality inequality1 = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.LESS_THAN)
-                .build();
-        final Inequality inequality2 = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.LESS_THAN_OR_EQUAL_TO)
-                .build();
+        final Inequality inequality1 = new LinearInequality(InequalityType.LESS_THAN, leftSide, rightSide);
+        final Inequality inequality2 = new LinearInequality(InequalityType.LESS_THAN_OR_EQUAL_TO, leftSide, rightSide);
 
-        assertEquals(Collections.emptyList(), inequality1.solve());
-        assertEquals(Collections.emptyList(), inequality2.solve());
+        inequality1.solve();
+        inequality2.solve();
+
+        assertEquals(Collections.emptyList(), inequality1.getSolution());
+        assertEquals(Collections.emptyList(), inequality2.getSolution());
     }
 
     @Test
@@ -289,19 +259,14 @@ public class InequalityTests {
                     .exponent(0)
                     .build());
         }}, "g", "x");
-        final Inequality inequality1 = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.GREATER_THAN)
-                .build();
-        final Inequality inequality2 = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.GREATER_THAN_OR_EQUAL_TO)
-                .build();
+        final Inequality inequality1 = new LinearInequality(InequalityType.GREATER_THAN, leftSide, rightSide);
+        final Inequality inequality2 = new LinearInequality(InequalityType.GREATER_THAN_OR_EQUAL_TO, leftSide, rightSide);
 
-        assertEquals(Collections.singletonList(Range.all()), inequality1.solve());
-        assertEquals(Collections.singletonList(Range.all()), inequality2.solve());
+        inequality1.solve();
+        inequality2.solve();
+
+        assertEquals(Collections.singletonList(Range.all()), inequality1.getSolution());
+        assertEquals(Collections.singletonList(Range.all()), inequality2.getSolution());
     }
 
     @Test
@@ -314,19 +279,14 @@ public class InequalityTests {
                     .exponent(0)
                     .build());
         }}, "g", "x");
-        final Inequality inequality1 = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.LESS_THAN)
-                .build();
-        final Inequality inequality2 = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.LESS_THAN_OR_EQUAL_TO)
-                .build();
+        final Inequality inequality1 = new LinearInequality(InequalityType.LESS_THAN, leftSide, rightSide);
+        final Inequality inequality2 = new LinearInequality(InequalityType.LESS_THAN_OR_EQUAL_TO, leftSide, rightSide);
 
-        assertEquals(Collections.singletonList(Range.all()), inequality1.solve());
-        assertEquals(Collections.singletonList(Range.all()), inequality2.solve());
+        inequality1.solve();
+        inequality2.solve();
+
+        assertEquals(Collections.singletonList(Range.all()), inequality1.getSolution());
+        assertEquals(Collections.singletonList(Range.all()), inequality2.getSolution());
     }
 
     @Test
@@ -345,11 +305,7 @@ public class InequalityTests {
                     .exponent(0)
                     .build());
         }}, "g", "x");
-        final Inequality inequality1 = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.EQUAL_TO)
-                .build();
+        final Inequality inequality1 = new LinearInequality(InequalityType.EQUAL_TO, leftSide, rightSide);
 
         assertThrows(IllegalArgumentException.class, inequality1::solve);
     }
@@ -364,19 +320,14 @@ public class InequalityTests {
                     .exponent(0)
                     .build());
         }}, "g", "x");
-        final Inequality inequality1 = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.GREATER_THAN)
-                .build();
-        final Inequality inequality2 = LinearInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.GREATER_THAN_OR_EQUAL_TO)
-                .build();
+        final Inequality inequality1 = new LinearInequality(InequalityType.GREATER_THAN, leftSide, rightSide);
+        final Inequality inequality2 = new LinearInequality(InequalityType.GREATER_THAN_OR_EQUAL_TO, leftSide, rightSide);
 
-        assertEquals(Collections.emptyList(), inequality1.solve());
-        assertEquals(Collections.emptyList(), inequality2.solve());
+        inequality1.solve();
+        inequality2.solve();
+
+        assertEquals(Collections.emptyList(), inequality1.getSolution());
+        assertEquals(Collections.emptyList(), inequality2.getSolution());
     }
 
     @Test
