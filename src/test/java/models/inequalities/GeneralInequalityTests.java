@@ -37,7 +37,8 @@ public class GeneralInequalityTests {
                 .type(InequalityType.LESS_THAN)
                 .build();
 
-        List<Range<Double>> solution = generalInequality.solve();
+        generalInequality.solve();
+        List<Range<Double>> solution = generalInequality.getSolution();
         assertEquals(1, solution.size());
         assertEquals(Range.lessThan(1.0), solution.get(0));
     }
@@ -53,6 +54,7 @@ public class GeneralInequalityTests {
                 .type(InequalityType.LESS_THAN)
                 .build();
 
-        assertNull(generalInequality.solve());
+        generalInequality.solve();
+        assertNull(generalInequality.getSolution());
     }
 }
