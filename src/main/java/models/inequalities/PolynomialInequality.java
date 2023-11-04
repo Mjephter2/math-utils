@@ -23,6 +23,7 @@ class PolynomialInequality implements Inequality {
             final LinearInequality linearInequality = new LinearInequality(this.type, this.leftSide, this.rightSide);
             linearInequality.solve();
             this.solution = linearInequality.getSolution();
+            return;
         }
 
         // TODO: Implement solving for polynomial inequalities

@@ -28,6 +28,7 @@ public class GeneralInequality implements Inequality {
                     .build();
             polynomialInequality.solve();
             this.solution = polynomialInequality.getSolution();
+            return;
         }
         System.out.println("Unimplemented solver for provided inputs: " + this.printInequality());
         this.solution = null;

@@ -40,7 +40,8 @@ public class PolynomialInequalityTests {
         assertEquals(leftSide, inequality.getLeftSide());
         assertEquals(rightSide, inequality.getRightSide());
 
-        List<Range<Double>> solution = inequality.solve();
+        inequality.solve();
+        List<Range<Double>> solution = inequality.getSolution();
 
         assertEquals(1, solution.size());
     }
