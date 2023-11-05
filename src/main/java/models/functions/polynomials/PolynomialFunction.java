@@ -368,8 +368,8 @@ public class PolynomialFunction implements Function {
     }
 
     @Override
-    public PolynomialFunction deepCopy() {
-        return new PolynomialFunction(this.terms.stream().map(PolynomialTerm::deepCopy).collect(Collectors.toList()), this.funcName, this.varName);
+    public PolynomialFunction deepCopy(final String newFuncName) {
+        return new PolynomialFunction(this.terms.stream().map(PolynomialTerm::deepCopy).collect(Collectors.toList()), newFuncName, this.varName);
     }
 
     /*

@@ -79,7 +79,7 @@ public interface Function {
     /*
      * Returns a deep copy of the function
      */
-    Function deepCopy();
+    Function deepCopy(final String newFuncName);
 
     /**
      * Returns true if the given function is equal to this function

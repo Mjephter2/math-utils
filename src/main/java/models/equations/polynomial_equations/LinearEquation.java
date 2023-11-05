@@ -19,8 +19,8 @@ public class LinearEquation extends PolynomialEquation {
 
     @Override
     public Double[] solve() {
-        PolynomialFunction leftSideCopy = this.getLeftSide().deepCopy();
-        PolynomialFunction rightSideCopy = this.getRightSide().deepCopy();
+        PolynomialFunction leftSideCopy = this.getLeftSide().deepCopy(this.getLeftSide().getFuncName());
+        PolynomialFunction rightSideCopy = this.getRightSide().deepCopy(this.getRightSide().getFuncName());
         LinearEquation equationCopy = new LinearEquation(leftSideCopy, rightSideCopy);
 
         System.out.println("Starting to solve linear equation: " + equationCopy);

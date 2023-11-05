@@ -43,8 +43,8 @@ public class LinearInequality implements Inequality {
      */
     @Override
     public void solve() {
-        PolynomialFunction leftSideCopy = this.leftSide.deepCopy();
-        PolynomialFunction rightSideCopy = this.rightSide.deepCopy();
+        PolynomialFunction leftSideCopy = this.leftSide.deepCopy(this.leftSide.getFuncName());
+        PolynomialFunction rightSideCopy = this.rightSide.deepCopy(this.rightSide.getFuncName());
         LinearInequality linearInequality = new LinearInequality(this.type, leftSideCopy, rightSideCopy);
 
         System.out.println("Starting to solve linear inequality: " + linearInequality);

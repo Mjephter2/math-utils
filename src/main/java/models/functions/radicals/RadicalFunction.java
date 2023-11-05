@@ -108,11 +108,11 @@ public class RadicalFunction implements Function {
     }
 
     @Override
-    public Function deepCopy() {
+    public Function deepCopy(final String newFuncName) {
         return RadicalFunction.builder()
                 .rootIndex(this.rootIndex)
-                .body(this.body.deepCopy())
-                .funcName(this.funcName)
+                .body(this.body.deepCopy(this.body.getFuncName()))
+                .funcName(newFuncName)
                 .varName(this.varName)
                 .build();
     }

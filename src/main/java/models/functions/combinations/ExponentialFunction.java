@@ -66,16 +66,17 @@ public class ExponentialFunction implements Function {
     @Override
     // This implementation assumes that the base is a constant
     public Function derivative() {
-        return new CompositeFunction(this.funcName, Stream.of(
-                new PolynomialFunction(new LinkedList<>() {{
-                    add(PolynomialTerm.builder()
-                            .varName(exponent.getVarName())
-                            .coefficient(Math.log(base))
-                            .exponent(0)
+        return new CompositeFunction(this.funcName + "'",
+                Stream.of(
+                        new PolynomialFunction(new LinkedList<>() {{
+                            add(PolynomialTerm.builder()
+                                .varName(exponent.getVarName())
+                                .coefficient(Math.log(base))
+                                .exponent(0)
                             .build());
-                }}, this.funcName, this.varName),
-                exponent.derivative(),
-                this.deepCopy()
+                        }}, this.funcName, this.varName),
+                        exponent.derivative(),
+                        this.deepCopy(this.funcName)
         ).collect(Collectors.toList()));
     }
 
@@ -103,12 +104,12 @@ public class ExponentialFunction implements Function {
     }
 
     @Override
-    public Function deepCopy() {
+    public Function deepCopy(final String newFuncName) {
         return ExponentialFunction.builder()
-                .funcName(this.funcName)
+                .funcName(newFuncName)
                 .varName(this.varName)
                 .base(this.base)
-                .exponent(this.exponent.deepCopy())
+                .exponent(this.exponent.deepCopy(this.exponent.getFuncName()))
                 .build();
     }
 

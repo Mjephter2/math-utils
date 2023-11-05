@@ -94,12 +94,12 @@ public class TrigonometricFunction implements Function {
                                 .build());
                     }}, this.funcName, this.varName),
                     innerFunction.derivative(),
-                    innerFunction.deepCopy()
+                    innerFunction.deepCopy(innerFunction.getFuncName())
             ).collect(Collectors.toList()));
         } else if (this.trigonometricFunctionType == SINE) {
             return new CompositeFunction(this.funcName, Stream.of(
                     innerFunction.derivative(),
-                    innerFunction.deepCopy()
+                    innerFunction.deepCopy(innerFunction.getFuncName())
             ).collect(Collectors.toList()));
         };
 
@@ -130,12 +130,12 @@ public class TrigonometricFunction implements Function {
     }
 
     @Override
-    public Function deepCopy() {
+    public Function deepCopy(final String newFuncName) {
         return TrigonometricFunction.builder()
-                .funcName(this.funcName)
+                .funcName(newFuncName)
                 .varName(this.varName)
                 .trigonometricFunctionType(this.trigonometricFunctionType)
-                .innerFunction(this.innerFunction.deepCopy())
+                .innerFunction(this.innerFunction.deepCopy(this.innerFunction.getFuncName()))
                 .build();
     }
 

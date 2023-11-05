@@ -107,9 +107,9 @@ public class ConstantFunction implements Function {
     }
 
     @Override
-    public Function deepCopy() {
+    public Function deepCopy(final String newFuncName) {
         return ConstantFunction.builder()
-                .funcName(this.funcName)
+                .funcName(newFuncName)
                 .value(this.value)
                 .build();
     }

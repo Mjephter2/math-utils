@@ -117,12 +117,12 @@ public class ComplexFunction implements Function {
     }
 
     @Override
-    public Function deepCopy() {
+    public Function deepCopy(final String newFuncName) {
         return ComplexFunction.builder()
-                .funcName(this.funcName)
+                .funcName(newFuncName)
                 .varName(this.varName)
                 .functions(this.functions.stream()
-                        .map(CompositeFunction::deepCopy)
+                        .map(func -> func.deepCopy(func.getFuncName()))
                         .map(CompositeFunction.class::cast)
                         .collect(Collectors.toList()))
                 .build();
