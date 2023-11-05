@@ -187,15 +187,15 @@ public class CompositeFunction implements Function {
     }
 
     @Override
-    public Function deepCopy() {
+    public Function deepCopy(final String newFuncName) {
         return CompositeFunction.builder()
                 .funcName(this.funcName)
                 .polynomialFactors(this.polynomialFactors.stream()
-                        .map(PolynomialFunction::deepCopy)
+                        .map(func -> func.deepCopy(func.getFuncName()))
                         .map(PolynomialFunction.class::cast)
                         .collect(Collectors.toList()))
                 .radicalFactors(this.radicalFactors.stream()
-                        .map(SquareRootFunction::deepCopy)
+                        .map(func -> func.deepCopy(func.getFuncName()))
                         .map(SquareRootFunction.class::cast)
                         .collect(Collectors.toList()))
                 .build();

@@ -44,10 +44,10 @@ public class ExponentialFunctionTests {
         final CompositeFunction derivative =  (CompositeFunction) func.derivative();
 
         assertEquals(FunctionType.OTHER, derivative.getFuncType());
-        assertEquals("f", derivative.getFuncName());
+        assertEquals("f'", derivative.getFuncName());
         assertEquals("x", derivative.getVarName());
 
-        assertEquals("f(x) = ( 0.7 )( 4x + 1 )( 2.0^(2x² + x) )", derivative.toString());
+        assertEquals("f'(x) = ( 0.7 )( 4x + 1 )( 2.0^(2x² + x) )", derivative.toString());
     }
 
     @Test

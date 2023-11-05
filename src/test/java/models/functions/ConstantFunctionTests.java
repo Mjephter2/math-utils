@@ -90,8 +90,8 @@ public class ConstantFunctionTests {
                 .value(1.0)
                 .build();
 
-        final ConstantFunction copy = (ConstantFunction) constantFunction.deepCopy();
-        assertEquals("f() = 1", copy.toString());
+        final ConstantFunction copy = (ConstantFunction) constantFunction.deepCopy("fCopy");
+        assertEquals("fCopy() = 1", copy.toString());
     }
 
     @Test

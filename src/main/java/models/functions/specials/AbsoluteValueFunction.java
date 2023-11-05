@@ -79,10 +79,10 @@ public class AbsoluteValueFunction implements Function {
     }
 
     @Override
-    public Function deepCopy() {
+    public Function deepCopy(final String newFuncName) {
         return AbsoluteValueFunction.builder()
-                .funcName(this.funcName)
-                .innerFunction(this.innerFunction.deepCopy())
+                .funcName(newFuncName)
+                .innerFunction(this.innerFunction.deepCopy(this.innerFunction.getFuncName()))
                 .build();
     }
 }

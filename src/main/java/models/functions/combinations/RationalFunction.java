@@ -91,8 +91,12 @@ public class RationalFunction implements Function {
     }
 
     @Override
-    public Function deepCopy() {
-        return new RationalFunction(this.numerator.deepCopy(), this.denominator.deepCopy(), this.funcName, this.varName);
+    public Function deepCopy(final String newFuncName) {
+        return new RationalFunction(
+                this.numerator.deepCopy(this.numerator.getFuncName()),
+                this.denominator.deepCopy(this.denominator.getFuncName()),
+                newFuncName,
+                this.varName);
     }
 
     @Override

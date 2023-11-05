@@ -38,8 +38,8 @@ public class QuadraticEquation extends PolynomialEquation {
 
     @Override
     public Double[] solve() {
-        PolynomialFunction leftSideCopy = this.getLeftSide().deepCopy();
-        PolynomialFunction rightSideCopy = this.getRightSide().deepCopy();
+        PolynomialFunction leftSideCopy = this.getLeftSide().deepCopy(this.getLeftSide().getFuncName());
+        PolynomialFunction rightSideCopy = this.getRightSide().deepCopy(this.getRightSide().getFuncName());
         QuadraticEquation equationCopy = new QuadraticEquation(leftSideCopy, rightSideCopy);
 
         System.out.println("Starting to solve quadratic equation: " + equationCopy);

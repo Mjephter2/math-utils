@@ -99,12 +99,12 @@ public class PieceWiseFunction implements Function {
     }
 
     @Override
-    public Function deepCopy() {
+    public Function deepCopy(final String newFuncName) {
         return PieceWiseFunction.builder()
-                .funcName(this.funcName)
+                .funcName(newFuncName)
                 .varName(this.varName)
                 .functionsToRangesMap(this.functionsToRangesMap.entrySet().stream()
-                        .collect(Collectors.toMap(entry -> entry.getKey().deepCopy(), Map.Entry::getValue)))
+                        .collect(Collectors.toMap(entry -> entry.getKey().deepCopy(entry.getKey().getFuncName()), Map.Entry::getValue)))
                 .build();
     }
 }

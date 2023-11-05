@@ -55,7 +55,7 @@ public class RationalFunctionTests {
         assertEquals(2, ((PolynomialFunction) ratFunc.getDenominator()).getTerms().size());
 
 
-        final RationalFunction copy = (RationalFunction) ratFunc.deepCopy();
+        final RationalFunction copy = (RationalFunction) ratFunc.deepCopy(ratFunc.getFuncName());
 
         assertEquals(ratFunc.getFuncName(), copy.getFuncName());
         assertEquals(ratFunc.getVarName(), copy.getVarName());

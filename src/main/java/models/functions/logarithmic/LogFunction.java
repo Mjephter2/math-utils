@@ -83,10 +83,12 @@ public class LogFunction implements Function {
     }
 
     @Override
-    public Function deepCopy() {
+    public Function deepCopy(final String newFuncName) {
         return LogFunction.builder()
-                .body(body.deepCopy())
+                .body(body.deepCopy(body.getFuncName()))
                 .base(base)
+                .varName(varName)
+                .funcName(newFuncName)
                 .build();
     }
 

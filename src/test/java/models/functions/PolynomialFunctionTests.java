@@ -23,7 +23,7 @@ public class PolynomialFunctionTests {
         assertEquals(1, func1.getTerms().get(0).getExponent());
         assertEquals(1, func1.getDegree());
 
-        PolynomialFunction func2 = func1.deepCopy();
+        PolynomialFunction func2 = func1.deepCopy(func1.getFuncName());
         assertEquals("P", func2.getFuncName());
         assertEquals("x", func2.getVarName());
         assertEquals(1, func2.getTerms().size());
