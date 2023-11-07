@@ -26,16 +26,6 @@ public class RadicalFunction implements Function {
     private final Function body;
 
     @Override
-    public String getFuncName() {
-        return this.funcName;
-    }
-
-    @Override
-    public String getVarName() {
-        return this.varName;
-    }
-
-    @Override
     public FunctionType getFuncType() {
         return FunctionType.RADICAL;
     }
