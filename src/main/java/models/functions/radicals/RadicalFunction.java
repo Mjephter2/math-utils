@@ -7,6 +7,7 @@ import models.equations.Equation;
 import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
+import models.inequalities.GeneralInequality;
 import utils.SuperscriptUtil;
 
 import java.util.logging.Level;
@@ -51,6 +52,7 @@ public class RadicalFunction implements Function {
     public Function simplify() {
         if (this.body instanceof ConstantFunction) {
             return ConstantFunction.builder()
+                    .funcName(this.funcName)
                     .value(Math.pow(this.body.evaluate(), 1.0 / rootIndex))
                     .build();
         } else {
