@@ -61,16 +61,33 @@ public class RadicalFunctionTests {
 
     @Test
     public void simplifyTest() {
-        final ConstantFunction innerFunc = new ConstantFunction("innerFunc", 8.0);
+        final ConstantFunction innerFunc1 = new ConstantFunction("innerFunc", 8.0);
+        final PolynomialFunction innerFunc2 = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(2)
+                    .varName("x")
+                    .exponent(2)
+                    .build());
+        }}, "innerFunc", "x");
 
-        final RadicalFunction func = RadicalFunction.builder()
+        final RadicalFunction func1 = RadicalFunction.builder()
                 .funcName("f")
                 .varName("x")
                 .rootIndex(3)
-                .body(innerFunc)
+                .body(innerFunc1)
                 .build();
 
-        assertEquals("f(x) = ³√(8)", func.printFunc());
-        assertEquals("f() = 2", func.simplify().toString());
+        final RadicalFunction func2 = RadicalFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .rootIndex(3)
+                .body(innerFunc2)
+                .build();
+
+        assertEquals("f(x) = ³√(8)", func1.printFunc());
+        assertEquals("f() = 2", func1.simplify().toString());
+
+        assertEquals("f(x) = ³√(2x²)", func2.printFunc());
+        assertEquals("f(x) = ³√(2x²)", func2.simplify().printFunc());
     }
 }
