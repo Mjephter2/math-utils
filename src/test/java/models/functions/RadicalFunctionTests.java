@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.util.LinkedList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 public class RadicalFunctionTests {
 
@@ -35,6 +36,9 @@ public class RadicalFunctionTests {
         assertEquals(3, func.getRootIndex());
         assertEquals(innerFunc, func.getBody());
         assertEquals(FunctionType.RADICAL, func.getFuncType());
+
+        final Function copy = func.deepCopy("copy");
+        assertEquals("copy(x) = ³√(2x²)", copy.printFunc());
     }
 
     @Test
@@ -89,5 +93,29 @@ public class RadicalFunctionTests {
 
         assertEquals("f(x) = ³√(2x²)", func2.printFunc());
         assertEquals("f(x) = ³√(2x²)", func2.simplify().printFunc());
+    }
+
+    @Test
+    public void exceptionsTest() {
+        final PolynomialFunction innerFunc = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(2)
+                    .varName("x")
+                    .exponent(2)
+                    .build());
+        }}, "innerFunc", "x");
+
+        final RadicalFunction func = RadicalFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .rootIndex(3)
+                .body(innerFunc)
+                .build();
+
+        assertThrows(UnsupportedOperationException.class, () -> func.getDomain());
+        assertThrows(UnsupportedOperationException.class, () -> func.getRange());
+        assertThrows(UnsupportedOperationException.class, () -> func.derivative());
+        assertThrows(UnsupportedOperationException.class, () -> func.integral());
+        assertThrows(UnsupportedOperationException.class, () -> func.integral(0.0, 1.0));
     }
 }
