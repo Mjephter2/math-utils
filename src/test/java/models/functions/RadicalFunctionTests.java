@@ -3,6 +3,7 @@ package models.functions;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import models.functions.radicals.RadicalFunction;
+import models.functions.radicals.SquareRootFunction;
 import org.junit.Test;
 
 import java.util.LinkedList;
@@ -117,5 +118,20 @@ public class RadicalFunctionTests {
         assertThrows(UnsupportedOperationException.class, () -> func.derivative());
         assertThrows(UnsupportedOperationException.class, () -> func.integral());
         assertThrows(UnsupportedOperationException.class, () -> func.integral(0.0, 1.0));
+    }
+
+    @Test
+    public void squareRootTests() {
+        final PolynomialFunction innerFunc = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(2)
+                    .varName("x")
+                    .exponent(2)
+                    .build());
+        }}, "innerFunc", "x");
+
+        final SquareRootFunction func = new SquareRootFunction("f", "x", innerFunc);
+
+        assertEquals("f(x) = ²√(2x²)", func.printFunc());
     }
 }
