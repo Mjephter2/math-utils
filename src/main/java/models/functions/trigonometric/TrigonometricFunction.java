@@ -85,7 +85,7 @@ public class TrigonometricFunction implements Function {
     // Only implemented for cosine and sine
     public Function derivative() {
         if (this.trigonometricFunctionType == COSINE) {
-            return new CompositeFunction(this.funcName, Stream.of(
+            return new CompositeFunction(this.funcName + "'", Stream.of(
                     new PolynomialFunction(new LinkedList<>() {{
                         add(PolynomialTerm.builder()
                                 .varName(innerFunction.getVarName())
@@ -94,12 +94,12 @@ public class TrigonometricFunction implements Function {
                                 .build());
                     }}, this.funcName, this.varName),
                     innerFunction.derivative(),
-                    innerFunction.deepCopy(innerFunction.getFuncName())
+                    new TrigonometricFunction(this.funcName, this.varName, SINE, innerFunction.deepCopy(innerFunction.getFuncName()))
             ).collect(Collectors.toList()));
         } else if (this.trigonometricFunctionType == SINE) {
-            return new CompositeFunction(this.funcName, Stream.of(
+            return new CompositeFunction(this.funcName + "'", Stream.of(
                     innerFunction.derivative(),
-                    innerFunction.deepCopy(innerFunction.getFuncName())
+                    new TrigonometricFunction(this.funcName, this.varName, COSINE, innerFunction.deepCopy(innerFunction.getFuncName()))
             ).collect(Collectors.toList()));
         };
 
