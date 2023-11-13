@@ -3,6 +3,7 @@ package models.functions.logarithmic;
 import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
+import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
 
@@ -48,7 +49,15 @@ public class LogFunction implements Function {
 
     @Override
     public Function simplify() {
+        if (body instanceof ConstantFunction) {
+            return ConstantFunction.builder()
+                    .value(Math.log(body.evaluate()) / Math.log(base))
+                    .funcName(this.getFuncName())
+                    .build();
+        }
         return LogFunction.builder()
+                .funcName(this.getFuncName())
+                .varName(this.varName)
                 .body(body.simplify())
                 .base(base)
                 .build();
