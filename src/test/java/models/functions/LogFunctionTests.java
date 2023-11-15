@@ -3,6 +3,7 @@ package models.functions;
 
 import com.google.common.collect.Range;
 import models.functions.logarithmic.LogFunction;
+import models.functions.logarithmic.NaturalLogFunction;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import org.junit.Test;
 import java.util.LinkedList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThrows;
 
 public class LogFunctionTests {
@@ -93,5 +95,39 @@ public class LogFunctionTests {
         assertThrows(UnsupportedOperationException.class, logFunction::getDomain);
         assertThrows(UnsupportedOperationException.class, logFunction::integral);
         assertThrows(UnsupportedOperationException.class, () -> logFunction.integral(1.0, 2.0));
+    }
+
+    @Test
+    public void copyTest() {
+        final ConstantFunction innerFunc = ConstantFunction.builder()
+                .value(10)
+                .build();
+        final LogFunction logFunction = LogFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .body(innerFunc)
+                .base(10)
+                .build();
+        final Function copy = logFunction.deepCopy("g");
+        assertEquals("g(x) = log_10.0(10)", copy.printFunc());
+        assertEquals(logFunction, copy);
+
+        assertNotEquals(logFunction, new Object());
+    }
+
+    @Test
+    public void naturalLogTest() {
+        final PolynomialFunction innerFunc = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(1)
+                    .varName("x")
+                    .exponent(2)
+                    .build());
+        }}, "inner", "x");
+        final NaturalLogFunction logFunction = new NaturalLogFunction("f", "x", innerFunc);
+
+        assertEquals("f(x) = ln(x²)", logFunction.printFunc());
+
+        assertEquals(2.0, logFunction.evaluate(Math.E), 0.0);
     }
 }

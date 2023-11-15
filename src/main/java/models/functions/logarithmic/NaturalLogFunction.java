@@ -17,7 +17,7 @@ public class NaturalLogFunction extends LogFunction {
     }
 
     @Override
-    public String toString() {
+    public String printFunc() {
         return this.getFuncName() + "(" + this.getVarName() + ") = " + this.printBody();
     }
 }
