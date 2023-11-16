@@ -14,6 +14,7 @@ import models.functions.FunctionType;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import models.functions.radicals.SquareRootFunction;
+import models.functions.trigonometric.TrigonometricFunction;
 
 /**
  * This class implements a composite function.
@@ -31,6 +32,7 @@ public class CompositeFunction implements Function {
     private final List<SquareRootFunction> radicalFactors;
     private final List<ExponentialFunction> exponentialFunctions;
     private final List<RationalFunction> rationalFunctions;
+    private final List<TrigonometricFunction> trigonometricFunctions;
 
     public CompositeFunction(final String funcName, final List<Function> compositeFactors) {
         this.funcName = funcName;
@@ -56,17 +58,23 @@ public class CompositeFunction implements Function {
                 .map(RationalFunction.class::cast)
                 .collect(Collectors.toList());
 
-        if (polynomialFactors.size() + radicalFactors.size() + exponentialFunctions.size() + rationalFunctions.size() != compositeFactors.size()) {
+        this.trigonometricFunctions = compositeFactors.stream()
+                .filter(TrigonometricFunction.class::isInstance)
+                .map(TrigonometricFunction.class::cast)
+                .collect(Collectors.toList());
+
+        if (polynomialFactors.size() + radicalFactors.size() + exponentialFunctions.size() + rationalFunctions.size() + trigonometricFunctions.size() != compositeFactors.size()) {
             throw new IllegalArgumentException("Composite functions is not implemented requested function types");
         }
     }
 
-    public CompositeFunction(final String funcName, final List<PolynomialFunction> polynomialFactors, final List<SquareRootFunction> radicalFactors, final List<ExponentialFunction> exponentialFunctions, List<RationalFunction> rationalFunctions) {
+    public CompositeFunction(final String funcName, final List<PolynomialFunction> polynomialFactors, final List<SquareRootFunction> radicalFactors, final List<ExponentialFunction> exponentialFunctions, List<RationalFunction> rationalFunctions, List<TrigonometricFunction> trigonometricFunctions) {
         this.funcName = funcName;
         this.polynomialFactors = polynomialFactors;
         this.radicalFactors = radicalFactors;
         this.exponentialFunctions = exponentialFunctions;
         this.rationalFunctions = rationalFunctions;
+        this.trigonometricFunctions = trigonometricFunctions;
     }
 
     /**
@@ -181,6 +189,10 @@ public class CompositeFunction implements Function {
 
         for (final RationalFunction rationalFunction : this.rationalFunctions) {
             stringBuilder.append("( ").append(rationalFunction.printBody()).append(" )");
+        }
+
+        for (final TrigonometricFunction trigonometricFunction : this.trigonometricFunctions) {
+            stringBuilder.append("( ").append(trigonometricFunction.printBody()).append(" )");
         }
 
         return stringBuilder.toString();
