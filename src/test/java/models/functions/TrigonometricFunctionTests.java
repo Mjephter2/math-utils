@@ -233,4 +233,31 @@ public class TrigonometricFunctionTests {
 
         assertEquals("f(x) = cos(2)", trigFunc2.printFunc());
     }
+
+    @Test
+    public void derivative_tests() {
+        final PolynomialFunction innerFunction = new PolynomialFunction(new LinkedList<>() {{
+            add(PolynomialTerm.builder()
+                    .varName("x")
+                    .coefficient(1.0)
+                    .exponent(1)
+                    .build());
+        }}, "i", "x");
+        final TrigonometricFunction sinFunc = TrigonometricFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .trigonometricFunctionType(TrigonometricFunctionType.SINE)
+                .innerFunction(innerFunction)
+                .build();
+
+        assertEquals("f(x) = sin(x)", sinFunc.printFunc());
+        assertEquals("f", sinFunc.getFuncName());
+        assertEquals("x", sinFunc.getVarName());
+        assertEquals(FunctionType.TRIGONOMETRIC, sinFunc.getFuncType());
+        assertEquals(TrigonometricFunctionType.SINE, sinFunc.getTrigonometricFunctionType());
+        assertEquals(innerFunction, sinFunc.getInnerFunction());
+
+        final Function derivative = sinFunc.derivative();
+        assertEquals("f'(x) = ( 1 )( cos(x) )", derivative.printFunc());
+    }
 }
