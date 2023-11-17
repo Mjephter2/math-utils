@@ -1,16 +1,19 @@
 package models.functions;
 
 import com.google.common.collect.Range;
+import models.functions.logarithmic.LogFunction;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import models.functions.trigonometric.TrigonometricFunction;
 import models.functions.trigonometric.TrigonometricFunctionType;
+import org.checkerframework.checker.units.qual.C;
 import org.junit.Test;
 
 import java.util.LinkedList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 public class TrigonometricFunctionTests {
 
@@ -235,7 +238,7 @@ public class TrigonometricFunctionTests {
     }
 
     @Test
-    public void derivative_tests() {
+    public void derivative_sine_tests() {
         final PolynomialFunction innerFunction = new PolynomialFunction(new LinkedList<>() {{
             add(PolynomialTerm.builder()
                     .varName("x")
@@ -259,5 +262,54 @@ public class TrigonometricFunctionTests {
 
         final Function derivative = sinFunc.derivative();
         assertEquals("f'(x) = ( 1 )( cos(x) )", derivative.printFunc());
+    }
+
+    @Test
+    public void derivative_cosine_tests() {
+        final PolynomialFunction innerFunction = new PolynomialFunction(new LinkedList<>() {{
+            add(PolynomialTerm.builder()
+                    .varName("x")
+                    .coefficient(1.0)
+                    .exponent(1)
+                    .build());
+        }}, "i", "x");
+        final TrigonometricFunction cosFunc = TrigonometricFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .trigonometricFunctionType(TrigonometricFunctionType.COSINE)
+                .innerFunction(innerFunction)
+                .build();
+
+        assertEquals("f(x) = cos(x)", cosFunc.printFunc());
+        assertEquals("f", cosFunc.getFuncName());
+        assertEquals("x", cosFunc.getVarName());
+        assertEquals(FunctionType.TRIGONOMETRIC, cosFunc.getFuncType());
+        assertEquals(TrigonometricFunctionType.COSINE, cosFunc.getTrigonometricFunctionType());
+        assertEquals(innerFunction, cosFunc.getInnerFunction());
+
+        final Function derivative = cosFunc.derivative();
+        assertEquals("f'(x) = ( - 1 )( 1 )( sin(x) )", derivative.printFunc());
+    }
+
+    @Test
+    public void deriviative_exceptions_tests() {
+        final LogFunction innerFunction = LogFunction.builder()
+                .varName("x")
+                .funcName("i")
+                .body(ConstantFunction.builder()
+                        .funcName("ii")
+                        .value(2.0)
+                        .build())
+                .base(10)
+                .build();
+
+        final TrigonometricFunction cosFunc = TrigonometricFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .trigonometricFunctionType(TrigonometricFunctionType.COSINE)
+                .innerFunction(innerFunction)
+                .build();
+
+        assertThrows(UnsupportedOperationException.class, () -> cosFunc.derivative());
     }
 }
