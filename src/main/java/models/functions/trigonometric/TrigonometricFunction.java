@@ -90,7 +90,7 @@ public class TrigonometricFunction implements Function {
                         add(PolynomialTerm.builder()
                                 .varName(innerFunction.getVarName())
                                 .coefficient(-1)
-                                .exponent(1)
+                                .exponent(0)
                                 .build());
                     }}, this.funcName, this.varName),
                     innerFunction.derivative(),
