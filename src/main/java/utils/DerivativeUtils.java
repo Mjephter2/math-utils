@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Utility class for calculating derivatives of functions.
  */
-public class derivativeUtils {
+public class DerivativeUtils {
 
     /**
      * Calculates the derivative of the product of two functions.

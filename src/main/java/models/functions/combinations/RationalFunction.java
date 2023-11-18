@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import models.functions.Function;
 import models.functions.FunctionType;
+import utils.DerivativeUtils;
 
 /**
  * Class implementing a Rational function
@@ -60,8 +61,7 @@ public class RationalFunction implements Function {
 
     @Override
     public Function derivative() {
-        // TODO: Implement derivative for RationalFunction
-        throw new UnsupportedOperationException("Unimplemented method 'derivative'");
+        return DerivativeUtils.quotientRule(this.numerator, this.denominator);
     }
 
     @Override
