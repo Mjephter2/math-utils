@@ -72,10 +72,28 @@ public class RationalFunctionTests {
         final RationalFunction rat = RationalFunction.builder().build();
 
         assertThrows(UnsupportedOperationException.class, rat::getRange);
-        assertThrows(UnsupportedOperationException.class, rat::derivative);
         assertThrows(UnsupportedOperationException.class, rat::integral);
         assertThrows(UnsupportedOperationException.class, () -> rat.integral(1, 2));
         assertThrows(UnsupportedOperationException.class, () -> rat.limit(1));
+    }
+
+    @Test
+    public void derivative_tests() {
+        final RationalFunction ratFunc = RationalFunction.builder()
+                .funcName("R")
+                .varName("x")
+                .numerator(new PolynomialFunction(new LinkedList<>() {{
+                    add(new PolynomialTerm(1, "x", 1));
+                }}, "f", "x"))
+                .denominator(new PolynomialFunction(new LinkedList<>() {{
+                    add(new PolynomialTerm(1, "x", 1));
+                    add(new PolynomialTerm(1, "x", 0));
+                }}, "g", "x"))
+                .build();
+
+        final Function derivative = ratFunc.derivative();
+
+        assertEquals("(f / g)'(x) = ( ( ( 1 )( x + 1 ) + ( x )( 1 ) ) / ( ( x + 1 )( x + 1 ) ) )", derivative.printFunc());
     }
 
 }

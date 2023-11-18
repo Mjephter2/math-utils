@@ -4,7 +4,7 @@ import models.functions.Function;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import org.junit.Test;
-import utils.derivativeUtils;
+import utils.DerivativeUtils;
 
 import java.util.LinkedList;
 
@@ -31,7 +31,7 @@ public class DerivativeUtilsTests {
         }}, "f2", "x");
 
         // Compute derivative of f1 * f2
-        final Function derivative = derivativeUtils.productRule(f1, f2);
+        final Function derivative = DerivativeUtils.productRule(f1, f2);
 
         assertEquals("(f1 * f2)'(x) = ( 6x² )( 2x² ) + ( 2x³ )( 4x )", derivative.printFunc());
     }
@@ -53,8 +53,8 @@ public class DerivativeUtilsTests {
                     .build());
         }}, "f2", "y");
 
-        assertThrows(IllegalArgumentException.class, () -> derivativeUtils.productRule(f1, f2));
-        assertThrows(IllegalArgumentException.class, () -> derivativeUtils.quotientRule(f1, f2));
+        assertThrows(IllegalArgumentException.class, () -> DerivativeUtils.productRule(f1, f2));
+        assertThrows(IllegalArgumentException.class, () -> DerivativeUtils.quotientRule(f1, f2));
     }
 
     @Test
@@ -75,7 +75,7 @@ public class DerivativeUtilsTests {
         }}, "f2", "x");
 
         // Compute derivative of f1 / f2
-        final Function derivative = derivativeUtils.quotientRule(f1, f2);
+        final Function derivative = DerivativeUtils.quotientRule(f1, f2);
 
         assertEquals("(f1 / f2)'(x) = ( ( ( 6x² )( 2x² ) + ( 2x³ )( 4x ) ) / ( ( 2x² )( 2x² ) ) )", derivative.printFunc());
     }
