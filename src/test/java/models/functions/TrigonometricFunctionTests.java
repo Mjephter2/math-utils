@@ -312,4 +312,49 @@ public class TrigonometricFunctionTests {
 
         assertThrows(UnsupportedOperationException.class, () -> cosFunc.derivative());
     }
+
+    @Test
+    public void unimplemented_tests() {
+        final PolynomialFunction innerFunction = new PolynomialFunction(new LinkedList<>() {{
+            add(PolynomialTerm.builder()
+                    .varName("x")
+                    .coefficient(1.0)
+                    .exponent(1)
+                    .build());
+        }}, "i", "x");
+        final TrigonometricFunction cosFunc = TrigonometricFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .trigonometricFunctionType(TrigonometricFunctionType.COSINE)
+                .innerFunction(innerFunction)
+                .build();
+
+        assertThrows(UnsupportedOperationException.class, cosFunc::integral);
+        assertThrows(UnsupportedOperationException.class, () -> cosFunc.integral(0.0, 1.0));
+        assertThrows(UnsupportedOperationException.class, () -> cosFunc.limit(0.0));
+    }
+
+    @Test
+    public void copyTests() {
+        final PolynomialFunction innerFunction = new PolynomialFunction(new LinkedList<>() {{
+            add(PolynomialTerm.builder()
+                    .varName("x")
+                    .coefficient(1.0)
+                    .exponent(1)
+                    .build());
+        }}, "i", "x");
+        final TrigonometricFunction cosFunc = TrigonometricFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .trigonometricFunctionType(TrigonometricFunctionType.COSINE)
+                .innerFunction(innerFunction)
+                .build();
+
+        final TrigonometricFunction copy = (TrigonometricFunction) cosFunc.deepCopy("g");
+        assertEquals("g(x) = cos(x)", copy.printFunc());
+        assertEquals("g", copy.getFuncName());
+        assertEquals("x", copy.getVarName());
+        assertEquals(FunctionType.TRIGONOMETRIC, copy.getFuncType());
+        assertEquals(TrigonometricFunctionType.COSINE, copy.getTrigonometricFunctionType());
+    }
 }
