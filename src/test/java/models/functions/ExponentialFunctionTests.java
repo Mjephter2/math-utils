@@ -106,6 +106,24 @@ public class ExponentialFunctionTests {
                                     .exponent(2)
                                     .build());
                         }}, "f", "x"))
+                        .build(),
+                ExponentialFunction.builder()
+                        .base(2)
+                        .funcName("f")
+                        .varName("x")
+                        .exponent(ConstantFunction.builder()
+                                .funcName("exp")
+                                .value(5)
+                                .build())
                         .build());
+    }
+
+    @Test
+    public void simplify_test() {
+        final ExponentialFunction func1 = exponentialFuncSample().get(0); // f(x) = 2^(2x^2 + x)
+        final ExponentialFunction func2 = exponentialFuncSample().get(2); // f(x) = 2^(5)
+
+        assertEquals("f(x) = 2.0^(2x² + x)", func1.simplify().printFunc());
+        assertEquals("f(null) = 32", func2.simplify().printFunc());
     }
 }
