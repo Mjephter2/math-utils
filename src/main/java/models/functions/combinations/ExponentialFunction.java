@@ -120,7 +120,7 @@ public class ExponentialFunction implements Function {
         }
         if (other instanceof ExponentialFunction) {
             final ExponentialFunction otherExp = (ExponentialFunction) other;
-            return this.base == otherExp.base && this.exponent.equals(otherExp.exponent);
+            return this.base == otherExp.base && this.exponent.printBody().equals(otherExp.exponent.printBody());
         }
         return false;
     }

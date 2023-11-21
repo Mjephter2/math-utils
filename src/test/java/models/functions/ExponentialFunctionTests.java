@@ -10,7 +10,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 public class ExponentialFunctionTests {
 
@@ -125,5 +127,35 @@ public class ExponentialFunctionTests {
 
         assertEquals("f(x) = 2.0^(2x² + x)", func1.simplify().printFunc());
         assertEquals("f(null) = 32", func2.simplify().printFunc());
+    }
+
+    @Test
+    public void equals_tests() {
+        final ExponentialFunction func1 = exponentialFuncSample().get(0); // f(x) = 2^(2x^2 + x)
+        final ExponentialFunction func2 = exponentialFuncSample().get(1); // f(x) = 3^(2x^2 + x)
+        final ExponentialFunction func3 = ExponentialFunction.builder()
+                .base(2.0)
+                .funcName("f")
+                .varName("x")
+                .exponent(new PolynomialFunction(new LinkedList<>() {{
+                    add(PolynomialTerm.builder()
+                            .varName("x")
+                            .coefficient(1)
+                            .exponent(1)
+                            .build());
+                    add(PolynomialTerm.builder()
+                            .varName("x")
+                            .coefficient(2)
+                            .exponent(2)
+                            .build());
+                }}, "f", "x"))
+                .build();
+        final ExponentialFunction func4 = func1;
+
+        assertEquals(func1.evaluate(2.0), func3.evaluate(2.0), 0);
+        assertEquals(func1, func3);
+        assertEquals(func1, func4);
+        assertNotEquals(func1, func2);
+        assertNotEquals(func1, ConstantFunction.builder().value(2).build());
     }
 }
