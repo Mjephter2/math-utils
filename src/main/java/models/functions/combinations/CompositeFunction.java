@@ -13,6 +13,7 @@ import models.functions.Function;
 import models.functions.FunctionType;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
+import models.functions.radicals.RadicalFunction;
 import models.functions.radicals.SquareRootFunction;
 import models.functions.trigonometric.TrigonometricFunction;
 
@@ -68,7 +69,13 @@ public class CompositeFunction implements Function {
         }
     }
 
-    public CompositeFunction(final String funcName, final List<PolynomialFunction> polynomialFactors, final List<SquareRootFunction> radicalFactors, final List<ExponentialFunction> exponentialFunctions, List<RationalFunction> rationalFunctions, List<TrigonometricFunction> trigonometricFunctions) {
+    public CompositeFunction(
+            final String funcName,
+            final List<PolynomialFunction> polynomialFactors,
+            final List<SquareRootFunction> radicalFactors,
+            final List<ExponentialFunction> exponentialFunctions,
+            final List<RationalFunction> rationalFunctions,
+            final List<TrigonometricFunction> trigonometricFunctions) {
         this.funcName = funcName;
         this.polynomialFactors = polynomialFactors;
         this.radicalFactors = radicalFactors;
@@ -96,6 +103,7 @@ public class CompositeFunction implements Function {
                 }})
                 .radicalFactors(this.radicalFactors)
                 .funcName(this.funcName)
+                .varName(this.varName)
                 .build();
     }
 
@@ -175,24 +183,34 @@ public class CompositeFunction implements Function {
     public String printBody() {
         final StringBuilder stringBuilder = new StringBuilder();
 
-        for (final PolynomialFunction polynomialFunction : this.polynomialFactors) {
-            stringBuilder.append("( ").append(polynomialFunction.printBody()).append(" )");
+        if (this.polynomialFactors != null && !this.polynomialFactors.isEmpty()) {
+            for (final PolynomialFunction polynomialFunction : this.polynomialFactors) {
+                stringBuilder.append("( ").append(polynomialFunction.printBody()).append(" )");
+            }
         }
 
-        for (final SquareRootFunction squareRootFunction : this.radicalFactors) {
-            stringBuilder.append(" ").append(squareRootFunction.printBody()).append(" )");
+        if (this.radicalFactors != null && !this.radicalFactors.isEmpty()) {
+            for (final RadicalFunction radicalFunction : this.radicalFactors) {
+                stringBuilder.append(" ").append(radicalFunction.printBody()).append(" )");
+            }
         }
 
-        for (final ExponentialFunction exponentialFunction : this.exponentialFunctions) {
-            stringBuilder.append("( ").append(exponentialFunction.printBody()).append(" )");
+        if (this.exponentialFunctions != null && !this.exponentialFunctions.isEmpty()) {
+            for (final ExponentialFunction exponentialFunction : this.exponentialFunctions) {
+                stringBuilder.append("( ").append(exponentialFunction.printBody()).append(" )");
+            }
         }
 
-        for (final RationalFunction rationalFunction : this.rationalFunctions) {
-            stringBuilder.append("( ").append(rationalFunction.printBody()).append(" )");
+        if (this.rationalFunctions != null && !this.rationalFunctions.isEmpty()) {
+            for (final RationalFunction rationalFunction : this.rationalFunctions) {
+                stringBuilder.append("( ").append(rationalFunction.printBody()).append(" )");
+            }
         }
 
-        for (final TrigonometricFunction trigonometricFunction : this.trigonometricFunctions) {
-            stringBuilder.append("( ").append(trigonometricFunction.printBody()).append(" )");
+        if (this.trigonometricFunctions != null && !this.trigonometricFunctions.isEmpty()) {
+            for (final TrigonometricFunction trigonometricFunction : this.trigonometricFunctions) {
+                stringBuilder.append("( ").append(trigonometricFunction.printBody()).append(" )");
+            }
         }
 
         return stringBuilder.toString();
