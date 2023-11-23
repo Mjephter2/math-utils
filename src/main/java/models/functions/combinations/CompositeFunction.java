@@ -134,7 +134,13 @@ public class CompositeFunction implements Function {
 
     @Override
     public double evaluate(Double... values) {
-        return Stream.of(this.polynomialFactors, this.radicalFactors)
+        return Stream.of(
+                this.polynomialFactors,
+                this.radicalFactors,
+                this.rationalFunctions,
+                this.exponentialFunctions,
+                this.trigonometricFunctions
+                )
                 .flatMap(List::stream)
                 .mapToDouble(func -> func.evaluate(values))
                 .reduce(1, (a, b) -> a * b);
