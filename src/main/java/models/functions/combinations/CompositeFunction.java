@@ -234,6 +234,18 @@ public class CompositeFunction implements Function {
                         .map(func -> func.deepCopy(func.getFuncName()))
                         .map(SquareRootFunction.class::cast)
                         .collect(Collectors.toList()))
+                .trigonometricFunctions(this.trigonometricFunctions.stream()
+                        .map(func -> func.deepCopy(func.getFuncName()))
+                        .map(TrigonometricFunction.class::cast)
+                        .collect(Collectors.toList()))
+                .exponentialFunctions(this.exponentialFunctions.stream()
+                        .map(func -> func.deepCopy(func.getFuncName()))
+                        .map(ExponentialFunction.class::cast)
+                        .collect(Collectors.toList()))
+                .rationalFunctions(this.rationalFunctions.stream()
+                        .map(func -> func.deepCopy(func.getFuncName()))
+                        .map(RationalFunction.class::cast)
+                        .collect(Collectors.toList()))
                 .build();
     }
 
