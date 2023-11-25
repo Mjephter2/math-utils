@@ -11,6 +11,24 @@ import static junit.framework.TestCase.assertEquals;
 
 public class CompositeFunctionTests {
 
+    @Test
+    public void constructor_tests() {
+        final CompositeFunction compositeFunction = new CompositeFunction(
+                "f",
+                new LinkedList<>(),
+                new LinkedList<>(),
+                new LinkedList<>(),
+                new LinkedList<>(),
+                new LinkedList<>()
+        );
+
+        assertEquals(0, compositeFunction.getPolynomialFactors().size());
+        assertEquals(0, compositeFunction.getExponentialFunctions().size());
+        assertEquals(0, compositeFunction.getTrigonometricFunctions().size());
+        assertEquals(0, compositeFunction.getRationalFunctions().size());
+        assertEquals(0, compositeFunction.getRadicalFactors().size());
+    }
+
      @Test
      public void testReduce() {
          final PolynomialFunction factor1 = new PolynomialFunction(new LinkedList<>(){{
