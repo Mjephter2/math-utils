@@ -30,7 +30,7 @@ public class CompositeFunction implements Function {
     private String varName;
 
     private final List<PolynomialFunction> polynomialFactors;
-    private final List<SquareRootFunction> radicalFactors;
+    private final List<RadicalFunction> radicalFactors;
     private final List<ExponentialFunction> exponentialFunctions;
     private final List<RationalFunction> rationalFunctions;
     private final List<TrigonometricFunction> trigonometricFunctions;
@@ -72,7 +72,7 @@ public class CompositeFunction implements Function {
     public CompositeFunction(
             final String funcName,
             final List<PolynomialFunction> polynomialFactors,
-            final List<SquareRootFunction> radicalFactors,
+            final List<RadicalFunction> radicalFactors,
             final List<ExponentialFunction> exponentialFunctions,
             final List<RationalFunction> rationalFunctions,
             final List<TrigonometricFunction> trigonometricFunctions) {
@@ -232,7 +232,7 @@ public class CompositeFunction implements Function {
                         .collect(Collectors.toList()))
                 .radicalFactors(this.radicalFactors.stream()
                         .map(func -> func.deepCopy(func.getFuncName()))
-                        .map(SquareRootFunction.class::cast)
+                        .map(RadicalFunction.class::cast)
                         .collect(Collectors.toList()))
                 .trigonometricFunctions(this.trigonometricFunctions.stream()
                         .map(func -> func.deepCopy(func.getFuncName()))
