@@ -3,11 +3,12 @@ package models.equations;
 import models.equations.polynomial_equations.PolynomialEquation;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PolynomialEquationTests {
 
@@ -85,7 +86,7 @@ public class PolynomialEquationTests {
         assertEquals(-2.0, solution[0], 0.0);
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void exceptions_higher_degree_test() {
         final PolynomialFunction lhs = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
@@ -113,10 +114,10 @@ public class PolynomialEquationTests {
         assertEquals(rhs, equation.getRightSide());
         assertEquals(3, equation.getDegree());
 
-        equation.solve();
+        assertThrows(UnsupportedOperationException.class, () -> equation.solve());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void exceptions_null_lhs_test() {
         final PolynomialFunction rhs = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
@@ -126,10 +127,10 @@ public class PolynomialEquationTests {
                     .build());
         }}, "g", "x");
 
-        new PolynomialEquation(null, rhs);
+        assertThrows(IllegalArgumentException.class, () ->new PolynomialEquation(null, rhs));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void exceptions_null_rhs_test() {
         final PolynomialFunction lhs = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
@@ -144,6 +145,6 @@ public class PolynomialEquationTests {
                     .build());
         }}, "f", "x");
 
-        new PolynomialEquation(lhs, null);
+        assertThrows(IllegalArgumentException.class, () -> new PolynomialEquation(lhs, null));
     }
 }
