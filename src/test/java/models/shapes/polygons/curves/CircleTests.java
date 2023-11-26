@@ -2,7 +2,7 @@ package models.shapes.polygons.curves;
 
 import models.shapes.curves.Circle;
 import models.shapes.curves.ClosedCurve;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CircleTests {
 

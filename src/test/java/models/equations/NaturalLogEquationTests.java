@@ -6,11 +6,11 @@ import models.functions.ConstantFunction;
 import models.functions.logarithmic.NaturalLogFunction;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NaturalLogEquationTests {
 
