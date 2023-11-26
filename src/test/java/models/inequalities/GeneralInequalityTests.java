@@ -6,14 +6,13 @@ import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import models.functions.trigonometric.TrigonometricFunction;
 import models.functions.trigonometric.TrigonometricFunctionType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class GeneralInequalityTests {
 

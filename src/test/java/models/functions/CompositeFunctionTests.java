@@ -3,11 +3,11 @@ package models.functions;
 import models.functions.combinations.CompositeFunction;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CompositeFunctionTests {
 

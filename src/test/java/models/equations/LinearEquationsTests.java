@@ -3,14 +3,14 @@ package models.equations;
 import models.equations.polynomial_equations.LinearEquation;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LinearEquationsTests {
 

@@ -3,13 +3,13 @@ package models.inequalities;
 import com.google.common.collect.Range;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PolynomialInequalityTests {
 
