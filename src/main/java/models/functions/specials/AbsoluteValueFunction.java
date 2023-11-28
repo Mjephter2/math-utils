@@ -82,7 +82,20 @@ public class AbsoluteValueFunction implements Function {
     public Function deepCopy(final String newFuncName) {
         return AbsoluteValueFunction.builder()
                 .funcName(newFuncName)
+                .varName(this.varName)
                 .innerFunction(this.innerFunction.deepCopy(this.innerFunction.getFuncName()))
                 .build();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (this.hashCode() == other.hashCode()) {
+            return true;
+        }
+        if (other instanceof AbsoluteValueFunction) {
+            return this.varName.equals(((AbsoluteValueFunction) other).varName) &&
+                    this.innerFunction.equals(((AbsoluteValueFunction) other).innerFunction);
+        }
+        return false;
     }
 }
