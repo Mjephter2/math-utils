@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PieceWiseFunctionTests {
@@ -26,6 +27,20 @@ public class PieceWiseFunctionTests {
                 func.printFunc().equals("f(x) = 2  for (-∞..0.0], 1  for (0.0..+∞)") ||
                         func.printFunc().equals("f(x) = 1  for (0.0..+∞), 2  for (-∞..0.0]")
         );
+    }
+
+    @Test
+    public void exceptionTests() {
+        final PieceWiseFunction func = PieceWiseFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .functionsToRangesMap(this.funcToRangeSample())
+                .build();
+
+        assertThrows(UnsupportedOperationException.class, () -> func.simplify());
+        assertThrows(UnsupportedOperationException.class, () -> func.integral());
+        assertThrows(UnsupportedOperationException.class, () -> func.integral(1, 2));
+        assertThrows(UnsupportedOperationException.class, () -> func.limit(2));
     }
 
     private Map<Function, Range<Double>> funcToRangeSample() {
