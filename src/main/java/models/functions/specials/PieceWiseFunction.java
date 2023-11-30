@@ -94,8 +94,8 @@ public class PieceWiseFunction implements Function {
     @Override
     public String printBody() {
         return this.functionsToRangesMap.entrySet().stream()
-                .map(entry ->  "\n\t" + entry.getKey().printBody() + " \t for \t" + entry.getValue())
-                .collect(Collectors.joining("\n"));
+                .map(entry ->  entry.getKey().printBody() + "  for " + entry.getValue())
+                .collect(Collectors.joining(", "));
     }
 
     @Override
