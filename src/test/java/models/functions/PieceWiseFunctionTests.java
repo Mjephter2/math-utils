@@ -23,10 +23,14 @@ public class PieceWiseFunctionTests {
                 .functionsToRangesMap(this.funcToRangeSample())
                 .build();
 
+        // May need to update PieceWiseFunction definition to allow better testing
         assertTrue(
                 func.printFunc().equals("f(x) = 2  for (-∞..0.0], 1  for (0.0..+∞)") ||
                         func.printFunc().equals("f(x) = 1  for (0.0..+∞), 2  for (-∞..0.0]")
         );
+        assertEquals(FunctionType.PIECEWISE, func.getFuncType());
+        assertEquals(this.funcToRangeSample().keySet().size(), func.getFunctionsToRangesMap().keySet().size());
+        assertEquals(this.funcToRangeSample().values().size(), func.getFunctionsToRangesMap().values().size());
     }
 
     @Test
