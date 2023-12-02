@@ -34,6 +34,28 @@ public class PieceWiseFunctionTests {
     }
 
     @Test
+    public void domainTests() {
+        final PieceWiseFunction func = PieceWiseFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .functionsToRangesMap(this.funcToRangeSample())
+                .build();
+
+        final Range<Double> funcDomain = func.getDomain();
+        assertEquals(Range.all(), funcDomain);
+
+        final PieceWiseFunction func2 = PieceWiseFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .functionsToRangesMap(this.funcToRangeSample2())
+                .build();
+
+        final Range<Double> funcDomain2 = func2.getDomain();
+        // The following test should not succeed. We need to rethink the domain method for PieceWiseFunction
+        assertEquals(Range.all(), funcDomain2);
+    }
+
+    @Test
     public void exceptionTests() {
         final PieceWiseFunction func = PieceWiseFunction.builder()
                 .funcName("f")
@@ -57,6 +79,34 @@ public class PieceWiseFunctionTests {
         }}, "p1", "x");
 
         final Range<Double> p1Range = Range.atMost(0.0);
+
+        final PolynomialFunction p2 = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(1.0)
+                    .varName("x")
+                    .coefficient(1)
+                    .build());
+            add(PolynomialTerm.builder()
+                    .coefficient(-1.0)
+                    .varName("x")
+                    .coefficient(0.0)
+                    .build());
+        }}, "p2", "x");
+        final Range<Double> p2Range = Range.greaterThan(0.0);
+
+        return Map.of(p1, p1Range, p2, p2Range);
+    }
+
+    private Map<Function, Range<Double>> funcToRangeSample2() {
+        final PolynomialFunction p1 = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(1.0)
+                    .varName("x")
+                    .coefficient(2)
+                    .build());
+        }}, "p1", "x");
+
+        final Range<Double> p1Range = Range.atMost(-1.0);
 
         final PolynomialFunction p2 = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
