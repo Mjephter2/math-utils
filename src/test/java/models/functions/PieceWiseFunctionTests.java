@@ -25,8 +25,8 @@ public class PieceWiseFunctionTests {
 
         // May need to update PieceWiseFunction definition to allow better testing
         assertTrue(
-                func.printFunc().equals("f(x) = 2  for (-∞..0.0], 1  for (0.0..+∞)") ||
-                        func.printFunc().equals("f(x) = 1  for (0.0..+∞), 2  for (-∞..0.0]")
+                func.printFunc().equals("f(x) = x²  for (-∞..0.0], x - 1  for (0.0..+∞)") ||
+                        func.printFunc().equals("f(x) = x - 1  for (0.0..+∞), x²  for (-∞..0.0]")
         );
         assertEquals(FunctionType.PIECEWISE, func.getFuncType());
         assertEquals(this.funcToRangeSample().keySet().size(), func.getFunctionsToRangesMap().keySet().size());
@@ -69,12 +69,24 @@ public class PieceWiseFunctionTests {
         assertThrows(UnsupportedOperationException.class, () -> func.limit(2));
     }
 
+    @Test
+    public void evaluateTests() {
+        final PieceWiseFunction func = PieceWiseFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .functionsToRangesMap(this.funcToRangeSample())
+                .build();
+
+        assertEquals(1.0, func.evaluate(1.0));
+        assertEquals(0.0, func.evaluate(0.0));
+    }
+
     private Map<Function, Range<Double>> funcToRangeSample() {
         final PolynomialFunction p1 = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
                     .coefficient(1.0)
                     .varName("x")
-                    .coefficient(2)
+                    .exponent(2)
                     .build());
         }}, "p1", "x");
 
@@ -84,12 +96,12 @@ public class PieceWiseFunctionTests {
             add(PolynomialTerm.builder()
                     .coefficient(1.0)
                     .varName("x")
-                    .coefficient(1)
+                    .exponent(1)
                     .build());
             add(PolynomialTerm.builder()
                     .coefficient(-1.0)
                     .varName("x")
-                    .coefficient(0.0)
+                    .exponent(0)
                     .build());
         }}, "p2", "x");
         final Range<Double> p2Range = Range.greaterThan(0.0);
