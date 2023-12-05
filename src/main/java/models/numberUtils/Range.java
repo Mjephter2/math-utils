@@ -90,12 +90,6 @@ public class Range implements Comparable {
         return value.toString();
     }
 
-    public static void main(String[] args) {
-        final Range range = Range.allPositive(true);
-
-        System.out.println(range.includes(-1000.0));
-    }
-
     @Override
     public int compareTo(Object o) {
         if (o instanceof Range) {
