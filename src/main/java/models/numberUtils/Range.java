@@ -14,6 +14,8 @@ public class Range implements Comparable {
     private Double upperBound;
     private boolean includeUpperBound;
 
+    // made public for testability
+    // this constructor should technically be private
     public Range(final Double lowerBound, final Double uppperBound, final boolean includeLowerBound, final boolean includeUpperBound) {
         if (validatedBounds(lowerBound, uppperBound, includeLowerBound, includeUpperBound)) {
             this.lowerBound = lowerBound;
