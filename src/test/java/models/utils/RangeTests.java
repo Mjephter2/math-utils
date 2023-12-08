@@ -34,4 +34,18 @@ public class RangeTests {
         assertTrue(range1.includes(0.0));
         assertFalse(range1.includes(1.1));
     }
+
+    @Test
+    public void lessThanTests() {
+        final Range range1 = Range.lessThan(0.0);
+
+        assertEquals(0.0, range1.getUpperBound());
+        assertFalse(range1.isIncludeUpperBound());
+        assertEquals(Double.NEGATIVE_INFINITY, range1.getLowerBound());
+        assertFalse(range1.isIncludeUpperBound());
+
+        assertFalse(range1.includes(0.0));
+        assertFalse(range1.includes(1.0));
+        assertTrue(range1.includes(-1.0));
+    }
 }
