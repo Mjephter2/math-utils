@@ -3,6 +3,8 @@ package models.utils;
 import models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -61,5 +63,21 @@ public class RangeTests {
         assertFalse(range1.includes(0.0));
         assertTrue(range1.includes(1.0));
         assertFalse(range1.includes(-1.1));
+    }
+
+    @Test
+    public void allTests() {
+        final Range range1 = Range.all();
+
+        assertEquals(Double.NEGATIVE_INFINITY, range1.getLowerBound());
+        assertFalse(range1.isIncludeLowerBound());
+        assertEquals(Double.POSITIVE_INFINITY, range1.getUpperBound());
+        assertFalse(range1.isIncludeUpperBound());
+
+        assertTrue(range1.includes(-1.1));
+        assertTrue(range1.includes(0.0));
+        assertTrue(range1.includes(1.0));
+
+        assertTrue(range1.includes(new Random().nextDouble() * 1000000000));
     }
 }
