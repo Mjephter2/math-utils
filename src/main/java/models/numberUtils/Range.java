@@ -2,6 +2,8 @@ package models.numberUtils;
 
 import lombok.Getter;
 
+import java.util.List;
+
 /**
  *
  */
@@ -73,6 +75,14 @@ public class Range implements Comparable {
                 (this.includeUpperBound ? value <= this.upperBound : value < this.upperBound);
     }
 
+    public boolean includes(final Range other) {
+        return this.includes(other.lowerBound) && this.includes(other.upperBound);
+    }
+
+    public boolean overlaps(final Range other) {
+        return this.includes(other.lowerBound) || this.includes(other.upperBound);
+    }
+
     @Override
     public String toString() {
         final StringBuilder rep = new StringBuilder("Range::").append(includeLowerBound ? "[" : "(");
@@ -93,12 +103,12 @@ public class Range implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(final Object o) {
         if (o instanceof Range) {
             final Range other = (Range) o;
             if (this.lowerBound.equals(other.lowerBound)) {
                 if (this.upperBound.equals(other.upperBound)) {
-                    return 0;
+                    return this.lowerBound == other.lowerBound && this.upperBound == other.upperBound ? 0 : -1;
                 } else {
                     return this.upperBound.compareTo(other.upperBound);
                 }
@@ -106,6 +116,32 @@ public class Range implements Comparable {
                 return this.lowerBound.compareTo(other.lowerBound);
             }
         }
-        return -1;
+
+        throw new IllegalArgumentException("Cannot compare Range to non-Range object");
+    }
+
+    /**
+     * Merge two ranges
+     * If the ranges overlap, then merge them into one range
+     * If the ranges do not overlap, then return a list of the two ranges
+     * @param other - the other range to merge with this range
+     * @return a list of the merged ranges
+     **/
+    public List<Range> merge(final Range other) {
+        if (this.overlaps(other)) {
+            final Double newLowerBound = this.lowerBound.compareTo(other.lowerBound) < 0 ? this.lowerBound : other.lowerBound;
+            final Double newUpperBound = this.upperBound.compareTo(other.upperBound) > 0 ? this.upperBound : other.upperBound;
+            final boolean newIncludeLowerBound = this.lowerBound.compareTo(other.lowerBound) < 0 ? this.includeLowerBound : other.includeLowerBound;
+            final boolean newIncludeUpperBound = this.upperBound.compareTo(other.upperBound) > 0 ? this.includeUpperBound : other.includeUpperBound;
+
+            return List.of(new Range(newLowerBound, newUpperBound, newIncludeLowerBound, newIncludeUpperBound));
+        } else {
+            return List.of(this.deepCopy(), other.deepCopy());
+        }
+    }
+
+    // Deep copy this range
+    public Range deepCopy() {
+        return new Range(this.lowerBound, this.upperBound, this.includeLowerBound, this.includeUpperBound);
     }
 }
