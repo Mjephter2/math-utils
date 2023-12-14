@@ -7,6 +7,7 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RangeTests {
@@ -77,7 +78,14 @@ public class RangeTests {
         assertTrue(range1.includes(-1.1));
         assertTrue(range1.includes(0.0));
         assertTrue(range1.includes(1.0));
+        assertTrue(range1.includes(Double.NEGATIVE_INFINITY));
+        assertTrue(range1.includes(Double.POSITIVE_INFINITY));
 
         assertTrue(range1.includes(new Random().nextDouble() * 1000000000));
+    }
+
+    @Test
+    public void exceptionsTests() {
+        assertThrows(IllegalArgumentException.class, () -> new Range(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, false, true));
     }
 }
