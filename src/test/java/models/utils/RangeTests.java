@@ -3,6 +3,7 @@ package models.utils;
 import models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -87,5 +88,29 @@ public class RangeTests {
     @Test
     public void exceptionsTests() {
         assertThrows(IllegalArgumentException.class, () -> new Range(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, false, true));
+    }
+
+    @Test
+    public void exceptTests() {
+        final Range exceptedRange = new Range(1.0, 10.0, true, true);
+        final List<Range> rangeConcat = Range.allExcept(exceptedRange);
+
+        final Range range1 = rangeConcat.get(0);
+        final Range range2 = rangeConcat.get(1);
+
+        assertEquals(new Range(Double.NEGATIVE_INFINITY, 1.0, false, false), range1);
+        assertEquals(new Range(10.0, Double.POSITIVE_INFINITY, false, false), range2);
+    }
+
+    @Test
+    public void exceptTestsSingleValue() {
+        final double exceptedValue = 10.0;
+        final List<Range> rangeConcat = Range.allExcept(exceptedValue);
+
+        final Range range1 = rangeConcat.get(0);
+        final Range range2 = rangeConcat.get(1);
+
+        assertEquals(new Range(Double.NEGATIVE_INFINITY, 10.0, false, false), range1);
+        assertEquals(new Range(10.0, Double.POSITIVE_INFINITY, false, false), range2);
     }
 }

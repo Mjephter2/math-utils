@@ -237,7 +237,7 @@ public class Range implements Comparable {
             final Range other = (Range) o;
             if (this.lowerBound.equals(other.lowerBound)) {
                 if (this.upperBound.equals(other.upperBound)) {
-                    return this.lowerBound == other.lowerBound && this.upperBound == other.upperBound ? 0 : -1;
+                    return this.includeLowerBound == other.includeLowerBound && this.includeUpperBound == other.includeUpperBound ? 0 : -1;
                 } else {
                     return this.upperBound.compareTo(other.upperBound);
                 }
@@ -247,6 +247,11 @@ public class Range implements Comparable {
         }
 
         throw new IllegalArgumentException("Cannot compare Range to non-Range object");
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return  this.compareTo(other) == 0;
     }
 
     /**
