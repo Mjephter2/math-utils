@@ -113,4 +113,19 @@ public class RangeTests {
         assertEquals(new Range(Double.NEGATIVE_INFINITY, 10.0, false, false), range1);
         assertEquals(new Range(10.0, Double.POSITIVE_INFINITY, false, false), range2);
     }
+
+    @Test
+    public void singletonTests() {
+        final Range range1 = Range.singleton(10.0);
+
+        assertEquals(10.0, range1.getLowerBound());
+        assertEquals(10.0, range1.getUpperBound());
+
+        assertTrue(range1.isIncludeLowerBound());
+        assertTrue(range1.isIncludeUpperBound());
+
+        assertThrows(IllegalArgumentException.class, () -> Range.singleton(Double.POSITIVE_INFINITY));
+        assertThrows(IllegalArgumentException.class, () -> Range.singleton(Double.NEGATIVE_INFINITY));
+        assertThrows(IllegalArgumentException.class, () -> Range.singleton(Double.valueOf("a")));
+    }
 }

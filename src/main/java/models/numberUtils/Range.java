@@ -126,6 +126,9 @@ public class Range implements Comparable {
      * @return a range that includes the value
      */
     public static Range singleton(final Double value) {
+        if (value.isInfinite() || value.isNaN()) {
+            throw new IllegalArgumentException("Value to except cannot be infinite or invalid");
+        }
         return new Range(value, value, true, true);
     }
 
