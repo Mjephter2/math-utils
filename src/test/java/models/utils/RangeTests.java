@@ -128,4 +128,22 @@ public class RangeTests {
         assertThrows(IllegalArgumentException.class, () -> Range.singleton(Double.NEGATIVE_INFINITY));
         assertThrows(IllegalArgumentException.class, () -> Range.singleton(Double.valueOf("a")));
     }
+
+    @Test
+    public void allPositiveTests() {
+        final Range allPositiveWithZero = Range.allPositive(true);
+        assertEquals(new Range(0.0, Double.POSITIVE_INFINITY, true, false), allPositiveWithZero);
+
+        final Range allPositiveNoZero = Range.allPositive(false);
+        assertEquals(new Range(0.0, Double.POSITIVE_INFINITY, false, false), allPositiveNoZero);
+    }
+
+    @Test
+    public void allNegativeTests() {
+        final Range allNegativeWithZero = Range.allNegative(true);
+        assertEquals(new Range(Double.NEGATIVE_INFINITY, 0.0, false, true), allNegativeWithZero);
+
+        final Range allNegativeNoZero = Range.allNegative(false);
+        assertEquals(new Range(Double.NEGATIVE_INFINITY, 0.0, false, false), allNegativeNoZero);
+    }
 }
