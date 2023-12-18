@@ -146,4 +146,64 @@ public class RangeTests {
         final Range allNegativeNoZero = Range.allNegative(false);
         assertEquals(new Range(Double.NEGATIVE_INFINITY, 0.0, false, false), allNegativeNoZero);
     }
+
+    @Test
+    public void includesRangeTests() {
+        final Range range1 = Range.allPositive(true);
+
+        assertTrue(range1.includes(Range.singleton(0.0)));
+        assertTrue(range1.includes(Range.singleton(1.0)));
+        assertTrue(range1.includes(new Range(0.0, 1.0, true, true)));
+    }
+
+    @Test
+    public void intersectionTests() {
+        final Range range1 = Range.allPositive(true);
+        final Range range2 = Range.allNegative(true);
+        assertEquals(new Range(0.0, 0.0, true, true), range1.intersection(range2));
+
+        final Range range3 = Range.atLeast(5);
+        final Range range4 = Range.atMost(10);
+        assertEquals(new Range(5.0, 10.0, true, true), range3.intersection(range4));
+
+        final Range range5 = Range.greaterThan(5);
+        final Range range6 = Range.lessThan(10);
+        assertEquals(new Range(5.0, 10.0, false, false), range5.intersection(range6));
+    }
+
+    @Test
+    public void mergeTests() {
+        final Range range1 = Range.allPositive(true); // [0, +inf)
+        final Range range2 = Range.allNegative(true); // (-inf, 0]
+        Range expectedMerge = new Range(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, false, false); // (-inf, +inf)
+        List<Range> mergedRanges = range1.merge(range2); // Expectation: (-inf, 0] U [0, +inf) = (-inf, +inf)
+        assertEquals(1, mergedRanges.size());
+        assertEquals(expectedMerge, range1.merge(range2).get(0));
+
+        final Range range3 = Range.allPositive(false);
+        final Range range4 = Range.allNegative(true);
+        mergedRanges = range3.merge(range4);
+        assertEquals(1, mergedRanges.size());
+        assertEquals(expectedMerge, mergedRanges.get(0));
+
+        final Range range5 = Range.allPositive(true);
+        final Range range6 = Range.allNegative(false);
+        mergedRanges = range5.merge(range6);
+        assertEquals(1, mergedRanges.size());
+        assertEquals(expectedMerge, mergedRanges.get(0));
+
+        final Range range7 = Range.allPositive(false);
+        final Range range8 = Range.allNegative(false);
+        mergedRanges = range7.merge(range8);
+        assertEquals(2, mergedRanges.size());
+        assertEquals(range7, mergedRanges.get(0));
+        assertEquals(range8, mergedRanges.get(1));
+
+        final Range range9 = Range.atLeast(10.0);
+        final Range range10 = Range.atMost(5.0);
+        mergedRanges = range9.merge(range10);
+        assertEquals(2, mergedRanges.size());
+        assertEquals(range9, mergedRanges.get(0));
+        assertEquals(range10, mergedRanges.get(1));
+    }
 }
