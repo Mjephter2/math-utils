@@ -163,8 +163,8 @@ public class Range implements Comparable {
             return this.lowerBound.equals(Double.NEGATIVE_INFINITY);
         }
 
-        return (this.includeLowerBound ? value >= this.lowerBound : value > this.lowerBound) &&
-                (this.includeUpperBound ? value <= this.upperBound : value < this.upperBound);
+        return (this.includeLowerBound ? (value >= this.lowerBound) : (value > this.lowerBound)) &&
+                (this.includeUpperBound ? (value <= this.upperBound) : (value < this.upperBound));
     }
 
     /**
@@ -203,6 +203,12 @@ public class Range implements Comparable {
      *       false otherwise
      */
     public boolean overlaps(final Range other) {
+        if ((this.upperBound.equals(other.lowerBound) && (other.includeLowerBound || this.isIncludeUpperBound()))
+                ||
+                (this.lowerBound.equals(other.upperBound) && (this.includeLowerBound || other.isIncludeUpperBound()))
+        ) {
+            return true;
+        }
         return this.includes(other.lowerBound) || this.includes(other.upperBound);
     }
 
