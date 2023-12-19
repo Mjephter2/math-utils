@@ -178,6 +178,14 @@ public class RangeTests {
         final Range range9 = Range.atLeast(5);
         final Range range10 = Range.greaterThan(5);
         assertEquals(new Range(5.0, Double.POSITIVE_INFINITY, false, false), range9.intersection(range10));
+
+        final Range range11 = new Range(-10.0, 10.0, true, true);
+        final Range range12 = new Range(0.0, 15.0, true, true);
+        assertEquals(new Range(0.0, 10.0, true, true), range11.intersection(range12));
+
+        final Range range13 = Range.atLeast(10.0);
+        final Range range14 = Range.allNegative(true);
+        assertEquals(null, range13.intersection(range14));
     }
 
     @Test
