@@ -169,6 +169,15 @@ public class RangeTests {
         final Range range5 = Range.greaterThan(5);
         final Range range6 = Range.lessThan(10);
         assertEquals(new Range(5.0, 10.0, false, false), range5.intersection(range6));
+
+        final Range range7 = Range.greaterThan(5);
+        final Range range8 = Range.greaterThan(2);
+        assertEquals(new Range(5.0, Double.POSITIVE_INFINITY, false, false), range7.intersection(range8));
+        assertEquals(new Range(5.0, Double.POSITIVE_INFINITY, false, false), range8.intersection(range7));
+
+        final Range range9 = Range.atLeast(5);
+        final Range range10 = Range.greaterThan(5);
+        assertEquals(new Range(5.0, Double.POSITIVE_INFINITY, false, false), range9.intersection(range10));
     }
 
     @Test
