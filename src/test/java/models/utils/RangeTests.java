@@ -223,4 +223,19 @@ public class RangeTests {
         assertEquals(range9, mergedRanges.get(0));
         assertEquals(range10, mergedRanges.get(1));
     }
+
+    @Test
+    public void toStringTests() {
+        final Range range1 = Range.allPositive(true);
+        assertEquals("Range::[0.0 --> ∞)", range1.toString());
+
+        final Range range2 = Range.allPositive(false);
+        assertEquals("Range::(0.0 --> ∞)", range2.toString());
+
+        final Range range3 = Range.allNegative(true);
+        assertEquals("Range::(-∞ --> 0.0]", range3.toString());
+
+        final Range range4 = Range.allNegative(false);
+        assertEquals("Range::(-∞ --> 0.0)", range4.toString());
+    }
 }
