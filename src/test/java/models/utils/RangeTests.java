@@ -238,4 +238,77 @@ public class RangeTests {
         final Range range4 = Range.allNegative(false);
         assertEquals("Range::(-∞ --> 0.0)", range4.toString());
     }
+
+    @Test
+    public void compareTests() {
+        final Range range1 = Range.allPositive(true);
+        final Range range2 = Range.allPositive(true);
+        // Expected order: range1 = range2
+        assertEquals(0, range1.compareTo(range2));
+
+        final Range range3 = Range.allPositive(true);
+        final Range range4 = Range.allPositive(false);
+        // Expected order: range3 < range4
+        assertEquals(-1, range3.compareTo(range4));
+
+        final Range range5 = Range.allPositive(false);
+        final Range range6 = Range.allPositive(true);
+        // Expected order: range5 > range6
+        assertEquals(1, range5.compareTo(range6));
+
+        final Range range7 = Range.allPositive(false);
+        final Range range8 = Range.allPositive(false);
+        // Expected order: range7 = range8
+        assertEquals(0, range7.compareTo(range8));
+
+        final Range range9 = Range.allNegative(true);
+        final Range range10 = Range.allNegative(true);
+        // Expected order: range9 = range10
+        assertEquals(0, range9.compareTo(range10));
+
+        final Range range11 = Range.allNegative(true);
+        final Range range12 = Range.allNegative(false);
+        // Expected order: range11 < range12
+        assertEquals(-1, range11.compareTo(range12));
+
+        final Range range13 = Range.allNegative(false);
+        final Range range14 = Range.allNegative(true);
+        // Expected order: range13 > range14
+        assertEquals(1, range13.compareTo(range14));
+
+        final Range range15 = Range.allNegative(false);
+        final Range range16 = Range.allNegative(false);
+        // Expected order: range15 = range16
+        assertEquals(0, range15.compareTo(range16));
+
+        final Range range17 = Range.atLeast(10.0);
+        final Range range18 = Range.atLeast(10.0);
+        // Expected order: range17 = range18
+        assertEquals(0, range17.compareTo(range18));
+
+        final Range range19 = Range.atLeast(10.0);
+        final Range range20 = Range.atLeast(5.0);
+        // Expected order: range19 > range20
+        assertEquals(1, range19.compareTo(range20));
+
+        final Range range21 = Range.atLeast(5.0);
+        final Range range22 = Range.atLeast(10.0);
+        // Expected order: range21 < range22
+        assertEquals(-1, range21.compareTo(range22));
+
+        final Range range23 = Range.atLeast(5.0);
+        final Range range24 = Range.atLeast(5.0);
+        // Expected order: range23 = range24
+        assertEquals(0, range23.compareTo(range24));
+
+        final Range range25 = Range.atMost(10.0);
+        final Range range26 = Range.atMost(10.0);
+        // Expected order: range25 = range26
+        assertEquals(0, range25.compareTo(range26));
+
+        final Range range27 = Range.atMost(10.0);
+        final Range range28 = Range.atMost(5.0);
+        // Expected order: range27 > range28
+        assertEquals(1, range27.compareTo(range28));
+    }
 }
