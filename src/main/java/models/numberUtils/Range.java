@@ -242,20 +242,25 @@ public class Range implements Comparable {
      */
     @Override
     public int compareTo(final Object o) {
-        if (o instanceof Range) {
-            final Range other = (Range) o;
-            if (this.lowerBound.equals(other.lowerBound)) {
-                if (this.upperBound.equals(other.upperBound)) {
-                    return this.includeLowerBound == other.includeLowerBound && this.includeUpperBound == other.includeUpperBound ? 0 : -1;
-                } else {
-                    return this.upperBound.compareTo(other.upperBound);
-                }
-            } else {
-                return this.lowerBound.compareTo(other.lowerBound);
-            }
-        }
+        if (this == o) return 0;
+        if (o instanceof Range && o == null) return 1;
+        if (!(o instanceof Range)) {
+            throw new IllegalArgumentException("Cannot compare Range to " + o.getClass().getName());
+        };
 
-        throw new IllegalArgumentException("Cannot compare Range to non-Range object");
+        Range other = (Range) o;
+
+        if (!this.lowerBound.equals(other.lowerBound)) {
+            return this.lowerBound < other.lowerBound ? -1 : 1;
+        } else if (this.includeLowerBound != other.includeLowerBound) {
+            return this.includeLowerBound ? -1 : 1;
+        } else if (!this.upperBound.equals(other.upperBound)) {
+            return this.upperBound < other.upperBound ? -1 : 1;
+        } else if (this.includeUpperBound != other.includeUpperBound) {
+            return this.includeUpperBound ? -1 : 1;
+        } else {
+            return 0;
+        }
     }
 
     @Override
