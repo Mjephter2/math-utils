@@ -1,5 +1,7 @@
 package models.utils;
 
+import models.functions.ConstantFunction;
+import models.functions.Function;
 import models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
@@ -310,5 +312,11 @@ public class RangeTests {
         final Range range28 = Range.atMost(5.0);
         // Expected order: range27 > range28
         assertEquals(1, range27.compareTo(range28));
+
+        final Function notRange = ConstantFunction.builder()
+                .funcName("notRange")
+                .value(1.0)
+                .build();
+        assertThrows(IllegalArgumentException.class, () -> range1.compareTo(notRange));
     }
 }

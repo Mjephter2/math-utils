@@ -243,9 +243,8 @@ public class Range implements Comparable {
     @Override
     public int compareTo(final Object o) {
         if (this == o) return 0;
-        if (o instanceof Range && o == null) return 1;
-        if (!(o instanceof Range)) {
-            throw new IllegalArgumentException("Cannot compare Range to " + o.getClass().getName());
+        if (!(o instanceof Range) || o == null) {
+            throw new IllegalArgumentException("Cannot compare Range to different cla " + o.getClass().getName());
         };
 
         Range other = (Range) o;
