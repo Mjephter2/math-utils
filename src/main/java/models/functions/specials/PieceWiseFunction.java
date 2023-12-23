@@ -51,7 +51,7 @@ public class PieceWiseFunction implements Function {
     @Override
     public double evaluate(Double... values) {
         return this.functionsToRangesMap.keySet().stream()
-                .filter(function -> function.getDomain().contains(values[0]))
+                .filter(function -> function.getDomain().get(0).includes(values[0]))
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new)
                 .evaluate(values);
@@ -95,7 +95,7 @@ public class PieceWiseFunction implements Function {
     @Override
     public String printBody() {
         return this.functionsToRangesMap.entrySet().stream()
-                .map(entry ->  entry.getKey().printBody() + "  for " + entry.getValue())
+                .map(entry ->  entry.getKey().printBody() + "  for " + entry.getValue().toString())
                 .collect(Collectors.joining(", "));
     }
 

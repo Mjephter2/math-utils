@@ -2,10 +2,10 @@ package models.functions;
 
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
-import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -109,15 +109,15 @@ public class PolynomialFunctionTests {
     @Test
     public void domain_tests() {
         PolynomialFunction func1 = functionSample1().get(0);
-        assertFalse(func1.getDomain().hasLowerBound());
-        assertFalse(func1.getDomain().hasUpperBound());
+        assertFalse(func1.getDomain().get(0).isIncludeLowerBound());
+        assertFalse(func1.getDomain().get(0).isIncludeUpperBound());
     }
 
     @Test
     public void range_tests() {
         PolynomialFunction func1 = functionSample1().get(0);
-        assertFalse(func1.getRange().hasLowerBound());
-        assertFalse(func1.getRange().hasUpperBound());
+        assertFalse(func1.getRange().get(0).isIncludeLowerBound());
+        assertFalse(func1.getRange().get(0).isIncludeUpperBound());
     }
 
     @Test

@@ -1,11 +1,12 @@
 package models.functions;
 
-import com.google.common.collect.Range;
 import models.functions.logarithmic.LogFunction;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import models.functions.trigonometric.TrigonometricFunction;
 import models.functions.trigonometric.TrigonometricFunctionType;
+import models.numberUtils.Range;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
@@ -38,7 +39,7 @@ public class TrigonometricFunctionTests {
         assertEquals(TrigonometricFunctionType.SINE, sinFunc.getTrigonometricFunctionType());
         assertEquals(innerFunction, sinFunc.getInnerFunction());
 
-        assertEquals(Range.all(), sinFunc.getDomain());
+        assertEquals(Range.all(), sinFunc.getDomain().get(0));
         assertThrows(UnsupportedOperationException.class, sinFunc::getRange);
 
         assertEquals(0.0, sinFunc.evaluate(0.0), 0.0);

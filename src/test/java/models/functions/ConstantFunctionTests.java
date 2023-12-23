@@ -1,7 +1,8 @@
 package models.functions;
 
-import com.google.common.collect.Range;
 import models.functions.polynomials.PolynomialFunction;
+import models.numberUtils.Range;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
@@ -24,8 +25,8 @@ public class ConstantFunctionTests {
         assertEquals(1.0, constantFunction.getValue(), 0.0);
         assertNull(constantFunction.getVarName());
         assertEquals(FunctionType.CONSTANT, constantFunction.getFuncType());
-        assertEquals(Range.all(), constantFunction.getDomain());
-        assertEquals(Range.singleton(1.0), constantFunction.getRange());
+        assertEquals(Range.all(), constantFunction.getDomain().get(0));
+        assertEquals(Range.singleton(1.0), constantFunction.getRange().get(0));
         assertEquals(1.0, constantFunction.evaluate(1000.0), 0.0);
 
         assertEquals("f() = 1", constantFunction.toString());

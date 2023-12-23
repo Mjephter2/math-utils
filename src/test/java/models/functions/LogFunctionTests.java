@@ -1,11 +1,11 @@
 package models.functions;
 
-
-import com.google.common.collect.Range;
 import models.functions.logarithmic.LogFunction;
 import models.functions.logarithmic.NaturalLogFunction;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
+import models.numberUtils.Range;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
@@ -39,7 +39,7 @@ public class LogFunctionTests {
         assertEquals(innerFunc, logFunction.getBody());
         assertEquals("f(x) = log_10.0(4x²)", logFunction.printFunc());
 
-        assertEquals(Range.open(0.0, Double.POSITIVE_INFINITY), logFunction.getRange());
+        assertEquals(Range.greaterThan(0.0), logFunction.getRange().get(0));
 
         assertEquals(2.0, logFunction.evaluate(5.0), 0.0);
         assertEquals(2.0, logFunction.limit(5.0), 0.0);
