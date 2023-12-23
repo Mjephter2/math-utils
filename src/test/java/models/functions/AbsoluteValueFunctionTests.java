@@ -1,12 +1,13 @@
 package models.functions;
 
-import com.google.common.collect.Range;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import models.functions.specials.AbsoluteValueFunction;
-import org.junit.jupiter.api.Test;
+import models.numberUtils.Range;
 
 import java.util.LinkedList;
+
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -32,7 +33,7 @@ public class AbsoluteValueFunctionTests {
         assertEquals("f", f.getFuncName());
         assertEquals("x", f.getVarName());
         assertEquals(FunctionType.ABSOLUTE_VALUE, f.getFuncType());
-        assertEquals(Range.all(), f.getDomain());
+        assertEquals(Range.all(), f.getDomain().get(0));
 
         assertEquals(5.0, f.evaluate(0.0));
     }
