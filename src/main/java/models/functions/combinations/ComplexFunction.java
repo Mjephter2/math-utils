@@ -1,14 +1,15 @@
 package models.functions.combinations;
 
-import com.google.common.collect.Range;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
 import models.functions.Function;
 import models.functions.FunctionType;
+import models.numberUtils.Range;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
 /**
  * Class implementing a Complex function.
@@ -41,19 +42,15 @@ public class ComplexFunction implements Function {
     }
 
     @Override
-    public Range<Double> getDomain() {
-        return functions.stream()
-                .map(CompositeFunction::getDomain)
-                .reduce(Range::intersection)
-                .orElse(null);
+    public List<Range> getDomain() {
+        // TODO: Implement domain for ComplexFunction
+        throw new UnsupportedOperationException("Unimplemented method 'getDomain'");
     }
 
     @Override
-    public Range<Double> getRange() {
-        return functions.stream()
-                .map(CompositeFunction::getRange)
-                .reduce(Range::intersection)
-                .orElse(null);
+    public List<Range> getRange() {
+        // TODO: Implement range for ComplexFunction
+        throw new UnsupportedOperationException("Unimplemented method 'getRange'");
     }
 
     @Override

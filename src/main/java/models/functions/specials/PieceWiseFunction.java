@@ -1,11 +1,12 @@
 package models.functions.specials;
 
-import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
 import models.functions.Function;
 import models.functions.FunctionType;
+import models.numberUtils.Range;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -18,7 +19,7 @@ public class PieceWiseFunction implements Function {
 
     private String funcName;
     private String varName;
-    private Map<Function, Range<Double>> functionsToRangesMap;
+    private Map<Function, Range> functionsToRangesMap;
 
     @Override
     public String getFuncName() {
@@ -36,15 +37,15 @@ public class PieceWiseFunction implements Function {
     }
 
     @Override
-    public Range<Double> getDomain() {
-        // TODO: Revisit getDomain for PieceWiseFunction
-        return this.functionsToRangesMap.values().stream().reduce(Range::span).orElse(Range.all());
+    public List<Range> getDomain() {
+        // TODO: Implement getDomain for PieceWiseFunction
+        throw new UnsupportedOperationException("Unimplemented method 'getDomain'");
     }
 
     @Override
-    public Range<Double> getRange() {
-        // TODO: Revisit getRange for PieceWiseFunction
-        return this.functionsToRangesMap.keySet().stream().map(Function::getRange).reduce(Range::span).orElse(Range.all());
+    public List<Range> getRange() {
+        // TODO: Implement getRange for PieceWiseFunction
+        throw new UnsupportedOperationException("Unimplemented method 'getRange'");
     }
 
     @Override
@@ -64,7 +65,7 @@ public class PieceWiseFunction implements Function {
 
     @Override
     public Function derivative() {
-        Map<Function, Range<Double>> newFunctionsToRangesMap = this.functionsToRangesMap.entrySet().stream()
+        Map<Function, Range> newFunctionsToRangesMap = this.functionsToRangesMap.entrySet().stream()
                 .collect(Collectors.toMap(entry -> entry.getKey().derivative(), Map.Entry::getValue));
         return PieceWiseFunction.builder()
                 .funcName(this.funcName + "'")

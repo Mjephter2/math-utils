@@ -1,11 +1,14 @@
 package models.functions.logarithmic;
 
-import com.google.common.collect.Range;
-import lombok.Builder;
-import lombok.Getter;
 import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
+import models.numberUtils.Range;
+
+import lombok.Builder;
+import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 @Builder
@@ -32,14 +35,14 @@ public class LogFunction implements Function {
     }
 
     @Override
-    public Range<Double> getDomain() {
+    public List<Range> getDomain() {
         // TODO: Implement domain for LogFunction
         throw new UnsupportedOperationException("Unimplemented method 'getDomain'");
     }
 
     @Override
-    public Range<Double> getRange() {
-        return Range.open(0.0, Double.POSITIVE_INFINITY);
+    public List<Range> getRange() {
+        return List.of(Range.atLeast(0.0));
     }
 
     @Override

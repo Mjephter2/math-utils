@@ -1,18 +1,20 @@
 package models.functions.combinations;
 
-import com.google.common.collect.Range;
-import lombok.Builder;
-import lombok.Getter;
 import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
+import models.numberUtils.Range;
 import utils.NumberUtils;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import lombok.Builder;
+import lombok.Getter;
 
 /**
  * Represents an exponential function
@@ -32,12 +34,13 @@ public class ExponentialFunction implements Function {
     }
 
     @Override
-    public Range<Double> getDomain() {
-        return Range.closedOpen(0.0, Double.POSITIVE_INFINITY);
+    public List<Range> getDomain() {
+        return List.of(Range.atLeast(0.0));
     }
 
     @Override
-    public Range<Double> getRange() {
+    public List<Range> getRange() {
+        // TODO: Implement range for ExponentialFunction
         throw new UnsupportedOperationException("Unimplemented method 'getRange'");
     }
 

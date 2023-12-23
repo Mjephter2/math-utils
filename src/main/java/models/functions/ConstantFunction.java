@@ -1,13 +1,15 @@
 package models.functions;
 
-import com.google.common.collect.Range;
+//import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
+import models.numberUtils.Range;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 
 import java.text.DecimalFormat;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Class implementing a Constant function
@@ -35,13 +37,13 @@ public class ConstantFunction implements Function {
     }
 
     @Override
-    public Range<Double> getDomain() {
-        return Range.all();
+    public List<Range> getDomain() {
+        return List.of(Range.all());
     }
 
     @Override
-    public Range<Double> getRange() {
-        return Range.singleton(value);
+    public List<Range> getRange() {
+        return List.of(Range.singleton(value));
     }
 
     @Override

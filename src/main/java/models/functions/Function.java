@@ -1,6 +1,9 @@
 package models.functions;
 
-import com.google.common.collect.Range;
+//import com.google.common.collect.Range;// replacing with models.Range to keep external dependencies to a minimum
+import models.numberUtils.Range;
+
+import java.util.List;
 
 /**
  * Represents a mathematical function
@@ -25,12 +28,12 @@ public interface Function {
     /**
      * Returns the domain of the function
      */
-    Range<Double> getDomain();
+    List<Range> getDomain();
 
     /**
      * Returns the range of the function
      */
-    Range<Double> getRange();
+    List<Range> getRange();
 
     /**
      * Evaluates the function at the given set of values

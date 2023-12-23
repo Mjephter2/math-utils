@@ -1,17 +1,17 @@
 package models.functions.radicals;
 
-import com.google.common.collect.Range;
-import lombok.Builder;
-import lombok.Getter;
-import models.equations.Equation;
 import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
-import models.inequalities.GeneralInequality;
+import models.numberUtils.Range;
 import utils.SuperscriptUtil;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import lombok.Builder;
+import lombok.Getter;
 
 /**
  * Class implementing a Radical function
@@ -32,13 +32,13 @@ public class RadicalFunction implements Function {
     }
 
     @Override
-    public Range<Double> getDomain() {
+    public List<Range> getDomain() {
         // TODO: Implement domain for RadicalFunction
         throw new UnsupportedOperationException("Unimplemented method 'getDomain'");
     }
 
     @Override
-    public Range<Double> getRange() {
+    public List<Range> getRange() {
         // TODO: Implement range for RadicalFunction
         throw new UnsupportedOperationException("Unimplemented method 'getRange'");
     }

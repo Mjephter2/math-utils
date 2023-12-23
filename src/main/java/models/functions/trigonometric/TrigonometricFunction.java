@@ -1,16 +1,17 @@
 package models.functions.trigonometric;
 
-import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
 import models.functions.ConstantFunction;
 import models.functions.combinations.CompositeFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
+import models.numberUtils.Range;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -35,12 +36,12 @@ public class TrigonometricFunction implements Function {
     }
 
     @Override
-    public Range<Double> getDomain() {
+    public List<Range> getDomain() {
         return this.innerFunction.getDomain();
     }
 
     @Override
-    public Range<Double> getRange() {
+    public List<Range> getRange() {
         // TODO: Implement getRange for TrigonometricFunction
         throw new UnsupportedOperationException("Unimplemented method 'getRange'");
     }

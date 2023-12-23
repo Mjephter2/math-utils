@@ -1,21 +1,22 @@
 package models.functions.combinations;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import com.google.common.collect.Range;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
 import models.functions.Function;
 import models.functions.FunctionType;
+import models.numberUtils.Range;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import models.functions.radicals.RadicalFunction;
 import models.functions.radicals.SquareRootFunction;
 import models.functions.trigonometric.TrigonometricFunction;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
 /**
  * This class implements a composite function.
@@ -118,16 +119,18 @@ public class CompositeFunction implements Function {
     }
 
     @Override
-    public Range<Double> getDomain() {
-        return Stream.of(this.polynomialFactors, this.radicalFactors)
-                .flatMap(List::stream)
-                .map(Function::getDomain)
-                .reduce(Range::intersection)
-                .orElse(null);
+    public List<Range> getDomain() {
+        // TODO: Implement domain for CompositeFunction
+//        return Stream.of(this.polynomialFactors, this.radicalFactors)
+//                .flatMap(List::stream)
+//                .map(Function::getDomain)
+//                .reduce(Range::intersection)
+//                .orElse(null);
+        throw new UnsupportedOperationException("Unimplemented method 'getDomain'");
     }
 
     @Override
-    public Range<Double> getRange() {
+    public List<Range> getRange() {
         // TODO: Implement range for CompositeFunction
         throw new UnsupportedOperationException("Unimplemented method 'getRange'");
     }

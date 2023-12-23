@@ -1,13 +1,16 @@
 package models.functions.combinations;
 
-import com.google.common.collect.Range;
+import models.functions.Function;
+import models.functions.FunctionType;
+import utils.DerivativeUtils;
+
+import models.numberUtils.Range;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import models.functions.Function;
-import models.functions.FunctionType;
-import utils.DerivativeUtils;
+
+import java.util.List;
 
 /**
  * Class implementing a Rational function
@@ -38,12 +41,13 @@ public class RationalFunction implements Function {
     }
 
     @Override
-    public Range<Double> getDomain() {
-        return denominator.getDomain().intersection(numerator.getDomain());
+    public List<Range> getDomain() {
+        // TODO: Implement domain for RationalFunction
+        throw new UnsupportedOperationException("Unimplemented method 'getDomain'");
     }
 
     @Override
-    public Range<Double> getRange() {
+    public List<Range> getRange() {
         // TODO: Implement range for RationalFunction
         throw new UnsupportedOperationException("Unimplemented method 'getRange'");
     }
