@@ -1,16 +1,17 @@
 package models.functions.polynomials;
 
-import com.google.common.collect.Range;
-import lombok.Getter;
-import lombok.NonNull;
 import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
+import models.numberUtils.Range;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import lombok.Getter;
+import lombok.NonNull;
 
 import static utils.StringUtils.trimTrailingLeadingPlus;
 
@@ -285,13 +286,13 @@ public class PolynomialFunction implements Function {
     }
 
     @Override
-    public Range<Double> getDomain() {
-        return Range.all();
+    public List<Range> getDomain() {
+        return List.of(Range.all());
     }
 
     @Override
-    public Range<Double> getRange() {
-        return Range.all();
+    public List<Range> getRange() {
+        return List.of(Range.all());
     }
 
     /**

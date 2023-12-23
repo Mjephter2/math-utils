@@ -1,10 +1,13 @@
 package models.functions.specials;
 
-import com.google.common.collect.Range;
-import lombok.Builder;
-import lombok.Getter;
 import models.functions.Function;
 import models.functions.FunctionType;
+import models.numberUtils.Range;
+
+import java.util.List;
+
+import lombok.Builder;
+import lombok.Getter;
 
 /**
  * Class implementing an Absolute Value function
@@ -28,12 +31,12 @@ public class AbsoluteValueFunction implements Function {
     }
 
     @Override
-    public Range<Double> getDomain() {
+    public List<Range> getDomain() {
         return this.innerFunction.getDomain();
     }
 
     @Override
-    public Range<Double> getRange() {
+    public List<Range> getRange() {
         // TODO: Implement getRange for AbsoluteValueFunction
         throw new UnsupportedOperationException("Unimplemented method 'getRange'");
     }
