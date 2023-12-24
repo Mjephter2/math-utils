@@ -44,6 +44,8 @@ public class PolynomialFunction implements Function {
 
     private int degree;
 
+    private boolean isIndefiniteIntegral;
+
     /**
      * Creates a polynomial function from a list of terms.
      * @param pTerms -> list of terms
@@ -59,6 +61,23 @@ public class PolynomialFunction implements Function {
         this.degree = this.terms.stream().mapToInt(PolynomialTerm::getExponent).max().orElse(0);
 
         this.funcName = funcName;
+        this.isIndefiniteIntegral = false;
+        this.varName = varName;
+
+        this.removeZeroTerms();
+        this.terms.sort(PolynomialTerm.TERM_COMPARATOR);
+    }
+
+    public PolynomialFunction(final @NonNull List<PolynomialTerm> pTerms, final @NonNull String funcName, final @NonNull String varName, final boolean isIndefiniteIntegral) {
+        validate(pTerms, varName);
+
+        this.terms = new LinkedList<>();
+        pTerms.forEach(this::addTerm);
+
+        this.degree = this.terms.stream().mapToInt(PolynomialTerm::getExponent).max().orElse(0);
+
+        this.funcName = funcName;
+        this.isIndefiniteIntegral = isIndefiniteIntegral;
         this.varName = varName;
 
         this.removeZeroTerms();
@@ -88,7 +107,7 @@ public class PolynomialFunction implements Function {
     public static PolynomialFunction from(final String polynomialString,final String funcName, final String varName)  {
         final String[] terms = polynomialString.split("[+-]");
         int latestIndex = 0;
-        final PolynomialFunction func = new PolynomialFunction(new LinkedList<>(), funcName, varName);
+        final PolynomialFunction func = new PolynomialFunction(new LinkedList<>(), funcName, varName, false);
         for (String part: terms) {
             final String cleaned = part.trim();
             int index = polynomialString.indexOf(part, latestIndex);
@@ -164,7 +183,7 @@ public class PolynomialFunction implements Function {
      * Returns the negation of the current Polynomial
      */
     public PolynomialFunction negate() {
-        final PolynomialFunction negated = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName);
+        final PolynomialFunction negated = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName, false);
         for (PolynomialTerm term : this.terms) {
             negated.addTerm(term.negate());
         }
@@ -202,9 +221,9 @@ public class PolynomialFunction implements Function {
      * @return the resulting Polynomial (product)
      */
     public PolynomialFunction multiplyBy(final PolynomialFunction other) {
-        final PolynomialFunction result = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName);
+        final PolynomialFunction result = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName, false);
         for(PolynomialTerm t : other.terms) {
-            PolynomialFunction copy = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName);
+            PolynomialFunction copy = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName, false);
             for(PolynomialTerm term : this.terms) {
                 copy.terms.add(new PolynomialTerm(term.getCoefficient(),this.varName, term.getExponent()));
             }
@@ -231,7 +250,7 @@ public class PolynomialFunction implements Function {
             compositionParts.add(part);
         }
 
-        final PolynomialFunction result = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName);
+        final PolynomialFunction result = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName, false);
         for (PolynomialFunction func : compositionParts) {
             result.add(func);
         }
@@ -262,9 +281,9 @@ public class PolynomialFunction implements Function {
         if (p == 0) {
             return new PolynomialFunction(new LinkedList<>(){{
                 add(new PolynomialTerm(1.0, varName, 0));
-            }}, this.funcName, this.varName);
+            }}, this.funcName, this.varName, false);
         }
-        PolynomialFunction result = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName);
+        PolynomialFunction result = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName, false);
         result.add(this);
         for (int i = 1; i < p; i++) {
             result = result.multiplyBy(this);
@@ -332,7 +351,7 @@ public class PolynomialFunction implements Function {
             for (PolynomialTerm term : terms) {
                 add(term.derivative());
             }
-        }}, this.funcName + "'", this.varName);
+        }}, this.funcName + "'", this.varName, false);
     }
 
     /**
@@ -348,7 +367,8 @@ public class PolynomialFunction implements Function {
                     }
                 }},
                 "∫" + this.funcName,
-                this.varName);
+                this.varName,
+                true);
     }
 
     /**
@@ -370,26 +390,26 @@ public class PolynomialFunction implements Function {
 
     @Override
     public PolynomialFunction deepCopy(final String newFuncName) {
-        return new PolynomialFunction(this.terms.stream().map(PolynomialTerm::deepCopy).collect(Collectors.toList()), newFuncName, this.varName);
+        return new PolynomialFunction(this.terms.stream().map(PolynomialTerm::deepCopy).collect(Collectors.toList()), newFuncName, this.varName, false);
     }
 
     /*
      * returns a String representation of the polynomial expression
      */
-    public String toString(final boolean isIntegral) {
+    public String toString(final boolean isIndefiniteIntegral) {
         if (isZeroFunction() || this.terms.isEmpty()) {
             return this.funcName + "(" + this.varName + ") = 0.0";
         }
 
         String repPrefix;
-        if (isIntegral) {
+        if (isIndefiniteIntegral) {
             repPrefix = this.funcName +  "(" + this.varName + ")d" + this.varName + " = ";
         } else {
             repPrefix = this.funcName + "(" + this.varName + ") = ";
         }
 
         if (this.terms.size() == 1) {
-            return repPrefix + this.terms.get(0).toString(true) + (isIntegral ? " + C" : "");
+            return repPrefix + this.terms.get(0).toString(true) + (isIndefiniteIntegral ? " + C" : "");
         }
 
         final StringBuilder rep = new StringBuilder();
@@ -398,7 +418,7 @@ public class PolynomialFunction implements Function {
             rep.append(term.toString(false)).append(" ");
         }
 
-        return (repPrefix + trimTrailingLeadingPlus(rep.toString())).trim() + (isIntegral ? " + C" : "");
+        return (repPrefix + trimTrailingLeadingPlus(rep.toString())).trim() + (isIndefiniteIntegral ? " + C" : "");
     }
 
     public String toString() {
