@@ -26,6 +26,17 @@ public interface Function {
     FunctionType getFuncType();
 
     /**
+     * Returns whether the function is an indefinite integral
+     * @return true if the function is an indefinite integral
+     *        false otherwise
+     *        (default is false)
+     * Needed for the indefinite integral of a function
+     */
+    default boolean isIndefiniteIntegral() {
+        return false;
+    };
+
+    /**
      * Returns the domain of the function
      */
     List<Range> getDomain();
@@ -52,7 +63,7 @@ public interface Function {
     Function derivative();
 
     /**
-     * Returns the integral of the function with respect to its independent variable
+     * Returns the indefinite integral of the function with respect to its independent variable
      */
     Function integral();
 
