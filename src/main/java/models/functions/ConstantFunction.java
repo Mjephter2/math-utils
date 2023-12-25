@@ -68,9 +68,9 @@ public class ConstantFunction implements Function {
                 .build();
     }
 
+    // This method should never be called as a ConstantFunction does not have an explicit independent variable
     @Override
     public Function integral() {
-        // This method should never be called
         throw new UnsupportedOperationException("Unimplemented method 'integral'");
     }
 
@@ -88,13 +88,13 @@ public class ConstantFunction implements Function {
     }
 
     @Override
-    public double integral(double lowerBound, double upperBound) {
+    public double integral(final double lowerBound, final double upperBound) {
         final Function indefiniteIntegral = this.integral("x");
         return indefiniteIntegral.evaluate(upperBound) - indefiniteIntegral.evaluate(lowerBound);
     }
 
     @Override
-    public double limit(double value) {
+    public double limit(final double value) {
         return this.value;
     }
 
