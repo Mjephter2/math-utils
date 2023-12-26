@@ -52,6 +52,25 @@ public class PolynomialTerm {
     }
 
     /**
+     * Creates a PolynomialTerm with provided coefficient
+     * Defaults variable name to "x" and exponent to 1
+     * @param coefficient
+     */
+    public static PolynomialTerm withCoefficient(final double coefficient) {
+        return new PolynomialTerm(coefficient, "x", 1);
+    }
+
+    /**
+     * Creates a PolynomialTerm with default values
+     * Coefficient = 1
+     * variableName = "x"
+     * exponent = 1
+     */
+    public static PolynomialTerm withDefaults() {
+        return new PolynomialTerm(1, "x", 1);
+    }
+
+    /**
      * Create a Term from a String representation.
      * @param termString -> String representation of the Term
      * @param variable -> variable name
