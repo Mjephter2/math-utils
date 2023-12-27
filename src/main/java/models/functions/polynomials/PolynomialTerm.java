@@ -13,9 +13,8 @@ import lombok.Setter;
 
 import static utils.SuperscriptUtil.convertToSuperscript;
 
-/** This class implements a single term / variate polynomial
- * in the form c * x ^ p
- * where c is the coefficient and p is the exponent of the independent variable x,
+/** This class implements a single term / variate polynomial in the form c * x ^ p.
+ * c is the coefficient and p is the exponent of the independent variable x,
  */
 @Getter
 @Setter
@@ -28,7 +27,10 @@ public class PolynomialTerm {
             ->
             (polynomialTerm2.exponent - polynomialTerm1.exponent);
 
-    private static final DecimalFormat df = new DecimalFormat("#.#");
+    /**
+     * Default DecimalFormat of form #.#.
+     */
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
 
     /**
      * coefficient of polynomial term.
@@ -45,6 +47,12 @@ public class PolynomialTerm {
      */
     private int exponent;
 
+    /**
+     * Creates a PolynomialTerm with provided coefficient, variable name and exponent.
+     * @param coefficient -> coefficient of polynomial term
+     * @param varName -> variable name
+     * @param exponent -> exponent/degree of polynomial term
+     */
     public PolynomialTerm(final double coefficient, final String varName, final int exponent) {
         this.coefficient = coefficient;
         this.varName = varName;
@@ -52,19 +60,21 @@ public class PolynomialTerm {
     }
 
     /**
-     * Creates a PolynomialTerm with provided coefficient
+     * Creates a PolynomialTerm with provided coefficient.
      * Defaults variable name to "x" and exponent to 1
-     * @param coefficient
+     * @param coefficient -> coefficient of polynomial term
+     * @return the new Term
      */
     public static PolynomialTerm withCoefficient(final double coefficient) {
         return new PolynomialTerm(coefficient, "x", 1);
     }
 
     /**
-     * Creates a PolynomialTerm with default values
+     * Creates a PolynomialTerm with default values.
      * Coefficient = 1
      * variableName = "x"
      * exponent = 1
+     * @return the new Term
      */
     public static PolynomialTerm withDefaults() {
         return new PolynomialTerm(1, "x", 1);
@@ -125,7 +135,7 @@ public class PolynomialTerm {
         if (!this.varName.contains(other.varName)) {
             throw new IllegalArgumentException("This operation is not implemented for terms with different variable names!");
         }
-        this.coefficient = coefficient * other.coefficient;
+        this.coefficient = this.coefficient * other.coefficient;
         this.exponent = this.exponent + other.exponent;
     }
 
@@ -142,30 +152,30 @@ public class PolynomialTerm {
      * @return a String representation of the Term.
      */
     public String toString(final boolean isFirstTerm) {
-        df.setRoundingMode(RoundingMode.HALF_EVEN);
+        this.DECIMAL_FORMAT.setRoundingMode(RoundingMode.HALF_EVEN);
 
-        if (coefficient == 0.0) {
+        if (this.coefficient == 0.0) {
             return "0.0";
         }
 
         final String coefString;
-        if ((coefficient == 1.0 || coefficient == -1.0) && exponent != 0) {
+        if ((this.coefficient == 1.0 || this.coefficient == -1.0) && this.exponent != 0) {
             coefString = "";
         } else {
-            coefString = df.format(Math.abs(coefficient));
+            coefString = this.DECIMAL_FORMAT.format(Math.abs(this.coefficient));
         }
 
         String sign;
-        if (isFirstTerm && coefficient >= 0.0) {
+        if (isFirstTerm && this.coefficient >= 0.0) {
             sign = "";
         } else {
-            sign = coefficient < 0.0 ? "-" : "+";
+            sign = this.coefficient < 0.0 ? "-" : "+";
         }
 
-        if (exponent == 0) {
+        if (this.exponent == 0) {
             return sign.isEmpty() ?  coefString : sign + " " + coefString;
         }
-        String strRep = sign + " " + (exponent == 1 ? coefString + varName : coefString + varName + convertToSuperscript(exponent));
+        String strRep = sign + " " + (this.exponent == 1 ? coefString + this.varName : coefString + this.varName + convertToSuperscript(this.exponent));
         return strRep.trim();
     }
 
@@ -174,9 +184,9 @@ public class PolynomialTerm {
      */
     public PolynomialTerm negate() {
         return PolynomialTerm.builder()
-                .coefficient(-coefficient)
-                .varName(varName)
-                .exponent(exponent)
+                .coefficient(-this.coefficient)
+                .varName(new String(this.varName))
+                .exponent(this.exponent)
                 .build();
     }
 
@@ -193,24 +203,24 @@ public class PolynomialTerm {
 
     @Override
     public int hashCode() {
-        return Objects.hash(coefficient, varName, exponent);
+        return Objects.hash(this.coefficient, this.varName, this.exponent);
     }
 
     /**
      * @return the derivative of the current Term.
      */
     public PolynomialTerm derivative() {
-        if (coefficient == 0.0 || exponent == 0) {
+        if (this.coefficient == 0.0 || this.exponent == 0) {
             return PolynomialTerm.builder()
                     .coefficient(0.0)
-                    .varName(varName)
+                    .varName(new String(this.varName))
                     .exponent(0)
                     .build();
         }
         return PolynomialTerm.builder()
-                .coefficient(coefficient * exponent)
-                .varName(varName)
-                .exponent(exponent - 1)
+                .coefficient(this.coefficient * this.exponent)
+                .varName(new String(this.varName))
+                .exponent(this.exponent - 1)
                 .build();
     }
 
@@ -218,14 +228,14 @@ public class PolynomialTerm {
      * @return the integral of the current Term.
      */
     public PolynomialTerm integral() {
-        if (coefficient == 0.0 || exponent == 0) {
+        if (this.coefficient == 0.0 || this.exponent == 0) {
             return PolynomialTerm.builder()
                     .coefficient(0.0)
-                    .varName(varName)
+                    .varName(new String(this.varName))
                     .exponent(0)
                     .build();
         }
-        return new PolynomialTerm(coefficient / (exponent + 1), varName, exponent + 1);
+        return new PolynomialTerm(this.coefficient / (this.exponent + 1), this.varName, this.exponent + 1);
     }
 
     /**
@@ -233,9 +243,9 @@ public class PolynomialTerm {
      */
     public PolynomialTerm deepCopy() {
         return PolynomialTerm.builder()
-                .coefficient(coefficient)
-                .varName(varName)
-                .exponent(exponent)
+                .coefficient(this.coefficient)
+                .varName(new String(this.varName))
+                .exponent(this.exponent)
                 .build();
     }
 }
