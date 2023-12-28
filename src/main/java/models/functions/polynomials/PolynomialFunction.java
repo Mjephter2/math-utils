@@ -8,11 +8,13 @@ import models.numberUtils.Range;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import lombok.Getter;
 import lombok.NonNull;
 
+import static models.functions.polynomials.PolynomialTerm.TERM_COMPARATOR;
 import static utils.StringUtils.trimTrailingLeadingPlus;
 
 /**
@@ -37,14 +39,20 @@ public class PolynomialFunction implements Function {
     private final String funcName;
 
     /**
-     * independent variable name
+     * independent variable name.
      */
     @NonNull
     private final String varName;
 
+    /**
+     * degree of the polynomial expression.
+     */
     private int degree;
 
-    private boolean isIndefiniteIntegral;
+    /**
+     * boolean representing whether the polynomial is an indefinite integral or not.
+     */
+    private boolean isIndefiniteIntegral = false;
 
     /**
      * Creates a polynomial function from a list of terms.
@@ -61,13 +69,19 @@ public class PolynomialFunction implements Function {
         this.degree = this.terms.stream().mapToInt(PolynomialTerm::getExponent).max().orElse(0);
 
         this.funcName = funcName;
-        this.isIndefiniteIntegral = false;
         this.varName = varName;
 
         this.removeZeroTerms();
-        this.terms.sort(PolynomialTerm.TERM_COMPARATOR);
+        this.terms.sort(TERM_COMPARATOR);
     }
 
+    /**
+     * Creates a polynomial function from a list of terms.
+     * @param pTerms -> list of terms
+     * @param funcName -> name of the polynomial function
+     * @param varName -> name of the independent variable
+     * @param isIndefiniteIntegral -> boolean representing whether the polynomial is an indefinite integral or not
+     */
     public PolynomialFunction(final @NonNull List<PolynomialTerm> pTerms, final @NonNull String funcName, final @NonNull String varName, final boolean isIndefiniteIntegral) {
         validate(pTerms, varName);
 
@@ -81,11 +95,11 @@ public class PolynomialFunction implements Function {
         this.varName = varName;
 
         this.removeZeroTerms();
-        this.terms.sort(PolynomialTerm.TERM_COMPARATOR);
+        this.terms.sort(TERM_COMPARATOR);
     }
 
     /**
-     * Validates that all terms have the same variable name
+     * Validates that all terms have the same variable name.
      * @param pTerms -> list of terms
      * @param varName -> name of the independent variable
      */
@@ -104,7 +118,7 @@ public class PolynomialFunction implements Function {
      * @param varName -> name of the independent variable
      * @return the PolynomialFunction
      */
-    public static PolynomialFunction from(final String polynomialString,final String funcName, final String varName)  {
+    public static PolynomialFunction from(final String polynomialString, final String funcName, final String varName)  {
         final String[] terms = polynomialString.split("[+-]");
         int latestIndex = 0;
         final PolynomialFunction func = new PolynomialFunction(new LinkedList<>(), funcName, varName, false);
@@ -122,7 +136,7 @@ public class PolynomialFunction implements Function {
     }
 
     /**
-     * Removes zero terms from the polynomial
+     * Removes zero terms from the polynomial.
      */
     private void removeZeroTerms() {
         final List<PolynomialTerm> zeroTerms = new ArrayList<>();
@@ -135,12 +149,12 @@ public class PolynomialFunction implements Function {
     }
 
     /**
-     * Adds a Term to current polynomial
+     * Adds a Term to current polynomial.
      * @param t : Term to add to current polynomial
      */
     public void addTerm(final PolynomialTerm t) {
         PolynomialTerm match = degExists(t);
-        if(match != null) {
+        if (match != null) {
             double newCoefficient = match.getCoefficient() + t.getCoefficient();
             match.setCoefficient(newCoefficient);
         } else {
@@ -150,25 +164,27 @@ public class PolynomialFunction implements Function {
                     .exponent(t.getExponent())
                     .build();
             this.terms.add(newTerm);
-            this.terms.sort(PolynomialTerm.TERM_COMPARATOR);
+            this.terms.sort(TERM_COMPARATOR);
         }
         this.removeZeroTerms();
     }
 
     /**
-     * Adds a Polynomial to current Polynomial
+     * Adds a Polynomial to current Polynomial.
+     * @param other : Polynomial to add to current Polynomial
      */
     public void add(final PolynomialFunction other) {
         if (!this.varName.equals(other.varName)) {
             throw new IllegalArgumentException("This operation is not implemented for terms with different variable names!");
         }
-        for(PolynomialTerm term : other.terms) {
+        for (PolynomialTerm term : other.terms) {
             this.addTerm(term);
         }
     }
 
     /**
-     * Subtracts a Polynomial from current Polynomial
+     * Subtracts a Polynomial from current Polynomial.
+     * @param other : Polynomial to subtract from current Polynomial
      */
     public void subtract(final PolynomialFunction other) {
         if (!this.varName.equals(other.varName)) {
@@ -180,7 +196,8 @@ public class PolynomialFunction implements Function {
     }
 
     /**
-     * Returns the negation of the current Polynomial
+     * Returns the negation of the current Polynomial.
+     * @return the negation of the current Polynomial
      */
     public PolynomialFunction negate() {
         final PolynomialFunction negated = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName, false);
@@ -191,13 +208,14 @@ public class PolynomialFunction implements Function {
     }
 
     /**
-     * Checks if a Term with given exponent exists in current Polynomial
+     * Checks if a Term with given exponent exists in current Polynomial.
      * if there is such a Term, return it
      * else return null
      * @param t : Term whose degree we are looking for in current Polynomial
+     * @return the Term with the given exponent if it exists, null otherwise
      */
     public PolynomialTerm degExists(final PolynomialTerm t) {
-        for(PolynomialTerm term : this.terms) {
+        for (PolynomialTerm term : this.terms) {
             if (term.getExponent() == t.getExponent()) {
                 return term;
             }
@@ -206,26 +224,26 @@ public class PolynomialFunction implements Function {
     }
 
     /**
-     * Multiply the current Polynomial by the given Term
+     * Multiply the current Polynomial by the given Term.
      * @param other : Term to multiply the current polynomial by
      */
     public void multiplyByTerm(final PolynomialTerm other) {
-        for(PolynomialTerm term : this.terms) {
+        for (PolynomialTerm term : this.terms) {
             term.multiplyBy(other);
         }
     }
 
     /**
-     * Multiply the current Polynomial by the given Polynomial
+     * Multiply the current Polynomial by the given Polynomial.
      * @param other  : Polynomial to multiply the current Polynomial by
      * @return the resulting Polynomial (product)
      */
     public PolynomialFunction multiplyBy(final PolynomialFunction other) {
         final PolynomialFunction result = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName, false);
-        for(PolynomialTerm t : other.terms) {
+        for (PolynomialTerm t : other.terms) {
             PolynomialFunction copy = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName, false);
-            for(PolynomialTerm term : this.terms) {
-                copy.terms.add(new PolynomialTerm(term.getCoefficient(),this.varName, term.getExponent()));
+            for (PolynomialTerm term : this.terms) {
+                copy.terms.add(new PolynomialTerm(term.getCoefficient(), this.varName, term.getExponent()));
             }
             copy.multiplyByTerm(t);
             result.add(copy);
@@ -234,7 +252,7 @@ public class PolynomialFunction implements Function {
     }
 
     /**
-     * Compose the current Polynomial with the given Polynomial
+     * Compose the current Polynomial with the given Polynomial.
      * @param other : Polynomial to compose the current Polynomial with
      * @return the resulting Polynomial (composition)
      */
@@ -258,13 +276,13 @@ public class PolynomialFunction implements Function {
     }
 
     /**
-     * Evaluate Polynomial with the given input value
+     * Evaluate Polynomial with the given input value.
      * @param input -> value to substitute x by
-     * return the evaluated number
+     * @return the evaluated number
      */
     private Double evaluateFunc(final double input) {
         double value = 0.0;
-        for(PolynomialTerm term : this.terms) {
+        for (PolynomialTerm term : this.terms) {
             value += term.evaluate(input);
         }
         return value;
@@ -272,6 +290,7 @@ public class PolynomialFunction implements Function {
 
     /**
      * Raise the current Polynomial to the given power.
+     * @param p : power to raise the current Polynomial to
      * @return the resulting Polynomial (power)
      */
     public PolynomialFunction power(final int p) {
@@ -279,9 +298,9 @@ public class PolynomialFunction implements Function {
             throw new IllegalArgumentException("This operation is not implemented for negative powers!");
         }
         if (p == 0) {
-            return new PolynomialFunction(new LinkedList<>(){{
+            return new PolynomialFunction(new LinkedList<>() { {
                 add(new PolynomialTerm(1.0, varName, 0));
-            }}, this.funcName, this.varName, false);
+            } }, this.funcName, this.varName, false);
         }
         PolynomialFunction result = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName, false);
         result.add(this);
@@ -292,7 +311,7 @@ public class PolynomialFunction implements Function {
     }
 
     /**
-     * Checks if the current Polynomial is a zero function
+     * Checks if the current Polynomial is a zero function.
      * @return true if the Polynomial is a zero function, false otherwise
      */
     public boolean isZeroFunction() {
@@ -315,12 +334,12 @@ public class PolynomialFunction implements Function {
     }
 
     /**
-     * Evaluates the current Polynomial with the given input values
+     * Evaluates the current Polynomial with the given input values.
      * @param values : input values to evaluate the Polynomial with
      * @return the evaluated number
      */
     @Override
-    public double evaluate(Double... values) {
+    public double evaluate(final Double... values) {
         if (values == null || values.length == 0) {
             throw new IllegalArgumentException("This operation is not implemented for zero input values!");
         }
@@ -342,20 +361,20 @@ public class PolynomialFunction implements Function {
     }
 
     /**
-     * Computes the derivative of the current Polynomial
+     * Computes the derivative of the current Polynomial.
      * @return the derivative of the Polynomial
      */
     @Override
     public Function derivative() {
-        return new PolynomialFunction(new LinkedList<>(){{
+        return new PolynomialFunction(new LinkedList<>() { {
             for (PolynomialTerm term : terms) {
                 add(term.derivative());
             }
-        }}, this.funcName + "'", this.varName, false);
+        } }, this.funcName + "'", this.varName, false);
     }
 
     /**
-     * Computes the derivative of the current Polynomial
+     * Computes the derivative of the current Polynomial.
      * @return the derivative of the Polynomial
      */
     @Override
@@ -372,19 +391,19 @@ public class PolynomialFunction implements Function {
     }
 
     /**
-     * Computes the integral of the current Polynomial in the given bounds
+     * Computes the integral of the current Polynomial in the given bounds.
      * @param lowerBound : lower bound of the integral
      * @param upperBound : upper bound of the integral
      * @return the value of the integral
      */
     @Override
-    public double integral(double lowerBound, double upperBound) {
+    public double integral(final double lowerBound, final double upperBound) {
         final Function integral = this.integral();
         return Math.round((integral.evaluate(upperBound) - integral.evaluate(lowerBound)) * 100) / 100.0;
     }
 
     @Override
-    public double limit(double value) {
+    public double limit(final double value) {
         return this.evaluate(value);
     }
 
@@ -393,8 +412,10 @@ public class PolynomialFunction implements Function {
         return new PolynomialFunction(this.terms.stream().map(PolynomialTerm::deepCopy).collect(Collectors.toList()), newFuncName, this.varName, false);
     }
 
-    /*
-     * returns a String representation of the polynomial expression
+    /**
+     * Constructs a String representation of the current Polynomial, depending on whether it is an indefinite integral or not.
+     * @param isIndefiniteIntegral : boolean representing whether the polynomial is an indefinite integral or not
+     * @return the String representation of the Polynomial
      */
     public String toString(final boolean isIndefiniteIntegral) {
         if (isZeroFunction() || this.terms.isEmpty()) {
@@ -421,6 +442,10 @@ public class PolynomialFunction implements Function {
         return (repPrefix + trimTrailingLeadingPlus(rep.toString())).trim() + (isIndefiniteIntegral ? " + C" : "");
     }
 
+    /**
+     * Constructs a String representation of the current Polynomial, assuming it is not an indefinite integral.
+     * @return the String representation of the Polynomial
+     */
     public String toString() {
         return this.printFunc();
     }
@@ -460,8 +485,18 @@ public class PolynomialFunction implements Function {
         return false;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                this.varName,
+                this.degree,
+                this.isIndefiniteIntegral,
+                this.terms.stream()
+                        .map(term -> Integer.toString(term.hashCode())).reduce("", String::concat));
+    }
+
     /**
-     * Apply Descartes's rule of signs to the current Polynomial
+     * Apply Descartes's rule of signs to the current Polynomial.
      * @return the maximum number of positive and negative roots
      */
     public int[] runDescartesRuleOfSign() {
