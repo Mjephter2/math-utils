@@ -50,6 +50,11 @@ public class PolynomialFunction implements Function {
     private int degree;
 
     /**
+     * type of the polynomial function
+     */
+    private PolynomialFunctionType type;
+
+    /**
      * boolean representing whether the polynomial is an indefinite integral or not.
      */
     private boolean isIndefiniteIntegral = false;
@@ -67,6 +72,15 @@ public class PolynomialFunction implements Function {
         pTerms.forEach(this::addTerm);
 
         this.degree = this.terms.stream().mapToInt(PolynomialTerm::getExponent).max().orElse(0);
+        if (degree > 3) {
+            this.type = PolynomialFunctionType.HIGHER_DEGREES;
+        } else if (degree == 3) {
+            this.type = PolynomialFunctionType.CUBIC;
+        } else if (degree == 2) {
+            this.type = PolynomialFunctionType.QUADRATIC;
+        } else {
+            this.type = PolynomialFunctionType.LINEAR;
+        }
 
         this.funcName = funcName;
         this.varName = varName;
