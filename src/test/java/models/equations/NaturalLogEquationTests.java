@@ -6,6 +6,7 @@ import models.functions.ConstantFunction;
 import models.functions.logarithmic.NaturalLogFunction;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
+import models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -35,9 +36,10 @@ public class NaturalLogEquationTests {
                     .build()
         );
 
-        Double[] solution = equation.solve();
+        final List<Range> solution = equation.solve();
 
-        assertEquals(solution.length, 1);
-        assertEquals(solution[0], (Double)Math.E);
+        assertEquals(solution.size(), 1);
+        assertEquals(solution.get(0).getLowerBound(), (Double)Math.E);
+        assertEquals(solution.get(0).getUpperBound(), (Double)Math.E);
     }
 }

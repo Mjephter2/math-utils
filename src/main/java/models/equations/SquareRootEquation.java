@@ -6,6 +6,9 @@ import models.equations.polynomial_equations.PolynomialEquation;
 import models.functions.Function;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.radicals.SquareRootFunction;
+import models.numberUtils.Range;
+
+import java.util.List;
 
 @Builder
 @Getter
@@ -15,7 +18,7 @@ public class SquareRootEquation implements Equation {
     private final Function rightSide;
 
     @Override
-    public Double[] solve() {
+    public List<Range> solve() {
         // TODO: Implement SquareRootEquation solver for various cases
 
         // 1 - Case where left side is a square root function of a polynomial and right side is a polynomial function

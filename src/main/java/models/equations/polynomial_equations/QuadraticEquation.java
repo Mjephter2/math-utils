@@ -2,8 +2,10 @@ package models.equations.polynomial_equations;
 
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
+import models.numberUtils.Range;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -37,7 +39,7 @@ public class QuadraticEquation extends PolynomialEquation {
     }
 
     @Override
-    public Double[] solve() {
+    public List<Range> solve() {
         PolynomialFunction leftSideCopy = this.getLeftSide().deepCopy(this.getLeftSide().getFuncName());
         PolynomialFunction rightSideCopy = this.getRightSide().deepCopy(this.getRightSide().getFuncName());
         QuadraticEquation equationCopy = new QuadraticEquation(leftSideCopy, rightSideCopy);
@@ -73,10 +75,10 @@ public class QuadraticEquation extends PolynomialEquation {
         if (discriminant > 0) {
             final double x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
             final double x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
-            return new Double[]{x1, x2};
+            return List.of(Range.singleton(x1), Range.singleton(x2));
         } else if (discriminant == 0) {
             final double x = -b / (2 * a);
-            return new Double[]{x};
+            return List.of(Range.singleton(x));
         }
 
         return null;

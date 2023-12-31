@@ -1,6 +1,5 @@
 package models.equations.log_equations;
 
-import lombok.Builder;
 import models.functions.Function;
 import models.functions.logarithmic.NaturalLogFunction;
 
