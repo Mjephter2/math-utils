@@ -9,6 +9,7 @@ import models.functions.Function;
 import models.functions.logarithmic.LogFunction;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
+import models.numberUtils.Range;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class LogEquation implements Equation {
     private final Function rightSide;
 
     @Override
-    public Double[] solve() {
+    public List<Range> solve() {
         // TODO: Implement LogEquation solver for more cases
 
         // Case where left side is a log function of a polynomial and right side is a constant

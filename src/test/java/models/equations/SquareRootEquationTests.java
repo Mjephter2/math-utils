@@ -4,9 +4,11 @@ import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import models.functions.radicals.SquareRootFunction;
 import models.functions.trigonometric.TrigonometricFunction;
+import models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -44,13 +46,14 @@ public class SquareRootEquationTests {
                 .rightSide(rhs)
                 .build();
 
-        final Double[] solution = equation.solve();
+        final List<Range> solution = equation.solve();
 
         assertEquals(lhs, equation.getLeftSide());
         assertEquals(rhs, equation.getRightSide());
 
-        assertEquals(1, solution.length);
-        assertEquals(1.0, solution[0], 0.0);
+        assertEquals(1, solution.size());
+        assertEquals(1.0, solution.get(0).getLowerBound());
+        assertEquals(1.0, solution.get(0).getUpperBound());
     }
 
     /**
@@ -80,18 +83,17 @@ public class SquareRootEquationTests {
                 .rightSide(rhs)
                 .build();
 
-        final Double[] solution = equation.solve();
+        final List<Range> solution = equation.solve();
 
         assertEquals(lhs, equation.getLeftSide());
         assertEquals(rhs, equation.getRightSide());
 
-        assertEquals(2, solution.length);
+        assertEquals(2, solution.size());
 
-        assertEquals(1.0, solution[0], 0.0);
-        assertEquals(0.0, solution[1], 0.0);
-
-        System.out.println(solution[0]);
-        System.out.println(solution[1]);
+        assertEquals(1.0, solution.get(0).getLowerBound());
+        assertEquals(1.0, solution.get(0).getUpperBound());
+        assertEquals(0.0, solution.get(1).getLowerBound());
+        assertEquals(0.0, solution.get(1).getUpperBound());
     }
 
     @Test

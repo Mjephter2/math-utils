@@ -7,6 +7,7 @@ import models.functions.logarithmic.LogFunction;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import models.functions.radicals.RadicalFunction;
+import models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -58,8 +59,8 @@ public class LogEquationTests {
         assertEquals(((ConstantFunction)logEquation.getRightSide()).getValue(), 2, 0);
         assertEquals(logEquation.getRightSide().getFuncName(), "C");
 
-        Double[] solution = logEquation.solve();
-        assertEquals(solution.length, 1);
+        List<Range> solution = logEquation.solve();
+        assertEquals(solution.size(), 1);
     }
 
     @Test

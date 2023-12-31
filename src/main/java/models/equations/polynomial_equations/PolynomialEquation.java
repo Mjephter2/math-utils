@@ -4,7 +4,9 @@ import lombok.Getter;
 import models.equations.Equation;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
+import models.numberUtils.Range;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -40,7 +42,7 @@ public class PolynomialEquation implements Equation {
     }
 
     @Override
-    public Double[] solve() {
+    public List<Range> solve() {
         // TODO: Implement solver for more polynomial equations degrees
         if (this.degree == 1) {
             return new LinearEquation(this.leftSide, this.rightSide).solve();

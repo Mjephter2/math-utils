@@ -3,9 +3,11 @@ package models.equations;
 import models.equations.polynomial_equations.LinearEquation;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
+import models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -34,7 +36,8 @@ public class LinearEquationsTests {
 
         final LinearEquation linearEquation = new LinearEquation(leftSide, rightSide);
 
-        assertEquals(linearEquation.solve().length, 1);
+        assertEquals(linearEquation.solve().size(), 1);
+        assertEquals(Range.all(), linearEquation.solve().get(0));
     }
 
     @Test
@@ -57,11 +60,12 @@ public class LinearEquationsTests {
 
         final LinearEquation linearEquation = new LinearEquation(leftSide, rightSide);
 
-        final Double[] solution = linearEquation.solve();
+        final List<Range> solution = linearEquation.solve();
 
         assertNotNull(solution);
-        assertEquals(1, solution.length);
-        assertEquals(3.0, solution[0], 0.0);
+        assertEquals(solution.size(), 1.0);
+        assertEquals(3.0, solution.get(0).getLowerBound());
+        assertEquals(3.0, solution.get(0).getUpperBound());
     }
 
     @Test
@@ -92,11 +96,12 @@ public class LinearEquationsTests {
         assertEquals(leftSide, linearEquation.getLeftSide());
         assertEquals(rightSide, linearEquation.getRightSide());
 
-        final Double[] solution = linearEquation.solve();
+        final List<Range> solution = linearEquation.solve();
 
         assertNotNull(solution);
-        assertEquals(1, solution.length);
-        assertEquals(3.0, solution[0], 0.0);
+        assertEquals(1, solution.size());
+        assertEquals(3.0, solution.get(0).getLowerBound());
+        assertEquals(3.0, solution.get(0).getUpperBound());
     }
 
     @Test

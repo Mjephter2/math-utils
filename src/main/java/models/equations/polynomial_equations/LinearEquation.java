@@ -2,6 +2,9 @@ package models.equations.polynomial_equations;
 
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
+import models.numberUtils.Range;
+
+import java.util.List;
 
 /**
  * Class representing a linear equation.
@@ -18,7 +21,7 @@ public class LinearEquation extends PolynomialEquation {
     }
 
     @Override
-    public Double[] solve() {
+    public List<Range> solve() {
         PolynomialFunction leftSideCopy = this.getLeftSide().deepCopy(this.getLeftSide().getFuncName());
         PolynomialFunction rightSideCopy = this.getRightSide().deepCopy(this.getRightSide().getFuncName());
         LinearEquation equationCopy = new LinearEquation(leftSideCopy, rightSideCopy);
@@ -54,10 +57,10 @@ public class LinearEquation extends PolynomialEquation {
         if (leftCoefficient == 0.0 && rightCoefficient != 0.0) {
             return null;
         } else if (rightCoefficient == 0.0) {
-            return new Double[] { 0.0 };
+            return List.of(Range.all());
         }
 
-        return new Double[] { rightCoefficient / leftCoefficient };
+        return List.of(Range.singleton(rightCoefficient / leftCoefficient));
     }
 
     public String toString() {

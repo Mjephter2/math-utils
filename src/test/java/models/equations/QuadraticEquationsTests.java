@@ -3,9 +3,11 @@ package models.equations;
 import models.equations.polynomial_equations.QuadraticEquation;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
+import models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -36,11 +38,13 @@ public class QuadraticEquationsTests {
         assertEquals(leftSide, quadraticEquation.getLeftSide());
         assertEquals(rightSide, quadraticEquation.getRightSide());
 
-        final Double[] solution = quadraticEquation.solve();
+        final List<Range> solution = quadraticEquation.solve();
 
-        assertEquals(2, solution.length);
-        assertEquals(1.0, solution[0], 0.0);
-        assertEquals(-1.0, solution[1], 0.0);
+        assertEquals(2, solution.size());
+        assertEquals(1.0, solution.get(0).getLowerBound(), 0.0);
+        assertEquals(1.0, solution.get(0).getUpperBound(), 0.0);
+        assertEquals(-1.0, solution.get(1).getLowerBound(), 0.0);
+        assertEquals(-1.0, solution.get(1).getUpperBound(), 0.0);
     }
 
     @Test
@@ -68,11 +72,13 @@ public class QuadraticEquationsTests {
 
         final QuadraticEquation quadraticEquation = new QuadraticEquation(func1, func2);
 
-        final Double[] solution = quadraticEquation.solve();
+        final List<Range> solution = quadraticEquation.solve();
 
-        assertEquals(2, solution.length);
-        assertEquals(1.0, solution[0], 0.0);
-        assertEquals(-1.0, solution[1], 0.0);
+        assertEquals(2, solution.size());
+        assertEquals(1.0, solution.get(0).getLowerBound());
+        assertEquals(1.0, solution.get(0).getUpperBound());
+        assertEquals(-1.0, solution.get(1).getLowerBound());
+        assertEquals(-1.0, solution.get(1).getUpperBound());
     }
 
     @Test
@@ -130,10 +136,11 @@ public class QuadraticEquationsTests {
 
         final QuadraticEquation quadraticEquation = new QuadraticEquation(func1, func2);
 
-        final Double[] solution = quadraticEquation.solve();
+        final List<Range> solution = quadraticEquation.solve();
 
-        assertEquals(1, solution.length);
-        assertEquals(-1.0, solution[0], 0.0);
+        assertEquals(1, solution.size());
+        assertEquals(-1.0, solution.get(0).getLowerBound());
+        assertEquals(-1.0, solution.get(0).getUpperBound());
     }
 
     @Test
