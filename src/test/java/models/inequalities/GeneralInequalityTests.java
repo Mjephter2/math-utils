@@ -1,11 +1,11 @@
 package models.inequalities;
 
-import com.google.common.collect.Range;
 import models.functions.ConstantFunction;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import models.functions.trigonometric.TrigonometricFunction;
 import models.functions.trigonometric.TrigonometricFunctionType;
+import models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
@@ -37,7 +37,7 @@ public class GeneralInequalityTests {
                 .build();
 
         generalInequality.solve();
-        List<Range<Double>> solution = generalInequality.getSolution();
+        List<Range> solution = generalInequality.getSolution();
         assertEquals(1, solution.size());
         assertEquals(Range.lessThan(1.0), solution.get(0));
     }

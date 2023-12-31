@@ -1,9 +1,9 @@
 package models.inequalities;
 
-import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
 import models.functions.polynomials.PolynomialFunction;
+import models.numberUtils.Range;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ class PolynomialInequality implements Inequality {
     private PolynomialFunction leftSide;
     private PolynomialFunction rightSide;
     private InequalityType type;
-    private List<Range<Double>> solution;
+    private List<Range> solution;
 
     @Override
     public void solve() {
