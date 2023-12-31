@@ -43,7 +43,7 @@ public class PolynomialEquationTests {
 
         final PolynomialEquation equation = new PolynomialEquation(lhs, rhs);
 
-        assertEquals("x + 1 = - x² + 3", equation.print());
+        assertEquals("x² + x - 2 = 0.0", equation.print());
 
         assertEquals(lhs, equation.getLeftSide());
         assertEquals(rhs, equation.getRightSide());

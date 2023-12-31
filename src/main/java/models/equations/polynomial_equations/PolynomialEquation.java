@@ -17,14 +17,34 @@ public class PolynomialEquation implements Equation {
 
     private final PolynomialFunction leftSide;
     private final PolynomialFunction rightSide;
-    private final int degree;
+    private int degree;
 
+    /**
+     * Constructs a PolynomialEquation with provided left and right side expressions.
+     * Automatically reduces the right side to zero.
+     * @param left - left side of the equation
+     * @param right - right side of the equation
+     */
     public PolynomialEquation(final PolynomialFunction left, final PolynomialFunction right) {
         if (left == null || right == null) {
             throw new IllegalArgumentException("Null argument(s) passed.");
         }
         this.leftSide = left;
         this.rightSide = right;
+
+        this.reduce();
+    }
+
+    /**
+     * Reduce the RHS to zero
+     */
+    protected void reduce() {
+        while (!this.rightSide.getTerms().isEmpty()) {
+            PolynomialTerm term = this.rightSide.getTerms().get(0);
+            PolynomialTerm subtractedTerm = new PolynomialTerm(-1 * term.getCoefficient(), term.getVarName(), term.getExponent());
+            this.leftSide.addTerm(subtractedTerm);
+            this.rightSide.addTerm(subtractedTerm);
+        }
         this.degree = computeDegree();
     }
 
