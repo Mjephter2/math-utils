@@ -1,11 +1,10 @@
 package models.inequalities;
 
-import com.google.common.collect.Range;
 
-import lombok.Builder;
 import lombok.Getter;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
+import models.numberUtils.Range;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +19,7 @@ public class LinearInequality implements Inequality {
     private InequalityType type;
     private PolynomialFunction leftSide;
     private PolynomialFunction rightSide;
-    private List<Range<Double>> solution;
+    private List<Range> solution;
 
     public LinearInequality(final InequalityType type, final PolynomialFunction leftSide, final PolynomialFunction rightSide) {
         if (leftSide == null || rightSide == null) {

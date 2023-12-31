@@ -1,8 +1,8 @@
 package models.inequalities;
 
-import com.google.common.collect.Range;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
+import models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
@@ -41,7 +41,7 @@ public class PolynomialInequalityTests {
         assertEquals(rightSide, inequality.getRightSide());
 
         inequality.solve();
-        List<Range<Double>> solution = inequality.getSolution();
+        List<Range> solution = inequality.getSolution();
 
         assertEquals(1, solution.size());
     }

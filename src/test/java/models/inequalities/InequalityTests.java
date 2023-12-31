@@ -1,8 +1,8 @@
 package models.inequalities;
 
-import com.google.common.collect.Range;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
+import models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
@@ -53,7 +53,7 @@ public class InequalityTests {
         assertEquals(inequality.getRightSide(), rightSide);
 
         inequality.solve();
-        List<Range<Double>> ranges = inequality.getSolution();
+        List<Range> ranges = inequality.getSolution();
         assertEquals(1, ranges.size());
         assertEquals(Range.lessThan(2.0), ranges.get(0));
     }
@@ -97,7 +97,7 @@ public class InequalityTests {
         assertEquals(inequality.getRightSide(), rightSide);
 
         inequality.solve();
-        List<Range<Double>> ranges = inequality.getSolution();
+        List<Range> ranges = inequality.getSolution();
         assertEquals(1, ranges.size());
         assertEquals(Range.atMost(2.0), ranges.get(0));
     }
@@ -140,7 +140,7 @@ public class InequalityTests {
         assertEquals(inequality.getRightSide(), rightSide);
 
         inequality.solve();
-        List<Range<Double>> ranges = inequality.getSolution();
+        List<Range> ranges = inequality.getSolution();
         assertEquals(1, ranges.size());
         assertEquals(Range.greaterThan(2.0), ranges.get(0));
     }
@@ -168,7 +168,7 @@ public class InequalityTests {
         assertEquals(inequality.getRightSide(), rightSide);
 
         inequality.solve();
-        List<Range<Double>> ranges = inequality.getSolution();
+        List<Range> ranges = inequality.getSolution();
         assertEquals(1, ranges.size());
         assertEquals(Range.atLeast(3.0), ranges.get(0));
     }
@@ -196,7 +196,7 @@ public class InequalityTests {
         assertEquals(inequality.getRightSide(), rightSide);
 
         inequality.solve();
-        List<Range<Double>> ranges = inequality.getSolution();
+        List<Range> ranges = inequality.getSolution();
         assertEquals(1, ranges.size());
         assertEquals(Range.all(), ranges.get(0));
     }

@@ -1,7 +1,7 @@
 package models.inequalities;
 
-import com.google.common.collect.Range;
 import models.functions.Function;
+import models.numberUtils.Range;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface Inequality {
 
     InequalityType getType();
 
-    List<Range<Double>> getSolution();
+    List<Range> getSolution();
 
     /**
      * Solves the inequality
