@@ -17,23 +17,7 @@ public class QuadraticEquation extends PolynomialEquation {
     public QuadraticEquation(final PolynomialFunction leftSide, final PolynomialFunction rightSide) {
         super(leftSide, rightSide);
 
-        int leftSideDegree = 0;
-        if (!leftSide.getTerms().isEmpty()) {
-            leftSideDegree = Collections.max(leftSide.getTerms()
-                    .stream()
-                    .map(PolynomialTerm::getExponent)
-                    .collect(Collectors.toList()));
-        }
-
-        int rightSideDegree = 0;
-        if (!rightSide.getTerms().isEmpty()) {
-            rightSideDegree = Collections.max(rightSide.getTerms()
-                    .stream()
-                    .map(PolynomialTerm::getExponent)
-                    .collect(Collectors.toList()));
-        }
-
-        if (leftSideDegree > 2 || rightSideDegree > 2) {
+        if (this.getDegree() > 2) {
             throw new IllegalArgumentException("Invalid degree(s) passed.");
         }
     }
@@ -42,19 +26,6 @@ public class QuadraticEquation extends PolynomialEquation {
     public List<Range> solve() {
         PolynomialFunction leftSideCopy = this.getLeftSide().deepCopy(this.getLeftSide().getFuncName());
         PolynomialFunction rightSideCopy = this.getRightSide().deepCopy(this.getRightSide().getFuncName());
-        QuadraticEquation equationCopy = new QuadraticEquation(leftSideCopy, rightSideCopy);
-
-        System.out.println("Starting to solve quadratic equation: " + equationCopy);
-        System.out.println("Zeroing right side...");
-
-        while (!rightSideCopy.getTerms().isEmpty()) {
-            System.out.println("Current equation: " + equationCopy);
-            PolynomialTerm term = rightSideCopy.getTerms().get(0);
-            PolynomialTerm subtractedTerm = new PolynomialTerm(-1 * term.getCoefficient(), term.getVarName(), term.getExponent());
-            leftSideCopy.addTerm(subtractedTerm);
-            rightSideCopy.addTerm(subtractedTerm);
-        }
-        System.out.println("Current equation: " + equationCopy);
 
         final Optional<PolynomialTerm> deg2  = leftSideCopy.getTerms().stream().filter(term -> term.getExponent() == 2).findFirst();
         // In case the quadratic equation reduces to a linear equation
