@@ -3,6 +3,7 @@ package models.functions;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -248,6 +249,25 @@ public class PolynomialFunctionTests {
     }
 
     @Test
+    public void divideTests() {
+        PolynomialFunction f1 = this.functionSample3().get(0); // P(x) = x + 1
+        PolynomialFunction f2 = this.functionSample3().get(1); // Q(x) = x^4 + 7x^2
+
+        HashMap<PolynomialFunction, PolynomialFunction> result = f2.divideBy(f1);
+
+        assertEquals(1, result.size());
+        assertEquals("Q(x) = x³ - x² + 8x - 8", result.keySet().toArray()[0].toString());
+        assertEquals("Q(x) = 8", result.values().toArray()[0].toString());
+
+        // Testing for equality when reconstructing the original function (dividend)
+        PolynomialFunction res = (PolynomialFunction) result.keySet().toArray()[0];
+        res = res.multiplyBy(f1);
+        PolynomialFunction rem = (PolynomialFunction) result.values().toArray()[0];
+        res.add(rem);
+        assertEquals(f2.toString(false), res.toString(false));
+    }
+
+    @Test
     public void compose_tests() {
         final PolynomialFunction func1 = new PolynomialFunction(new LinkedList<>(){{
             add(new PolynomialTerm(1.0, "x", 2));
@@ -486,6 +506,63 @@ public class PolynomialFunctionTests {
         func3Terms.add(term3_1);
         func3Terms.add(term3_2);
         // S(x) = + 1.0x - 1
+        final PolynomialFunction func3 = new PolynomialFunction(func3Terms, "S", "x");
+
+        final LinkedList<PolynomialFunction> funcList = new LinkedList<>();
+        funcList.add(func1);
+        funcList.add(func2);
+        funcList.add(func3);
+
+        return funcList;
+    }
+
+    private List<PolynomialFunction> functionSample3() {
+        final PolynomialTerm term1_1 = PolynomialTerm.builder()
+                .coefficient(1.0)
+                .varName("x")
+                .exponent(1)
+                .build();
+        final PolynomialTerm term1_2 = PolynomialTerm.builder()
+                .coefficient(1.0)
+                .varName("x")
+                .exponent(0)
+                .build();
+        final LinkedList<PolynomialTerm> func1Terms = new LinkedList<>();
+        func1Terms.add(term1_1);
+        func1Terms.add(term1_2);
+        // P(x) = x + 1
+        final PolynomialFunction func1 = new PolynomialFunction(func1Terms, "P", "x");
+
+        final PolynomialTerm term2_1 = PolynomialTerm.builder()
+                .coefficient(1.0)
+                .varName("x")
+                .exponent(4)
+                .build();
+        final PolynomialTerm term2_2 = PolynomialTerm.builder()
+                .coefficient(7.0)
+                .varName("x")
+                .exponent(2)
+                .build();
+        final LinkedList<PolynomialTerm> func2Terms = new LinkedList<>();
+        func2Terms.add(term2_1);
+        func2Terms.add(term2_2);
+        // Q(x) = x^4 + 7x^2
+        final PolynomialFunction func2 = new PolynomialFunction(func2Terms, "Q", "x");
+
+        final PolynomialTerm term3_1 = PolynomialTerm.builder()
+                .coefficient(1.0)
+                .varName("x")
+                .exponent(2)
+                .build();
+        final PolynomialTerm term3_2 = PolynomialTerm.builder()
+                .coefficient(-1.0)
+                .varName("x")
+                .exponent(0)
+                .build();
+        final LinkedList<PolynomialTerm> func3Terms = new LinkedList<>();
+        func3Terms.add(term3_1);
+        func3Terms.add(term3_2);
+        // S(x) = x^2 - 1
         final PolynomialFunction func3 = new PolynomialFunction(func3Terms, "S", "x");
 
         final LinkedList<PolynomialFunction> funcList = new LinkedList<>();

@@ -6,6 +6,7 @@ import models.functions.FunctionType;
 import models.numberUtils.Range;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -181,6 +182,7 @@ public class PolynomialFunction implements Function {
             this.terms.sort(TERM_COMPARATOR);
         }
         this.removeZeroTerms();
+        this.degree = this.terms.stream().mapToInt(PolynomialTerm::getExponent).max().orElse(0);
     }
 
     /**
@@ -194,6 +196,7 @@ public class PolynomialFunction implements Function {
         for (PolynomialTerm term : other.terms) {
             this.addTerm(term);
         }
+        this.degree = this.terms.stream().mapToInt(PolynomialTerm::getExponent).max().orElse(0);
     }
 
     /**
@@ -207,6 +210,7 @@ public class PolynomialFunction implements Function {
         for (PolynomialTerm term : other.terms) {
             this.addTerm(term.negate());
         }
+        this.degree = this.terms.stream().mapToInt(PolynomialTerm::getExponent).max().orElse(0);
     }
 
     /**
@@ -245,6 +249,7 @@ public class PolynomialFunction implements Function {
         for (PolynomialTerm term : this.terms) {
             term.multiplyBy(other);
         }
+        this.degree = this.terms.stream().mapToInt(PolynomialTerm::getExponent).max().orElse(0);
     }
 
     /**
@@ -262,6 +267,34 @@ public class PolynomialFunction implements Function {
             copy.multiplyByTerm(t);
             result.add(copy);
         }
+        return result;
+    }
+
+    /**
+     * Divide the current Polynomial by the given Polynomial.
+     * aka Polynomial long division
+     * @param divider
+     * @return
+     */
+    public HashMap<PolynomialFunction, PolynomialFunction> divideBy(final PolynomialFunction divider) {
+        final HashMap<PolynomialFunction, PolynomialFunction> result = new HashMap<>();
+        final PolynomialFunction quotient = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName, false);
+        final PolynomialFunction remainder = new PolynomialFunction(new LinkedList<>(), this.funcName, this.varName, false);
+        for (PolynomialTerm term : this.terms) {
+            remainder.addTerm(term);
+        }
+        while (remainder.degree >= divider.degree) {
+            final PolynomialTerm term = PolynomialTerm.builder()
+                    .coefficient(remainder.terms.get(0).getCoefficient() / divider.terms.get(0).getCoefficient())
+                    .varName(this.varName)
+                    .exponent(remainder.terms.get(0).getExponent() - divider.terms.get(0).getExponent())
+                    .build();
+            quotient.addTerm(term);
+            final PolynomialFunction dividerCopy = divider.deepCopy("dividerCopy");
+            dividerCopy.multiplyByTerm(term);
+            remainder.subtract(dividerCopy);
+        }
+        result.put(quotient, remainder);
         return result;
     }
 
