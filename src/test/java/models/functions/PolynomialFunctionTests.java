@@ -3,7 +3,10 @@ package models.functions;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -281,6 +284,89 @@ public class PolynomialFunctionTests {
 
         assertEquals("f(x) = x² + 2", func1.composeWith(func2).toString(false));
         assertEquals("g(x) = x² + 2x + 2", func2.composeWith(func1).toString(false));
+    }
+
+    @Test
+    public void factorTests() {
+        final PolynomialFunction func = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(1)
+                    .varName("x")
+                    .exponent(5)
+                    .build());
+            add(PolynomialTerm.builder()
+                    .coefficient(1)
+                    .varName("x")
+                    .exponent(4)
+                    .build());
+            add(PolynomialTerm.builder()
+                    .coefficient(-1)
+                    .varName("x")
+                    .exponent(3)
+                    .build());
+            add(PolynomialTerm.builder()
+                    .coefficient(-1)
+                    .varName("x")
+                    .exponent(2)
+                    .build());
+        }}, "f", "x", false); // f(x) = x⁵ + x⁴ - x³ - x²
+
+        final PolynomialFunction expectedFunc1 = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(1)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+        }}, "f", "x", false); // f(x) = x
+        final PolynomialFunction expectedFunc2 = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(1)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+            add(PolynomialTerm.builder()
+                    .coefficient(-1)
+                    .varName("x")
+                    .exponent(0)
+                    .build());
+        }}, "f", "x", false); // f(x) = x - 1
+        final PolynomialFunction expectedFunc3 = new PolynomialFunction(
+                new LinkedList<>(){{
+                    add(PolynomialTerm.builder()
+                            .coefficient(1)
+                            .varName("x")
+                            .exponent(1)
+                            .build());
+                    add(PolynomialTerm.builder()
+                            .coefficient(1)
+                            .varName("x")
+                            .exponent(0)
+                            .build());
+                }}, "f", "x", false); // f(x) = x + 1
+
+        func.factor();
+
+        assertEquals(3, func.getFactorsToMultiplicity().size());
+
+        assertTrue(func.getFactorsToMultiplicity().keySet().contains(expectedFunc1));
+        assertTrue(func.getFactorsToMultiplicity().keySet().contains(expectedFunc2));
+        assertTrue(func.getFactorsToMultiplicity().keySet().contains(expectedFunc3));
+
+        assertEquals(2, func.getFactorsToMultiplicity().get(expectedFunc1));
+        assertEquals(1, func.getFactorsToMultiplicity().get(expectedFunc2));
+        assertEquals(2, func.getFactorsToMultiplicity().get(expectedFunc3));
+
+        PolynomialFunction reconstructedFunc = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .varName("x")
+                    .exponent(0)
+                    .coefficient(1)
+                    .build());
+        }}, "f", "x", false);
+        for (PolynomialFunction factor : func.getFactorsToMultiplicity().keySet()) {
+            reconstructedFunc = reconstructedFunc.multiplyBy(factor.power(func.getFactorsToMultiplicity().get(factor)));
+        }
+        assertEquals("f(x) = x⁵ + x⁴ - x³ - x²", reconstructedFunc.toString(false));
     }
 
     @Test

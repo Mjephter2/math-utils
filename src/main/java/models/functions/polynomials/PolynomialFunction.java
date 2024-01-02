@@ -12,11 +12,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static models.functions.polynomials.PolynomialTerm.TERM_COMPARATOR;
+import static utils.NumberUtils.gcd;
+import static utils.StringUtils.trimTrailingLeadingPlus;
+
 import lombok.Getter;
 import lombok.NonNull;
-
-import static models.functions.polynomials.PolynomialTerm.TERM_COMPARATOR;
-import static utils.StringUtils.trimTrailingLeadingPlus;
 
 /**
  * This class implements a multi Term polynomial expression in one variable (for now)
@@ -54,6 +55,11 @@ public class PolynomialFunction implements Function {
      * type of the polynomial function
      */
     private PolynomialFunctionType type;
+
+    /**
+     * HashMap of factors to multiplicities of the polynomial function
+     */
+    private HashMap<PolynomialFunction, Integer> factorsToMultiplicity = new HashMap<>();
 
     /**
      * boolean representing whether the polynomial is an indefinite integral or not.
@@ -297,6 +303,92 @@ public class PolynomialFunction implements Function {
         result.put(quotient, remainder);
         return result;
     }
+
+    /**
+     * Factor the current Polynomial.
+     * A product of the factors should be equal to the current Polynomial
+     * @return the factors of the current Polynomial
+     */
+    public void factor() {
+        if (this.degree <= 1) {
+            this.factorsToMultiplicity.put(deepCopy(funcName + "_factor_0"), 1);
+            return;
+        }
+
+        final PolynomialFunction gcd = this.termsGcd();
+
+        final List<PolynomialTerm> reducedTerms = this.getTerms().stream().map(term -> PolynomialTerm.builder()
+                .coefficient(term.getCoefficient() / gcd.getTerms().get(0).getCoefficient())
+                .varName(term.getVarName())
+                .exponent(term.getExponent() - gcd.getTerms().get(0).getExponent())
+                .build()).collect(Collectors.toList());
+        final PolynomialFunction reducedFunc = new PolynomialFunction(reducedTerms, "reducedFunc", "x", false);
+
+        final HashMap<PolynomialFunction, Integer> result = new HashMap<>();
+
+        final double maxValue = reducedFunc.terms.stream().mapToDouble(PolynomialTerm::getCoefficient).max().orElse(0);
+        PolynomialFunction funcCopy = reducedFunc.deepCopy("reducedFunc");
+        result.put(new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(gcd.getTerms().get(0).getCoefficient())
+                    .varName(varName)
+                    .exponent(1)
+                    .build());
+        }}, funcName + "_terms_gcd", varName, false), gcd.degree);
+
+        for (int i = (int) -maxValue; i <= maxValue; i++) {
+            if (result.size() == this.degree) {
+                break;
+            }
+            for (int j = (int) -maxValue; j <= maxValue; j++) {
+                final double candidateSolution = (double) j / (double) i;
+                if (funcCopy.evaluate(candidateSolution) == 0) {
+                    int multiplicity = 1;
+
+                    final PolynomialFunction factor = new PolynomialFunction(new LinkedList<>(){{
+                        add(PolynomialTerm.builder()
+                                .coefficient(1)
+                                .varName(varName)
+                                .exponent(1)
+                                .build());
+                        add(PolynomialTerm.builder()
+                                .coefficient(-candidateSolution)
+                                .varName(varName)
+                                .exponent(0)
+                                .build());
+                    }}, funcName + "_factor_" + result.size(), varName, false);
+                    funcCopy = (PolynomialFunction) funcCopy.divideBy(factor).keySet().toArray()[0];
+
+                    while (funcCopy.evaluate(candidateSolution) == 0) {
+                        funcCopy = (PolynomialFunction) funcCopy.divideBy(factor).keySet().toArray()[0];
+                        multiplicity++;
+                    }
+                    result.put(factor, multiplicity);
+                }
+            }
+        }
+
+        if (funcCopy.degree > 0) {
+            result.put(funcCopy.deepCopy(funcName + "_factor_" + (result.size())), 1);
+        }
+        this.factorsToMultiplicity = result;
+    }
+
+    /**
+     * Compute the greatest common divisor Term of the current Polynomial terms.
+     * @return
+     */
+    private PolynomialFunction termsGcd() {
+        final int lowestExponent = this.getTerms().stream().map(PolynomialTerm::getExponent).min(Integer::compareTo).orElse(0);
+        final Double coefficientGcd = gcd(this.getTerms().stream().map(PolynomialTerm::getCoefficient).toArray(Double[]::new));
+        return new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(coefficientGcd)
+                    .varName(varName)
+                    .exponent(lowestExponent)
+                    .build());
+        }}, funcName + "_gcd", varName, false);
+    };
 
     /**
      * Compose the current Polynomial with the given Polynomial.
