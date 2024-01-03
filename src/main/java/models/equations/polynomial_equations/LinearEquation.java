@@ -1,15 +1,19 @@
 package models.equations.polynomial_equations;
 
+import lombok.Getter;
 import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import models.numberUtils.Range;
 
-import java.util.List;
+import java.util.HashMap;
 
 /**
  * Class representing a linear equation.
  */
+@Getter
 public class LinearEquation extends PolynomialEquation {
+
+    private HashMap<Range, Integer> solutions;
 
     public LinearEquation(final PolynomialFunction leftSide, final PolynomialFunction rightSide) {
         super(leftSide, rightSide);
@@ -21,7 +25,7 @@ public class LinearEquation extends PolynomialEquation {
     }
 
     @Override
-    public List<Range> solve() {
+    public void solve() {
         PolynomialFunction leftSideCopy = this.getLeftSide().deepCopy(this.getLeftSide().getFuncName());
         PolynomialFunction rightSideCopy = this.getRightSide().deepCopy(this.getRightSide().getFuncName());
         LinearEquation equationCopy = new LinearEquation(leftSideCopy, rightSideCopy);
@@ -55,12 +59,17 @@ public class LinearEquation extends PolynomialEquation {
         final double rightCoefficient = !rightSideCopy.getTerms().isEmpty() ? rightSideCopy.getTerms().get(0).getCoefficient() : 0.0;
 
         if (leftCoefficient == 0.0 && rightCoefficient != 0.0) {
-            return null;
+            return;
         } else if (rightCoefficient == 0.0) {
-            return List.of(Range.all());
+            this.solutions = new HashMap<>(){{
+                put(Range.all(), -1);
+            }};
+            return;
         }
 
-        return List.of(Range.singleton(rightCoefficient / leftCoefficient));
+        this.solutions = new HashMap<>(){{
+            put(Range.singleton(rightCoefficient / leftCoefficient), 1);
+        }};
     }
 
     public String toString() {
