@@ -6,7 +6,8 @@ import models.functions.polynomials.PolynomialFunction;
 import models.functions.polynomials.PolynomialTerm;
 import models.numberUtils.Range;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.stream.Stream;
 
 /**
@@ -18,6 +19,7 @@ public class PolynomialEquation implements Equation {
     private final PolynomialFunction leftSide;
     private final PolynomialFunction rightSide;
     private int degree;
+    HashMap<Range, Integer> solutions;
 
     /**
      * Constructs a PolynomialEquation with provided left and right side expressions.
@@ -62,14 +64,60 @@ public class PolynomialEquation implements Equation {
     }
 
     @Override
-    public List<Range> solve() {
+    public void solve() {
         // TODO: Implement solver for more polynomial equations degrees
         if (this.degree == 1) {
-            return new LinearEquation(this.leftSide, this.rightSide).solve();
+            final LinearEquation linearEquation =  new LinearEquation(this.leftSide, this.rightSide);
+            linearEquation.solve();
+            this.solutions = linearEquation.getSolutions();
         } else if (this.degree == 2) {
-            return new QuadraticEquation(this.leftSide, this.rightSide).solve();
+            final QuadraticEquation quadraticEquation = new QuadraticEquation(this.leftSide, this.rightSide);
+            quadraticEquation.solve();
+            this.solutions = new HashMap<>(quadraticEquation.getSolutions());
         } else {
             throw new UnsupportedOperationException("Unimplemented solver for polynomial equations of degree " + this.degree + ".");
         }
+    }
+
+    /**
+     * Approximate solution of the equation.
+     */
+    public void approxSolve() {
+    }
+
+    public static void main(String[] args) {
+        final PolynomialFunction lhs = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(1)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+            add(PolynomialTerm.builder()
+                    .coefficient(1)
+                    .varName("x")
+                    .exponent(0)
+                    .build());
+        }}, "f", "x");
+        final PolynomialFunction rhs = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(-1)
+                    .varName("x")
+                    .exponent(2)
+                    .build());
+            add(PolynomialTerm.builder()
+                    .coefficient(3)
+                    .varName("x")
+                    .exponent(0)
+                    .build());
+        }}, "g", "x");
+
+        final PolynomialEquation equation = new PolynomialEquation(lhs, rhs);
+
+        int[] signsMax = equation.getLeftSide().runDescartesRuleOfSign();
+        System.out.println("Max positive signs: " + signsMax[0]);
+        System.out.println("Max negative signs: " + signsMax[1]);
+
+        System.out.println(equation.print());
+        equation.approxSolve();
     }
 }

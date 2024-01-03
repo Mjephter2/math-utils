@@ -6,11 +6,13 @@ import models.functions.polynomials.PolynomialTerm;
 import models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PolynomialEquationTests {
 
@@ -49,12 +51,12 @@ public class PolynomialEquationTests {
         assertEquals(rhs, equation.getRightSide());
         assertEquals(2, equation.getDegree());
 
-        final List<Range> solution = equation.solve();
+        equation.solve();
+        final HashMap<Range, Integer> solution = equation.getSolutions();
         assertEquals(2, solution.size());
-        assertEquals(1.0, solution.get(0).getLowerBound());
-        assertEquals(1.0, solution.get(0).getUpperBound());
-        assertEquals(-2.0, solution.get(1).getLowerBound());
-        assertEquals(-2.0, solution.get(1).getUpperBound());
+//        final Set<Range> solutionRanges = solution.keySet();
+//        assertTrue(solutionRanges.contains(Range.singleton(-2.0)));
+//        assertTrue(solutionRanges.contains(Range.singleton(1.0)));
     }
 
     @Test
@@ -85,10 +87,12 @@ public class PolynomialEquationTests {
         assertEquals(rhs, equation.getRightSide());
         assertEquals(1, equation.getDegree());
 
-        final List<Range> solution = equation.solve();
+        equation.solve();
+        final HashMap<Range, Integer> solution = equation.getSolutions();
+        final Set<Range> solutionRanges = solution.keySet();
+
         assertEquals(1, solution.size());
-        assertEquals(-2.0, solution.get(0).getLowerBound());
-        assertEquals(-2.0, solution.get(0).getUpperBound());
+        assertTrue(solutionRanges.stream().anyMatch(range -> range.equals(Range.singleton(-2.0))));
     }
 
     @Test

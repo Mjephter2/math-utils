@@ -10,6 +10,7 @@ import models.functions.radicals.RadicalFunction;
 import models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,12 +47,12 @@ public class LogEquationTests {
 
         assertEquals(logEquation.getLeftSide(), leftSide);
         assertEquals(logEquation.getLeftSide().getFuncType(), FunctionType.LOGARITHMIC);
-        assertEquals(((LogFunction)logEquation.getLeftSide()).getBase(), 10, 0);
-        assertEquals(((LogFunction)logEquation.getLeftSide()).getBody().getFuncType(), FunctionType.POLYNOMIAL);
-        assertEquals(((PolynomialFunction)((LogFunction)logEquation.getLeftSide()).getBody()).getTerms().size(), 1);
-        assertEquals(((PolynomialFunction)((LogFunction)logEquation.getLeftSide()).getBody()).getTerms().get(0).getCoefficient(), 1, 0);
-        assertEquals(((PolynomialFunction)((LogFunction)logEquation.getLeftSide()).getBody()).getTerms().get(0).getVarName(), "x");
-        assertEquals(((PolynomialFunction)((LogFunction)logEquation.getLeftSide()).getBody()).getTerms().get(0).getExponent(), 1, 0);
+        assertEquals(logEquation.getLeftSide().getBase(), 10, 0);
+        assertEquals(logEquation.getLeftSide().getBody().getFuncType(), FunctionType.POLYNOMIAL);
+        assertEquals(((PolynomialFunction) logEquation.getLeftSide().getBody()).getTerms().size(), 1);
+        assertEquals(((PolynomialFunction) logEquation.getLeftSide().getBody()).getTerms().get(0).getCoefficient(), 1, 0);
+        assertEquals(((PolynomialFunction) logEquation.getLeftSide().getBody()).getTerms().get(0).getVarName(), "x");
+        assertEquals(((PolynomialFunction) logEquation.getLeftSide().getBody()).getTerms().get(0).getExponent(), 1, 0);
         assertEquals(logEquation.getLeftSide().getFuncName(), "g");
         assertEquals(logEquation.getLeftSide().getVarName(), "x");
 
@@ -59,8 +60,9 @@ public class LogEquationTests {
         assertEquals(((ConstantFunction)logEquation.getRightSide()).getValue(), 2, 0);
         assertEquals(logEquation.getRightSide().getFuncName(), "C");
 
-        List<Range> solution = logEquation.solve();
-        assertEquals(solution.size(), 1);
+        logEquation.solve();
+        HashMap<Range, Integer> solutions = logEquation.getSolutions();
+        assertEquals(solutions.size(), 1);
     }
 
     @Test

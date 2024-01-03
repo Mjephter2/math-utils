@@ -3,6 +3,7 @@ package models.equations;
 import models.functions.Function;
 import models.numberUtils.Range;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -20,10 +21,12 @@ public interface Equation {
      */
     Function getRightSide();
 
+    HashMap<Range, Integer> getSolutions();
+
     /**
      * @return the solution of the equation.
      */
-    List<Range> solve();
+    void solve();
 
     default String print() {
         return this.getLeftSide().printBody() + " = " + this.getRightSide().printBody();
