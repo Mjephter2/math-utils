@@ -13,6 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class QuadraticEquationsTests {
 
@@ -104,7 +105,7 @@ public class QuadraticEquationsTests {
 
         final QuadraticEquation quadraticEquation = new QuadraticEquation(leftSide, rightSide);
         quadraticEquation.solve();
-        assertNull(quadraticEquation.getSolutions());
+        assertTrue(quadraticEquation.getSolutions().isEmpty());
     }
 
     @Test
