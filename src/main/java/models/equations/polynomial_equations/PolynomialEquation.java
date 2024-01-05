@@ -33,6 +33,7 @@ public class PolynomialEquation implements Equation {
         }
         this.leftSide = left;
         this.rightSide = right;
+        this.solutions = new HashMap<>();
 
         this.reduce();
     }
@@ -65,7 +66,6 @@ public class PolynomialEquation implements Equation {
 
     @Override
     public void solve() {
-        // TODO: Implement solver for more polynomial equations degrees
         if (this.degree == 1) {
             final LinearEquation linearEquation =  new LinearEquation(this.leftSide, this.rightSide);
             linearEquation.solve();
@@ -75,49 +75,37 @@ public class PolynomialEquation implements Equation {
             quadraticEquation.solve();
             this.solutions = new HashMap<>(quadraticEquation.getSolutions());
         } else {
-            throw new UnsupportedOperationException("Unimplemented solver for polynomial equations of degree " + this.degree + ".");
+            final PolynomialEquation eq = this.zeroRightSide();
+            eq.leftSide.factor();
+            final HashMap<PolynomialFunction, Integer> factors = eq.getLeftSide().getFactorsToMultiplicity();
+            factors.keySet().stream()
+                    .filter(factor -> factor.getDegree() == 1)
+                    .forEach(factor -> {
+                        final LinearEquation linearEquation = new LinearEquation(factor, new PolynomialFunction(new LinkedList<>(), "irrelevant", factor.getVarName()));
+                        linearEquation.solve();
+                        this.solutions.put(linearEquation.getSolutions().keySet().iterator().next(), factors.get(factor));
+                    });
         }
     }
 
-    /**
-     * Approximate solution of the equation.
-     */
-    public void approxSolve() {
+    private PolynomialEquation zeroRightSide() {
+        PolynomialFunction leftSideCopy = this.getLeftSide().deepCopy(this.getLeftSide().getFuncName());
+        PolynomialFunction rightSideCopy = this.getRightSide().deepCopy(this.getRightSide().getFuncName());
+
+        for (PolynomialTerm term : rightSideCopy.getTerms()) {
+            PolynomialTerm subtractedTerm = new PolynomialTerm(-1 * term.getCoefficient(), term.getVarName(), term.getExponent());
+            leftSideCopy.addTerm(subtractedTerm);
+            rightSideCopy.addTerm(subtractedTerm);
+        }
+
+        return new PolynomialEquation(leftSideCopy, rightSideCopy);
     }
 
-    public static void main(String[] args) {
-        final PolynomialFunction lhs = new PolynomialFunction(new LinkedList<>(){{
-            add(PolynomialTerm.builder()
-                    .coefficient(1)
-                    .varName("x")
-                    .exponent(1)
-                    .build());
-            add(PolynomialTerm.builder()
-                    .coefficient(1)
-                    .varName("x")
-                    .exponent(0)
-                    .build());
-        }}, "f", "x");
-        final PolynomialFunction rhs = new PolynomialFunction(new LinkedList<>(){{
-            add(PolynomialTerm.builder()
-                    .coefficient(-1)
-                    .varName("x")
-                    .exponent(2)
-                    .build());
-            add(PolynomialTerm.builder()
-                    .coefficient(3)
-                    .varName("x")
-                    .exponent(0)
-                    .build());
-        }}, "g", "x");
-
-        final PolynomialEquation equation = new PolynomialEquation(lhs, rhs);
-
-        int[] signsMax = equation.getLeftSide().runDescartesRuleOfSign();
-        System.out.println("Max positive signs: " + signsMax[0]);
-        System.out.println("Max negative signs: " + signsMax[1]);
-
-        System.out.println(equation.print());
-        equation.approxSolve();
+    public HashMap<Double, Integer> solutionRangeToDouble() {
+        final HashMap<Double, Integer> result = new HashMap<>();
+        for (Range range : this.solutions.keySet()) {
+            result.put(range.getLowerBound(), this.solutions.get(range));
+        }
+        return result;
     }
 }

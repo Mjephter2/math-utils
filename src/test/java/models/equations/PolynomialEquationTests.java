@@ -6,6 +6,7 @@ import models.functions.polynomials.PolynomialTerm;
 import models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Set;
@@ -96,34 +97,44 @@ public class PolynomialEquationTests {
     }
 
     @Test
-    public void exceptions_higher_degree_test() {
+    public void higher_degree_test() {
         final PolynomialFunction lhs = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
                     .coefficient(1)
                     .varName("x")
-                    .exponent(3)
+                    .exponent(5)
                     .build());
             add(PolynomialTerm.builder()
                     .coefficient(1)
                     .varName("x")
-                    .exponent(0)
+                    .exponent(4)
                     .build());
-        }}, "f", "x");
-        final PolynomialFunction rhs = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
                     .coefficient(-1)
                     .varName("x")
-                    .exponent(0)
+                    .exponent(3)
                     .build());
-        }}, "g", "x");
+            add(PolynomialTerm.builder()
+                    .coefficient(-1)
+                    .varName("x")
+                    .exponent(2)
+                    .build());
+        }}, "f", "x", false); // f(x) = x⁵ + x⁴ - x³ - x²
+        final PolynomialFunction rhs = new PolynomialFunction(new LinkedList<>(), "g", "x");
 
-        final PolynomialEquation equation = new PolynomialEquation(lhs, rhs);
+        final PolynomialEquation eq = new PolynomialEquation(lhs, rhs);
+        eq.solve();
 
-        assertEquals(lhs, equation.getLeftSide());
-        assertEquals(rhs, equation.getRightSide());
-        assertEquals(3, equation.getDegree());
+        assertEquals(3, eq.getSolutions().size());
+        assertTrue(eq.getSolutions().keySet().stream().anyMatch(range -> range.equals(Range.singleton(-1.0))));
+        assertTrue(eq.getSolutions().keySet().stream().anyMatch(range -> range.equals(Range.singleton(0.0))));
+        assertTrue(eq.getSolutions().keySet().stream().anyMatch(range -> range.equals(Range.singleton(1.0))));
 
-        assertThrows(UnsupportedOperationException.class, () -> equation.solve());
+        final Double[] expected = {-1.0, 0.0, 1.0};
+        final Double[] actual = eq.solutionRangeToDouble().keySet().toArray(new Double[0]);
+        for (double d : expected) {
+            assertTrue(Arrays.asList(actual).contains(d));
+        }
     }
 
     @Test
