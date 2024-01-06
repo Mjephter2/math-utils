@@ -13,6 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SquareRootEquationTests {
 
@@ -47,15 +48,16 @@ public class SquareRootEquationTests {
                 .rightSide(rhs)
                 .build();
 
-//        equation.solve();
-//        final HashMap<Range, Integer> solutions = equation.getSolutions();
+        equation.solve();
+        final HashMap<Range, Integer> solutions = equation.getSolutions();
 
-//        assertEquals(lhs, equation.getLeftSide());
-//        assertEquals(rhs, equation.getRightSide());
-//
-//        assertEquals(1, solution.size());
-//        assertEquals(1.0, solution.get(0).getLowerBound());
-//        assertEquals(1.0, solution.get(0).getUpperBound());
+        assertEquals(lhs, equation.getLeftSide());
+        assertEquals(rhs, equation.getRightSide());
+
+        assertEquals(1, solutions.size());
+        System.out.println(solutions.keySet().toArray()[0]);
+        assertEquals(1.0, ((Range) solutions.keySet().toArray()[0]).getLowerBound());
+        assertEquals(1.0, ((Range) solutions.keySet().toArray()[0]).getUpperBound());
     }
 
     /**
@@ -85,18 +87,19 @@ public class SquareRootEquationTests {
                 .rightSide(rhs)
                 .build();
 
-//        equation.solve();
+        equation.solve();
         final HashMap<Range, Integer> solutions = equation.getSolutions();
 
-//        assertEquals(lhs, equation.getLeftSide());
-//        assertEquals(rhs, equation.getRightSide());
-//
-//        assertEquals(2, solution.size());
-//
-//        assertEquals(1.0, solution.get(0).getLowerBound());
-//        assertEquals(1.0, solution.get(0).getUpperBound());
-//        assertEquals(0.0, solution.get(1).getLowerBound());
-//        assertEquals(0.0, solution.get(1).getUpperBound());
+        assertEquals(lhs, equation.getLeftSide());
+        assertEquals(rhs, equation.getRightSide());
+
+        assertEquals(2, solutions.size());
+
+        assertEquals(1.0,  ((Range) solutions.keySet().toArray()[0]).getLowerBound());
+        assertEquals(1.0,  ((Range) solutions.keySet().toArray()[0]).getUpperBound());
+
+        assertEquals(0.0, ((Range) solutions.keySet().toArray()[1]).getLowerBound());
+        assertEquals(0.0, ((Range) solutions.keySet().toArray()[1]).getUpperBound());
     }
 
     @Test
