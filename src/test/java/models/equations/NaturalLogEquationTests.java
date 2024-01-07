@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Getter
 public class NaturalLogEquationTests {
@@ -41,8 +42,12 @@ public class NaturalLogEquationTests {
 
         equation.solve();
 
-//        assertEquals(solution.size(), 1);
-//        assertEquals(solution.get(0).getLowerBound(), (Double)Math.E);
-//        assertEquals(solution.get(0).getUpperBound(), (Double)Math.E);
+        final HashMap<Range, Integer> solutions = equation.getSolutions();
+        final List<Double> expected = List.of(Math.E);
+
+        assertEquals(solutions.size(), 1);
+
+        assertTrue(expected.contains(((Range) solutions.keySet().toArray()[0]).getLowerBound()));
+        assertTrue(expected.contains(((Range) solutions.keySet().toArray()[0]).getUpperBound()));
     }
 }

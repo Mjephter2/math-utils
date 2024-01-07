@@ -67,10 +67,12 @@ public class LinearEquationsTests {
         linearEquation.solve();
         final HashMap<Range, Integer> solutions = linearEquation.getSolutions();
 
+        final List<Double> expected = List.of(3.0);
+
         assertNotNull(solutions);
         assertEquals(solutions.size(), 1.0);
-//        assertEquals(3.0, solution.get(0).getLowerBound());
-//        assertEquals(3.0, solution.get(0).getUpperBound());
+        assertTrue(expected.contains(((Range) solutions.keySet().toArray()[0]).getLowerBound()));
+        assertTrue(expected.contains(((Range) solutions.keySet().toArray()[0]).getLowerBound()));
     }
 
     @Test
@@ -106,8 +108,9 @@ public class LinearEquationsTests {
 
         assertNotNull(solutions);
         assertEquals(1, solutions.size());
-//        assertEquals(3.0, solution.get(0).getLowerBound());
-//        assertEquals(3.0, solution.get(0).getUpperBound());
+        final List<Double> expected = List.of(3.0);
+
+        assertTrue(expected.contains(((Range) solutions.keySet().toArray()[0]).getLowerBound()));
     }
 
     @Test

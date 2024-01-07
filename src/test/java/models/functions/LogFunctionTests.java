@@ -75,8 +75,6 @@ public class LogFunctionTests {
                 .base(10)
                 .build();
         final Function simplified2 = logFunction2.simplify();
-
-        System.out.println(simplified2);
     }
 
     @Test

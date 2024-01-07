@@ -30,7 +30,6 @@ public class GeneralInequality implements Inequality {
             this.solution = polynomialInequality.getSolution();
             return;
         }
-        System.out.println("Unimplemented solver for provided inputs: " + this.printInequality());
-        this.solution = null;
+        throw new UnsupportedOperationException("Unimplemented solver for provided inputs: " + this.printInequality());
     }
 }
