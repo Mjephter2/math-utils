@@ -3,12 +3,15 @@ package models.equations;
 import lombok.Builder;
 import lombok.Getter;
 import models.equations.polynomial_equations.PolynomialEquation;
+import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.polynomials.PolynomialFunction;
+import models.functions.polynomials.PolynomialTerm;
 import models.functions.radicals.SquareRootFunction;
 import models.numberUtils.Range;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Builder
 @Getter
@@ -29,6 +32,20 @@ public class SquareRootEquation implements Equation {
             final PolynomialEquation polynomialEquation = new PolynomialEquation(lhsSquared, rhsSquared);
             polynomialEquation.solve();
             this.solutions = polynomialEquation.getSolutions();
+            return;
+        }
+        // Case 3 -  where left side is a square root function of a constant and right side is a PolynomialFunction
+        else if (leftSide.getBody() instanceof ConstantFunction && rightSide instanceof PolynomialFunction) {
+            final PolynomialFunction lhsSquared = new PolynomialFunction(List.of(PolynomialTerm.builder()
+                    .coefficient(((ConstantFunction) leftSide.getBody()).getValue())
+                    .varName(leftSide.getVarName())
+                    .exponent(0)
+                    .build()), leftSide.getFuncName(), leftSide.getVarName());
+            final PolynomialFunction rhsSquared = new PolynomialFunction(((PolynomialFunction) rightSide).getTerms(), rightSide.getFuncName(), rightSide.getVarName()).power(2);
+            final PolynomialEquation polynomialEquation = new PolynomialEquation(rhsSquared, lhsSquared);
+            polynomialEquation.solve();
+            this.solutions = polynomialEquation.getSolutions();
+            return;
         } else if (
                 leftSide.getBody() instanceof PolynomialFunction &&
                 rightSide instanceof SquareRootFunction &&
@@ -40,6 +57,7 @@ public class SquareRootEquation implements Equation {
             );
             polynomialEquation.solve();
             this.solutions = polynomialEquation.getSolutions();
+            return;
         }
         throw new UnsupportedOperationException("Unimplemented solver for square root equations.");
     }
