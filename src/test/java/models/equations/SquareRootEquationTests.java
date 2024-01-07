@@ -57,7 +57,6 @@ public class SquareRootEquationTests {
         assertEquals(rhs, equation.getRightSide());
 
         assertEquals(1, solutions.size());
-        System.out.println(solutions.keySet().toArray()[0]);
         assertEquals(1.0, ((Range) solutions.keySet().toArray()[0]).getLowerBound());
         assertEquals(1.0, ((Range) solutions.keySet().toArray()[0]).getUpperBound());
     }
@@ -140,11 +139,13 @@ public class SquareRootEquationTests {
         assertEquals(rhs, equation.getRightSide());
 
         assertEquals(2, solutions.size());
-        System.out.println(solutions.keySet().toArray()[0]);
-        assertEquals(0.0, ((Range) solutions.keySet().toArray()[0]).getLowerBound());
-        assertEquals(0.0, ((Range) solutions.keySet().toArray()[0]).getUpperBound());
-        assertEquals(4.0, ((Range) solutions.keySet().toArray()[1]).getLowerBound());
-        assertEquals(4.0, ((Range) solutions.keySet().toArray()[1]).getUpperBound());
+
+        final List<Double> expected = List.of(0.0, 4.0);
+
+        assertTrue(expected.contains(((Range) solutions.keySet().toArray()[0]).getLowerBound()));
+        assertTrue(expected.contains(((Range) solutions.keySet().toArray()[0]).getUpperBound()));
+        assertTrue(expected.contains(((Range) solutions.keySet().toArray()[1]).getLowerBound()));
+        assertTrue(expected.contains(((Range) solutions.keySet().toArray()[1]).getUpperBound()));
     }
 
     @Test

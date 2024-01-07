@@ -13,6 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GeneralInequalityTests {
 
@@ -53,7 +54,6 @@ public class GeneralInequalityTests {
                 .type(InequalityType.LESS_THAN)
                 .build();
 
-        generalInequality.solve();
-        assertNull(generalInequality.getSolution());
+        assertThrows(UnsupportedOperationException.class, () -> generalInequality.solve());
     }
 }

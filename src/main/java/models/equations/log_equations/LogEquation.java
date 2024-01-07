@@ -31,8 +31,6 @@ public class LogEquation implements Equation {
     public void solve() {
         // TODO: Implement LogEquation solver for more cases
 
-        System.out.println(leftSide.getBody() instanceof PolynomialFunction && rightSide instanceof ConstantFunction);
-
         // Case where left side is a log function of a polynomial and right side is a constant
         if (leftSide.getBody() instanceof PolynomialFunction && rightSide instanceof ConstantFunction) {
             final PolynomialEquation polynomialFunction = new PolynomialEquation(

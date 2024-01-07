@@ -54,7 +54,5 @@ public class CompositeFunctionTests {
          assertEquals(3, compositeFunction.getPolynomialFactors().size());
 
          final CompositeFunction expectedReducedFunction = compositeFunction.reduce();
-
-         System.out.println(expectedReducedFunction.printFunc());
      }
 }

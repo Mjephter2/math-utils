@@ -46,28 +46,21 @@ public class LinearInequality implements Inequality {
         PolynomialFunction rightSideCopy = this.rightSide.deepCopy(this.rightSide.getFuncName());
         LinearInequality linearInequality = new LinearInequality(this.type, leftSideCopy, rightSideCopy);
 
-        System.out.println("Starting to solve linear inequality: " + linearInequality);
-        System.out.println("Reducing left side...");
         for (PolynomialTerm term : leftSideCopy.getTerms()) {
             if (term.getExponent() == 0) {
-                System.out.println(linearInequality);
                 PolynomialTerm subtractedTerm = new PolynomialTerm(-1 * term.getCoefficient(), term.getVarName(), 0);
                 leftSideCopy.addTerm(subtractedTerm);
                 rightSideCopy.addTerm(subtractedTerm);
             }
         }
-        System.out.println(linearInequality);
 
-        System.out.println("Reducing right side...");
         for (PolynomialTerm term : rightSideCopy.getTerms()) {
             if (term.getExponent() > 0) {
-                System.out.println(linearInequality);
                 PolynomialTerm subtractedTerm = new PolynomialTerm(-1 * term.getCoefficient(), term.getVarName(), term.getExponent());
                 leftSideCopy.addTerm(subtractedTerm);
                 rightSideCopy.addTerm(subtractedTerm);
             }
         }
-        System.out.println(linearInequality);
 
         // Case 1: left side is zero, right side is zero and inequality is not strict
         if (
@@ -116,18 +109,12 @@ public class LinearInequality implements Inequality {
         }
 
         if (leftSideCopy.getTerms().get(0).getCoefficient() < 0.0) {
-            System.out.println("Dividing by negative number...");
-            System.out.println(linearInequality);
             rightSideCopy.getTerms().get(0).setCoefficient(rightSideCopy.getTerms().get(0).getCoefficient() / leftSideCopy.getTerms().get(0).getCoefficient());
             leftSideCopy.getTerms().get(0).setCoefficient(1.0);
             linearInequality.type = InequalityType.reverse(linearInequality.type);
-            System.out.println(linearInequality);
         } else {
-            System.out.println("Dividing by positive number...");
-            System.out.println(linearInequality);
             rightSideCopy.getTerms().get(0).setCoefficient(rightSideCopy.getTerms().get(0).getCoefficient() / leftSideCopy.getTerms().get(0).getCoefficient());
             leftSideCopy.getTerms().get(0).setCoefficient(1.0);
-            System.out.println(linearInequality);
         }
 
         if (linearInequality.type == InequalityType.LESS_THAN) {

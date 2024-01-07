@@ -145,15 +145,6 @@ public class Matrix {
         }
         return sb.toString();
     }
-
-    public static void main(String[] args) {
-        final double[][] body = {{1, 2, 3}, {4, 5, 6}};
-        final Matrix matrix = new Matrix("A", body);
-        System.out.println(matrix);
-        System.out.println(matrix.transpose());
-        System.out.println(matrix.transpose().transpose());
-        System.out.println(matrix.equals(matrix.transpose().transpose()));
-    }
 }
 
 @Getter
