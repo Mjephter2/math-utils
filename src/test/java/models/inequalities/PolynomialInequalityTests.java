@@ -31,11 +31,7 @@ public class PolynomialInequalityTests {
                     .build());
         }}, "g", "x");
 
-        final PolynomialInequality inequality = PolynomialInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.GREATER_THAN)
-                .build();
+        final PolynomialInequality inequality = new PolynomialInequality(InequalityType.GREATER_THAN, leftSide, rightSide);
 
         assertEquals(InequalityType.GREATER_THAN, inequality.getType());
         assertEquals(leftSide, inequality.getLeftSide());
@@ -48,7 +44,7 @@ public class PolynomialInequalityTests {
     }
 
     @Test
-    public void quadraticInequalityTest() {
+    public void polynomialInequalityTest() {
         final PolynomialFunction leftSide = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
                     .coefficient(1.0)
@@ -64,7 +60,7 @@ public class PolynomialInequalityTests {
                     .build());
         }}, "g", "x");
 
-        final QuadraticInequality inequality1 = new QuadraticInequality(InequalityType.GREATER_THAN, leftSide, rightSide);
+        final PolynomialInequality inequality1 = new PolynomialInequality(InequalityType.GREATER_THAN, leftSide, rightSide);
         assertEquals(InequalityType.GREATER_THAN, inequality1.getType());
         assertEquals(leftSide, inequality1.getLeftSide());
         assertEquals(rightSide, inequality1.getRightSide());
@@ -77,7 +73,7 @@ public class PolynomialInequalityTests {
         assertTrue(solution.contains(new Range(1.0, Double.POSITIVE_INFINITY, false, false)));
         assertTrue(solution.contains(new Range(-1.0, 0.0, false, false)));
 
-        final QuadraticInequality inequality2 = new QuadraticInequality(InequalityType.LESS_THAN, leftSide, rightSide);
+        final PolynomialInequality inequality2 = new PolynomialInequality(InequalityType.LESS_THAN, leftSide, rightSide);
         assertEquals(InequalityType.LESS_THAN, inequality2.getType());
         assertEquals(leftSide, inequality2.getLeftSide());
         assertEquals(rightSide, inequality2.getRightSide());
@@ -89,33 +85,21 @@ public class PolynomialInequalityTests {
         assertTrue(solution2.contains(new Range(Double.NEGATIVE_INFINITY, -1.0, false, false)));
         assertTrue(solution2.contains(new Range(0.0, 1.0, false, false)));
 
-        assertThrows(IllegalArgumentException.class, () -> new QuadraticInequality(InequalityType.LESS_THAN, null, rightSide));
-        assertThrows(IllegalArgumentException.class, () -> new QuadraticInequality(InequalityType.LESS_THAN, leftSide, null));
+        assertThrows(IllegalArgumentException.class, () -> new PolynomialInequality(InequalityType.LESS_THAN, null, rightSide));
+        assertThrows(IllegalArgumentException.class, () -> new PolynomialInequality(InequalityType.LESS_THAN, leftSide, null));
     }
 
     @Test
     public void exceptionsTest() {
-        final PolynomialFunction leftSide = new PolynomialFunction(new LinkedList<>(){{
+        final PolynomialFunction nonNullSide = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
                     .coefficient(2.0)
                     .varName("x")
                     .exponent(2)
                     .build());
         }}, "f", "x");
-        final PolynomialFunction rightSide = new PolynomialFunction(new LinkedList<>(){{
-            add(PolynomialTerm.builder()
-                    .coefficient(1.0)
-                    .varName("x")
-                    .exponent(0)
-                    .build());
-        }}, "g", "x");
 
-        final PolynomialInequality inequality = PolynomialInequality.builder()
-                .leftSide(leftSide)
-                .rightSide(rightSide)
-                .type(InequalityType.GREATER_THAN)
-                .build();
-
-        assertThrows(UnsupportedOperationException.class, inequality::solve);
+        assertThrows(IllegalArgumentException.class, () -> new PolynomialInequality(InequalityType.GREATER_THAN, nonNullSide, null));
+        assertThrows(IllegalArgumentException.class, () -> new PolynomialInequality(InequalityType.GREATER_THAN, null, nonNullSide));
     }
 }

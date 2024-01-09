@@ -21,11 +21,7 @@ public class GeneralInequality implements Inequality {
     public void solve() {
         // If both sides are polynomials, solve as a polynomial inequality
         if (leftSide instanceof PolynomialFunction && rightSide instanceof PolynomialFunction) {
-            final PolynomialInequality polynomialInequality = PolynomialInequality.builder()
-                    .leftSide((PolynomialFunction) leftSide)
-                    .rightSide((PolynomialFunction) rightSide)
-                    .type(type)
-                    .build();
+            final PolynomialInequality polynomialInequality = new PolynomialInequality(type, (PolynomialFunction) leftSide, (PolynomialFunction) rightSide);
             polynomialInequality.solve();
             this.solution = polynomialInequality.getSolution();
             return;
