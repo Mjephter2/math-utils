@@ -46,6 +46,25 @@ public class LogFunctionTests {
     }
 
     @Test
+    public void domainTests() {
+        final PolynomialFunction innerFunc = new PolynomialFunction(new LinkedList<>() {{
+            add(PolynomialTerm.builder()
+                    .coefficient(1.0)
+                    .varName("x")
+                    .exponent(2)
+                    .build());
+        }}, "inner", "x");
+        final LogFunction logFunction = LogFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .body(innerFunc)
+                .base(10)
+                .build();
+        assertEquals(Range.lessThan(0.0), logFunction.getDomain().get(0));
+        assertEquals(Range.greaterThan(0.0), logFunction.getDomain().get(1));
+    }
+
+    @Test
     public void simplifyTest() {
         final ConstantFunction innerFunc = ConstantFunction.builder()
                 .value(10)
@@ -90,8 +109,7 @@ public class LogFunctionTests {
                 .build();
 
         assertThrows(UnsupportedOperationException.class, logFunction::derivative);
-        assertThrows(UnsupportedOperationException.class, logFunction::getDomain);
-        assertThrows(UnsupportedOperationException.class, logFunction::integral);
+        assertThrows(UnsupportedOperationException.class, () -> logFunction.integral());
         assertThrows(UnsupportedOperationException.class, () -> logFunction.integral(1.0, 2.0));
     }
 

@@ -70,14 +70,20 @@ class PolynomialInequality implements Inequality {
         final PolynomialFunction reducedLeftSide = this.leftSide.deepCopy(this.leftSide.getFuncName() + "_reduced");
         reducedLeftSide.factor();
 
-        // the only relevant factors are those with degree 1 and odd multiplicity
-        // TODO: Add case where relevant factors list is empty
-        final List<PolynomialFunction> relevantFactors = new LinkedList<>();
+        // the only relevant factors are those with degree 1
+        List<PolynomialFunction> relevantFactors = new LinkedList<>();
         for (PolynomialFunction factor : reducedLeftSide.getFactorsToMultiplicity().keySet()) {
             if (factor.getDegree() == 1 && reducedLeftSide.getFactorsToMultiplicity().get(factor) % 2 == 1) {
                 relevantFactors.add(factor);
             }
-        };
+        }
+
+        // In there are no factor with degree 1 and odd multiplicity
+        if (relevantFactors.isEmpty()) {
+            relevantFactors = reducedLeftSide.getFactorsToMultiplicity().keySet().stream().filter(
+                    factor -> factor.getDegree() == 1 && reducedLeftSide.getFactorsToMultiplicity().get(factor) % 2 == 0
+            ).toList();
+        }
 
         final List<Double> criticalPoints = new LinkedList<>();
         for (PolynomialFunction factor: relevantFactors) {
