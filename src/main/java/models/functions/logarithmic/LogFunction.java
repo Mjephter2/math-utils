@@ -3,11 +3,15 @@ package models.functions.logarithmic;
 import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
+import models.functions.polynomials.PolynomialFunction;
+import models.inequalities.GeneralInequality;
+import models.inequalities.InequalityType;
 import models.numberUtils.Range;
 
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Getter
@@ -36,8 +40,13 @@ public class LogFunction implements Function {
 
     @Override
     public List<Range> getDomain() {
-        // TODO: Implement domain for LogFunction
-        throw new UnsupportedOperationException("Unimplemented method 'getDomain'");
+        final GeneralInequality inequality = GeneralInequality.builder()
+                .type(InequalityType.GREATER_THAN)
+                .leftSide(body)
+                .rightSide(new PolynomialFunction(new LinkedList<>(), this.funcName + "body", this.varName))
+                .build();
+        inequality.solve();
+        return inequality.getSolution();
     }
 
     @Override
