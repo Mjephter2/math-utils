@@ -39,7 +39,7 @@ public class LogFunctionTests {
         assertEquals(innerFunc, logFunction.getBody());
         assertEquals("f(x) = log_10.0(4x²)", logFunction.printFunc());
 
-        assertEquals(Range.greaterThan(0.0), logFunction.getRange().get(0));
+        assertEquals(Range.all(), logFunction.getRange().get(0));
 
         assertEquals(2.0, logFunction.evaluate(5.0), 0.0);
         assertEquals(2.0, logFunction.limit(5.0), 0.0);

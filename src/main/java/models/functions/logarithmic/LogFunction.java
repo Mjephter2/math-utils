@@ -51,7 +51,7 @@ public class LogFunction implements Function {
 
     @Override
     public List<Range> getRange() {
-        return List.of(Range.greaterThan(0.0));
+        return List.of(Range.all());
     }
 
     @Override
