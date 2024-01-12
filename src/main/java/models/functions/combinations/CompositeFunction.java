@@ -1,5 +1,6 @@
 package models.functions.combinations;
 
+import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
 import models.numberUtils.Range;
@@ -12,6 +13,7 @@ import models.functions.trigonometric.TrigonometricFunction;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 
 import lombok.AllArgsConstructor;
@@ -35,10 +37,16 @@ public class CompositeFunction implements Function {
     private final List<ExponentialFunction> exponentialFunctions;
     private final List<RationalFunction> rationalFunctions;
     private final List<TrigonometricFunction> trigonometricFunctions;
+    private List<ConstantFunction> constantFunctions;
 
     public CompositeFunction(final String funcName, final List<Function> compositeFactors) {
         this.funcName = funcName;
         this.varName = compositeFactors.get(0).getVarName();
+
+        this.constantFunctions = compositeFactors.stream()
+                .filter(ConstantFunction.class::isInstance)
+                .map(ConstantFunction.class::cast)
+                .collect(Collectors.toList());
 
         this.polynomialFactors = compositeFactors.stream()
                 .filter(PolynomialFunction.class::isInstance)
@@ -65,9 +73,18 @@ public class CompositeFunction implements Function {
                 .map(TrigonometricFunction.class::cast)
                 .collect(Collectors.toList());
 
-        if (polynomialFactors.size() + radicalFactors.size() + exponentialFunctions.size() + rationalFunctions.size() + trigonometricFunctions.size() != compositeFactors.size()) {
+        if (constantFunctions.size() + polynomialFactors.size() + radicalFactors.size() + exponentialFunctions.size() + rationalFunctions.size() + trigonometricFunctions.size() != compositeFactors.size()) {
             throw new IllegalArgumentException("Composite functions is not implemented requested function types");
         }
+        this.reduceConstantFunctions();
+    }
+
+    private void reduceConstantFunctions() {
+        final double combValue = this.constantFunctions.stream().map(func -> func.getValue()).reduce(1.0, (d1, d2) -> d1 * d2);
+        this.constantFunctions = List.of(ConstantFunction.builder()
+                        .value(combValue)
+                        .funcName("combConstant")
+                .build());
     }
 
     public CompositeFunction(

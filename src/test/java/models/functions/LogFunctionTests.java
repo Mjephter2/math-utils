@@ -1,5 +1,6 @@
 package models.functions;
 
+import models.functions.combinations.RationalFunction;
 import models.functions.logarithmic.LogFunction;
 import models.functions.logarithmic.NaturalLogFunction;
 import models.functions.polynomials.PolynomialFunction;
@@ -13,6 +14,7 @@ import java.util.LinkedList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LogFunctionTests {
 
@@ -94,6 +96,36 @@ public class LogFunctionTests {
                 .base(10)
                 .build();
         final Function simplified2 = logFunction2.simplify();
+    }
+
+    @Test
+    public void derivativeTests() {
+        final PolynomialFunction body = new PolynomialFunction(
+                new LinkedList<>(){{
+                    add(PolynomialTerm.builder()
+                            .coefficient(2)
+                            .varName("x")
+                            .exponent(2)
+                            .build());
+                    add(PolynomialTerm.builder()
+                            .coefficient(1)
+                            .varName("x")
+                            .exponent(0)
+                            .build());
+                }}, "body", "x"
+        );
+
+        final LogFunction func = LogFunction.builder()
+                .base(Math.E)
+                .body(body)
+                .funcName("func")
+                .varName("x")
+                .build();
+
+        final Function derivative = func.derivative();
+
+        assertTrue(derivative instanceof RationalFunction);
+        assertEquals("func'(x) = ( 4x ) / ( ( 2x² + 1 ) )", derivative.printFunc());
     }
 
     @Test

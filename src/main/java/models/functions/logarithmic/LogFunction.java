@@ -3,6 +3,8 @@ package models.functions.logarithmic;
 import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
+import models.functions.combinations.CompositeFunction;
+import models.functions.combinations.RationalFunction;
 import models.functions.polynomials.PolynomialFunction;
 import models.inequalities.GeneralInequality;
 import models.inequalities.InequalityType;
@@ -77,8 +79,24 @@ public class LogFunction implements Function {
 
     @Override
     public Function derivative() {
-        // TODO: Implement derivative for LogFunction
-        throw new UnsupportedOperationException("Unimplemented method 'derivative'");
+        if (this.body instanceof PolynomialFunction) {
+            final PolynomialFunction numerator = (PolynomialFunction) this.body.derivative();
+            final CompositeFunction denominator = new CompositeFunction(
+                    "denom",
+                    List.of(
+                            ConstantFunction.builder().value(Math.log(this.base)).build(),
+                            this.body.deepCopy(this.funcName + "bodyCopy")
+                    )
+            );
+            return RationalFunction.builder()
+                    .numerator(numerator)
+                    .denominator(denominator)
+                    .funcName(this.funcName + "'")
+                    .varName(this.varName)
+                    .build();
+        }
+        // TODO: Implement LogFunction derivative for other cases
+        throw new UnsupportedOperationException("LogFunction Derivative is not implemented for this use case");
     }
 
     @Override
