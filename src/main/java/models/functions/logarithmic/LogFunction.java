@@ -113,7 +113,7 @@ public class LogFunction implements Function {
 
     @Override
     public double limit(double value) {
-        return evaluate(value);
+        return Math.log(body.limit(value)) / Math.log(base);
     }
 
     @Override
