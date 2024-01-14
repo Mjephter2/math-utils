@@ -1,6 +1,5 @@
 package models.inequalities;
 
-import lombok.Builder;
 import lombok.Getter;
 import models.equations.polynomial_equations.PolynomialEquation;
 import models.functions.polynomials.PolynomialFunction;
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Getter
-class PolynomialInequality implements Inequality {
+public class PolynomialInequality implements Inequality {
 
     private PolynomialFunction leftSide;
     private PolynomialFunction rightSide;
@@ -112,13 +111,15 @@ class PolynomialInequality implements Inequality {
     public List<Range> criticalPtsToRanges(List<Double> criticalPoints) {
         List<Range> ranges = new LinkedList<>();
 
+        final boolean includeBounds = this.type == InequalityType.LESS_THAN_OR_EQUAL_TO || this.type == InequalityType.GREATER_THAN_OR_EQUAL_TO;
+
         if (criticalPoints.size() > 0) {
-            ranges.add(new Range(Double.NEGATIVE_INFINITY, criticalPoints.get(0), false, false));
-            ranges.add(new Range(criticalPoints.get(criticalPoints.size() - 1), Double.POSITIVE_INFINITY, false, false));
+            ranges.add(new Range(Double.NEGATIVE_INFINITY, criticalPoints.get(0), false, includeBounds));
+            ranges.add(new Range(criticalPoints.get(criticalPoints.size() - 1), Double.POSITIVE_INFINITY, includeBounds, false));
         }
 
         for (int i = 0; i < criticalPoints.size() - 1; i++) {
-            ranges.add(new Range(criticalPoints.get(i), criticalPoints.get(i + 1), false, false));
+            ranges.add(new Range(criticalPoints.get(i), criticalPoints.get(i + 1), includeBounds, includeBounds));
         }
         return ranges;
     }

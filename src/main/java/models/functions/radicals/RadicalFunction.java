@@ -3,9 +3,13 @@ package models.functions.radicals;
 import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
+import models.functions.polynomials.PolynomialFunction;
+import models.inequalities.InequalityType;
+import models.inequalities.PolynomialInequality;
 import models.numberUtils.Range;
 import utils.SuperscriptUtil;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,16 +35,36 @@ public class RadicalFunction implements Function {
         return FunctionType.RADICAL;
     }
 
+    /**
+     * Implemetd only for functions with polynomial body
+     * TODO: Implement for other types of functions
+     */
     @Override
     public List<Range> getDomain() {
-        // TODO: Implement domain for RadicalFunction
-        throw new UnsupportedOperationException("Unimplemented method 'getDomain'");
+        if (rootIndex % 2 == 0) {
+            // Even root
+            if (body instanceof PolynomialFunction) {
+                final PolynomialFunction polyBody = (PolynomialFunction) body;
+                final PolynomialInequality equation = new PolynomialInequality(InequalityType.GREATER_THAN_OR_EQUAL_TO, polyBody, new PolynomialFunction(
+                        new LinkedList<>(), "tempEquation", this.varName));
+                equation.solve();
+                return equation.getSolution();
+            }
+        } else {
+            // Odd root
+            return body.getRange();
+        }
+        throw new UnsupportedOperationException("RadicalFunction.getDomain() is not implemented for this type of function");
     }
 
     @Override
     public List<Range> getRange() {
-        // TODO: Implement range for RadicalFunction
-        throw new UnsupportedOperationException("Unimplemented method 'getRange'");
+        if (rootIndex % 2 == 0) {
+            // Even root
+            return List.of(Range.allPositive(true));
+        } else {
+            return List.of(Range.all());
+        }
     }
 
     @Override
