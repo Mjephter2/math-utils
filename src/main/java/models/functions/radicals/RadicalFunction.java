@@ -7,7 +7,6 @@ import models.functions.polynomials.PolynomialFunction;
 import models.inequalities.InequalityType;
 import models.inequalities.PolynomialInequality;
 import models.numberUtils.Range;
-import utils.SuperscriptUtil;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -27,8 +26,10 @@ public class RadicalFunction implements Function {
 
     private final String funcName;
     private final String varName;
-    private final int rootIndex;
+    private final double rootIndex;
     private final Function body;
+
+    // TODO: Refactor constructor to validate rootIndex to be between 0 and 1.
 
     @Override
     public FunctionType getFuncType() {
@@ -36,7 +37,7 @@ public class RadicalFunction implements Function {
     }
 
     /**
-     * Implemetd only for functions with polynomial body
+     * Implemented only for functions with polynomial body
      * TODO: Implement for other types of functions
      */
     @Override
@@ -69,7 +70,7 @@ public class RadicalFunction implements Function {
 
     @Override
     public double evaluate(Double... values) {
-        return Math.pow(body.evaluate(values), 1.0 / rootIndex);
+        return Math.pow(body.evaluate(values), rootIndex);
     }
 
     @Override
@@ -77,7 +78,7 @@ public class RadicalFunction implements Function {
         if (this.body instanceof ConstantFunction) {
             return ConstantFunction.builder()
                     .funcName(this.funcName)
-                    .value(Math.pow(this.body.evaluate(), 1.0 / rootIndex))
+                    .value(Math.pow(this.body.evaluate(), rootIndex))
                     .build();
         } else {
             return RadicalFunction.builder()
@@ -120,7 +121,7 @@ public class RadicalFunction implements Function {
 
     @Override
     public String printBody() {
-        return SuperscriptUtil.convertToSuperscript(rootIndex) + "√(" + body.printBody() + ")";
+        return "[" + rootIndex + "]"+ "√(" + body.printBody() + ")";
     }
 
     @Override

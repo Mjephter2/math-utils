@@ -32,7 +32,7 @@ public class RadicalFunctionTests {
                 .body(innerFunc)
                 .build();
 
-        assertEquals("f(x) = ³√(2x²)", func.printFunc());
+        assertEquals("f(x) = [3.0]√(2x²)", func.printFunc());
 
         assertEquals("f", func.getFuncName());
         assertEquals("x", func.getVarName());
@@ -41,7 +41,7 @@ public class RadicalFunctionTests {
         assertEquals(FunctionType.RADICAL, func.getFuncType());
 
         final Function copy = func.deepCopy("copy");
-        assertEquals("copy(x) = ³√(2x²)", copy.printFunc());
+        assertEquals("copy(x) = [3.0]√(2x²)", copy.printFunc());
     }
 
     @Test
@@ -61,9 +61,8 @@ public class RadicalFunctionTests {
                 .body(innerFunc)
                 .build();
 
-        assertEquals(1.259, func.evaluate(1.0), 0.001);
-        assertEquals(2.0, func.evaluate(2.0), 0.0);
-        assertEquals(3.174, func.evaluate(4.0), 0.001);
+        assertEquals(8.0, func.evaluate(1.0), 0.001);
+        assertEquals(512.0, func.evaluate(2.0), 0.0);
     }
 
     @Test
@@ -96,8 +95,8 @@ public class RadicalFunctionTests {
                 .body(innerFunc2)
                 .build();
 
-        assertEquals("f(x) = ³√(2x²)", func1.printFunc());
-        assertEquals("f(x) = ²√(2x³)", func2.printFunc());
+        assertEquals("f(x) = [3.0]√(2x²)", func1.printFunc());
+        assertEquals("f(x) = [2.0]√(2x³)", func2.printFunc());
 
         assertEquals("f", func1.getFuncName());
         assertEquals("x", func1.getVarName());
@@ -121,7 +120,7 @@ public class RadicalFunctionTests {
 
     @Test
     public void simplifyTest() {
-        final ConstantFunction innerFunc1 = new ConstantFunction("innerFunc", 8.0);
+        final ConstantFunction innerFunc1 = new ConstantFunction("innerFunc", 9.0);
         final PolynomialFunction innerFunc2 = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
                     .coefficient(2)
@@ -133,22 +132,22 @@ public class RadicalFunctionTests {
         final RadicalFunction func1 = RadicalFunction.builder()
                 .funcName("f")
                 .varName("x")
-                .rootIndex(3)
+                .rootIndex(1.0/2.0)
                 .body(innerFunc1)
                 .build();
 
         final RadicalFunction func2 = RadicalFunction.builder()
                 .funcName("f")
                 .varName("x")
-                .rootIndex(3)
+                .rootIndex(1.0/4.0)
                 .body(innerFunc2)
                 .build();
 
-        assertEquals("f(x) = ³√(8)", func1.printFunc());
-        assertEquals("f() = 2", func1.simplify().toString());
+        assertEquals("f(x) = [0.5]√(9)", func1.printFunc());
+        assertEquals("f() = 3", func1.simplify().toString());
 
-        assertEquals("f(x) = ³√(2x²)", func2.printFunc());
-        assertEquals("f(x) = ³√(2x²)", func2.simplify().printFunc());
+        assertEquals("f(x) = [0.25]√(2x²)", func2.printFunc());
+        assertEquals("f(x) = [0.25]√(2x²)", func2.simplify().printFunc());
     }
 
     @Test
