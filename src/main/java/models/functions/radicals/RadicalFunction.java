@@ -50,12 +50,13 @@ public class RadicalFunction implements Function {
                         new LinkedList<>(), "tempEquation", this.varName));
                 equation.solve();
                 return equation.getSolution();
+            } else {
+                throw new UnsupportedOperationException("RadicalFunction.getDomain() is not implemented for this type of function");
             }
         } else {
             // Odd root
             return body.getRange();
         }
-        throw new UnsupportedOperationException("RadicalFunction.getDomain() is not implemented for this type of function");
     }
 
     @Override
