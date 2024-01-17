@@ -167,7 +167,6 @@ public class RadicalFunctionTests {
                 .body(innerFunc)
                 .build();
 
-        assertThrows(UnsupportedOperationException.class, () -> func.derivative());
         assertThrows(UnsupportedOperationException.class, () -> func.integral());
         assertThrows(UnsupportedOperationException.class, () -> func.integral(0.0, 1.0));
     }

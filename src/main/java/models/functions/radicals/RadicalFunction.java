@@ -3,6 +3,7 @@ package models.functions.radicals;
 import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
+import models.functions.combinations.CompositeFunction;
 import models.functions.polynomials.PolynomialFunction;
 import models.inequalities.InequalityType;
 import models.inequalities.PolynomialInequality;
@@ -93,8 +94,20 @@ public class RadicalFunction implements Function {
 
     @Override
     public Function derivative() {
-        // TODO: Implement derivative for RadicalFunction
-        throw new UnsupportedOperationException("Unimplemented method 'derivative'");
+        return new CompositeFunction(this.funcName + "'",
+                List.of(
+                        ConstantFunction.builder()
+                                .funcName(this.funcName + "const")
+                                .value(1.0 / rootIndex)
+                                .build(),
+                        RadicalFunction.builder()
+                                .funcName(this.funcName + "radical")
+                                .rootIndex(rootIndex - 1)
+                                .body(body)
+                                .build(),
+                        body.derivative()
+                )
+        );
     }
 
     @Override
