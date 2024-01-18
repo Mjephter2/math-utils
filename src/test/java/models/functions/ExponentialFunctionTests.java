@@ -48,7 +48,7 @@ public class ExponentialFunctionTests {
         assertEquals("f'", derivative.getFuncName());
         assertEquals("x", derivative.getVarName());
 
-        assertEquals("f'(x) = ( 0.7 )( 4x + 1 )( 2.0^(2x² + x) )", derivative.toString());
+        assertEquals("f'(x) = ( 1 )( 0.7 )( 4x + 1 )( 2.0^(2x² + x) )", derivative.toString());
     }
 
     @Test

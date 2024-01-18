@@ -96,14 +96,15 @@ public class RadicalFunction implements Function {
     public Function derivative() {
         return new CompositeFunction(this.funcName + "'",
                 List.of(
-                        ConstantFunction.builder()
-                                .funcName(this.funcName + "const")
-                                .value(1.0 / rootIndex)
-                                .build(),
                         RadicalFunction.builder()
                                 .funcName(this.funcName + "radical")
+                                .varName(this.varName)
                                 .rootIndex(rootIndex - 1)
                                 .body(body)
+                                .build(),
+                        ConstantFunction.builder()
+                                .funcName(this.funcName + "const")
+                                .value(rootIndex)
                                 .build(),
                         body.derivative()
                 )

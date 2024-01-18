@@ -93,7 +93,7 @@ public class RationalFunctionTests {
 
         final Function derivative = ratFunc.derivative();
 
-        assertEquals("(f / g)'(x) = ( ( ( 1 )( x + 1 ) + ( x )( 1 ) ) / ( ( x + 1 )( x + 1 ) ) )", derivative.printFunc());
+        assertEquals("(f / g)'(x) = ( 1 )( ( ( 1 )( 1 )( x + 1 ) + ( 1 )( x )( 1 ) ) / ( ( 1 )( x + 1 )( x + 1 ) ) )", derivative.printFunc());
     }
 
 }

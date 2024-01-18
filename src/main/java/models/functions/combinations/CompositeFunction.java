@@ -37,6 +37,7 @@ public class CompositeFunction implements Function {
     private final List<ExponentialFunction> exponentialFunctions;
     private final List<RationalFunction> rationalFunctions;
     private final List<TrigonometricFunction> trigonometricFunctions;
+    private List<Function> others = new LinkedList<>();
     private List<ConstantFunction> constantFunctions;
 
     public CompositeFunction(final String funcName, final List<Function> compositeFactors) {
@@ -73,8 +74,19 @@ public class CompositeFunction implements Function {
                 .map(TrigonometricFunction.class::cast)
                 .collect(Collectors.toList());
 
-        if (constantFunctions.size() + polynomialFactors.size() + radicalFactors.size() + exponentialFunctions.size() + rationalFunctions.size() + trigonometricFunctions.size() != compositeFactors.size()) {
-            throw new IllegalArgumentException("Composite functions is not implemented requested function types");
+        this.others = compositeFactors.stream()
+                .filter(func -> !(
+                        func instanceof ConstantFunction ||
+                        func instanceof PolynomialFunction ||
+                        func instanceof SquareRootFunction ||
+                        func instanceof ExponentialFunction ||
+                        func instanceof RationalFunction ||
+                        func instanceof TrigonometricFunction
+                ))
+                .collect(Collectors.toList());
+
+        if (constantFunctions.size() + polynomialFactors.size() + radicalFactors.size() + exponentialFunctions.size() + rationalFunctions.size() + trigonometricFunctions.size() + this.others.size() != compositeFactors.size()) {
+            throw new IllegalArgumentException("Composite functions is not implemented for requested function types");
         }
         this.reduceConstantFunctions();
     }
@@ -209,6 +221,12 @@ public class CompositeFunction implements Function {
     public String printBody() {
         final StringBuilder stringBuilder = new StringBuilder();
 
+        if (this.constantFunctions != null && !this.constantFunctions.isEmpty()) {
+            for (final ConstantFunction constantFunction : this.constantFunctions) {
+                stringBuilder.append("( ").append(constantFunction.printBody()).append(" )");
+            }
+        }
+
         if (this.polynomialFactors != null && !this.polynomialFactors.isEmpty()) {
             for (final PolynomialFunction polynomialFunction : this.polynomialFactors) {
                 stringBuilder.append("( ").append(polynomialFunction.printBody()).append(" )");
@@ -236,6 +254,12 @@ public class CompositeFunction implements Function {
         if (this.trigonometricFunctions != null && !this.trigonometricFunctions.isEmpty()) {
             for (final TrigonometricFunction trigonometricFunction : this.trigonometricFunctions) {
                 stringBuilder.append("( ").append(trigonometricFunction.printBody()).append(" )");
+            }
+        }
+
+        if (this.others != null && !this.others.isEmpty()) {
+            for (final Function other : this.others) {
+                stringBuilder.append("( ").append(other.printBody()).append(" )");
             }
         }
 

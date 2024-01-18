@@ -260,7 +260,7 @@ public class TrigonometricFunctionTests {
         assertEquals(innerFunction, sinFunc.getInnerFunction());
 
         final Function derivative = sinFunc.derivative();
-        assertEquals("f'(x) = ( 1 )( cos(x) )", derivative.printFunc());
+        assertEquals("f'(x) = ( 1 )( 1 )( cos(x) )", derivative.printFunc());
     }
 
     @Test
@@ -287,7 +287,7 @@ public class TrigonometricFunctionTests {
         assertEquals(innerFunction, cosFunc.getInnerFunction());
 
         final Function derivative = cosFunc.derivative();
-        assertEquals("f'(x) = ( - 1 )( 1 )( sin(x) )", derivative.printFunc());
+        assertEquals("f'(x) = ( 1 )( - 1 )( 1 )( sin(x) )", derivative.printFunc());
     }
 
     @Test

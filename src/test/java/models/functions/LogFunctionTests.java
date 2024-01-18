@@ -125,7 +125,7 @@ public class LogFunctionTests {
         final Function derivative = func.derivative();
 
         assertTrue(derivative instanceof RationalFunction);
-        assertEquals("func'(x) = ( 4x ) / ( ( 2x² + 1 ) )", derivative.printFunc());
+        assertEquals("func'(x) = ( 4x ) / ( ( 1 )( 2x² + 1 ) )", derivative.printFunc());
     }
 
     @Test

@@ -151,6 +151,57 @@ public class RadicalFunctionTests {
     }
 
     @Test
+    public void derivativeTests() {
+        final PolynomialFunction innerFunc1 = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(2)
+                    .varName("x")
+                    .exponent(2)
+                    .build());
+        }}, "innerFunc", "x");
+        final PolynomialFunction innerFunc2 = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(2)
+                    .varName("x")
+                    .exponent(3)
+                    .build());
+        }}, "innerFunc", "x");
+
+        final RadicalFunction func1 = RadicalFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .rootIndex(3)
+                .body(innerFunc1)
+                .build();
+        final RadicalFunction func2 = RadicalFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .rootIndex(2)
+                .body(innerFunc2)
+                .build();
+
+        assertEquals("f(x) = [3.0]√(2x²)", func1.printFunc());
+        assertEquals("f(x) = [2.0]√(2x³)", func2.printFunc());
+
+        assertEquals("f", func1.getFuncName());
+        assertEquals("x", func1.getVarName());
+        assertEquals(3, func1.getRootIndex());
+        assertEquals(innerFunc1, func1.getBody());
+        assertEquals(FunctionType.RADICAL, func1.getFuncType());
+
+        assertEquals("f", func2.getFuncName());
+        assertEquals("x", func2.getVarName());
+        assertEquals(2, func2.getRootIndex());
+        assertEquals(innerFunc2, func2.getBody());
+        assertEquals(FunctionType.RADICAL, func2.getFuncType());
+
+        final Function derivative1 = func1.derivative();
+        final Function derivative2 = func2.derivative();
+        assertEquals("f'(x) = ( 3 )( 4x )( [2.0]√(2x²) )", derivative1.printFunc());
+        assertEquals("f'(x) = ( 2 )( 6x² )( [1.0]√(2x³) )", derivative2.printFunc());
+    }
+
+    @Test
     public void exceptionsTest() {
         final PolynomialFunction innerFunc = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
