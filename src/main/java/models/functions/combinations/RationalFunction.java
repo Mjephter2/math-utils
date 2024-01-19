@@ -1,5 +1,7 @@
 package models.functions.combinations;
 
+import models.equations.GeneralEquation;
+import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
 import utils.DerivativeUtils;
@@ -42,8 +44,11 @@ public class RationalFunction implements Function {
 
     @Override
     public List<Range> getDomain() {
-        // TODO: Implement domain for RationalFunction
-        throw new UnsupportedOperationException("Unimplemented method 'getDomain'");
+        final GeneralEquation equation = GeneralEquation.builder()
+                .leftSide(this.denominator)
+                .rightSide(ConstantFunction.builder().value(0).build())
+                .build();
+        return equation.getSolutions().keySet().stream().toList();
     }
 
     @Override
