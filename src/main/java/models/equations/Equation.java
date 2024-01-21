@@ -21,10 +21,8 @@ public interface Equation {
      */
     Function getRightSide();
 
-    HashMap<Range, Integer> getSolutions();
-
     /**
-     * @return the solution of the equation.
+     * Solves the equation.
      */
     void solve();
 

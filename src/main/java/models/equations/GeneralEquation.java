@@ -11,15 +11,14 @@ import models.numberUtils.Range;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 
 @Getter
 @Builder
 public class GeneralEquation implements Equation {
 
-    final Function leftSide;
+    private final Function leftSide;
     final Function rightSide;
-    final HashMap<Range, Integer> solutions;
+    private HashMap<Range, Integer> solutions;
 
     @Override
     public Function getLeftSide() {
@@ -32,10 +31,10 @@ public class GeneralEquation implements Equation {
     }
 
     @Override
-    public HashMap<Range, Integer> getSolutions() {
+    public void solve() {
         if (this.leftSide instanceof PolynomialFunction && this.rightSide instanceof PolynomialFunction) {
             final PolynomialEquation equation = new PolynomialEquation((PolynomialFunction) this.leftSide, (PolynomialFunction) this.rightSide);
-            return equation.getSolutions();
+            this.solutions =  equation.getSolutions();
         } else if (this.leftSide instanceof PolynomialFunction && this.rightSide instanceof ConstantFunction) {
             final PolynomialTerm constantTerm = PolynomialTerm.builder()
                     .coefficient(((ConstantFunction) this.rightSide).getValue())
@@ -46,9 +45,9 @@ public class GeneralEquation implements Equation {
                 add(constantTerm);
             }}, "temp", this.rightSide.getVarName());
             final PolynomialEquation equation = new PolynomialEquation((PolynomialFunction) this.leftSide, constFunc);
-            return equation.getSolutions();
+            this.solutions = equation.getSolutions();
         } else if (this.leftSide instanceof ConstantFunction && this.rightSide instanceof PolynomialFunction) {
-            return GeneralEquation.builder()
+            this.solutions =  GeneralEquation.builder()
                     .leftSide(this.rightSide)
                     .rightSide(this.leftSide)
                     .build()
@@ -56,11 +55,6 @@ public class GeneralEquation implements Equation {
         }
         // TODO: Implement GeneralEquation for other types of equations
         throw new UnsupportedOperationException("GeneralEquation does not support this type of equation.");
-    }
-
-    @Override
-    public void solve() {
-        // TODO: Implement solve for GeneralEquation
     }
 
     @Override

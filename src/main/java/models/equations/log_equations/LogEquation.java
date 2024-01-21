@@ -23,11 +23,6 @@ public class LogEquation implements Equation {
     private HashMap<Range, Integer> solutions;
 
     @Override
-    public HashMap<Range, Integer> getSolutions() {
-        return solutions;
-    }
-
-    @Override
     public void solve() {
         // TODO: Implement LogEquation solver for more cases
 
