@@ -10,6 +10,7 @@ import models.functions.polynomials.PolynomialTerm;
 import models.numberUtils.Range;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.LinkedList;
 
 @Getter
@@ -32,6 +33,14 @@ public class GeneralEquation implements Equation {
 
     @Override
     public void solve() {
+        // Case where left side is equal to the right side: any value can be a solution
+        if (this.leftSide.getClass() == this.rightSide.getClass() && this.leftSide == this.rightSide) {
+            final HashMap<Range, Integer> solutions = new HashMap<Range, Integer>();
+            solutions.put(Range.all(), -1);
+
+            this.solutions = solutions;
+        }
+
         if (this.leftSide instanceof PolynomialFunction && this.rightSide instanceof PolynomialFunction) {
             final PolynomialEquation equation = new PolynomialEquation((PolynomialFunction) this.leftSide, (PolynomialFunction) this.rightSide);
             this.solutions =  equation.getSolutions();
