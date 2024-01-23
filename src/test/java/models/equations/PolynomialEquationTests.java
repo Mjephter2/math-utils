@@ -97,6 +97,49 @@ public class PolynomialEquationTests {
     }
 
     @Test
+    public void equalLhsRhsTests() {
+        final PolynomialFunction lhs = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(1)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+            add(PolynomialTerm.builder()
+                    .coefficient(1)
+                    .varName("x")
+                    .exponent(0)
+                    .build());
+        }}, "f", "x");
+        final PolynomialFunction rhs = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(1)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+            add(PolynomialTerm.builder()
+                    .coefficient(1)
+                    .varName("x")
+                    .exponent(0)
+                    .build());
+        }}, "f", "x");
+
+        final GeneralEquation equation = GeneralEquation.builder()
+                .leftSide(lhs)
+                .rightSide(rhs)
+                .build();
+        equation.solve();
+
+        final HashMap<Range, Integer> expectedSolution = new HashMap<>(){{
+            put(Range.all(), -1);
+        }};
+        assertEquals(expectedSolution.keySet().size(), equation.getSolutions().keySet().size());
+
+        assertEquals(Arrays.stream(
+                expectedSolution.keySet().toArray()).toArray()[0],
+                Arrays.stream(equation.getSolutions().keySet().toArray()).toArray()[0]);
+    }
+
+    @Test
     public void higher_degree_test() {
         final PolynomialFunction lhs = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()

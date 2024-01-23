@@ -34,16 +34,18 @@ public class GeneralEquation implements Equation {
     @Override
     public void solve() {
         // Case where left side is equal to the right side: any value can be a solution
-        if (this.leftSide.getClass() == this.rightSide.getClass() && this.leftSide == this.rightSide) {
-            final HashMap<Range, Integer> solutions = new HashMap<Range, Integer>();
-            solutions.put(Range.all(), -1);
-
+        if (this.leftSide.equals(this.rightSide)) {
+            final HashMap<Range, Integer> solutions = new HashMap<>() {{
+                put(Range.all(), -1);
+            }};
             this.solutions = solutions;
+            return;
         }
 
         if (this.leftSide instanceof PolynomialFunction && this.rightSide instanceof PolynomialFunction) {
             final PolynomialEquation equation = new PolynomialEquation((PolynomialFunction) this.leftSide, (PolynomialFunction) this.rightSide);
             this.solutions =  equation.getSolutions();
+            return;
         } else if (this.leftSide instanceof PolynomialFunction && this.rightSide instanceof ConstantFunction) {
             final PolynomialTerm constantTerm = PolynomialTerm.builder()
                     .coefficient(((ConstantFunction) this.rightSide).getValue())
@@ -55,12 +57,14 @@ public class GeneralEquation implements Equation {
             }}, "temp", this.rightSide.getVarName());
             final PolynomialEquation equation = new PolynomialEquation((PolynomialFunction) this.leftSide, constFunc);
             this.solutions = equation.getSolutions();
+            return;
         } else if (this.leftSide instanceof ConstantFunction && this.rightSide instanceof PolynomialFunction) {
             this.solutions =  GeneralEquation.builder()
                     .leftSide(this.rightSide)
                     .rightSide(this.leftSide)
                     .build()
                     .getSolutions();
+            return;
         }
         // TODO: Implement GeneralEquation for other types of equations
         throw new UnsupportedOperationException("GeneralEquation does not support this type of equation.");
