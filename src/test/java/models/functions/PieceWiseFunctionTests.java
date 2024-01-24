@@ -19,11 +19,7 @@ public class PieceWiseFunctionTests {
 
     @Test
     public void createTests() {
-        final PieceWiseFunction func = PieceWiseFunction.builder()
-                .funcName("f")
-                .varName("x")
-                .functionsToRangesMap(this.funcToRangeSample())
-                .build();
+        final PieceWiseFunction func = new PieceWiseFunction("f", "x", this.funcToRangeSample());
 
         // May need to update PieceWiseFunction definition to allow better testing
         assertTrue(
@@ -37,20 +33,11 @@ public class PieceWiseFunctionTests {
 
     @Test
     public void domainTests() {
-        final PieceWiseFunction func = PieceWiseFunction.builder()
-                .funcName("f")
-                .varName("x")
-                .functionsToRangesMap(this.funcToRangeSample())
-                .build();
-
+        final PieceWiseFunction func = new PieceWiseFunction("f", "x", this.funcToRangeSample());
 //        final Range funcDomain = func.getDomain().get(0);
 //        assertEquals(Range.all(), funcDomain);
 
-        final PieceWiseFunction func2 = PieceWiseFunction.builder()
-                .funcName("f")
-                .varName("x")
-                .functionsToRangesMap(this.funcToRangeSample2())
-                .build();
+        final PieceWiseFunction func2 = new PieceWiseFunction("f", "x", this.funcToRangeSample2());
 
 //        final Range funcDomain2 = func2.getDomain().get(0);
         // The following test should not succeed. We need to rethink the domain method for PieceWiseFunction
@@ -59,11 +46,7 @@ public class PieceWiseFunctionTests {
 
     @Test
     public void exceptionTests() {
-        final PieceWiseFunction func = PieceWiseFunction.builder()
-                .funcName("f")
-                .varName("x")
-                .functionsToRangesMap(this.funcToRangeSample())
-                .build();
+        final PieceWiseFunction func = new PieceWiseFunction("f", "x", this.funcToRangeSample());
 
         assertThrows(UnsupportedOperationException.class, () -> func.simplify());
         assertThrows(UnsupportedOperationException.class, () -> func.integral());
@@ -76,11 +59,7 @@ public class PieceWiseFunctionTests {
     @Test
     @Disabled
     public void evaluateTests() {
-        final PieceWiseFunction func = PieceWiseFunction.builder()
-                .funcName("f")
-                .varName("x")
-                .functionsToRangesMap(this.funcToRangeSample())
-                .build();
+        final PieceWiseFunction func = new PieceWiseFunction("f", "x", this.funcToRangeSample());
 
         assertEquals(1.0, func.evaluate(1.0));
         assertEquals(0.0, func.evaluate(0.0));

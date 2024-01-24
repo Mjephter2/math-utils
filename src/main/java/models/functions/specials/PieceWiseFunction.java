@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
  * Class implementing a Piece Wise function.
  */
 @Getter
-@Builder
 public class PieceWiseFunction implements Function {
 
     private String funcName;
@@ -31,9 +30,29 @@ public class PieceWiseFunction implements Function {
         return this.varName;
     }
 
+    public PieceWiseFunction(final String functionName, final String variableName, final Map<Function, Range> funcToRangeMap) {
+        this.funcName = functionName;
+        this.varName = variableName;
+        this.functionsToRangesMap = funcToRangeMap;
+        if (!validateDomains()) {
+            throw new IllegalArgumentException("Overlapping Domains found!");
+        }
+    }
+
     @Override
     public FunctionType getFuncType() {
         return FunctionType.PIECEWISE;
+    }
+
+    /**
+     * Validate the set of given domains
+     * Two domains must not overlap and must be a subset of the domain of the corresponding function
+     * i.e. the intersection between all the provided domains must be null
+     */
+    public boolean validateDomains() {
+        return this.functionsToRangesMap.values().stream().reduce(
+                Range::intersection
+        ) == null;
     }
 
     @Override
@@ -67,11 +86,7 @@ public class PieceWiseFunction implements Function {
     public Function derivative() {
         Map<Function, Range> newFunctionsToRangesMap = this.functionsToRangesMap.entrySet().stream()
                 .collect(Collectors.toMap(entry -> entry.getKey().derivative(), Map.Entry::getValue));
-        return PieceWiseFunction.builder()
-                .funcName(this.funcName + "'")
-                .varName(this.varName)
-                .functionsToRangesMap(newFunctionsToRangesMap)
-                .build();
+        return new PieceWiseFunction(this.funcName + "'", this.varName, newFunctionsToRangesMap);
     }
 
     @Override
@@ -101,11 +116,10 @@ public class PieceWiseFunction implements Function {
 
     @Override
     public Function deepCopy(final String newFuncName) {
-        return PieceWiseFunction.builder()
-                .funcName(newFuncName)
-                .varName(this.varName)
-                .functionsToRangesMap(this.functionsToRangesMap.entrySet().stream()
-                        .collect(Collectors.toMap(entry -> entry.getKey().deepCopy(entry.getKey().getFuncName()), Map.Entry::getValue)))
-                .build();
+        return new PieceWiseFunction(
+                newFuncName,
+                this.varName,
+                this.functionsToRangesMap.entrySet().stream()
+                        .collect(Collectors.toMap(entry -> entry.getKey().deepCopy(entry.getKey().getFuncName()), Map.Entry::getValue)));
     }
 }
