@@ -50,9 +50,14 @@ public class PieceWiseFunction implements Function {
      * i.e. the intersection between all the provided domains must be null
      */
     public boolean validateDomains() {
-        return this.functionsToRangesMap.values().stream().reduce(
-                Range::intersection
-        ) == null;
+        final Range[] domains = this.functionsToRangesMap.values().toArray(new Range[0]);
+        // Compare all ranges against one another and check for overlaps
+        for (int i = 0; i < domains.length - 1; i++) {
+            if (domains[i].intersection(domains[i + 1]) != null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

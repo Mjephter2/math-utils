@@ -187,10 +187,20 @@ public class Range implements Comparable {
             return other;
         } else if (other.includes(this)) {
             return this;
-        } else if (this.includes(other.lowerBound)) {
-            return new Range(other.lowerBound, this.upperBound, other.includeLowerBound, this.includeUpperBound);
+        } else if (this.includes(other.lowerBound)) {;
+            final Range intersection =  new Range(other.lowerBound, this.upperBound, other.includeLowerBound, this.includeUpperBound);
+            if (intersection.lowerBound.equals(intersection.upperBound) && (!this.includeLowerBound || !this.includeUpperBound)) {
+                return null;
+            } else {
+                return intersection;
+            }
         } else if (this.includes(other.upperBound)) {
-            return new Range(this.lowerBound, other.upperBound, this.includeLowerBound, other.includeUpperBound);
+            final Range intersection = new Range(this.lowerBound, other.upperBound, this.includeLowerBound, other.includeUpperBound);
+            if (intersection.lowerBound == intersection.upperBound && (!this.includeLowerBound || !this.includeUpperBound)) {
+                return null;
+            } else {
+                return intersection;
+            }
         } else {
             return null;
         }
