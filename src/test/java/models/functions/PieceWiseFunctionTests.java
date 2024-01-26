@@ -54,14 +54,11 @@ public class PieceWiseFunctionTests {
         assertThrows(UnsupportedOperationException.class, () -> func.limit(2));
     }
 
-    // TODO: This test failed intermittently. Need to rethink the PieceWiseFunction definition
-    // Disabling for now
     @Test
-    @Disabled
     public void evaluateTests() {
         final PieceWiseFunction func = new PieceWiseFunction("f", "x", this.funcToRangeSample());
 
-        assertEquals(1.0, func.evaluate(1.0));
+        assertEquals(0.0, func.evaluate(1.0));
         assertEquals(0.0, func.evaluate(0.0));
     }
 

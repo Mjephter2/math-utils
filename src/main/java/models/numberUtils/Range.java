@@ -189,14 +189,14 @@ public class Range implements Comparable {
             return this;
         } else if (this.includes(other.lowerBound)) {;
             final Range intersection =  new Range(other.lowerBound, this.upperBound, other.includeLowerBound, this.includeUpperBound);
-            if (intersection.lowerBound.equals(intersection.upperBound) && (!this.includeLowerBound || !this.includeUpperBound)) {
+            if (intersection.lowerBound.equals(intersection.upperBound) && (!intersection.includeLowerBound || !intersection.includeUpperBound)) {
                 return null;
             } else {
                 return intersection;
             }
         } else if (this.includes(other.upperBound)) {
             final Range intersection = new Range(this.lowerBound, other.upperBound, this.includeLowerBound, other.includeUpperBound);
-            if (intersection.lowerBound == intersection.upperBound && (!this.includeLowerBound || !this.includeUpperBound)) {
+            if (intersection.lowerBound.equals(intersection.upperBound) && (!intersection.includeLowerBound || !intersection.includeUpperBound)) {
                 return null;
             } else {
                 return intersection;

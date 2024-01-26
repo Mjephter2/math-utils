@@ -8,6 +8,7 @@ import models.numberUtils.Range;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -74,11 +75,15 @@ public class PieceWiseFunction implements Function {
 
     @Override
     public double evaluate(Double... values) {
-        return this.functionsToRangesMap.keySet().stream()
-                .filter(function -> function.getDomain().get(0).includes(values[0]))
-                .findFirst()
-                .orElseThrow(IllegalArgumentException::new)
-                .evaluate(values);
+        final Optional<Function> funcToEval = functionsToRangesMap.keySet().stream().filter(
+                function -> functionsToRangesMap.get(function).includes(values[0])
+        ).findFirst();
+
+        if (!funcToEval.isEmpty()) {
+            return funcToEval.get().evaluate(values);
+        }
+
+        throw new IllegalArgumentException("This function is not defined for the provided value!");
     }
 
     @Override
