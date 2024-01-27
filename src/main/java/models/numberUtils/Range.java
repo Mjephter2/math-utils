@@ -90,6 +90,26 @@ public class Range implements Comparable {
     }
 
     /**
+     * Returns a range of all numbers between two bounds
+     * @param lowerBound - the lower bound of the range
+     * @param upperBound - the upper bound of the range
+     * @return a range of all numbers between the lower and upper bounds
+     */
+    public static Range open(final double lowerBound, final double upperBound) {
+        return new Range(lowerBound, upperBound, false, false);
+    }
+
+    /**
+     * Returns a range of all numbers between two bounds, including the bounds
+     * @param lowerBound - the lower bound of the range
+     * @param upperBound - the upper bound of the range
+     * @return a range of all numbers between the lower and upper bounds
+     */
+    public static Range closed(final double lowerBound, final double upperBound) {
+        return new Range(lowerBound, upperBound, true, true);
+    }
+
+    /**
      * Returns a range of all Double values
      */
     public static Range all() {
