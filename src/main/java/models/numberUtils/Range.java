@@ -137,6 +137,25 @@ public class Range implements Comparable {
     }
 
     /**
+     * Excludes a single value from a range.
+     * @param exceptedValue - the value to exclude
+     * @param range - the range to exclude the value from
+     * @return a list of two ranges that excludes the value
+     */
+    public static List<Range> rangeExcept(final Double exceptedValue, final Range range) {
+        if (exceptedValue.isInfinite() || exceptedValue.isNaN()) {
+            throw new IllegalArgumentException("Value to except cannot be infinite or invalid");
+        } else if (range.includes(exceptedValue)) {
+            return List.of(
+                    new Range(range.getLowerBound(), exceptedValue, range.isIncludeLowerBound(), false),
+                    new Range(exceptedValue, range.getUpperBound(), false, range.isIncludeUpperBound())
+            );
+        } else {
+            return List.of(range);
+        }
+    }
+
+    /**
      * Returns a range that excludes a single value
      * @param exceptedValue - the value to exclude
      * @return a list of two ranges that excludes the value
