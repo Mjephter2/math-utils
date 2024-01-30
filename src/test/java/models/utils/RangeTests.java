@@ -114,6 +114,20 @@ public class RangeTests {
 
         assertEquals(new Range(Double.NEGATIVE_INFINITY, 10.0, false, false), range1);
         assertEquals(new Range(10.0, Double.POSITIVE_INFINITY, false, false), range2);
+
+        final Range allPositive = Range.allPositive(true);
+        final List<Range> rangeConcat2 = Range.rangeExcept(exceptedValue, allPositive);
+        final List<Range> rangeConcat3 = Range.rangeExcept(-1.0, allPositive);
+
+        final Range range3 = rangeConcat2.get(0);
+        final Range range4 = rangeConcat2.get(1);
+
+        assertEquals(new Range(0.0, 10.0, true, false), range3);
+        assertEquals(new Range(10.0, Double.POSITIVE_INFINITY, false, false), range4);
+
+        assertEquals(new Range(0.0, Double.POSITIVE_INFINITY, true, false), rangeConcat3.get(0));
+
+        assertThrows(IllegalArgumentException.class, () -> Range.rangeExcept(Double.POSITIVE_INFINITY, allPositive));
     }
 
     @Test
