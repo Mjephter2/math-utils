@@ -86,6 +86,37 @@ public class RangeTests {
 
         assertTrue(range1.includes(new Random().nextDouble() * 1000000000));
     }
+    @Test
+    public void closedTests() {
+        final Range range1 = Range.closed(0.0, 10.0);
+
+        assertEquals(0.0, range1.getLowerBound());
+        assertTrue(range1.isIncludeLowerBound());
+        assertEquals(10.0, range1.getUpperBound());
+        assertTrue(range1.isIncludeUpperBound());
+
+        assertTrue(range1.includes(0.0));
+        assertTrue(range1.includes(10.0));
+        assertTrue(range1.includes(5.0));
+        assertFalse(range1.includes(-1.0));
+        assertFalse(range1.includes(11.0));
+    }
+
+    @Test
+    public void openTests() {
+        final Range range1 = Range.open(0.0, 10.0);
+
+        assertEquals(0.0, range1.getLowerBound());
+        assertFalse(range1.isIncludeLowerBound());
+        assertEquals(10.0, range1.getUpperBound());
+        assertFalse(range1.isIncludeUpperBound());
+
+        assertFalse(range1.includes(0.0));
+        assertFalse(range1.includes(10.0));
+        assertTrue(range1.includes(5.0));
+        assertFalse(range1.includes(-1.0));
+        assertFalse(range1.includes(11.0));
+    }
 
     @Test
     public void exceptionsTests() {
