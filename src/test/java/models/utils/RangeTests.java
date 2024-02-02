@@ -10,6 +10,7 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -265,6 +266,10 @@ public class RangeTests {
         final Range range13 = Range.atLeast(10.0);
         final Range range14 = Range.allNegative(true);
         assertEquals(null, range13.intersection(range14));
+
+        final Range range15 = Range.closed(10.0, 15);
+        final Range range16 = Range.open(5, 10);
+        assertNull(range15.intersection(range16));
     }
 
     @Test
