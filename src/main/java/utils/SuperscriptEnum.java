@@ -13,7 +13,8 @@ public enum SuperscriptEnum {
     SIX("⁶"),
     SEVEN("⁷"),
     EIGHT("⁸"),
-    NINE("⁹");
+    NINE("⁹"),
+    DOT("˙");
 
     private final String superscript;
 

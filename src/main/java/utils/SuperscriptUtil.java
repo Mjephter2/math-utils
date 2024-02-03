@@ -23,13 +23,12 @@ public final class SuperscriptUtil {
             put(7, SuperscriptEnum.SEVEN);
             put(8, SuperscriptEnum.EIGHT);
             put(9, SuperscriptEnum.NINE);
-
         }
     };
 
     /**
-     * Converts the given number to a superscript string
-     * @param number -> number to convert
+     * Converts the given integer to a superscript string
+     * @param number -> integer to convert
      * @return the superscript string
      */
     public static String convertToSuperscript(final int number) {
@@ -37,6 +36,20 @@ public final class SuperscriptUtil {
         final char[] digits = String.valueOf(number).toCharArray();
         for (final char digit : digits) {
             sb.append(digitToSuperscript.get(Character.getNumericValue(digit)).getSuperscript());
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Converts the given double to a superscript string
+     * @param number -> double to convert
+     * @return the superscript string
+     */
+    public static String convertToSuperscript(final Double number) {
+        final StringBuilder sb = new StringBuilder();
+        final char[] digits = String.valueOf(number).toCharArray();
+        for (final char digit : digits) {
+            sb.append(digitToSuperscript.getOrDefault(Character.getNumericValue(digit), SuperscriptEnum.DOT).getSuperscript());
         }
         return sb.toString();
     }
