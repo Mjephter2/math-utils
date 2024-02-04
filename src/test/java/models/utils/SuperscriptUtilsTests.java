@@ -12,4 +12,9 @@ public class SuperscriptUtilsTests {
         assertEquals("¹²³", SuperscriptUtil.convertToSuperscript(123));
         assertEquals("¹²³⁴⁵⁶⁷⁸⁹", SuperscriptUtil.convertToSuperscript(123456789));
     }
+
+    @Test
+    public void convertDoubleToSuperscriptTest() {
+        assertEquals("¹²³˙⁴⁵⁶⁷⁸⁹", SuperscriptUtil.convertToSuperscript(123.456789));
+    }
 }
