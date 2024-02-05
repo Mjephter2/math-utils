@@ -5,6 +5,7 @@ import models.functions.Function;
 import models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -225,6 +226,31 @@ public class RangeTests {
 
         final Range allNegativeNoZero = Range.allNegative(false);
         assertEquals(new Range(Double.NEGATIVE_INFINITY, 0.0, false, false), allNegativeNoZero);
+    }
+
+    @Test
+    public void fromBoundsTests() {
+        final List<Double> doubleList1 = new ArrayList<>(){{add(0.0); add(1.0);}};
+        final List<Range> rangeList1 = Range.fromBounds(doubleList1);
+
+        assertEquals(1, rangeList1.size());
+        assertEquals(0.0, rangeList1.get(0).getLowerBound());
+        assertEquals(1.0, rangeList1.get(0).getUpperBound());
+
+        final List<Double> doubleList2 = new ArrayList<>(){{add(Double.NEGATIVE_INFINITY); add(1.0); add(2.0);}};
+        final List<Range> rangeList2 = Range.fromBounds(doubleList2);
+
+        assertEquals(2, rangeList2.size());
+
+        assertEquals(Double.NEGATIVE_INFINITY, rangeList2.get(0).getLowerBound());
+        assertEquals(1.0, rangeList1.get(0).getUpperBound());
+        assertFalse(rangeList2.get(0).isIncludeLowerBound());
+        assertFalse(rangeList2.get(0).isIncludeUpperBound());
+
+        assertEquals(1.0, rangeList2.get(1).getLowerBound());
+        assertEquals(2.0, rangeList2.get(1).getUpperBound());
+        assertTrue(rangeList2.get(1).isIncludeLowerBound());
+        assertTrue(rangeList2.get(1).isIncludeUpperBound());
     }
 
     @Test

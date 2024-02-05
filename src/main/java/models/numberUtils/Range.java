@@ -210,6 +210,26 @@ public class Range implements Comparable {
     }
 
     /**
+     * Returns a range that includes all numbers between the provided bounds
+     * @param sortedBounds - the bounds of the range
+     * @return a list of ranges that includes all numbers between the bounds
+     */
+    public static List<Range> fromBounds(final List<Double> sortedBounds) {
+        // Check if sortedBounds is sorted
+        for (int i = 0; i < sortedBounds.size() - 1; i += 1) {
+            if (sortedBounds.get(i) > sortedBounds.get(i + 1)) {
+                throw new IllegalArgumentException("Bounds must be sorted and unique!");
+            }
+        }
+
+        final List<Range> ranges = new java.util.ArrayList<>();
+        for (int i = 0; i < sortedBounds.size() - 1; i += 1) {
+            ranges.add(new Range(sortedBounds.get(i), sortedBounds.get(i + 1), sortedBounds.get(i).isInfinite() ? false : true, sortedBounds.get(i).isInfinite() ? false : (i == sortedBounds.size() - 2)));
+        }
+        return ranges;
+    }
+
+    /**
      * Returns whether this range includes a value
      * @param value - the value to check
      * @return true when the value is included in this range
