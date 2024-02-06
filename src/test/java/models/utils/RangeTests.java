@@ -254,6 +254,12 @@ public class RangeTests {
     }
 
     @Test
+    public void fromBoundsExceptionTests() {
+        final List<Double> doubleList1 = new ArrayList<>(){{add(2.0); add(1.0);}};
+        assertThrows(IllegalArgumentException.class, () -> Range.fromBounds(doubleList1));
+    }
+
+    @Test
     public void includesRangeTests() {
         final Range range1 = Range.allPositive(true);
 
