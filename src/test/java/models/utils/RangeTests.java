@@ -256,7 +256,11 @@ public class RangeTests {
     @Test
     public void fromBoundsExceptionTests() {
         final List<Double> doubleList1 = new ArrayList<>(){{add(2.0); add(1.0);}};
+        final List<Double> doubleList2 = new ArrayList<>(){{add(2.0); add(Double.POSITIVE_INFINITY); add(10.0);}};
+        final List<Double> doubleList3 = new ArrayList<>(){{add(Double.POSITIVE_INFINITY); add(Double.NEGATIVE_INFINITY);}};
         assertThrows(IllegalArgumentException.class, () -> Range.fromBounds(doubleList1));
+        assertThrows(IllegalArgumentException.class, () -> Range.fromBounds(doubleList2));
+        assertThrows(IllegalArgumentException.class, () -> Range.fromBounds(doubleList3));
     }
 
     @Test
