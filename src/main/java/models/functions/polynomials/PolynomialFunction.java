@@ -64,7 +64,7 @@ public class PolynomialFunction implements Function {
     /**
      * boolean representing whether the polynomial is an indefinite integral or not.
      */
-    private boolean isIndefiniteIntegral = false;
+    private boolean isIndefiniteIntegral;
 
     /**
      * Creates a polynomial function from a list of terms.

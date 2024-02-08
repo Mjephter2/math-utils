@@ -8,7 +8,7 @@ import models.functions.Function;
 public class NaturalLogFunction extends LogFunction {
 
     public NaturalLogFunction(final String funcName, final String varName, final Function body) {
-        super(funcName, varName, body, Math.E);
+        super(funcName, varName, body, Math.E, body.isIndefiniteIntegral());
     }
 
     @Override

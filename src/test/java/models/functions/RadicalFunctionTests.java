@@ -120,7 +120,7 @@ public class RadicalFunctionTests {
 
     @Test
     public void simplifyTest() {
-        final ConstantFunction innerFunc1 = new ConstantFunction("innerFunc", 9.0);
+        final ConstantFunction innerFunc1 = new ConstantFunction("innerFunc", 9.0, false);
         final PolynomialFunction innerFunc2 = new PolynomialFunction(new LinkedList<>(){{
             add(PolynomialTerm.builder()
                     .coefficient(2)

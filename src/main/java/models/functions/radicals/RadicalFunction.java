@@ -29,6 +29,7 @@ public class RadicalFunction implements Function {
     private final String varName;
     private final double rootIndex;
     private final Function body;
+    private boolean isIndefiniteIntegral;
 
     // TODO: Refactor constructor to validate rootIndex to be between 0 and 1.
 

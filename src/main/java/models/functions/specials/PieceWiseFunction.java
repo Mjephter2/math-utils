@@ -20,6 +20,7 @@ public class PieceWiseFunction implements Function {
     private String funcName;
     private String varName;
     private Map<Function, Range> functionsToRangesMap;
+    private boolean isIndefiniteIntegral;
 
     @Override
     public String getFuncName() {

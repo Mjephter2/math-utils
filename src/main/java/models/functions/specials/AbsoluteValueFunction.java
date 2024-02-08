@@ -19,6 +19,7 @@ public class AbsoluteValueFunction implements Function {
     private String varName;
     private String funcName;
     private Function innerFunction;
+    private boolean isIndefiniteIntegral;
 
     @Override
     public String getFuncName() {

@@ -27,6 +27,7 @@ public class ExponentialFunction implements Function {
     private final String funcName;
     private final String varName;
     private final Function exponent;
+    private boolean isIndefiniteIntegral;
 
     @Override
     public FunctionType getFuncType() {

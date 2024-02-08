@@ -19,6 +19,7 @@ public class ConstantFunction implements Function {
 
     private String funcName;
     private double value;
+    private boolean isIndefiniteIntegral;
 
     @Override
     public String getFuncName() {

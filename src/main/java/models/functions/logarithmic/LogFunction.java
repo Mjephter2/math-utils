@@ -24,6 +24,7 @@ public class LogFunction implements Function {
     private String varName;
     private Function body;
     private double base;
+    private boolean isIndefiniteIntegral;
 
     @Override
     public String getFuncName() {

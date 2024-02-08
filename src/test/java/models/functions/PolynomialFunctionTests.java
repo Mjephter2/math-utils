@@ -383,12 +383,23 @@ public class PolynomialFunctionTests {
     @Test
     public void integral_tests() {
         PolynomialFunction func1 = functionSample1().get(0); // P(x) = + 1.1x
+        PolynomialFunction func1Integral = (PolynomialFunction) func1.integral();
         PolynomialFunction func2 = functionSample1().get(1); // Q(x) = + 2.1 + 2.3x^2
+        PolynomialFunction func2Integral = (PolynomialFunction) func2.integral();
         PolynomialFunction func3 = functionSample1().get(2); // S(x) = + 3.1x^2 + 3.2x^3 + 3.3x
+        PolynomialFunction func3Integral = (PolynomialFunction) func3.integral();
 
-        assertEquals("∫P(x)dx = 0.6x² + C", ((PolynomialFunction) func1.integral()).toString(true));
-        assertEquals("∫Q(x)dx = 0.8x³ + C", ((PolynomialFunction) func2.integral()).toString(true));
-        assertEquals("∫S(x)dx = 0.8x⁴ + 1x³ + 1.6x² + C", ((PolynomialFunction) func3.integral()).toString(true));
+        assertFalse(func1.isIndefiniteIntegral());
+        assertFalse(func2.isIndefiniteIntegral());
+        assertFalse(func2.isIndefiniteIntegral());
+
+        assertTrue(func1Integral.isIndefiniteIntegral());
+        assertTrue(func2Integral.isIndefiniteIntegral());
+        assertTrue(func3Integral.isIndefiniteIntegral());
+
+        assertEquals("∫P(x)dx = 0.6x² + C", (func1Integral.toString(true)));
+        assertEquals("∫Q(x)dx = 0.8x³ + C", (func2Integral.toString(true)));
+        assertEquals("∫S(x)dx = 0.8x⁴ + 1x³ + 1.6x² + C", (func3Integral.toString(true)));
 
         assertEquals(2.2, func1.integral(0, 2));
         assertEquals(0.77, func2.integral(0, 1));
@@ -457,7 +468,7 @@ public class PolynomialFunctionTests {
         assertNotEquals(func1, func2);
         assertEquals(func1, func3);
 
-        assertNotEquals(func1, new ConstantFunction("h", 1.0));
+        assertNotEquals(func1, new ConstantFunction("h", 1.0, false));
     }
 
     private List<PolynomialFunction> functionSample1() {

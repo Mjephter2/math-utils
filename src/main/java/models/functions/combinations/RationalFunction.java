@@ -26,6 +26,7 @@ public class RationalFunction implements Function {
     final Function denominator;
     final String funcName;
     final String varName;
+    private boolean isIndefiniteIntegral;
 
     @Override
     public String getFuncName() {
@@ -105,7 +106,8 @@ public class RationalFunction implements Function {
                 this.numerator.deepCopy(this.numerator.getFuncName()),
                 this.denominator.deepCopy(this.denominator.getFuncName()),
                 newFuncName,
-                this.varName);
+                this.varName,
+                this.isIndefiniteIntegral);
     }
 
     @Override

@@ -23,7 +23,7 @@ public class RationalFunctionTests {
                 .value(2.0)
                 .build();
 
-        final RationalFunction rationalFunction = new RationalFunction(numerator, denominator, "f", "x");
+        final RationalFunction rationalFunction = new RationalFunction(numerator, denominator, "f", "x", false);
         assertEquals(rationalFunction.getFuncName(), "f");
         assertEquals(rationalFunction.getVarName(), "x");
         assertEquals(rationalFunction.getNumerator(), numerator);

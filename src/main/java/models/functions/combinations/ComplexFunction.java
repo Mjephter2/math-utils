@@ -21,10 +21,9 @@ import lombok.Getter;
 public class ComplexFunction implements Function {
 
     final String funcName;
-
     final String varName;
-
     final List<CompositeFunction> functions;
+    private boolean isIndefiniteIntegral;
 
     @Override
     public String getFuncName() {

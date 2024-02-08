@@ -31,6 +31,7 @@ public class CompositeFunction implements Function {
 
     private final String funcName;
     private String varName;
+    private boolean isIndefiniteIntegral;
 
     private final List<PolynomialFunction> polynomialFactors;
     private final List<RadicalFunction> radicalFactors;

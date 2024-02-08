@@ -29,6 +29,7 @@ public class TrigonometricFunction implements Function {
     private final String varName;
     private final TrigonometricFunctionType trigonometricFunctionType;
     private final Function innerFunction;
+    private boolean isIndefiniteIntegral;
 
     @Override
     public FunctionType getFuncType() {
@@ -95,12 +96,12 @@ public class TrigonometricFunction implements Function {
                                 .build());
                     }}, this.funcName, this.varName),
                     innerFunction.derivative(),
-                    new TrigonometricFunction(this.funcName, this.varName, SINE, innerFunction.deepCopy(innerFunction.getFuncName()))
+                    new TrigonometricFunction(this.funcName, this.varName, SINE, innerFunction.deepCopy(innerFunction.getFuncName()), false)
             ).collect(Collectors.toList()));
         } else if (this.trigonometricFunctionType == SINE) {
             return new CompositeFunction(this.funcName + "'", Stream.of(
                     innerFunction.derivative(),
-                    new TrigonometricFunction(this.funcName, this.varName, COSINE, innerFunction.deepCopy(innerFunction.getFuncName()))
+                    new TrigonometricFunction(this.funcName, this.varName, COSINE, innerFunction.deepCopy(innerFunction.getFuncName()), false)
             ).collect(Collectors.toList()));
         };
 

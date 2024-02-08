@@ -32,9 +32,7 @@ public interface Function {
      *        (default is false)
      * Needed for the indefinite integral of a function
      */
-    default boolean isIndefiniteIntegral() {
-        return false;
-    };
+    boolean isIndefiniteIntegral();
 
     /**
      * Returns the domain of the function
