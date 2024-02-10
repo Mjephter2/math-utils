@@ -370,6 +370,28 @@ public class PolynomialFunctionTests {
     }
 
     @Test
+    public void factorTests_degree1() {
+        final PolynomialFunction func = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(1)
+                    .varName("x")
+                    .exponent(1)
+                    .build());
+            add(PolynomialTerm.builder()
+                    .coefficient(-1)
+                    .varName("x")
+                    .exponent(0)
+                    .build());
+        }}, "f", "x", false); // f(x) = x - 1
+
+        func.factor();
+
+        System.out.println(func.getFactorsToMultiplicity().keySet());
+        assertEquals(1, func.getFactorsToMultiplicity().keySet().size());
+        assertTrue(func.getFactorsToMultiplicity().containsKey(func));
+    }
+
+    @Test
     public void derivative_tests() {
         PolynomialFunction func1 = functionSample1().get(0); // P(x) = + 1.1x
         PolynomialFunction func2 = functionSample1().get(1); // Q(x) = + 2.1 + 2.3x^2
