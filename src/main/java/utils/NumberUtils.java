@@ -9,6 +9,8 @@ import java.util.Arrays;
  */
 public class NumberUtils {
 
+    private static final long GCD_PRECISION = 1000000;
+
     /**
      * Rounds the given value to the given number of decimal places
      * @param value -> value to round
@@ -47,7 +49,20 @@ public class NumberUtils {
      * @return the gcd
      */
     private static Double gcd(final Double a, final Double b) {
-        if (a == 0.0) {
+        for (int precision = 1; precision <= GCD_PRECISION; precision *= 10) {
+            final int int1 = (int) (a * precision);
+            final int int2 = (int) (b * precision);
+            final int intGcd = gcd(int1, int2);
+
+            if ((a / intGcd) % 1 == 0.0 && (b / intGcd) % 1 == 0.0) {
+                return (double) (intGcd / precision);
+            }
+        }
+        return 1.0;
+    }
+
+    private static Integer gcd(final Integer a, final Integer b) {
+        if (a == 0) {
             return b;
         }
         return gcd(b % a, a);
