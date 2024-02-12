@@ -28,6 +28,9 @@ public class NumberUtilsTests {
 
         final Double[] sortedNums2 = { 2.0, 3.0, 4.0, 5.0 };
         assertEquals(1.0, NumberUtils.gcd(sortedNums2), 0.0);
+
+        final Double[] sortedNums3 = { 2.0, 3.7, 4.0, 5.0 };
+        assertEquals(1.0, NumberUtils.gcd(sortedNums3), 0.0);
     }
 
     @Test
