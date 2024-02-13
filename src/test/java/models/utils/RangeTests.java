@@ -306,6 +306,11 @@ public class RangeTests {
         final Range range15 = Range.closed(10.0, 15);
         final Range range16 = Range.open(5, 10);
         assertNull(range15.intersection(range16));
+
+        final Range range17 = Range.closed(20, 20);
+        final Range range18 = Range.open(20, 30);
+        assertNull(range17.intersection(range18));
+        assertNull(range18.intersection(range17));
     }
 
     @Test
