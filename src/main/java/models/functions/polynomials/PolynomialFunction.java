@@ -117,6 +117,20 @@ public class PolynomialFunction implements Function {
 
         this.removeZeroTerms();
         this.terms.sort(TERM_COMPARATOR);
+
+        this.type = typeFromDegree(this.degree);
+    }
+
+    private PolynomialFunctionType typeFromDegree(final int degree) {
+        if (degree > 3) {
+            return PolynomialFunctionType.HIGHER_DEGREES;
+        } else if (degree == 3) {
+            return PolynomialFunctionType.CUBIC;
+        } else if (degree == 2) {
+            return PolynomialFunctionType.QUADRATIC;
+        } else {
+            return PolynomialFunctionType.LINEAR;
+        }
     }
 
     /**

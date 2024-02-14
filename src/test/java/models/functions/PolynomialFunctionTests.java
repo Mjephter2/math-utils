@@ -1,6 +1,7 @@
 package models.functions;
 
 import models.functions.polynomials.PolynomialFunction;
+import models.functions.polynomials.PolynomialFunctionType;
 import models.functions.polynomials.PolynomialTerm;
 
 import java.util.Arrays;
@@ -29,6 +30,7 @@ public class PolynomialFunctionTests {
         assertEquals(1.1, func1.getTerms().get(0).getCoefficient());
         assertEquals(1, func1.getTerms().get(0).getExponent());
         assertEquals(1, func1.getDegree());
+        assertEquals(PolynomialFunctionType.LINEAR, func1.getType());
 
         PolynomialFunction func2 = func1.deepCopy(func1.getFuncName());
         assertEquals("P", func2.getFuncName());
@@ -37,6 +39,7 @@ public class PolynomialFunctionTests {
         assertEquals(1.1, func2.getTerms().get(0).getCoefficient());
         assertEquals(1, func2.getTerms().get(0).getExponent());
         assertEquals(1, func2.getDegree());
+        assertEquals(PolynomialFunctionType.LINEAR, func2.getType());
     }
 
     @Test
