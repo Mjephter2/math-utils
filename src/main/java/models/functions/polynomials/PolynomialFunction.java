@@ -6,6 +6,7 @@ import models.functions.FunctionType;
 import models.numberUtils.Range;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -351,7 +352,7 @@ public class PolynomialFunction implements Function {
         }}, funcName + "_terms_gcd", varName, false), gcd.degree);
 
         for (int i = (int) -maxValue; i <= maxValue; i++) {
-            if (result.size() == this.degree) {
+            if (result.values().stream().reduce((a, b) -> a + b).orElse(0) == this.degree) {
                 break;
             }
             for (int j = (int) -maxValue; j <= maxValue; j++) {
