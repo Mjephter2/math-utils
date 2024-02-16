@@ -14,23 +14,27 @@ import lombok.Setter;
 import static utils.SuperscriptUtil.convertToSuperscript;
 
 /** This class implements a single term / variate polynomial in the form c * x ^ p.
- * c is the coefficient and p is the exponent of the independent variable x,
+ * c is the coefficient and p is the exponent of the independent variable x
  */
 @Getter
 @Setter
 @Builder
 public class PolynomialTerm {
+
+    // Static members
+
     /**
      * A comparator to arrange terms in a polynomial by degrees in descending order.
      **/
-    public static final Comparator<PolynomialTerm> TERM_COMPARATOR = (PolynomialTerm polynomialTerm1, PolynomialTerm polynomialTerm2)
-            ->
-            (polynomialTerm2.exponent - polynomialTerm1.exponent);
+    public static final Comparator<PolynomialTerm> TERM_COMPARATOR =
+            (PolynomialTerm t1, PolynomialTerm t2) -> (t2.exponent - t1.exponent);
 
     /**
-     * Default DecimalFormat of form #.#.
+     * Default DecimalFormat of form #.####.
      */
-    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.####");
+
+    // Instance members
 
     /**
      * coefficient of polynomial term.
@@ -54,6 +58,10 @@ public class PolynomialTerm {
      * @param exponent -> exponent/degree of polynomial term
      */
     public PolynomialTerm(final double coefficient, final String varName, final int exponent) {
+        // exponent must be positive
+        if (exponent < 0) {
+            throw new IllegalArgumentException("Exponent of PolynomialTerm must be positive! Value provided: " + exponent);
+        }
         this.coefficient = coefficient;
         this.varName = varName;
         this.exponent = exponent;
