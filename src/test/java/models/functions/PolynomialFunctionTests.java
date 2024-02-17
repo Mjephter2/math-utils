@@ -146,7 +146,7 @@ public class PolynomialFunctionTests {
         assertEquals("Q(x) = 2.3x² + 2.1", func3.toString(false));
 
         final PolynomialFunction func4 = func1.power(2);
-        assertEquals("Q(x) = 5.3x⁴ + 9.7x² + 4.4", func4.toString(false));
+        assertEquals("Q(x) = 5.29x⁴ + 9.66x² + 4.41", func4.toString(false));
 
         assertThrows(IllegalArgumentException.class, () -> func1.power(-1));
     }
@@ -422,9 +422,9 @@ public class PolynomialFunctionTests {
         assertTrue(func2Integral.isIndefiniteIntegral());
         assertTrue(func3Integral.isIndefiniteIntegral());
 
-        assertEquals("∫P(x)dx = 0.6x² + C", (func1Integral.toString(true)));
-        assertEquals("∫Q(x)dx = 0.8x³ + C", (func2Integral.toString(true)));
-        assertEquals("∫S(x)dx = 0.8x⁴ + 1x³ + 1.6x² + C", (func3Integral.toString(true)));
+        assertEquals("∫P(x)dx = 0.55x² + C", (func1Integral.toString(true)));
+        assertEquals("∫Q(x)dx = 0.7667x³ + C", (func2Integral.toString(true)));
+        assertEquals("∫S(x)dx = 0.8x⁴ + 1.0333x³ + 1.65x² + C", (func3Integral.toString(true)));
 
         assertEquals(2.2, func1.integral(0, 2));
         assertEquals(0.77, func2.integral(0, 1));
