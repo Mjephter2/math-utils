@@ -66,6 +66,24 @@ public class PolynomialFunctionTests {
     }
 
     @Test
+    public void defaultsTermsTests() {
+        final PolynomialTerm term1 = PolynomialTerm.withDefaults();
+        assertEquals(1, term1.getCoefficient());
+        assertEquals("x", term1.getVarName());
+        assertEquals(1, term1.getExponent());
+
+        final PolynomialTerm term2 = PolynomialTerm.withCoefficient(2);
+        assertEquals(2, term2.getCoefficient());
+        assertEquals("x", term2.getVarName());
+        assertEquals(1, term2.getExponent());
+    }
+
+    @Test
+    public void termsExceptionTests() {
+        assertThrows(IllegalArgumentException.class, () -> new PolynomialTerm(-1, "x", -3));
+    }
+
+    @Test
     public void zero_function_tests() {
         final PolynomialFunction zeroFunc = new PolynomialFunction(new LinkedList<>(){{
             add(new PolynomialTerm(0.0, "x", 1));
