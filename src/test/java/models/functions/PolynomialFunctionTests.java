@@ -79,6 +79,14 @@ public class PolynomialFunctionTests {
     }
 
     @Test
+    public void polynomialTypeTests() {
+        final PolynomialFunctionType goodType = PolynomialFunctionType.fromString("Linear");
+        assertEquals(PolynomialFunctionType.LINEAR, goodType);
+
+        assertThrows(IllegalArgumentException.class, () -> PolynomialFunctionType.fromString("bad"));
+    }
+
+    @Test
     public void termsExceptionTests() {
         assertThrows(IllegalArgumentException.class, () -> new PolynomialTerm(-1, "x", -3));
     }
