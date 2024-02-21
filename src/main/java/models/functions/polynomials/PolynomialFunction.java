@@ -6,7 +6,6 @@ import models.functions.FunctionType;
 import models.numberUtils.Range;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +22,7 @@ import lombok.NonNull;
 /**
  * This class implements a multi Term polynomial expression in one variable (for now)
  * of the form a_0 + a_1*x^1 + a_2*x^2 + ... + a_n*x^n
- * where a_i is a double value
+ * where a_i is a double value and x, the independent variable name
  */
 @Getter
 public class PolynomialFunction implements Function {
@@ -38,7 +37,6 @@ public class PolynomialFunction implements Function {
      * String representing the name of the polynomial function.
      * i.e. the 'f' in 'f(x)' or the 'h' in 'h(x)'
      */
-    @NonNull
     private final String funcName;
 
     /**
