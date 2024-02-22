@@ -46,14 +46,14 @@ public class RadicalFunction implements Function {
     public List<Range> getDomain() {
         if (rootIndex % 2 == 0) {
             // Even root
-            if (body instanceof PolynomialFunction) {
-                final PolynomialFunction polyBody = (PolynomialFunction) body;
+            if (body instanceof PolynomialFunction polyBody) {
                 final PolynomialInequality equation = new PolynomialInequality(InequalityType.GREATER_THAN_OR_EQUAL_TO, polyBody, new PolynomialFunction(
                         new LinkedList<>(), "tempEquation", this.varName));
                 equation.solve();
                 return equation.getSolution();
             } else {
-                throw new UnsupportedOperationException("RadicalFunction.getDomain() is not implemented for this type of function");
+                throw new UnsupportedOperationException("RadicalFunction Domain is not implemented for this type of inner function. " +
+                        "Provided function: " + this.printFunc());
             }
         } else {
             // Odd root
@@ -126,10 +126,10 @@ public class RadicalFunction implements Function {
 
     @Override
     public double limit(double value) {
-        if (this.getDomain().contains(value)) {
+        if (this.getDomain().stream().anyMatch(range -> range.includes(value))) {
             return this.evaluate(value);
         } else {
-            final String message = String.format("Limit for function %s at value %d is undefined", this, value);
+            final String message = String.format("Limit for function %s at value %f is undefined", this, value);
             logger.log(Level.INFO, message);
             return Double.NaN;
         }

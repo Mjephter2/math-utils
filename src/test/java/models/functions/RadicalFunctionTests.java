@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RadicalFunctionTests {
@@ -39,6 +40,7 @@ public class RadicalFunctionTests {
         assertEquals(3, func.getRootIndex());
         assertEquals(innerFunc, func.getBody());
         assertEquals(FunctionType.RADICAL, func.getFuncType());
+        assertFalse(func.isIndefiniteIntegral());
 
         final Function copy = func.deepCopy("copy");
         assertEquals("copy(x) = [3.0]√(2x²)", copy.printFunc());
