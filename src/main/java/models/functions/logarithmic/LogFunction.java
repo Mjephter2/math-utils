@@ -143,4 +143,16 @@ public class LogFunction implements Function {
         }
         return false;
     }
+
+    @Override
+    public double getMaxValue() {
+        // TODO: Implement getMaxValue for LogFunction
+        throw new UnsupportedOperationException("Unimplemented method 'getMaxValue");
+    }
+
+    @Override
+    public double getMinValue() {
+        // TODO: Implement getMinValue for LogFunction
+        throw new UnsupportedOperationException("Unimplemented method 'getMinValue");
+    }
 }

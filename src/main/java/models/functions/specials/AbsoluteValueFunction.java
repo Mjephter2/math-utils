@@ -102,4 +102,20 @@ public class AbsoluteValueFunction implements Function {
         }
         return false;
     }
+
+    @Override
+    public double getMaxValue() {
+        return Math.max(
+                Math.abs(this.getInnerFunction().getMaxValue()),
+                Math.abs(this.getInnerFunction().getMinValue())
+        );
+    }
+
+    @Override
+    public double getMinValue() {
+        return Math.min(
+                Math.abs(this.getInnerFunction().getMaxValue()),
+                Math.abs(this.getInnerFunction().getMinValue())
+        );
+    }
 }

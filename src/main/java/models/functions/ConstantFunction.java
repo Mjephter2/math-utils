@@ -129,4 +129,14 @@ public class ConstantFunction implements Function {
         }
         return false;
     }
+
+    @Override
+    public double getMaxValue() {
+        return this.value;
+    }
+
+    @Override
+    public double getMinValue() {
+        return this.value;
+    }
 }

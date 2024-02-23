@@ -128,4 +128,16 @@ public class ExponentialFunction implements Function {
         }
         return false;
     }
+
+    @Override
+    public double getMaxValue() {
+        // TODO: Implement getMaxValue for ExponentialFunction
+        throw new UnsupportedOperationException("Unimplemented function 'getMaxValue'");
+    }
+
+    @Override
+    public double getMinValue() {
+        // TODO: Implement getMinValue for ExponentialFunction
+        throw new UnsupportedOperationException("Unimplemented function 'getMinValue'");
+    }
 }

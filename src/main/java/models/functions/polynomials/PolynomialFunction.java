@@ -638,6 +638,18 @@ public class PolynomialFunction implements Function {
     }
 
     @Override
+    public double getMaxValue() {
+        // TODO: Implement getMaxValue for PolynomialFunction
+        throw new UnsupportedOperationException("Unimplemented method 'getMaxValue'");
+    }
+
+    @Override
+    public double getMinValue() {
+        // TODO: Implement getMinValue for PolynomialFunction
+        throw new UnsupportedOperationException("Unimplemented method 'getMinValue'");
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(
                 this.varName,

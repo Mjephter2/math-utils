@@ -133,4 +133,16 @@ public class PieceWiseFunction implements Function {
                 this.functionsToRangesMap.entrySet().stream()
                         .collect(Collectors.toMap(entry -> entry.getKey().deepCopy(entry.getKey().getFuncName()), Map.Entry::getValue)));
     }
+
+    @Override
+    public double getMaxValue() {
+        // Needs testing
+        return this.functionsToRangesMap.keySet().stream().mapToDouble(Function::getMaxValue).max().orElse(Double.MIN_VALUE);
+    }
+
+    @Override
+    public double getMinValue() {
+        // Needs testing
+        return this.functionsToRangesMap.keySet().stream().mapToDouble(Function::getMinValue).min().orElse(Double.MAX_VALUE);
+    }
 }

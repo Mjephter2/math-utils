@@ -139,4 +139,16 @@ public class ComplexFunction implements Function {
         }
         return false;
     }
+
+    @Override
+    public double getMaxValue() {
+        // TODO: Implement getMaxValue for ComplexFunction
+        throw new UnsupportedOperationException("Unimplemented function 'getMaxValue'");
+    }
+
+    @Override
+    public double getMinValue() {
+        // TODO: Implement getMinValue for ComplexFunction
+        throw new UnsupportedOperationException("Unimplemented function 'getMinValue'");
+    }
 }

@@ -149,4 +149,16 @@ public class RadicalFunction implements Function {
                 .varName(this.varName)
                 .build();
     }
+
+    @Override
+    public double getMaxValue() {
+        // TODO: Implement getMaxValue for RadicalFunction
+        throw new UnsupportedOperationException("Unimplemented method 'getMaxValue'");
+    }
+
+    @Override
+    public double getMinValue() {
+        // TODO: Implement getMinValue for RadicalFunction
+        throw new UnsupportedOperationException("Unimplemented method 'getMinValue'");
+    }
 }

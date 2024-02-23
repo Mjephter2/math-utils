@@ -152,4 +152,16 @@ public class TrigonometricFunction implements Function {
         }
         return false;
     }
+
+    @Override
+    public double getMaxValue() {
+        // TODO: Implement getMaxValue for TrigonometricFunction
+        throw new UnsupportedOperationException("Unimplemented method 'getMaxValue'");
+    }
+
+    @Override
+    public double getMinValue() {
+        // TODO: Implement getMinValue for TrigonometricFunction
+        throw new UnsupportedOperationException("Unimplemented method 'getMinValue'");
+    }
 }

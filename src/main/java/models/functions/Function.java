@@ -97,4 +97,14 @@ public interface Function {
      * Returns true if the given function is equal to this function
      */
     boolean equals(Object other);
+
+    /**
+     * Return the maximum value of this function
+     */
+    double getMaxValue();
+
+    /**
+     * Return the minimum value of this function
+     */
+    double getMinValue();
 }
