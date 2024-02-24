@@ -210,6 +210,19 @@ public class Range implements Comparable {
     }
 
     /**
+     * Returns the absolute value of a range
+     */
+    public static Range abs(final Range range) {
+        if (range.getLowerBound() >= 0) {
+            return range;
+        } else if (range.getUpperBound() <= 0) {
+            return new Range(-range.getUpperBound(), -range.getLowerBound(), range.isIncludeUpperBound(), range.includeLowerBound);
+        } else {
+            return new Range(0.0, Math.max(-range.getLowerBound(), range.getUpperBound()), true, range.includeUpperBound);
+        }
+    }
+
+    /**
      * Returns a range that includes all numbers between the provided bounds
      * @param sortedBounds - the bounds of the range
      * @return a list of ranges that includes all numbers between the bounds
