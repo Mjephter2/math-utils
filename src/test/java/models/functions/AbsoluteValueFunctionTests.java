@@ -39,6 +39,25 @@ public class AbsoluteValueFunctionTests {
     }
 
     @Test
+    public void getRangeTest() {
+        final PolynomialFunction innerFunc = new PolynomialFunction(new LinkedList<>(){{
+            add(PolynomialTerm.builder()
+                    .coefficient(2.0)
+                    .varName("x")
+                    .exponent(3)
+                    .build());
+        }}, "i", "x");
+
+        final AbsoluteValueFunction f = AbsoluteValueFunction.builder()
+                .funcName("f")
+                .varName("x")
+                .innerFunction(innerFunc)
+                .build();
+
+        assertEquals(Range.atLeast(0.0), f.getRange().get(0));
+    }
+
+    @Test
     public void exceptionTests() {
         final AbsoluteValueFunction f = AbsoluteValueFunction.builder()
                 .funcName("f")
@@ -49,7 +68,6 @@ public class AbsoluteValueFunctionTests {
                         .build())
                 .build();
 
-        assertThrows(UnsupportedOperationException.class, () -> f.getRange());
         assertThrows(UnsupportedOperationException.class, () -> f.integral());
         assertThrows(UnsupportedOperationException.class, () -> f.integral(1.0, 2.0));
         assertThrows(UnsupportedOperationException.class, () -> f.limit(1.0));

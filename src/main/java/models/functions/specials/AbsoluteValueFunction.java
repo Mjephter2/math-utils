@@ -5,6 +5,7 @@ import models.functions.FunctionType;
 import models.numberUtils.Range;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -38,8 +39,7 @@ public class AbsoluteValueFunction implements Function {
 
     @Override
     public List<Range> getRange() {
-        // TODO: Implement getRange for AbsoluteValueFunction
-        throw new UnsupportedOperationException("Unimplemented method 'getRange'");
+        return this.innerFunction.getRange().stream().map(Range::abs).collect(Collectors.toList());
     }
 
     @Override
