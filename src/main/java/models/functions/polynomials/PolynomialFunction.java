@@ -56,6 +56,16 @@ public class PolynomialFunction implements Function {
     private PolynomialFunctionType type;
 
     /**
+     * maximum value of the polynomial function
+     */
+    private double maxValue;
+
+    /**
+     * minimum value of the polynomial function
+     */
+    private double minValue;
+
+    /**
      * HashMap of factors to multiplicities of the polynomial function
      */
     private HashMap<PolynomialFunction, Integer> factorsToMultiplicity = new HashMap<>();
@@ -181,6 +191,32 @@ public class PolynomialFunction implements Function {
         }
         this.terms.removeAll(zeroTerms);
     }
+
+    /**
+     * Compute the maximum value of this function
+     */
+    private void computeMaxValue() {
+        if (this.degree % 2 == 0) {
+            this.maxValue = this.terms.stream()
+                    .filter(term -> term.getCoefficient() == this.getDegree())
+                    .findFirst().orElse(new PolynomialTerm(0.0, this.varName, 0))
+                    .getCoefficient() > 0.0 ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
+        } else {
+            this.maxValue = Double.POSITIVE_INFINITY;
+        }
+    }
+
+    /**
+     * Compute the minimum value of this function
+     */
+    private void computeMinValue() {
+        if (this.getDegree() % 2 == 0) {
+            this.minValue = this.getMaxValue();
+        } else {
+            this.minValue = Double.NEGATIVE_INFINITY;
+        }
+    }
+
 
     /**
      * Adds a Term to current polynomial.
@@ -639,14 +675,12 @@ public class PolynomialFunction implements Function {
 
     @Override
     public double getMaxValue() {
-        // TODO: Implement getMaxValue for PolynomialFunction
-        throw new UnsupportedOperationException("Unimplemented method 'getMaxValue'");
+        return this.maxValue;
     }
 
     @Override
     public double getMinValue() {
-        // TODO: Implement getMinValue for PolynomialFunction
-        throw new UnsupportedOperationException("Unimplemented method 'getMinValue'");
+        return this.minValue;
     }
 
     @Override
