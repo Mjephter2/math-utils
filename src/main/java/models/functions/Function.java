@@ -104,7 +104,17 @@ public interface Function {
     double getMaxValue();
 
     /**
+     * Return the maximum valus of this function within the given range
+     */
+    double getMaxValue(final Range range);
+
+    /**
      * Return the minimum value of this function
      */
     double getMinValue();
+
+    /**
+     * Return the minimum value of this function within the given range
+     */
+    double getMinValue(final Range range);
 }
