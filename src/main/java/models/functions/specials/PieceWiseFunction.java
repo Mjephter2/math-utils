@@ -136,13 +136,13 @@ public class PieceWiseFunction implements Function {
 
     @Override
     public double getMaxValue() {
-        // Needs testing
-        return this.functionsToRangesMap.keySet().stream().mapToDouble(Function::getMaxValue).max().orElse(Double.MIN_VALUE);
+        return this.functionsToRangesMap.keySet().stream()
+                .mapToDouble(Function::getMaxValue).max().orElse(Double.MAX_VALUE);
     }
 
     @Override
     public double getMinValue() {
-        // Needs testing
-        return this.functionsToRangesMap.keySet().stream().mapToDouble(Function::getMinValue).min().orElse(Double.MAX_VALUE);
+        return this.functionsToRangesMap.keySet().stream()
+                .mapToDouble(Function::getMinValue).min().orElse(Double.MIN_VALUE);
     }
 }
