@@ -679,8 +679,32 @@ public class PolynomialFunction implements Function {
     }
 
     @Override
+    public double getMaxValue(final Range range) {
+        double maxValue = Double.MIN_VALUE;
+        for (double i = range.getLowerBound(); i <= range.getUpperBound(); i += 0.01) {
+            double value = this.evaluate(i);
+            if (value > maxValue) {
+                maxValue = value;
+            }
+        }
+        return maxValue;
+    }
+
+    @Override
     public double getMinValue() {
         return this.minValue;
+    }
+
+    @Override
+    public double getMinValue(final Range range) {
+        double minValue = Double.MAX_VALUE;
+        for (double i = range.getLowerBound(); i <= range.getUpperBound(); i += 0.01) {
+            double value = this.evaluate(i);
+            if (value < minValue) {
+                minValue = value;
+            }
+        }
+        return minValue;
     }
 
     @Override
