@@ -1,6 +1,5 @@
 package models.functions.specials;
 
-import lombok.Builder;
 import lombok.Getter;
 import models.functions.Function;
 import models.functions.FunctionType;
@@ -17,9 +16,9 @@ import java.util.stream.Collectors;
 @Getter
 public class PieceWiseFunction implements Function {
 
-    private String funcName;
-    private String varName;
-    private Map<Function, Range> functionsToRangesMap;
+    final private String funcName;
+    final private String varName;
+    final private Map<Function, Range> functionsToRangesMap;
     private boolean isIndefiniteIntegral;
 
     @Override
@@ -141,8 +140,32 @@ public class PieceWiseFunction implements Function {
     }
 
     @Override
+    public double getMaxValue(Range range) {
+        double maxValue = Double.MIN_VALUE;
+        for ( double i = range.getLowerBound(); i <= range.getUpperBound(); i++ ) {
+            double value = this.evaluate(i);
+            if (value > maxValue) {
+                maxValue = value;
+            }
+        }
+        return maxValue;
+    }
+
+    @Override
     public double getMinValue() {
         return this.functionsToRangesMap.keySet().stream()
                 .mapToDouble(Function::getMinValue).min().orElse(Double.MIN_VALUE);
+    }
+
+    @Override
+    public double getMinValue(Range range) {
+        double minValue = Double.MAX_VALUE;
+        for ( double i = range.getLowerBound(); i <= range.getUpperBound(); i++ ) {
+            double value = this.evaluate(i);
+            if (value < minValue) {
+                minValue = value;
+            }
+        }
+        return minValue;
     }
 }
