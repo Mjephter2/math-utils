@@ -146,13 +146,37 @@ public class LogFunction implements Function {
 
     @Override
     public double getMaxValue() {
-        // TODO: Implement getMaxValue for LogFunction
-        throw new UnsupportedOperationException("Unimplemented method 'getMaxValue");
+        return Math.log(body.getMaxValue()) / Math.log(base);
+    }
+
+    @Override
+    public double getMaxValue(Range range) {
+        final Range overlap = range.intersection(this.getDomain().get(0));
+        double maxValue = Double.NEGATIVE_INFINITY;
+        for (double i = overlap.getLowerBound(); i <= overlap.getUpperBound(); i += 0.01) {
+            final double value = this.evaluate(i);
+            if (value > maxValue) {
+                maxValue = value;
+            }
+        }
+        return maxValue;
     }
 
     @Override
     public double getMinValue() {
-        // TODO: Implement getMinValue for LogFunction
-        throw new UnsupportedOperationException("Unimplemented method 'getMinValue");
+        return Math.log(body.getMinValue()) / Math.log(base);
+    }
+
+    @Override
+    public double getMinValue(Range range) {
+        final Range overlap = range.intersection(this.getDomain().get(0));
+        double minValue = Double.POSITIVE_INFINITY;
+        for (double i = overlap.getLowerBound(); i <= overlap.getUpperBound(); i += 0.01) {
+            final double value = this.evaluate(i);
+            if (value < minValue) {
+                minValue = value;
+            }
+        }
+        return minValue;
     }
 }
