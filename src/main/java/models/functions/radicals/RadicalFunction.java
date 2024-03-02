@@ -152,13 +152,37 @@ public class RadicalFunction implements Function {
 
     @Override
     public double getMaxValue() {
-        // TODO: Implement getMaxValue for RadicalFunction
-        throw new UnsupportedOperationException("Unimplemented method 'getMaxValue'");
+        return Math.pow(body.getMaxValue(), rootIndex);
+    }
+
+    @Override
+    public double getMaxValue(Range range) {
+        final Range overlap = range.intersection(this.getDomain().get(0));
+        double maxValue = Double.MIN_VALUE;
+        for (double i = overlap.getLowerBound(); i <= overlap.getUpperBound(); i += 0.01) {
+            final double value = this.evaluate(i);
+            if (value > maxValue) {
+                maxValue = value;
+            }
+        }
+        return maxValue;
     }
 
     @Override
     public double getMinValue() {
-        // TODO: Implement getMinValue for RadicalFunction
-        throw new UnsupportedOperationException("Unimplemented method 'getMinValue'");
+        return Math.pow(body.getMinValue(), rootIndex);
+    }
+
+    @Override
+    public double getMinValue(Range range) {
+        final Range overlap = range.intersection(this.getDomain().get(0));
+        double minValue = Double.MAX_VALUE;
+        for (double i = overlap.getLowerBound(); i <= overlap.getUpperBound(); i += 0.01) {
+            final double value = this.evaluate(i);
+            if (value < minValue) {
+                minValue = value;
+            }
+        }
+        return minValue;
     }
 }
