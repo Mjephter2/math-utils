@@ -112,10 +112,34 @@ public class AbsoluteValueFunction implements Function {
     }
 
     @Override
+    public double getMaxValue(Range range) {
+        final Range overlap = range.intersection(this.getDomain().get(0));
+        double maxValue = Double.MIN_VALUE;
+        for (double i = overlap.getLowerBound(); i <= overlap.getUpperBound(); i += 0.01) {
+            if (this.evaluate(i) > maxValue) {
+                maxValue = this.evaluate(i);
+            }
+        }
+        return maxValue;
+    }
+
+    @Override
     public double getMinValue() {
         return Math.min(
                 Math.abs(this.getInnerFunction().getMaxValue()),
                 Math.abs(this.getInnerFunction().getMinValue())
         );
+    }
+
+    @Override
+    public double getMinValue(Range range) {
+        final Range overlap = range.intersection(this.getDomain().get(0));
+        double minValue = Double.MAX_VALUE;
+        for (double i = overlap.getLowerBound(); i <= overlap.getUpperBound(); i += 0.01) {
+            if (this.evaluate(i) < minValue) {
+                minValue = this.evaluate(i);
+            }
+        }
+        return minValue;
     }
 }
