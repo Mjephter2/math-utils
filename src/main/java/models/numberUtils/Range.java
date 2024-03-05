@@ -54,6 +54,13 @@ public class Range implements Comparable {
     }
 
     /**
+     * Checks whether a range has no values
+     */
+    public boolean isEmpty() {
+        return this.lowerBound.equals(this.upperBound) && (!this.includeLowerBound || !this.includeUpperBound);
+    }
+
+    /**
      * Returns a range of all numbers equal or greater than a specified lower bound
      * @param lowerBound - the lower bound of the range
      * @return a range of all numbers equal or greater than the lower bound
@@ -279,7 +286,7 @@ public class Range implements Comparable {
             return other;
         } else if (other.includes(this)) {
             return this;
-        } else if (this.includes(other.lowerBound)) {;
+        } else if (this.includes(other.lowerBound)) {
             final Range intersection =  new Range(other.lowerBound, this.upperBound, other.includeLowerBound, this.includeUpperBound);
             if (intersection.lowerBound.equals(intersection.upperBound) && (!intersection.includeLowerBound || !intersection.includeUpperBound)) {
                 return null;
