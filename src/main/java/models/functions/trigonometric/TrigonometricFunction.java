@@ -160,8 +160,34 @@ public class TrigonometricFunction implements Function {
     }
 
     @Override
+    public double getMaxValue(Range range) {
+        final Range overlap = range.intersection(this.getDomain().get(0));
+        double maxValue = Double.NEGATIVE_INFINITY;
+        for (double x = overlap.getLowerBound(); x <= overlap.getUpperBound(); x += 0.01) {
+            final double y = this.evaluate(x);
+            if (y > maxValue) {
+                maxValue = y;
+            }
+        }
+        return maxValue;
+    }
+
+    @Override
     public double getMinValue() {
         // TODO: Implement getMinValue for TrigonometricFunction
         throw new UnsupportedOperationException("Unimplemented method 'getMinValue'");
+    }
+
+    @Override
+    public double getMinValue(Range range) {
+        final Range overlap = range.intersection(this.getDomain().get(0));
+        double minValue = Double.POSITIVE_INFINITY;
+        for (double x = overlap.getLowerBound(); x <= overlap.getUpperBound(); x += 0.01) {
+            final double y = this.evaluate(x);
+            if (y < minValue) {
+                minValue = y;
+            }
+        }
+        return minValue;
     }
 }

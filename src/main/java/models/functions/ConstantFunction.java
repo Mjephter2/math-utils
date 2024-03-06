@@ -136,7 +136,17 @@ public class ConstantFunction implements Function {
     }
 
     @Override
+    public double getMaxValue(Range range) {
+        return this.value;
+    }
+
+    @Override
     public double getMinValue() {
+        return this.value;
+    }
+
+    @Override
+    public double getMinValue(Range range) {
         return this.value;
     }
 }
