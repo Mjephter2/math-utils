@@ -131,13 +131,37 @@ public class ExponentialFunction implements Function {
 
     @Override
     public double getMaxValue() {
-        // TODO: Implement getMaxValue for ExponentialFunction
-        throw new UnsupportedOperationException("Unimplemented function 'getMaxValue'");
+        return Math.pow(this.base, this.exponent.getMaxValue());
+    }
+
+    @Override
+    public double getMaxValue(Range range) {
+        final Range overlap = range.intersection(this.exponent.getDomain().get(0));
+        double maxValue = Double.MIN_VALUE;
+        for (double i = overlap.getLowerBound(); i <= overlap.getUpperBound(); i += 0.01) {
+            final double value = this.evaluate(i);
+            if (value > maxValue) {
+                maxValue = value;
+            }
+        }
+        return maxValue;
     }
 
     @Override
     public double getMinValue() {
-        // TODO: Implement getMinValue for ExponentialFunction
-        throw new UnsupportedOperationException("Unimplemented function 'getMinValue'");
+        return Math.pow(this.base, this.exponent.getMinValue());
+    }
+
+    @Override
+    public double getMinValue(Range range) {
+        final Range overlap = range.intersection(this.exponent.getDomain().get(0));
+        double minValue = Double.MAX_VALUE;
+        for (double i = overlap.getLowerBound(); i <= overlap.getUpperBound(); i += 0.01) {
+            final double value = this.evaluate(i);
+            if (value < minValue) {
+                minValue = value;
+            }
+        }
+        return minValue;
     }
 }
