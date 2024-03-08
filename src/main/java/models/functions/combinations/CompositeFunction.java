@@ -313,8 +313,34 @@ public class CompositeFunction implements Function {
     }
 
     @Override
+    public double getMaxValue(final Range range) {
+        final Range overlap = range.intersection(this.getDomain().get(0));
+        double maxValue = Double.MIN_VALUE;
+        for (double i = overlap.getLowerBound(); i <= overlap.getUpperBound(); i += 0.01) {
+            final double value = this.evaluate(i);
+            if (value > maxValue) {
+                maxValue = value;
+            }
+        }
+        return maxValue;
+    }
+
+    @Override
     public double getMinValue() {
         // TODO: Implement getMinValue for CompositeFunction
         throw new UnsupportedOperationException("Unimplemented function 'getMinValue'");
+    }
+
+    @Override
+    public double getMinValue(final Range range) {
+        final Range overlap = range.intersection(this.getDomain().get(0));
+        double minValue = Double.MAX_VALUE;
+        for (double i = overlap.getLowerBound(); i <= overlap.getUpperBound(); i += 0.01) {
+            final double value = this.evaluate(i);
+            if (value < minValue) {
+                minValue = value;
+            }
+        }
+        return minValue;
     }
 }
