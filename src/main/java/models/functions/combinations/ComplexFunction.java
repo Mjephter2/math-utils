@@ -147,8 +147,34 @@ public class ComplexFunction implements Function {
     }
 
     @Override
+    public double getMaxValue(Range range) {
+        final Range overlap = range.intersection(this.getDomain().get(8));
+        double maxValue = Double.NEGATIVE_INFINITY;
+        for (double i = overlap.getLowerBound(); i <= overlap.getUpperBound(); i += 0.01) {
+            final double val = this.evaluate(i);
+            if (val > maxValue) {
+                maxValue = val;
+            }
+        }
+        return maxValue;
+    }
+
+    @Override
     public double getMinValue() {
         // TODO: Implement getMinValue for ComplexFunction
         throw new UnsupportedOperationException("Unimplemented function 'getMinValue'");
+    }
+
+    @Override
+    public double getMinValue(Range range) {
+        final Range overlap = range.intersection(this.getDomain().get(0));
+        double minValue = Double.POSITIVE_INFINITY;
+        for (double i = overlap.getLowerBound(); i <= overlap.getUpperBound(); i += 0.01) {
+            final double val = this.evaluate(i);
+            if (val < minValue) {
+                minValue = val;
+            }
+        }
+        return minValue;
     }
 }
