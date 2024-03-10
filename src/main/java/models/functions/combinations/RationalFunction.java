@@ -126,8 +126,34 @@ public class RationalFunction implements Function {
     }
 
     @Override
+    public double getMaxValue(Range range) {
+        final Range overlap = range.intersection(this.getDomain().get(0));
+        double maxValue = Double.NEGATIVE_INFINITY;
+        for (double i = overlap.getLowerBound(); i <= overlap.getUpperBound(); i += 0.01) {
+            final double value = this.evaluate(i);
+            if (value > maxValue) {
+                maxValue = value;
+            }
+        }
+        return maxValue;
+    }
+
+    @Override
     public double getMinValue() {
         // TODO: Implement getMinValue for RationalFunction
         throw new UnsupportedOperationException("Unimplemented function 'getMinValue'");
+    }
+
+    @Override
+    public double getMinValue(Range range) {
+        final Range overlap = range.intersection(this.getDomain().get(0));
+        double minValue = Double.POSITIVE_INFINITY;
+        for (double i = overlap.getLowerBound(); i <= overlap.getUpperBound(); i += 0.01) {
+            final double value = this.evaluate(i);
+            if (value < minValue) {
+                minValue = value;
+            }
+        }
+        return minValue;
     }
 }
