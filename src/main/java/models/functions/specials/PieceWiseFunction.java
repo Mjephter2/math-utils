@@ -52,15 +52,15 @@ public class PieceWiseFunction implements Function {
      */
     public boolean validateDomains() {
         final Range[] domains = this.functionsToRangesMap.values().toArray(new Range[0]);
-        Range overlap = this.functionsToRangesMap.values().toArray(new Range[0])[0];
+        Range overlap = domains[0];
         // Compare all ranges against one another and check for overlaps
-        for (int i = 1; i < domains.length - 1; i++) {
+        for (int i = 1; i < domains.length; i++) {
             overlap = overlap.intersection(domains[i]);
-            if (!overlap.isEmpty()) {
+            if (overlap != null) {
                 return false;
             }
         }
-        return overlap.isEmpty();
+        return overlap == null;
     }
 
     @Override
