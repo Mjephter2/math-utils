@@ -2,6 +2,7 @@ package models.numberUtils;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -240,6 +241,27 @@ public class Range implements Comparable {
             ranges.add(new Range(sortedBounds.get(i), sortedBounds.get(i + 1), sortedBounds.get(i).isInfinite() ? false : true, sortedBounds.get(i).isInfinite() ? false : (i == sortedBounds.size() - 2)));
         }
         return ranges;
+    }
+
+    /**
+     * @return a shortened list of all the values in this range
+     * @param precision - difference between two consecutive values
+     */
+    public List<Double> toList(final double precision) {
+        final List<Double> list = new ArrayList<>();
+        if (includeLowerBound) {
+            list.add(lowerBound);
+        }
+
+        for (double i = lowerBound + precision; i < upperBound; i += precision) {
+            list.add(i);
+        }
+
+        if (includeUpperBound) {
+            list.add(upperBound);
+        }
+
+        return list;
     }
 
     /**
