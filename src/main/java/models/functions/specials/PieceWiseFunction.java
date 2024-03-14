@@ -19,7 +19,7 @@ public class PieceWiseFunction implements Function {
     final private String funcName;
     final private String varName;
     final private Map<Function, Range> functionsToRangesMap;
-    private boolean isIndefiniteIntegral;
+    private final boolean isIndefiniteIntegral;
 
     @Override
     public String getFuncName() {
@@ -35,6 +35,7 @@ public class PieceWiseFunction implements Function {
         this.funcName = functionName;
         this.varName = variableName;
         this.functionsToRangesMap = funcToRangeMap;
+        this.isIndefiniteIntegral = false;
         if (!validateDomains()) {
             throw new IllegalArgumentException("Overlapping Domains found!");
         }
@@ -55,7 +56,7 @@ public class PieceWiseFunction implements Function {
         Range overlap = domains[0];
         // Compare all ranges against one another and check for overlaps
         for (int i = 1; i < domains.length; i++) {
-            overlap = overlap.intersection(domains[i]);
+            overlap = domains[i].intersection(overlap);
             if (overlap != null) {
                 return false;
             }
@@ -81,7 +82,7 @@ public class PieceWiseFunction implements Function {
                 function -> functionsToRangesMap.get(function).includes(values[0])
         ).findFirst();
 
-        if (!funcToEval.isEmpty()) {
+        if (funcToEval.isPresent()) {
             return funcToEval.get().evaluate(values);
         }
 
