@@ -14,32 +14,32 @@ public class Range implements Comparable {
     /**
      * The lower bound of the range
      */
-    private Double lowerBound;
+    private final Double lowerBound;
     /**
      * Whether the lower bound is included in the range
      */
-    private boolean includeLowerBound;
+    private final boolean includeLowerBound;
 
     /**
      * The upper bound of the range
      */
-    private Double upperBound;
+    private final Double upperBound;
     /**
      * Whether the upper bound is included in the range
      */
-    private boolean includeUpperBound;
+    private final boolean includeUpperBound;
 
     /**
      * Constructs a range of numbers
      * @param lowerBound - the lower bound of the range
-     * @param uppperBound - the upper bound of the range
+     * @param upperBound - the upper bound of the range
      * @param includeLowerBound - whether the lower bound is included in the range
      * @param includeUpperBound - whether the upper bound is included in the range
      */
-    public Range(final Double lowerBound, final Double uppperBound, final boolean includeLowerBound, final boolean includeUpperBound) {
-        if (validatedBounds(lowerBound, uppperBound, includeLowerBound, includeUpperBound)) {
+    public Range(final Double lowerBound, final Double upperBound, final boolean includeLowerBound, final boolean includeUpperBound) {
+        if (validatedBounds(lowerBound, upperBound, includeLowerBound, includeUpperBound)) {
             this.lowerBound = lowerBound;
-            this.upperBound = uppperBound;
+            this.upperBound = upperBound;
             this.includeLowerBound = includeLowerBound;
             this.includeUpperBound = includeUpperBound;
         } else {
@@ -48,10 +48,7 @@ public class Range implements Comparable {
     }
 
     private boolean validatedBounds(final Double lowerBound, final Double uppperBound, final boolean includeLowerBound, final boolean includeUpperBound) {
-        if ((includeLowerBound && lowerBound.isInfinite()) || (includeUpperBound && uppperBound.isInfinite())) {
-            return false;
-        }
-        return true;
+        return (!includeLowerBound || !lowerBound.isInfinite()) && (!includeUpperBound || !uppperBound.isInfinite());
     }
 
     /**
@@ -238,7 +235,7 @@ public class Range implements Comparable {
 
         final List<Range> ranges = new java.util.ArrayList<>();
         for (int i = 0; i < sortedBounds.size() - 1; i += 1) {
-            ranges.add(new Range(sortedBounds.get(i), sortedBounds.get(i + 1), sortedBounds.get(i).isInfinite() ? false : true, sortedBounds.get(i).isInfinite() ? false : (i == sortedBounds.size() - 2)));
+            ranges.add(new Range(sortedBounds.get(i), sortedBounds.get(i + 1), !sortedBounds.get(i).isInfinite(), !sortedBounds.get(i).isInfinite() && (i == sortedBounds.size() - 2)));
         }
         return ranges;
     }
@@ -293,7 +290,7 @@ public class Range implements Comparable {
 
     /**
      * Returns the overlap of this range with another range
-     * @param other
+     * @param other - the other range to check for overlap
      * @return the common range between this range and the other range
      */
     public Range intersection(final Range other) {
@@ -342,11 +339,9 @@ public class Range implements Comparable {
      */
     @Override
     public String toString() {
-        final StringBuilder rep = new StringBuilder("Range::").append(includeLowerBound ? "[" : "(");
-        rep.append(printBound(this.lowerBound)).append(" --> ").append(printBound(this.upperBound));
-        rep.append(this.includeUpperBound ? "]" : ")");
-
-        return rep.toString();
+        return "Range::" + (includeLowerBound ? "[" : "(") +
+                printBound(this.lowerBound) + " --> " + printBound(this.upperBound) +
+                (this.includeUpperBound ? "]" : ")");
     }
 
     private String printBound(final Double value) {
@@ -359,19 +354,12 @@ public class Range implements Comparable {
         return value.toString();
     }
 
-    /**
-     * Returns whether this range is equal to another range
-     * @param o the object to be compared.
-     * @return true when the ranges have the same bounds and include flags
-     */
     @Override
     public int compareTo(final Object o) {
         if (this == o) return 0;
-        if (!(o instanceof Range) || o == null) {
+        if (!(o instanceof Range other)) {
             throw new IllegalArgumentException("Cannot compare Range to different cla " + o.getClass().getName());
-        };
-
-        Range other = (Range) o;
+        }
 
         if (!this.lowerBound.equals(other.lowerBound)) {
             return this.lowerBound < other.lowerBound ? -1 : 1;
@@ -388,7 +376,7 @@ public class Range implements Comparable {
 
     @Override
     public boolean equals(final Object other) {
-        return  this.compareTo(other) == 0;
+        return  other instanceof Range && this.compareTo(other) == 0;
     }
 
     /**
