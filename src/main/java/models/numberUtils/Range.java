@@ -216,6 +216,7 @@ public class Range implements Comparable {
         } else if (range.getUpperBound() <= 0) {
             return new Range(-range.getUpperBound(), -range.getLowerBound(), range.isIncludeUpperBound(), range.includeLowerBound);
         } else {
+            // TODO: Unit test to check if this is correct
             return new Range(0.0, Math.max(-range.getLowerBound(), range.getUpperBound()), true, range.includeUpperBound);
         }
     }
@@ -228,7 +229,7 @@ public class Range implements Comparable {
     public static List<Range> fromBounds(final List<Double> sortedBounds) {
         // Check if sortedBounds is sorted
         for (int i = 0; i < sortedBounds.size() - 1; i += 1) {
-            if (sortedBounds.get(i) > sortedBounds.get(i + 1)) {
+            if (sortedBounds.get(i) >= sortedBounds.get(i + 1)) {
                 throw new IllegalArgumentException("Bounds must be sorted and unique!");
             }
         }
