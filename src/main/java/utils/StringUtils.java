@@ -1,8 +1,11 @@
 package utils;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * This class contains utility methods for String manipulation.
  */
+@UtilityClass
 public final class StringUtils {
 
     /**

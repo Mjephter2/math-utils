@@ -1,5 +1,6 @@
 package utils;
 
+import lombok.experimental.UtilityClass;
 import models.functions.Function;
 import models.functions.combinations.ComplexFunction;
 import models.functions.combinations.CompositeFunction;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * Utility class for calculating derivatives of functions.
  */
+@UtilityClass
 public class DerivativeUtils {
 
     /**

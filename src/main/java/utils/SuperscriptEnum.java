@@ -1,8 +1,11 @@
 package utils;
 
+import lombok.Getter;
+
 /**
  * Enum for digit superscript characters
  */
+@Getter
 public enum SuperscriptEnum {
     ZERO("⁰"),
     ONE("¹"),
@@ -22,7 +25,4 @@ public enum SuperscriptEnum {
         this.superscript = superscript;
     }
 
-    public String getSuperscript() {
-        return superscript;
-    }
 }

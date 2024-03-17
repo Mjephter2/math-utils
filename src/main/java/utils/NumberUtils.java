@@ -1,12 +1,14 @@
 package utils;
 
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 
 import java.util.Arrays;
 
 /**
  * Utility class for number operations
  */
+@UtilityClass
 public class NumberUtils {
 
     private static final long GCD_PRECISION = 1000000;

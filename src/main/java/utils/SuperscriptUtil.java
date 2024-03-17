@@ -1,11 +1,14 @@
 package utils;
 
+import lombok.experimental.UtilityClass;
+
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Utility class for converting digits to superscript characters
  */
+@UtilityClass
 public final class SuperscriptUtil {
 
     /**
