@@ -61,6 +61,11 @@ public interface Function {
     Function derivative();
 
     /**
+     * Returns the derivative of the function with respect to a given variable
+     */
+    Function derivative(final String variable);
+
+    /**
      * Returns the indefinite integral of the function with respect to its independent variable
      */
     Function integral();
