@@ -561,6 +561,11 @@ public class PolynomialFunction implements Function {
         } }, this.funcName + "'", this.varName, false);
     }
 
+    @Override
+    public Function defaultFunc() {
+        return PolynomialFunction.from("1x", "DefaultPolynomialFunction", "x");
+    }
+
     /**
      * Computes the derivative of the current Polynomial.
      * @return the derivative of the Polynomial
