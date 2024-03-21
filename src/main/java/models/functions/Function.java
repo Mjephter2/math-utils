@@ -63,9 +63,16 @@ public interface Function {
     /**
      * Returns the derivative of the function with respect to a given variable
      */
-    Function derivative(final String variable);
+    default Function derivative(final String variable) {
+        if (variable.equals(this.getVarName())) {
+            return derivative();
+        }
+        return ConstantFunction.zeroFunction();
+    }
 
-    Function defaultFunc();
+    static Function defaultFunc() {
+        return null;
+    }
 
     /**
      * Returns the indefinite integral of the function with respect to its independent variable
