@@ -68,6 +68,20 @@ public class ConstantFunction implements Function {
                 .build();
     }
 
+    @Override
+    public Function derivative(String variable) {
+        return derivative();
+    }
+
+    @Override
+    public Function defaultFunc() {
+        return ConstantFunction.builder()
+                .funcName("DefaultConstantFunction")
+                .value(1)
+                .isIndefiniteIntegral(false)
+                .build();
+    }
+
     // This method should never be called as a ConstantFunction does not have an explicit independent variable
     @Override
     public Function integral() {
