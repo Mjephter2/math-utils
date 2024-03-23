@@ -73,11 +73,18 @@ public class ConstantFunction implements Function {
         return derivative();
     }
 
-    @Override
-    public Function defaultFunc() {
+    public static Function defaultFunc() {
         return ConstantFunction.builder()
                 .funcName("DefaultConstantFunction")
                 .value(1)
+                .isIndefiniteIntegral(false)
+                .build();
+    }
+
+    public static Function zeroFunction() {
+        return ConstantFunction.builder()
+                .funcName("ZeroFunction")
+                .value(0)
                 .isIndefiniteIntegral(false)
                 .build();
     }
