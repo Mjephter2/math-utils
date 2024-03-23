@@ -38,6 +38,14 @@ public class RadicalFunction implements Function {
         return FunctionType.RADICAL;
     }
 
+    public static Function defaultFunc() {
+        return RadicalFunction.builder()
+                .funcName("DefaultRadicalFunction")
+                .varName("x")
+                .body(PolynomialFunction.defaultFunc())
+                .build();
+    }
+
     /**
      * Implemented only for functions with polynomial body
      * TODO: Implement for other types of functions

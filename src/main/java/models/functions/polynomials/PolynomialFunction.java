@@ -561,8 +561,7 @@ public class PolynomialFunction implements Function {
         } }, this.funcName + "'", this.varName, false);
     }
 
-    @Override
-    public Function defaultFunc() {
+    public static Function defaultFunc() {
         return PolynomialFunction.from("1x", "DefaultPolynomialFunction", "x");
     }
 
