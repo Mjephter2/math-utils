@@ -42,6 +42,7 @@ public class RadicalFunction implements Function {
         return RadicalFunction.builder()
                 .funcName("DefaultRadicalFunction")
                 .varName("x")
+                .rootIndex(0.5)
                 .body(PolynomialFunction.defaultFunc())
                 .build();
     }
