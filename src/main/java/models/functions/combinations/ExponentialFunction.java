@@ -29,6 +29,14 @@ public class ExponentialFunction implements Function {
     private final Function exponent;
     private boolean isIndefiniteIntegral;
 
+    public static Function defaultFunc() {
+        return ExponentialFunction.builder()
+                .funcName("DefaultExponentialFunction")
+                .base(Math.E)
+                .exponent(PolynomialFunction.defaultFunc())
+                .build();
+    }
+
     @Override
     public FunctionType getFuncType() {
         return FunctionType.EXPONENTIAL;
