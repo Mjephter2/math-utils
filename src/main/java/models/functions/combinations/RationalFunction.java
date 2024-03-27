@@ -4,6 +4,7 @@ import models.equations.GeneralEquation;
 import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
+import models.functions.polynomials.PolynomialFunction;
 import utils.DerivativeUtils;
 
 import models.numberUtils.Range;
@@ -27,6 +28,15 @@ public class RationalFunction implements Function {
     final String funcName;
     final String varName;
     private boolean isIndefiniteIntegral;
+
+    public static Function defaultFunc() {
+        return RationalFunction.builder()
+                .funcName("DefaultRationalFunction")
+                .numerator(ConstantFunction.defaultFunc())
+                .denominator(PolynomialFunction.defaultFunc())
+                .varName("x")
+                .build();
+    }
 
     @Override
     public String getFuncName() {
