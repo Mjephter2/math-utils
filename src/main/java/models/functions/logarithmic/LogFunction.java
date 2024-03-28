@@ -26,6 +26,15 @@ public class LogFunction implements Function {
     private double base;
     private boolean isIndefiniteIntegral;
 
+    public static Function defaultFunction() {
+        return LogFunction.builder()
+                .funcName("DefaultLogFunction")
+                .varName("x")
+                .base(Math.E)
+                .body(PolynomialFunction.defaultFunc())
+                .build();
+    }
+
     @Override
     public String getFuncName() {
         return this.funcName;
