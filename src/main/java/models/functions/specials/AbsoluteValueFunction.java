@@ -2,6 +2,7 @@ package models.functions.specials;
 
 import models.functions.Function;
 import models.functions.FunctionType;
+import models.functions.polynomials.PolynomialFunction;
 import models.numberUtils.Range;
 
 import java.util.List;
@@ -21,6 +22,14 @@ public final class AbsoluteValueFunction implements Function {
     private final String funcName;
     private final Function innerFunction;
     private final boolean isIndefiniteIntegral;
+
+    public static Function defaultFunction() {
+        return AbsoluteValueFunction.builder()
+                .funcName("DefaultAbsoluteValueFunction")
+                .varName("x")
+                .innerFunction(PolynomialFunction.defaultFunc())
+                .build();
+    }
 
     @Override
     public String getFuncName() {
