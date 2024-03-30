@@ -1,8 +1,10 @@
 package models.functions.specials;
 
 import lombok.Getter;
+import models.functions.ConstantFunction;
 import models.functions.Function;
 import models.functions.FunctionType;
+import models.functions.polynomials.PolynomialFunction;
 import models.numberUtils.Range;
 
 import java.util.List;
@@ -39,6 +41,17 @@ public class PieceWiseFunction implements Function {
         if (!validateDomains()) {
             throw new IllegalArgumentException("Overlapping Domains found!");
         }
+    }
+
+    public static Function defaultFunction() {
+        return new PieceWiseFunction(
+                "DefaultPieceWiseFunction",
+                "x",
+                Map.of(
+                        ConstantFunction.defaultFunc(), Range.lessThan(0),
+                        ConstantFunction.builder().funcName("ConstantFunc_-1").value(-1).build(), Range.atLeast(0)
+                )
+        );
     }
 
     @Override
