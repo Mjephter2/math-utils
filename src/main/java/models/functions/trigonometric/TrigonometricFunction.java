@@ -67,6 +67,15 @@ public class TrigonometricFunction implements Function {
         }
     }
 
+    public static Function defaultFunc() {
+        return TrigonometricFunction.builder()
+                .funcName("DefaultTrigonometricFunction")
+                .varName("x")
+                .trigonometricFunctionType(COSINE)
+                .innerFunction(PolynomialFunction.defaultFunc())
+                .build();
+    }
+
     @Override
     public Function simplify() {
         if (this.innerFunction.getFuncType() == FunctionType.CONSTANT) {
