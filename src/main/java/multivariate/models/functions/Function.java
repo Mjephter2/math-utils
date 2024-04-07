@@ -39,11 +39,21 @@ public abstract class Function {
         this.range = computeRange();
     }
 
+    public abstract boolean isConstant();
+
     public abstract Map<Variable, Range> computeDomain();
 
     public abstract List<Range> computeRange();
 
-    public abstract void simplity();
+    public abstract void simplify();
 
     public abstract Function partialDerivative(final Variable variable);
+
+    public abstract Function add(Function other);
+
+    public abstract Function substract(Function other);
+
+    public abstract Function multiply(Function other);
+
+    public abstract Function divide(Function other);
 }

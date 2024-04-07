@@ -37,6 +37,11 @@ public class PolynomialFunction extends Function {
     }
 
     @Override
+    public boolean isConstant() {
+        return this.terms.stream().allMatch(PolynomialTerm::isConstant);
+    }
+
+    @Override
     public Map<Variable, Range> computeDomain() {
         return Map.of();
     }
@@ -47,7 +52,7 @@ public class PolynomialFunction extends Function {
     }
 
     @Override
-    public void simplity() {
+    public void simplify() {
 
     }
 
@@ -55,4 +60,25 @@ public class PolynomialFunction extends Function {
     public Function partialDerivative(Variable variable) {
         return null;
     }
+
+    @Override
+    public Function add(final Function other) {
+        return null;
+    }
+
+    @Override
+    public Function substract(final Function other) {
+        return null;
+    }
+
+    @Override
+    public Function multiply(final Function other) {
+        return null;
+    }
+
+    @Override
+    public Function divide(final Function other) {
+        return null;
+    }
+
 }
