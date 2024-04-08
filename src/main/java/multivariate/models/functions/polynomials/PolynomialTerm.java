@@ -54,16 +54,12 @@ public class PolynomialTerm {
         if (coefficient == 0.0) {
             return "0";
         }
-        StringBuilder sb = new StringBuilder(coefficient == 1.0 ? "" : coefficient.toString());
-        sb.append(coefficient == 1.0 ? "" : " * ");
 
-        sb.append(variableToExponentMap.entrySet().stream()
-                .filter(entry -> entry.getValue() != 0.0)
-                .map(entry -> entry.getKey().getName() + "^" + entry.getValue())
-                .reduce((s1, s2) -> s1 + " * " + s2)
-                .orElse("")
-        );
-
-        return sb.toString();
+        return (coefficient == 1.0 ? "" : coefficient.toString()) + (coefficient == 1.0 ? "" : " * ") +
+                variableToExponentMap.entrySet().stream()
+                        .filter(entry -> entry.getValue() != 0.0)
+                        .map(entry -> entry.getKey().getName() + "^" + entry.getValue())
+                        .reduce((s1, s2) -> s1 + " * " + s2)
+                        .orElse("");
     }
 }
