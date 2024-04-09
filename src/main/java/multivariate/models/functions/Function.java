@@ -17,14 +17,17 @@ public abstract class Function {
     private final Boolean isIndefiniteIntegral;
     @NonNull private final Map<Variable, Range> domain;
     @NonNull private final List<Range> range;
-
+    private final Boolean isEval;
+    private Map<Variable, Double> evalValues = null;
 
     public Function(
             final String funcName,
             final List<Variable> variableList,
             final FunctionType functionType,
-            final Boolean isIndefiniteIntegral
-            ) {
+            final Boolean isIndefiniteIntegral,
+            final Boolean isEval
+    ) {
+        this.isEval = isEval;
 
         // Minor validations
         if (funcName == null || funcName.isEmpty() || Character.isDigit(funcName.charAt(0))) {
@@ -39,6 +42,29 @@ public abstract class Function {
         this.range = computeRange();
     }
 
+    public Function(
+            final String funcName,
+            final List<Variable> variableList,
+            final FunctionType functionType,
+            final Boolean isIndefiniteIntegral,
+            final Map<Variable, Double> evalValues
+    ) {
+        this.isEval = true;
+
+        // Minor validations
+        if (funcName == null || funcName.isEmpty() || Character.isDigit(funcName.charAt(0))) {
+            throw new IllegalArgumentException("Function Name cannot be empty and must start with a letter!");
+        }
+
+        this.funcName = funcName;
+        this.variableList = variableList;
+        this.functionType = functionType;
+        this.isIndefiniteIntegral = isIndefiniteIntegral;
+        this.domain = computeDomain();
+        this.range = computeRange();
+        this.evalValues = evalValues;
+    }
+
     public abstract boolean isConstant();
 
     public abstract Map<Variable, Range> computeDomain();
@@ -46,6 +72,8 @@ public abstract class Function {
     public abstract List<Range> computeRange();
 
     public abstract void simplify();
+
+    public abstract Function partialEvaluate(Map<Variable, Double> values);
 
     public abstract Function partialDerivative(final Variable variable);
 
