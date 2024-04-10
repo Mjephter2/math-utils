@@ -24,10 +24,8 @@ public abstract class Function {
             final String funcName,
             final List<Variable> variableList,
             final FunctionType functionType,
-            final Boolean isIndefiniteIntegral,
-            final Boolean isEval
-    ) {
-        this.isEval = isEval;
+            final Boolean isIndefiniteIntegral) {
+        this.isEval = false;
 
         // Minor validations
         if (funcName == null || funcName.isEmpty() || Character.isDigit(funcName.charAt(0))) {
@@ -50,6 +48,7 @@ public abstract class Function {
             final Map<Variable, Double> evalValues
     ) {
         this.isEval = true;
+        this.evalValues = evalValues;
 
         // Minor validations
         if (funcName == null || funcName.isEmpty() || Character.isDigit(funcName.charAt(0))) {
@@ -62,8 +61,9 @@ public abstract class Function {
         this.isIndefiniteIntegral = isIndefiniteIntegral;
         this.domain = computeDomain();
         this.range = computeRange();
-        this.evalValues = evalValues;
     }
+
+    public abstract boolean containsVariable(final Variable variable);
 
     public abstract boolean isConstant();
 

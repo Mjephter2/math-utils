@@ -31,6 +31,10 @@ public class PolynomialTerm {
         );
     }
 
+    public boolean containsVariable(final Variable variable) {
+        return this.getVariableToExponentMap().containsKey(variable);
+    }
+
     public PolynomialTerm partialEvaluate(final Map<Variable, Double> inputVariableToValueMap) {
         Double newCoefficient = this.coefficient;
         for (Map.Entry<Variable, Double> entry : inputVariableToValueMap.entrySet()) {
