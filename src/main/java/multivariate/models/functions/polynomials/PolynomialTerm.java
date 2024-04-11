@@ -3,9 +3,9 @@ package multivariate.models.functions.polynomials;
 import lombok.Getter;
 import univariate.models.Variable;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Getter
 public class PolynomialTerm {
@@ -50,6 +50,18 @@ public class PolynomialTerm {
         }
         return new PolynomialTerm(newVariableToExponentMap, newCoefficient);
     }
+
+    public PolynomialTerm multiply(final PolynomialTerm other) {
+        final Set<Variable> newVarSet = Stream
+                .concat(this.variableToExponentMap.keySet().stream(), other.variableToExponentMap.keySet().stream())
+                .collect(Collectors.toSet());
+        final Map<Variable, Double> newVarToExponentMap = new HashMap<>();
+        for (final Variable variable: newVarSet) {
+            newVarToExponentMap.put(variable, this.variableToExponentMap.getOrDefault(variable, 0.0) + other.variableToExponentMap.getOrDefault(variable, 0.0));
+        }
+
+        return new PolynomialTerm(newVarToExponentMap, this.coefficient * other.getCoefficient());
+    };
 
     public String toString() {
         if (isConstant()) {
