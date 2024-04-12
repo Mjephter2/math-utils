@@ -6,8 +6,9 @@ import univariate.models.Variable;
 import univariate.models.functions.FunctionType;
 import univariate.models.numberUtils.Range;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Map;
+import java.util.Comparator;
 import java.util.stream.Stream;
 
 /** This class implements a multi term multi variate polynomial.
@@ -92,6 +93,11 @@ public class PolynomialFunction extends Function {
                 newTerms,
                 variableToValuesMap
         );
+    }
+
+    @Override
+    public Double evaluate(final Map<Variable, Double> values) {
+        return terms.stream().map(term -> term.evaluate(values)).reduce(0.0, Double::sum);
     }
 
     @Override

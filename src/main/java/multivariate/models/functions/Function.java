@@ -8,6 +8,8 @@ import univariate.models.numberUtils.Range;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 public abstract class Function {
@@ -74,6 +76,8 @@ public abstract class Function {
     public abstract void simplify();
 
     public abstract Function partialEvaluate(Map<Variable, Double> values);
+
+    public abstract Double evaluate(Map<Variable, Double> values);
 
     public abstract Function partialDerivative(final Variable variable);
 

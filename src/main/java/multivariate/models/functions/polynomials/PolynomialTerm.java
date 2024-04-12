@@ -51,6 +51,28 @@ public class PolynomialTerm {
         return new PolynomialTerm(newVariableToExponentMap, newCoefficient);
     }
 
+    public Double evaluate(final Map<Variable, Double> inputVariableToValueMap) {
+        verifyCompleteInputValues(inputVariableToValueMap);
+        return this.coefficient
+                *
+                inputVariableToValueMap.entrySet().stream()
+                .mapToDouble(entry -> Math.pow(entry.getValue(), this.variableToExponentMap.get(entry.getKey())))
+                .reduce(1.0, (a, b) -> a * b);
+    }
+
+    public void verifyCompleteInputValues(final Map<Variable, Double> values) {
+        if (
+                values.size() != this.variableToExponentMap.size()
+                        || !values.keySet().containsAll(this.variableToExponentMap.keySet())
+        ) {
+            final Set<Variable> missingVariableValues = this.variableToExponentMap.keySet().stream().filter(variable -> !values.containsKey(variable))
+                    .collect(Collectors.toSet());
+            if (!missingVariableValues.isEmpty()) {
+                throw new IllegalArgumentException("\nMissing variable values: " + String.join(", ", missingVariableValues.stream().map(Variable::getName).toList()));
+            }
+        }
+    }
+
     public PolynomialTerm multiply(final PolynomialTerm other) {
         final Set<Variable> newVarSet = Stream
                 .concat(this.variableToExponentMap.keySet().stream(), other.variableToExponentMap.keySet().stream())
