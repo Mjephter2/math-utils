@@ -61,7 +61,18 @@ public class PolynomialTerm {
         }
 
         return new PolynomialTerm(newVarToExponentMap, this.coefficient * other.getCoefficient());
-    };
+    }
+
+    public List<PolynomialTerm> add(final PolynomialTerm other) {
+        if (this.isLikeTerm(other)) {
+            return List.of(new PolynomialTerm(this.variableToExponentMap, this.coefficient + other.coefficient));
+        }
+        return List.of(this, other);
+    }
+
+    public boolean isLikeTerm(final PolynomialTerm other) {
+        return this.variableToExponentMap.equals(other.getVariableToExponentMap());
+    }
 
     public String toString() {
         if (isConstant()) {
