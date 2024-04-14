@@ -40,6 +40,16 @@ public class PolynomialTerm {
         return this.getVariableToExponentMap().containsKey(variable);
     }
 
+    public PolynomialTerm simplify() {
+        final Map<Variable, Double> newVariableToExponentMap = new LinkedHashMap<>();
+        for (Map.Entry<Variable, Double> entry : this.variableToExponentMap.entrySet()) {
+            if (entry.getValue() != 0.0) {
+                newVariableToExponentMap.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return new PolynomialTerm(newVariableToExponentMap, this.coefficient);
+    }
+
     public PolynomialTerm partialEvaluate(final Map<Variable, Double> inputVariableToValueMap) {
         Double newCoefficient = this.coefficient;
         for (Map.Entry<Variable, Double> entry : inputVariableToValueMap.entrySet()) {

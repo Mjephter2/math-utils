@@ -71,7 +71,7 @@ public class PolynomialFunction extends Function {
 
     @Override
     public void simplify() {
-
+        this.terms.forEach(PolynomialTerm::simplify);
     }
 
     @Override
