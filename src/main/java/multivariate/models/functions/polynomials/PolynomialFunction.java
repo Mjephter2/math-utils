@@ -107,8 +107,15 @@ public class PolynomialFunction extends Function {
 
     @Override
     public Function partialDerivative(Variable variable) {
-        // TODO: Implement Multivariate polynomial partial derivative
-        throw new UnsupportedOperationException("Multivariate polynomial partial derivative not supported");
+        return new PolynomialFunction(
+                this.getFuncName(),
+                this.getVariableList(),
+                this.getFunctionType(),
+                this.getIsIndefiniteIntegral(),
+                this.terms.stream()
+                        .map(term -> term.partialDerivative(variable))
+                        .toList()
+        );
     }
 
     @Override

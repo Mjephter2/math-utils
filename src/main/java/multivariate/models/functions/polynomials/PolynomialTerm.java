@@ -111,6 +111,20 @@ public class PolynomialTerm {
         return this.variableToExponentMap.equals(other.getVariableToExponentMap());
     }
 
+    public PolynomialTerm partialDerivative(final Variable variable) {
+        if (!this.variableToExponentMap.containsKey(variable)) {
+            return this.copy();
+        }
+        final Map<Variable, Double> newVariableToExponentMap = new HashMap<>(this.variableToExponentMap);
+        final Double newCoefficient = this.coefficient * newVariableToExponentMap.get(variable);
+        newVariableToExponentMap.put(variable, newVariableToExponentMap.get(variable) - 1.0);
+        return new PolynomialTerm(newVariableToExponentMap, newCoefficient);
+    }
+
+    public PolynomialTerm copy() {
+        return new PolynomialTerm(new TreeMap<>(this.variableToExponentMap), this.coefficient);
+    }
+
     public String toString() {
         if (isConstant()) {
             return coefficient.toString();
