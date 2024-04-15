@@ -36,6 +36,7 @@ public class PolynomialFunction extends Function {
             @NonNull final List<PolynomialTerm> terms) {
         super(funcName, variableList, functionType, isIndefiniteIntegral);
         this.terms = terms;
+        this.simplify();
     }
 
     public PolynomialFunction(
@@ -47,6 +48,7 @@ public class PolynomialFunction extends Function {
             final Map<Variable, Double> evalValues) {
         super(funcName, variableList, functionType, isIndefiniteIntegral, evalValues);
         this.terms = terms;
+        this.simplify();
     }
 
     @Override
@@ -85,7 +87,7 @@ public class PolynomialFunction extends Function {
                 .filter(variable -> !variableToValuesMap.containsKey(variable))
                 .toList();
 
-        return new PolynomialFunction(
+        PolynomialFunction newPolynomialFunction = new PolynomialFunction(
                 this.getFuncName(),
                 newVariableList,
                 this.getFunctionType(),
@@ -93,6 +95,9 @@ public class PolynomialFunction extends Function {
                 newTerms,
                 variableToValuesMap
         );
+        newPolynomialFunction.simplify();
+
+        return newPolynomialFunction;
     }
 
     @Override
@@ -102,27 +107,32 @@ public class PolynomialFunction extends Function {
 
     @Override
     public Function partialDerivative(Variable variable) {
-        return null;
+        // TODO: Implement Multivariate polynomial partial derivative
+        throw new UnsupportedOperationException("Multivariate polynomial partial derivative not supported");
     }
 
     @Override
     public Function add(final Function other) {
-        return null;
+        // TODO: Implement Multivariate polynomial addition
+        throw new UnsupportedOperationException("Multivariate polynomial addition not supported");
     }
 
     @Override
     public Function substract(final Function other) {
-        return null;
+        // TODO: Implement Multivariate polynomial substraction
+        throw new UnsupportedOperationException("Multivariate polynomial subtraction not supported");
     }
 
     @Override
     public Function multiply(final Function other) {
-        return null;
+        // TODO: Implement Multivariate polynomial multiplication
+        throw new UnsupportedOperationException("Multivariate polynomial multiplication not supported");
     }
 
     @Override
     public Function divide(final Function other) {
-        return null;
+        // TODO: Implement Multivariate polynomial division
+        throw new UnsupportedOperationException("Multivariate polynomial division not supported");
     }
 
     @Override
