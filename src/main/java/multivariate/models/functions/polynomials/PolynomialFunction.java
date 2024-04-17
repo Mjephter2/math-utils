@@ -6,6 +6,8 @@ import univariate.models.Variable;
 import univariate.models.functions.FunctionType;
 import univariate.models.numberUtils.Range;
 
+import java.util.Set;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Comparator;
@@ -26,7 +28,7 @@ import java.util.stream.Stream;
  */
 public class PolynomialFunction extends Function {
 
-    @NonNull private final List<PolynomialTerm> terms;
+    @NonNull private final Set<PolynomialTerm> terms;
 
     public PolynomialFunction(
             @NonNull final String funcName,
@@ -35,7 +37,7 @@ public class PolynomialFunction extends Function {
             final Boolean isIndefiniteIntegral,
             @NonNull final List<PolynomialTerm> terms) {
         super(funcName, variableList, functionType, isIndefiniteIntegral);
-        this.terms = terms;
+        this.terms = new HashSet<>(terms);
         this.simplify();
     }
 
@@ -47,7 +49,7 @@ public class PolynomialFunction extends Function {
             @NonNull List<PolynomialTerm> terms,
             final Map<Variable, Double> evalValues) {
         super(funcName, variableList, functionType, isIndefiniteIntegral, evalValues);
-        this.terms = terms;
+        this.terms = new HashSet<>(terms);
         this.simplify();
     }
 
@@ -83,7 +85,7 @@ public class PolynomialFunction extends Function {
                 .filter(term -> term.getCoefficient() != 0.0)
                 .toList();
 
-        final List<Variable> newVariableList = this.getVariableList().stream()
+        final List<Variable> newVariableList = this.getVariableSet().stream()
                 .filter(variable -> !variableToValuesMap.containsKey(variable))
                 .toList();
 
@@ -109,7 +111,7 @@ public class PolynomialFunction extends Function {
     public Function partialDerivative(Variable variable) {
         return new PolynomialFunction(
                 this.getFuncName(),
-                this.getVariableList(),
+                this.getVariableSet().stream().toList(),
                 this.getFunctionType(),
                 this.getIsIndefiniteIntegral(),
                 this.terms.stream()
@@ -120,8 +122,62 @@ public class PolynomialFunction extends Function {
 
     @Override
     public Function add(final Function other) {
-        // TODO: Implement Multivariate polynomial addition
-        throw new UnsupportedOperationException("Multivariate polynomial addition not supported");
+        if (other instanceof PolynomialFunction) {
+            PolynomialFunction sum = new PolynomialFunction(
+                    this.getFuncName(),
+                    Stream.concat(this.getVariableSet().stream(), other.getVariableSet().stream())
+                            .toList(),
+                    this.getFunctionType(),
+                    this.getIsIndefiniteIntegral(),
+                    this.terms.stream()
+                            .map(PolynomialTerm::copy)
+                            .toList()
+            );
+            System.out.println("sum = " + sum);
+            for (final PolynomialTerm term: ((PolynomialFunction) other).terms) {
+                sum = sum.addTerm(term, this.getFuncName());
+                System.out.println("sum = " + sum);
+            }
+            return sum;
+        } else {
+            throw new UnsupportedOperationException(
+                    "Multivariate polynomial addition with function type " + other.getClass().getName() +  " not supported");
+        }
+    }
+
+    private PolynomialFunction addTerm(final PolynomialTerm newTerm, final String funcName) {
+        if (newTerm.getCoefficient() == 0.0) {
+            return this;
+        }
+
+        if (this.terms.stream().noneMatch(term -> term.isLikeTerm(newTerm))) {
+            return new PolynomialFunction(
+                    funcName,
+                    this.getVariableSet().stream().toList(),
+                    this.getFunctionType(),
+                    this.getIsIndefiniteIntegral(),
+                    Stream.concat(this.terms.stream(), Stream.of(newTerm))
+                            .toList()
+            );
+        }
+
+        final PolynomialTerm likeTerm = this.terms.stream()
+                .filter(term -> term.isLikeTerm(newTerm))
+                // TODO: Refactor to avoid using optional
+                .findFirst().get();
+        final List<PolynomialTerm> newTerms = this.terms.stream().filter(term -> !term.isLikeTerm(newTerm))
+                .map(PolynomialTerm::copy)
+                .toList();
+        return new PolynomialFunction(
+                funcName,
+                Stream.concat(this.getVariableSet().stream(), newTerm.getVariableToExponentMap().keySet().stream())
+                        .toList(),
+                this.getFunctionType(),
+                this.getIsIndefiniteIntegral(),
+                Stream.concat(newTerms.stream(), Stream.of(likeTerm.add(newTerm).get(0)))
+                        .toList()
+        );
+
     }
 
     @Override
@@ -146,7 +202,7 @@ public class PolynomialFunction extends Function {
     public String toString() {
         String lh = this.getFuncName() + "(";
         if (this.getIsEval()) {
-            lh += Stream.concat(this.getVariableList().stream(), this.getEvalValues().keySet().stream())
+            lh += Stream.concat(this.getVariableSet().stream(), this.getEvalValues().keySet().stream())
                     .sorted(Comparator.comparing(Variable::getName))
                     .map(variable -> {
                         final String valueString = this.getEvalValues().get(variable) == null ? "" : "=" + this.getEvalValues().get(variable).toString();
@@ -155,7 +211,7 @@ public class PolynomialFunction extends Function {
                     .reduce((s1, s2) -> s1 + ", " + s2)
                     .orElse("");
         } else {
-            lh += this.getVariableList().stream()
+            lh += this.getVariableSet().stream()
                     .map(Variable::getName)
                     .reduce((s1, s2) -> s1 + ", " + s2)
                     .orElse("");

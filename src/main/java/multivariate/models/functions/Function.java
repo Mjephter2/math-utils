@@ -6,13 +6,15 @@ import univariate.models.Variable;
 import univariate.models.functions.FunctionType;
 import univariate.models.numberUtils.Range;
 
+import java.util.Set;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 @Getter
 public abstract class Function {
     @NonNull private final String funcName;
-    @NonNull private final List<Variable> variableList;
+    @NonNull private final Set<Variable> variableSet;
     @NonNull private final FunctionType functionType;
     private final Boolean isIndefiniteIntegral;
     @NonNull private final Map<Variable, Range> domain;
@@ -33,7 +35,7 @@ public abstract class Function {
         }
 
         this.funcName = funcName;
-        this.variableList = variableList;
+        this.variableSet = new HashSet<>(variableList);
         this.functionType = functionType;
         this.isIndefiniteIntegral = isIndefiniteIntegral;
         this.domain = computeDomain();
@@ -56,7 +58,7 @@ public abstract class Function {
         }
 
         this.funcName = funcName;
-        this.variableList = variableList;
+        this.variableSet = new HashSet<>(variableList);
         this.functionType = functionType;
         this.isIndefiniteIntegral = isIndefiniteIntegral;
         this.domain = computeDomain();
