@@ -121,6 +121,10 @@ public class PolynomialTerm {
         return new PolynomialTerm(newVariableToExponentMap, newCoefficient);
     }
 
+    public PolynomialTerm negate() {
+        return new PolynomialTerm(this.variableToExponentMap, -this.coefficient);
+    }
+
     public PolynomialTerm copy() {
         return new PolynomialTerm(new TreeMap<>(this.variableToExponentMap), this.coefficient);
     }

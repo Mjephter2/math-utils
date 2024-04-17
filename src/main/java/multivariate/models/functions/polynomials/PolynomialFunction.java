@@ -182,8 +182,16 @@ public class PolynomialFunction extends Function {
 
     @Override
     public Function substract(final Function other) {
-        // TODO: Implement Multivariate polynomial substraction
-        throw new UnsupportedOperationException("Multivariate polynomial subtraction not supported");
+        final PolynomialFunction otherFuncNegated = new PolynomialFunction(
+                other.getFuncName(),
+                other.getVariableSet().stream().toList(),
+                other.getFunctionType(),
+                other.getIsIndefiniteIntegral(),
+                ((PolynomialFunction) other).terms.stream()
+                        .map(PolynomialTerm::negate)
+                        .toList()
+        );
+        return this.add(otherFuncNegated);
     }
 
     @Override
