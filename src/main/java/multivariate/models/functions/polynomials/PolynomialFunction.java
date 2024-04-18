@@ -182,16 +182,22 @@ public class PolynomialFunction extends Function {
 
     @Override
     public Function substract(final Function other) {
-        final PolynomialFunction otherFuncNegated = new PolynomialFunction(
-                other.getFuncName(),
-                other.getVariableSet().stream().toList(),
-                other.getFunctionType(),
-                other.getIsIndefiniteIntegral(),
-                ((PolynomialFunction) other).terms.stream()
-                        .map(PolynomialTerm::negate)
-                        .toList()
-        );
-        return this.add(otherFuncNegated);
+        if (other instanceof PolynomialFunction) {
+            final PolynomialFunction otherFuncNegated = new PolynomialFunction(
+                    other.getFuncName(),
+                    other.getVariableSet().stream().toList(),
+                    other.getFunctionType(),
+                    other.getIsIndefiniteIntegral(),
+                    ((PolynomialFunction) other).terms.stream()
+                            .map(PolynomialTerm::negate)
+                            .toList()
+            );
+            return this.add(otherFuncNegated);
+        } else {
+            throw new UnsupportedOperationException(
+                    String.format("Multivariate polynomial subtraction with function type %s not supported",  other.getClass().getName())
+            );
+        }
     }
 
     @Override
