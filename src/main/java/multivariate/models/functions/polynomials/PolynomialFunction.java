@@ -6,11 +6,7 @@ import univariate.models.Variable;
 import univariate.models.functions.FunctionType;
 import univariate.models.numberUtils.Range;
 
-import java.util.Set;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Comparator;
+import java.util.*;
 import java.util.stream.Stream;
 
 /** This class implements a multi term multi variate polynomial.
@@ -202,8 +198,29 @@ public class PolynomialFunction extends Function {
 
     @Override
     public Function multiply(final Function other) {
-        // TODO: Implement Multivariate polynomial multiplication
-        throw new UnsupportedOperationException("Multivariate polynomial multiplication not supported");
+        if (other instanceof PolynomialFunction) {
+            final Set<Variable> newVariables = new HashSet<>(
+                    Stream.concat(this.getVariableSet().stream(), other.getVariableSet().stream())
+                            .toList()
+            );
+            final List<PolynomialTerm> newTerms = new ArrayList<>();
+            for (final PolynomialTerm term1: this.terms) {
+                for (final PolynomialTerm term2: ((PolynomialFunction) other).terms) {
+                    newTerms.add(term1.multiply(term2));
+                }
+            }
+            return new PolynomialFunction(
+                    String.format("(%s x %s)", this.getFuncName(), other.getFuncName()),
+                    newVariables.stream().toList(),
+                    this.getFunctionType(),
+                    this.getIsIndefiniteIntegral(),
+                    newTerms
+            );
+        } else {
+            throw new UnsupportedOperationException(
+                    String.format("Multivariate polynomial multiplication with function type %s not supported", other.getClass().getName())
+            );
+        }
     }
 
     @Override
