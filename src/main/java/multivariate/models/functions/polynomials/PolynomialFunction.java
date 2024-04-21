@@ -6,7 +6,12 @@ import univariate.models.Variable;
 import univariate.models.functions.FunctionType;
 import univariate.models.numberUtils.Range;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 /** This class implements a multi term multi variate polynomial.
@@ -61,11 +66,13 @@ public class PolynomialFunction extends Function {
 
     @Override
     public Map<Variable, Range> computeDomain() {
+        // TODO: Implement domain computation for multivariate PolynomialFunction
         return Map.of();
     }
 
     @Override
     public List<Range> computeRange() {
+        // TODO: Implement range computation for multivariate PolynomialFunction
         return List.of();
     }
 
@@ -129,12 +136,18 @@ public class PolynomialFunction extends Function {
                             .map(PolynomialTerm::copy)
                             .toList()
             );
-            System.out.println("sum = " + sum);
+
             for (final PolynomialTerm term: ((PolynomialFunction) other).terms) {
                 sum = sum.addTerm(term, this.getFuncName());
-                System.out.println("sum = " + sum);
             }
-            return sum;
+
+            return new PolynomialFunction(
+                    String.format("(%s + %s)", this.getFuncName(), other.getFuncName()),
+                    sum.getVariableSet().stream().toList(),
+                    this.getFunctionType(),
+                    this.getIsIndefiniteIntegral(),
+                    sum.terms.stream().toList()
+            );
         } else {
             throw new UnsupportedOperationException(
                     "Multivariate polynomial addition with function type " + other.getClass().getName() +  " not supported");
@@ -173,7 +186,6 @@ public class PolynomialFunction extends Function {
                 Stream.concat(newTerms.stream(), Stream.of(likeTerm.add(newTerm).get(0)))
                         .toList()
         );
-
     }
 
     @Override
@@ -188,7 +200,14 @@ public class PolynomialFunction extends Function {
                             .map(PolynomialTerm::negate)
                             .toList()
             );
-            return this.add(otherFuncNegated);
+            final PolynomialFunction newFunc = (PolynomialFunction) this.add(otherFuncNegated);
+            return new PolynomialFunction(
+                    String.format("(%s - %s)", this.getFuncName(), other.getFuncName()),
+                    newFunc.getVariableSet().stream().toList(),
+                    this.getFunctionType(),
+                    this.getIsIndefiniteIntegral(),
+                    newFunc.terms.stream().toList()
+            );
         } else {
             throw new UnsupportedOperationException(
                     String.format("Multivariate polynomial subtraction with function type %s not supported",  other.getClass().getName())
