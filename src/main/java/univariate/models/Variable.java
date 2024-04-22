@@ -10,6 +10,11 @@ public class Variable implements Comparable<Variable> {
     @NonNull
     private final String name;
 
+    /**
+     * Blanket Variable to apply to all variables
+     */
+    public static final Variable ALL = new Variable("ALL");
+
     public Variable(@NonNull final String varName) {
         this.name = varName;
     }
