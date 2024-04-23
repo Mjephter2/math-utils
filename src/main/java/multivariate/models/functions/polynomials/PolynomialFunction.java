@@ -34,10 +34,9 @@ public class PolynomialFunction extends Function {
     public PolynomialFunction(
             @NonNull final String funcName,
             final List<Variable> variableList,
-            final FunctionType functionType,
             final Boolean isIndefiniteIntegral,
             @NonNull final List<PolynomialTerm> terms) {
-        super(funcName, variableList, functionType, isIndefiniteIntegral);
+        super(funcName, variableList, FunctionType.POLYNOMIAL, isIndefiniteIntegral);
         this.terms = new HashSet<>(terms);
         this.simplify();
     }
@@ -45,11 +44,10 @@ public class PolynomialFunction extends Function {
     public PolynomialFunction(
             @NonNull final String funcName,
             final List<Variable> variableList,
-            final FunctionType functionType,
             final Boolean isIndefiniteIntegral,
             @NonNull List<PolynomialTerm> terms,
             final Map<Variable, Double> evalValues) {
-        super(funcName, variableList, functionType, isIndefiniteIntegral, evalValues);
+        super(funcName, variableList, FunctionType.POLYNOMIAL, isIndefiniteIntegral, evalValues);
         this.terms = new HashSet<>(terms);
         this.simplify();
     }
@@ -95,7 +93,6 @@ public class PolynomialFunction extends Function {
         PolynomialFunction newPolynomialFunction = new PolynomialFunction(
                 this.getFuncName(),
                 newVariableList,
-                this.getFunctionType(),
                 this.getIsIndefiniteIntegral(),
                 newTerms,
                 variableToValuesMap
@@ -115,7 +112,6 @@ public class PolynomialFunction extends Function {
         return new PolynomialFunction(
                 this.getFuncName(),
                 this.getVariableSet().stream().toList(),
-                this.getFunctionType(),
                 this.getIsIndefiniteIntegral(),
                 this.terms.stream()
                         .map(term -> term.partialDerivative(variable))
@@ -130,7 +126,6 @@ public class PolynomialFunction extends Function {
                     this.getFuncName(),
                     Stream.concat(this.getVariableSet().stream(), other.getVariableSet().stream())
                             .toList(),
-                    this.getFunctionType(),
                     this.getIsIndefiniteIntegral(),
                     this.terms.stream()
                             .map(PolynomialTerm::copy)
@@ -144,7 +139,6 @@ public class PolynomialFunction extends Function {
             return new PolynomialFunction(
                     String.format("(%s + %s)", this.getFuncName(), other.getFuncName()),
                     sum.getVariableSet().stream().toList(),
-                    this.getFunctionType(),
                     this.getIsIndefiniteIntegral(),
                     sum.terms.stream().toList()
             );
@@ -163,7 +157,6 @@ public class PolynomialFunction extends Function {
             return new PolynomialFunction(
                     funcName,
                     this.getVariableSet().stream().toList(),
-                    this.getFunctionType(),
                     this.getIsIndefiniteIntegral(),
                     Stream.concat(this.terms.stream(), Stream.of(newTerm))
                             .toList()
@@ -181,7 +174,6 @@ public class PolynomialFunction extends Function {
                 funcName,
                 Stream.concat(this.getVariableSet().stream(), newTerm.getVariableToExponentMap().keySet().stream())
                         .toList(),
-                this.getFunctionType(),
                 this.getIsIndefiniteIntegral(),
                 Stream.concat(newTerms.stream(), Stream.of(likeTerm.add(newTerm).get(0)))
                         .toList()
@@ -194,7 +186,6 @@ public class PolynomialFunction extends Function {
             final PolynomialFunction otherFuncNegated = new PolynomialFunction(
                     other.getFuncName(),
                     other.getVariableSet().stream().toList(),
-                    other.getFunctionType(),
                     other.getIsIndefiniteIntegral(),
                     ((PolynomialFunction) other).terms.stream()
                             .map(PolynomialTerm::negate)
@@ -204,7 +195,6 @@ public class PolynomialFunction extends Function {
             return new PolynomialFunction(
                     String.format("(%s - %s)", this.getFuncName(), other.getFuncName()),
                     newFunc.getVariableSet().stream().toList(),
-                    this.getFunctionType(),
                     this.getIsIndefiniteIntegral(),
                     newFunc.terms.stream().toList()
             );
@@ -231,7 +221,6 @@ public class PolynomialFunction extends Function {
             return new PolynomialFunction(
                     String.format("(%s x %s)", this.getFuncName(), other.getFuncName()),
                     newVariables.stream().toList(),
-                    this.getFunctionType(),
                     this.getIsIndefiniteIntegral(),
                     newTerms
             );
