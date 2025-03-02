@@ -4,7 +4,6 @@ import multivariate.models.functions.Function;
 import multivariate.models.functions.polynomials.PolynomialFunction;
 import multivariate.models.functions.polynomials.PolynomialTerm;
 import univariate.models.Variable;
-import univariate.models.functions.FunctionType;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +18,6 @@ public class PolynomialFunctionTests {
         final PolynomialFunction polynomialFunction = new PolynomialFunction(
                 "P",
                 List.of(new Variable("x"), new Variable("y"), new Variable("z")),
-                FunctionType.POLYNOMIAL,
                 false,
                 List.of(
                         new PolynomialTerm(
