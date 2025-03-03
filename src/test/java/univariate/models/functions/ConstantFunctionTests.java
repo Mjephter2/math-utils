@@ -1,9 +1,9 @@
 package univariate.models.functions;
 
-import univariate.models.functions.ConstantFunction;
-import univariate.models.functions.FunctionType;
-import univariate.models.functions.polynomials.PolynomialFunction;
-import univariate.models.numberUtils.Range;
+import calculus.univariate.models.functions.ConstantFunction;
+import calculus.univariate.models.functions.FunctionType;
+import calculus.univariate.models.functions.polynomials.PolynomialFunction;
+import calculus.univariate.models.numberUtils.Range;
 
 import org.junit.jupiter.api.Test;
 

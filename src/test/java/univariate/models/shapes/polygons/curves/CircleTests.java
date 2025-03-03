@@ -1,7 +1,7 @@
 package univariate.models.shapes.polygons.curves;
 
-import univariate.models.shapes.curves.Circle;
-import univariate.models.shapes.curves.ClosedCurve;
+import geometry.shapes.curves.Circle;
+import geometry.shapes.curves.ClosedCurve;
 import org.junit.jupiter.api.Test;
 
 public class CircleTests {

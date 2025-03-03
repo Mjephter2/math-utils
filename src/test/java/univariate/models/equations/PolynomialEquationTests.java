@@ -1,10 +1,10 @@
 package univariate.models.equations;
 
-import univariate.models.equations.GeneralEquation;
-import univariate.models.equations.polynomial_equations.PolynomialEquation;
-import univariate.models.functions.polynomials.PolynomialFunction;
-import univariate.models.functions.polynomials.PolynomialTerm;
-import univariate.models.numberUtils.Range;
+import calculus.univariate.models.equations.GeneralEquation;
+import calculus.univariate.models.equations.polynomial_equations.PolynomialEquation;
+import calculus.univariate.models.functions.polynomials.PolynomialFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialTerm;
+import calculus.univariate.models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

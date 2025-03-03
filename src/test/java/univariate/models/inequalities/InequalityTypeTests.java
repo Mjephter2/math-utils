@@ -1,7 +1,7 @@
 package univariate.models.inequalities;
 
 import org.junit.jupiter.api.Test;
-import univariate.models.inequalities.InequalityType;
+import calculus.univariate.models.inequalities.InequalityType;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;

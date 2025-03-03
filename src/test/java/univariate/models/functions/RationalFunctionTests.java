@@ -1,11 +1,11 @@
 package univariate.models.functions;
 
-import univariate.models.functions.ConstantFunction;
-import univariate.models.functions.Function;
-import univariate.models.functions.FunctionType;
-import univariate.models.functions.combinations.RationalFunction;
-import univariate.models.functions.polynomials.PolynomialFunction;
-import univariate.models.functions.polynomials.PolynomialTerm;
+import calculus.univariate.models.functions.ConstantFunction;
+import calculus.univariate.models.functions.Function;
+import calculus.univariate.models.functions.FunctionType;
+import calculus.univariate.models.functions.combinations.RationalFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialTerm;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;

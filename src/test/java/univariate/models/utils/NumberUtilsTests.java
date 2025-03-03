@@ -1,6 +1,6 @@
 package univariate.models.utils;
 
-import univariate.utils.NumberUtils;
+import calculus.univariate.utils.NumberUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

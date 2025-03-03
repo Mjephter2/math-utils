@@ -1,9 +1,9 @@
 package multivariate.models;
 
-import multivariate.models.functions.Function;
-import multivariate.models.functions.polynomials.PolynomialFunction;
-import multivariate.models.functions.polynomials.PolynomialTerm;
-import univariate.models.Variable;
+import calculus.multivariate.models.functions.Function;
+import calculus.multivariate.models.functions.polynomials.PolynomialFunction;
+import calculus.multivariate.models.functions.polynomials.PolynomialTerm;
+import calculus.univariate.models.Variable;
 
 import org.junit.jupiter.api.Test;
 

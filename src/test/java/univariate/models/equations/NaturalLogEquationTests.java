@@ -1,13 +1,13 @@
 package univariate.models.equations;
 
 import lombok.Getter;
-import univariate.models.equations.log_equations.LogEquation;
-import univariate.models.equations.log_equations.NaturalLogEquation;
-import univariate.models.functions.ConstantFunction;
-import univariate.models.functions.logarithmic.NaturalLogFunction;
-import univariate.models.functions.polynomials.PolynomialFunction;
-import univariate.models.functions.polynomials.PolynomialTerm;
-import univariate.models.numberUtils.Range;
+import calculus.univariate.models.equations.log_equations.LogEquation;
+import calculus.univariate.models.equations.log_equations.NaturalLogEquation;
+import calculus.univariate.models.functions.ConstantFunction;
+import calculus.univariate.models.functions.logarithmic.NaturalLogFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialTerm;
+import calculus.univariate.models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;

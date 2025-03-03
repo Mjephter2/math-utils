@@ -1,10 +1,10 @@
 package univariate.models.functions;
 
-import univariate.models.functions.ConstantFunction;
-import univariate.models.functions.FunctionType;
-import univariate.models.functions.polynomials.PolynomialFunction;
-import univariate.models.functions.polynomials.PolynomialFunctionType;
-import univariate.models.functions.polynomials.PolynomialTerm;
+import calculus.univariate.models.functions.ConstantFunction;
+import calculus.univariate.models.functions.FunctionType;
+import calculus.univariate.models.functions.polynomials.PolynomialFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialFunctionType;
+import calculus.univariate.models.functions.polynomials.PolynomialTerm;
 
 import java.util.HashMap;
 import java.util.LinkedList;

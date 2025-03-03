@@ -1,9 +1,9 @@
 package univariate.models.equations;
 
-import univariate.models.equations.polynomial_equations.QuadraticEquation;
-import univariate.models.functions.polynomials.PolynomialFunction;
-import univariate.models.functions.polynomials.PolynomialTerm;
-import univariate.models.numberUtils.Range;
+import calculus.univariate.models.equations.polynomial_equations.QuadraticEquation;
+import calculus.univariate.models.functions.polynomials.PolynomialFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialTerm;
+import calculus.univariate.models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;

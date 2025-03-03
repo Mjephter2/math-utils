@@ -1,6 +1,6 @@
 package univariate.models.functions;
 
-import univariate.models.functions.FunctionType;
+import calculus.univariate.models.functions.FunctionType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

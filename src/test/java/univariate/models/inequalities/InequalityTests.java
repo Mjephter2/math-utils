@@ -1,11 +1,11 @@
 package univariate.models.inequalities;
 
-import univariate.models.functions.polynomials.PolynomialFunction;
-import univariate.models.functions.polynomials.PolynomialTerm;
-import univariate.models.inequalities.Inequality;
-import univariate.models.inequalities.InequalityType;
-import univariate.models.inequalities.LinearInequality;
-import univariate.models.numberUtils.Range;
+import calculus.univariate.models.functions.polynomials.PolynomialFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialTerm;
+import calculus.univariate.models.inequalities.Inequality;
+import calculus.univariate.models.inequalities.InequalityType;
+import calculus.univariate.models.inequalities.LinearInequality;
+import calculus.univariate.models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;

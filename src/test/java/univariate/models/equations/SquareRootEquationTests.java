@@ -1,12 +1,12 @@
 package univariate.models.equations;
 
-import univariate.models.equations.SquareRootEquation;
-import univariate.models.functions.ConstantFunction;
-import univariate.models.functions.polynomials.PolynomialFunction;
-import univariate.models.functions.polynomials.PolynomialTerm;
-import univariate.models.functions.radicals.SquareRootFunction;
-import univariate.models.functions.trigonometric.TrigonometricFunction;
-import univariate.models.numberUtils.Range;
+import calculus.univariate.models.equations.SquareRootEquation;
+import calculus.univariate.models.functions.ConstantFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialTerm;
+import calculus.univariate.models.functions.radicals.SquareRootFunction;
+import calculus.univariate.models.functions.trigonometric.TrigonometricFunction;
+import calculus.univariate.models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;

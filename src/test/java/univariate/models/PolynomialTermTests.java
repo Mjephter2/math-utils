@@ -1,6 +1,6 @@
 package univariate.models;
 
-import univariate.models.functions.polynomials.PolynomialTerm;
+import calculus.univariate.models.functions.polynomials.PolynomialTerm;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

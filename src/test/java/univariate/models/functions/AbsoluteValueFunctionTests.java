@@ -1,11 +1,11 @@
 package univariate.models.functions;
 
-import univariate.models.functions.ConstantFunction;
-import univariate.models.functions.FunctionType;
-import univariate.models.functions.polynomials.PolynomialFunction;
-import univariate.models.functions.polynomials.PolynomialTerm;
-import univariate.models.functions.specials.AbsoluteValueFunction;
-import univariate.models.numberUtils.Range;
+import calculus.univariate.models.functions.ConstantFunction;
+import calculus.univariate.models.functions.FunctionType;
+import calculus.univariate.models.functions.polynomials.PolynomialFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialTerm;
+import calculus.univariate.models.functions.specials.AbsoluteValueFunction;
+import calculus.univariate.models.numberUtils.Range;
 
 import java.util.LinkedList;
 

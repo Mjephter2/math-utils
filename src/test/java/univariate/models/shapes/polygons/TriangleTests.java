@@ -1,8 +1,8 @@
 package univariate.models.shapes.polygons;
 
 import org.junit.jupiter.api.Test;
-import univariate.models.shapes.polygons.Polygon;
-import univariate.models.shapes.polygons.Triangle;
+import geometry.shapes.polygons.Polygon;
+import geometry.shapes.polygons.Triangle;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

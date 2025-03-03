@@ -1,13 +1,13 @@
 package univariate.models.inequalities;
 
-import univariate.models.functions.ConstantFunction;
-import univariate.models.functions.polynomials.PolynomialFunction;
-import univariate.models.functions.polynomials.PolynomialTerm;
-import univariate.models.functions.trigonometric.TrigonometricFunction;
-import univariate.models.functions.trigonometric.TrigonometricFunctionType;
-import univariate.models.inequalities.GeneralInequality;
-import univariate.models.inequalities.InequalityType;
-import univariate.models.numberUtils.Range;
+import calculus.univariate.models.functions.ConstantFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialTerm;
+import calculus.univariate.models.functions.trigonometric.TrigonometricFunction;
+import calculus.univariate.models.functions.trigonometric.TrigonometricFunctionType;
+import calculus.univariate.models.inequalities.GeneralInequality;
+import calculus.univariate.models.inequalities.InequalityType;
+import calculus.univariate.models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;

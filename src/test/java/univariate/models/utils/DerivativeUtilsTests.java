@@ -1,10 +1,10 @@
 package univariate.models.utils;
 
-import univariate.models.functions.Function;
-import univariate.models.functions.polynomials.PolynomialFunction;
-import univariate.models.functions.polynomials.PolynomialTerm;
+import calculus.univariate.models.functions.Function;
+import calculus.univariate.models.functions.polynomials.PolynomialFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialTerm;
 import org.junit.jupiter.api.Test;
-import univariate.utils.DerivativeUtils;
+import calculus.univariate.utils.DerivativeUtils;
 
 import java.util.LinkedList;
 

@@ -1,7 +1,7 @@
 package univariate.models.shapes.polygons;
 
-import univariate.models.shapes.polygons.Polygon;
-import univariate.models.shapes.polygons.quadrilaterals.Square;
+import geometry.shapes.polygons.Polygon;
+import geometry.shapes.polygons.quadrilaterals.Square;
 import org.junit.jupiter.api.Test;
 
 public class SquareTests {

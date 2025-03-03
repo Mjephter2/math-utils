@@ -1,9 +1,9 @@
 package univariate.models.functions;
 
-import univariate.models.functions.Function;
-import univariate.models.functions.combinations.CompositeFunction;
-import univariate.models.functions.polynomials.PolynomialFunction;
-import univariate.models.functions.polynomials.PolynomialTerm;
+import calculus.univariate.models.functions.Function;
+import calculus.univariate.models.functions.combinations.CompositeFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialTerm;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;

@@ -1,8 +1,8 @@
 package univariate.models.utils;
 
-import univariate.models.functions.ConstantFunction;
-import univariate.models.functions.Function;
-import univariate.models.numberUtils.Range;
+import calculus.univariate.models.functions.ConstantFunction;
+import calculus.univariate.models.functions.Function;
+import calculus.univariate.models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

@@ -1,13 +1,13 @@
 package univariate.models.equations;
 
-import univariate.models.equations.log_equations.LogEquation;
-import univariate.models.functions.ConstantFunction;
-import univariate.models.functions.FunctionType;
-import univariate.models.functions.logarithmic.LogFunction;
-import univariate.models.functions.polynomials.PolynomialFunction;
-import univariate.models.functions.polynomials.PolynomialTerm;
-import univariate.models.functions.radicals.RadicalFunction;
-import univariate.models.numberUtils.Range;
+import calculus.univariate.models.equations.log_equations.LogEquation;
+import calculus.univariate.models.functions.ConstantFunction;
+import calculus.univariate.models.functions.FunctionType;
+import calculus.univariate.models.functions.logarithmic.LogFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialTerm;
+import calculus.univariate.models.functions.radicals.RadicalFunction;
+import calculus.univariate.models.numberUtils.Range;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;

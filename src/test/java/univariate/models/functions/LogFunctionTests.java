@@ -1,14 +1,14 @@
 package univariate.models.functions;
 
-import univariate.models.functions.ConstantFunction;
-import univariate.models.functions.Function;
-import univariate.models.functions.FunctionType;
-import univariate.models.functions.combinations.RationalFunction;
-import univariate.models.functions.logarithmic.LogFunction;
-import univariate.models.functions.logarithmic.NaturalLogFunction;
-import univariate.models.functions.polynomials.PolynomialFunction;
-import univariate.models.functions.polynomials.PolynomialTerm;
-import univariate.models.numberUtils.Range;
+import calculus.univariate.models.functions.ConstantFunction;
+import calculus.univariate.models.functions.Function;
+import calculus.univariate.models.functions.FunctionType;
+import calculus.univariate.models.functions.combinations.RationalFunction;
+import calculus.univariate.models.functions.logarithmic.LogFunction;
+import calculus.univariate.models.functions.logarithmic.NaturalLogFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialFunction;
+import calculus.univariate.models.functions.polynomials.PolynomialTerm;
+import calculus.univariate.models.numberUtils.Range;
 
 import org.junit.jupiter.api.Test;
 
